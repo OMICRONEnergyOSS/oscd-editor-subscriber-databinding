@@ -1,0 +1,124 @@
+{
+  "name": "@omicronenergy/oscd-editor-subscriber-databinding",
+  "version": "0.0.0",
+  "description": "OpenSCD Editor Plugin for SMV Subscriber Data Binding with IEC 61850 SCL files.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/issues"
+  },
+  "homepage": "https://openscd.org",
+  "keywords": [
+    "OpenSCD",
+    "iec61850",
+    "SMV",
+    "SampledValues",
+    "subscriber",
+    "data-binding"
+  ],
+  "contributors": [
+    "OMICRON Electronics GmbH"
+  ],
+  "license": "Apache-2.0",
+  "exports": {
+    ".": "./dist/oscd-editor-subscriber-databinding.js",
+    "./oscd-editor-subscriber-databinding.js": "./dist/oscd-editor-subscriber-databinding.js"
+  },
+  "files": [
+    "/dist/",
+    "!/dist/*.spec.*",
+    "!/dist/*.test.*"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "format": "eslint . --fix",
+    "analyze": "cem analyze --litelement --exclude demo/* --exclude dist/* --exclude *.spec.ts --exclude *.test.ts --exclude coverage/*",
+    "start": "npm run build && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds --node-resolve\"",
+    "start:bundle": "npm run bundle && concurrently -k -r \"rollup -c rollup.config.js --watch\" \"wds --root-dir dist\"",
+    "build": "rimraf dist && mkdir dist && npm run analyze -- --exclude dist && tsc ",
+    "bundle": "rimraf dist && rollup -c rollup.config.js",
+    "test": "npm run build && wtr --coverage --group unit",
+    "test:watch": "npm run build && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch --group unit\"",
+    "test:visual": "npm run build && playwright install && wtr --group visual",
+    "test:update": "npm run build && wtr --group visual --update-visual-baseline",
+    "deploy": "npm run bundle && gh-pages --dist 'dist'",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@lit/localize": "^0.12.2",
+    "@omicronenergy/oscd-scl-dialogs": "^0.0.12",
+    "@omicronenergy/oscd-ui": "^0.0.11",
+    "@omicronenergy/oscd-shell": "^0.0.13",
+    "@open-wc/scoped-elements": "^3.0.6",
+    "@openscd/oscd-api": "^0.1.6",
+    "@openscd/scl-lib": "^2.0.0",
+    "lit": "^3.3.2",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@eslint/js": "^9.34.0",
+    "@omicronenergy/oscd-background-editv1": "^0.0.7",
+    "@omicronenergy/oscd-menu-open": "^0.0.6",
+    "@omicronenergy/oscd-menu-save": "^0.0.2",
+    "@open-wc/dev-server-hmr": "^0.2.0",
+    "@open-wc/testing": "^4.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/mocha": "^10.0.10",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@web/dev-server": "^0.4.6",
+    "@web/dev-server-polyfill": "^1.0.6",
+    "@web/rollup-plugin-html": "^3.1.0",
+    "@web/rollup-plugin-import-meta-assets": "^2.3.3",
+    "@web/test-runner": "0.20.2",
+    "@web/test-runner-commands": "^0.9.0",
+    "@web/test-runner-playwright": "0.11.1",
+    "@web/test-runner-visual-regression": "0.10.0",
+    "@webcomponents/scoped-custom-element-registry": "^0.0.10",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-lit": "^2.2.1",
+    "eslint-plugin-no-only-tests": "^3.3.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-tsdoc": "^0.5.2",
+    "gh-pages": "^6.3.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
+    "prettier": "^3.8.1",
+    "rimraf": "^6.1.3",
+    "rollup": "^4.60.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "sinon": "^21.0.3",
+    "typedoc": "^0.28.18",
+    "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "@web/test-runner-playwright": {
+      "playwright": "1.54.1"
+    }
+  },
+  "customElements": "custom-elements.json",
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "eslint"
+    ]
+  }
+}

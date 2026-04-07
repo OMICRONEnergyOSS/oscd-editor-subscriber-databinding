@@ -1,0 +1,2086 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/oscd-editor-subscriber-databinding.spec.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "oscd-editor-subscriber-databinding",
+          "declaration": {
+            "name": "OscdEditorSubscriberDatabinding",
+            "module": "/src/oscd-editor-subscriber-databinding.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/oscd-editor-subscriber-databinding.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An editor plugin for Subscribe Data Binding (SMV).",
+          "name": "OscdEditorSubscriberDatabinding",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'fcda-binding-list': FcdaBindingList, 'extref-ln-binding-list': ExtRefLnBindingList, 'oscd-scl-dialogs': OscdSclDialogs, }"
+            },
+            {
+              "kind": "field",
+              "name": "doc",
+              "type": {
+                "text": "XMLDocument"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "docVersion",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nsdoc",
+              "type": {
+                "text": "Nsdoc"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sclDialogs",
+              "type": {
+                "text": "OscdSclDialogs"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleEditDialogEvent",
+              "privacy": "private"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "oscd-editor-subscriber-databinding",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "OscdEditorSubscriberDatabinding",
+            "module": "src/oscd-editor-subscriber-databinding.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/filtered-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A slot-based filterable list. Renders a search input above an `<oscd-list>`\nand hides slotted items whose text content does not match the search query.\n\nItems can provide searchable text via their `data-value` attribute or via\ntheir `textContent`. Items without either are always shown.",
+          "name": "FilteredList",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'oscd-icon': OscdIcon, 'oscd-list': OscdList, 'oscd-outlined-text-field': OscdOutlinedTextField, }"
+            },
+            {
+              "kind": "field",
+              "name": "activatable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Not used functionally but preserved for API compatibility with legacy callers.",
+              "attribute": "activatable"
+            },
+            {
+              "kind": "field",
+              "name": "searchValue",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "searchField",
+              "type": {
+                "text": "HTMLElement & { value: string } | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "onInput",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "applyFilter",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "activatable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Not used functionally but preserved for API compatibility with legacy callers.",
+              "fieldName": "activatable"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FilteredList",
+          "declaration": {
+            "name": "FilteredList",
+            "module": "src/foundation/filtered-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/ied.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getFcdaReferences",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "elementContainingFcdaReferences",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds a CSS attribute selector string from FCDA reference attributes."
+        },
+        {
+          "kind": "function",
+          "name": "getControlReferences",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "extRef",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds a CSS attribute selector string from control reference attributes."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getFcdaReferences",
+          "declaration": {
+            "name": "getFcdaReferences",
+            "module": "src/foundation/ied.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getControlReferences",
+          "declaration": {
+            "name": "getControlReferences",
+            "module": "src/foundation/ied.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/nsdoc.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "initializeNsdoc",
+          "return": {
+            "type": {
+              "text": "Nsdoc"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "initializeNsdoc",
+          "declaration": {
+            "name": "initializeNsdoc",
+            "module": "src/foundation/nsdoc.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/scl.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "SCL_NAMESPACE",
+          "type": {
+            "text": "string"
+          },
+          "default": "'http://www.iec.ch/61850/2003/SCL'",
+          "description": "SCL XML namespace URI."
+        },
+        {
+          "kind": "function",
+          "name": "getSclSchemaVersion",
+          "return": {
+            "type": {
+              "text": "SclEdition"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Document"
+              }
+            }
+          ],
+          "description": "Derives the SCL schema edition from the root element attributes."
+        },
+        {
+          "kind": "function",
+          "name": "getNameAttribute",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Extracts the `name` attribute from an element."
+        },
+        {
+          "kind": "function",
+          "name": "getDescriptionAttribute",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Extracts the `desc` attribute from an element."
+        },
+        {
+          "kind": "function",
+          "name": "compareNames",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "a",
+              "type": {
+                "text": "Element | string"
+              }
+            },
+            {
+              "name": "b",
+              "type": {
+                "text": "Element | string"
+              }
+            }
+          ],
+          "description": "Locale-aware comparison of elements or strings by `name` attribute."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SCL_NAMESPACE",
+          "declaration": {
+            "name": "SCL_NAMESPACE",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSclSchemaVersion",
+          "declaration": {
+            "name": "getSclSchemaVersion",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getNameAttribute",
+          "declaration": {
+            "name": "getNameAttribute",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getDescriptionAttribute",
+          "declaration": {
+            "name": "getDescriptionAttribute",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "compareNames",
+          "declaration": {
+            "name": "compareNames",
+            "module": "src/foundation/scl.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/subscription-later-binding.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "fcdaSpecification",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "fcda",
+              "type": {
+                "text": "Element"
+              },
+              "description": "Data attribute reference in a data set"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "inputRestriction",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "extRef",
+              "type": {
+                "text": "Element"
+              },
+              "description": "A later binding type input in the sink IED"
+            }
+          ],
+          "description": "Edition 2 and later SCL files allow to restrict subscription on\nlater binding type inputs (`ExtRef` elements) based on a `CDC` and\nbasic type `bType`."
+        },
+        {
+          "kind": "function",
+          "name": "sameAttributeValue",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "leftElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "The Left Element to check against."
+            },
+            {
+              "name": "rightElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "The Right Element to check."
+            },
+            {
+              "name": "attributeName",
+              "type": {
+                "text": "string"
+              },
+              "description": "The name of the attribute to check."
+            }
+          ],
+          "description": "Simple function to check if the attribute of the Left Side has the same value as the attribute of the Right Element."
+        },
+        {
+          "kind": "function",
+          "name": "sameAttributeValueDiffName",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "leftElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "The Left Element to check against."
+            },
+            {
+              "name": "leftAttributeName",
+              "type": {
+                "text": "string"
+              },
+              "description": "The name of the attribute (left) to check against."
+            },
+            {
+              "name": "rightElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "The Right Element to check."
+            },
+            {
+              "name": "rightAttributeName",
+              "type": {
+                "text": "string"
+              },
+              "description": "The name of the attribute (right) to check."
+            }
+          ],
+          "description": "Simple function to check if the attribute of the Left Side has the same value as the attribute of the Right Element."
+        },
+        {
+          "kind": "function",
+          "name": "isSubscribedTo",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "controlTag",
+              "type": {
+                "text": "'SampledValueControl' | 'GSEControl'"
+              },
+              "description": "Indicates which type of control element."
+            },
+            {
+              "name": "controlElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "The Control Element to check against."
+            },
+            {
+              "name": "fcdaElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "The FCDA Element to check against."
+            },
+            {
+              "name": "extRefElement",
+              "type": {
+                "text": "Element"
+              },
+              "description": "The Ext Ref Element to check."
+            }
+          ],
+          "description": "Check if specific attributes from the ExtRef Element are the same as the ones from the FCDA Element\nand also if the IED Name is the same. If that is the case this ExtRef subscribes to the selected FCDA\nElement."
+        },
+        {
+          "kind": "function",
+          "name": "isSubscribed",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "extRefElement",
+              "type": {
+                "text": "Element"
+              },
+              "description": "The Ext Ref Element to check."
+            }
+          ],
+          "description": "Check if the ExtRef is already subscribed to a FCDA Element."
+        },
+        {
+          "kind": "function",
+          "name": "getExtRefElements",
+          "return": {
+            "type": {
+              "text": "Element[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "rootElement",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "fcdaElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "includeLaterBinding",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getSubscribedExtRefElements",
+          "return": {
+            "type": {
+              "text": "Element[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "rootElement",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "controlTag",
+              "type": {
+                "text": "'SampledValueControl' | 'GSEControl'"
+              }
+            },
+            {
+              "name": "fcdaElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "controlElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "includeLaterBinding",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "fcdaSpecification",
+          "declaration": {
+            "name": "fcdaSpecification",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "inputRestriction",
+          "declaration": {
+            "name": "inputRestriction",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sameAttributeValue",
+          "declaration": {
+            "name": "sameAttributeValue",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sameAttributeValueDiffName",
+          "declaration": {
+            "name": "sameAttributeValueDiffName",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isSubscribedTo",
+          "declaration": {
+            "name": "isSubscribedTo",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isSubscribed",
+          "declaration": {
+            "name": "isSubscribed",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getExtRefElements",
+          "declaration": {
+            "name": "getExtRefElements",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSubscribedExtRefElements",
+          "declaration": {
+            "name": "getSubscribedExtRefElements",
+            "module": "src/foundation/subscription-later-binding.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/subscription.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "newViewEvent",
+          "return": {
+            "type": {
+              "text": "ViewEvent"
+            }
+          },
+          "parameters": [
+            {
+              "name": "view",
+              "type": {
+                "text": "View"
+              }
+            },
+            {
+              "name": "eventInitDict",
+              "optional": true,
+              "type": {
+                "text": "CustomEventInit<ViewDetail>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "newIEDSelectEvent",
+          "return": {
+            "type": {
+              "text": "IEDSelectEvent"
+            }
+          },
+          "parameters": [
+            {
+              "name": "ied",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "eventInitDict",
+              "optional": true,
+              "type": {
+                "text": "CustomEventInit<IEDSelectDetail>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "newFcdaSelectEvent",
+          "return": {
+            "type": {
+              "text": "FcdaSelectEvent"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "fcda",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "eventInitDict",
+              "optional": true,
+              "type": {
+                "text": "CustomEventInit<FcdaSelectDetail>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "newSubscriptionChangedEvent",
+          "return": {
+            "type": {
+              "text": "SubscriptionChangedEvent"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "fcda",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "name": "eventInitDict",
+              "optional": true,
+              "type": {
+                "text": "CustomEventInit<SubscriptionChangedDetail>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getFcdaTitleValue",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "fcdaElement",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getFcdaSubtitleValue",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "fcdaElement",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getExtRef",
+          "return": {
+            "type": {
+              "text": "Element | undefined"
+            }
+          },
+          "parameters": [
+            {
+              "name": "parentInputs",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "fcda",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "control",
+              "type": {
+                "text": "Element | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getSupervisionCbRefs",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "ied",
+              "type": {
+                "text": "Element"
+              },
+              "description": "IED SCL element."
+            },
+            {
+              "name": "cbTagName",
+              "type": {
+                "text": "string"
+              },
+              "description": "Either GSEControl or (defaults to) SampledValueControl."
+            },
+            {
+              "description": "If true, return the first element found",
+              "name": "firstOnly"
+            }
+          ],
+          "description": "Return Val elements within an LGOS/LSVS instance for a particular IED and control block type."
+        },
+        {
+          "kind": "function",
+          "name": "getSupervisionCbRefs",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "ied",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "cbTagName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "firstOnly",
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getSupervisionCbRefs",
+          "return": {
+            "type": {
+              "text": "Element[] | Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "ied",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "cbTagName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "firstOnly",
+              "optional": true,
+              "type": {
+                "text": "boolean"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getExistingSupervision",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "extRef",
+              "type": {
+                "text": "Element | null"
+              },
+              "description": "The extRef SCL element in the subscribing IED."
+            }
+          ],
+          "description": "Returns the subscriber's supervision LN for a given control block and extRef element"
+        },
+        {
+          "kind": "variable",
+          "name": "serviceTypes",
+          "type": {
+            "text": "Partial<Record<string, string>>"
+          },
+          "default": "{ ReportControl: 'Report', GSEControl: 'GOOSE', SampledValueControl: 'SMV', }"
+        },
+        {
+          "kind": "function",
+          "name": "getOrderedIeds",
+          "return": {
+            "type": {
+              "text": "Element[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "XMLDocument"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SubscriberListContainer",
+          "members": [
+            {
+              "kind": "field",
+              "name": "subscribedElements",
+              "type": {
+                "text": "ListElement[]"
+              },
+              "default": "[]",
+              "description": "List holding all current subscribed Elements."
+            },
+            {
+              "kind": "field",
+              "name": "availableElements",
+              "type": {
+                "text": "ListElement[]"
+              },
+              "default": "[]",
+              "description": "List holding all current available Elements which are not subscribed."
+            },
+            {
+              "kind": "field",
+              "name": "currentSelectedIed",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "description": "Current selected IED (when in Subscriber view)"
+            },
+            {
+              "kind": "field",
+              "name": "currentUsedDataset",
+              "type": {
+                "text": "Element | undefined | null"
+              },
+              "description": "The current used dataset for subscribing / unsubscribing"
+            },
+            {
+              "kind": "field",
+              "name": "subscriberWrapper",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetElements",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        },
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host(.moving) section { opacity: 0.3; } section { background-color: var(--mdc-theme-surface); transition: all 200ms linear; outline-color: var(--mdc-theme-primary); outline-style: solid; outline-width: 0px; opacity: 1; } section:focus { box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); } section:focus-within { outline-width: 2px; transition: all 250ms linear; } h1, h2, h3 { color: var(--mdc-theme-on-surface); font-family: 'Roboto', sans-serif; font-weight: 300; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0px; line-height: 48px; padding-left: 0.3em; transition: background-color 150ms linear; } section:focus-within > h1, section:focus-within > h2, section:focus-within > h3 { color: var(--mdc-theme-surface); background-color: var(--mdc-theme-primary); transition: background-color 200ms linear; } h1 > nav, h2 > nav, h3 > nav, h1 > abbr > oscd-icon-button, h2 > abbr > oscd-icon-button, h3 > abbr > oscd-icon-button { float: right; } abbr[title] { border-bottom: none !important; cursor: inherit !important; text-decoration: none !important; } oscd-list-item[type='text'] { font-weight: 500; } `",
+          "description": "Common `CSS` styles used by DataTypeTemplate subeditors"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "newViewEvent",
+          "declaration": {
+            "name": "newViewEvent",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "newIEDSelectEvent",
+          "declaration": {
+            "name": "newIEDSelectEvent",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "newFcdaSelectEvent",
+          "declaration": {
+            "name": "newFcdaSelectEvent",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "newSubscriptionChangedEvent",
+          "declaration": {
+            "name": "newSubscriptionChangedEvent",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getFcdaTitleValue",
+          "declaration": {
+            "name": "getFcdaTitleValue",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getFcdaSubtitleValue",
+          "declaration": {
+            "name": "getFcdaSubtitleValue",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getExtRef",
+          "declaration": {
+            "name": "getExtRef",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSupervisionCbRefs",
+          "declaration": {
+            "name": "getSupervisionCbRefs",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSupervisionCbRefs",
+          "declaration": {
+            "name": "getSupervisionCbRefs",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSupervisionCbRefs",
+          "declaration": {
+            "name": "getSupervisionCbRefs",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getExistingSupervision",
+          "declaration": {
+            "name": "getExistingSupervision",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "serviceTypes",
+          "declaration": {
+            "name": "serviceTypes",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getOrderedIeds",
+          "declaration": {
+            "name": "getOrderedIeds",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SubscriberListContainer",
+          "declaration": {
+            "name": "SubscriberListContainer",
+            "module": "src/foundation/subscription.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/foundation/subscription.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/subscription/fcda-binding-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A sub element for showing all Goose/Sampled Value Controls.\nA control can be edited using the standard wizard.\nAnd when selecting a FCDA Element a custom event is fired, so other list can be updated.",
+          "name": "FcdaBindingList",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'filtered-list': FilteredList, 'oscd-icon': OscdIcon, 'oscd-icon-button': OscdIconButton, 'oscd-list-item': OscdListItem, 'oscd-filter-button': OscdFilterButton, 'oscd-menu': OscdMenu, 'oscd-menu-item': OscdMenuItem, 'oscd-divider': OscdDivider, }"
+            },
+            {
+              "kind": "field",
+              "name": "doc",
+              "type": {
+                "text": "XMLDocument"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "docVersion",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "controlTag",
+              "type": {
+                "text": "controlTag"
+              },
+              "attribute": "controlTag"
+            },
+            {
+              "kind": "field",
+              "name": "includeLaterBinding",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "includeLaterBinding"
+            },
+            {
+              "kind": "field",
+              "name": "selectedControlElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "selectedFcdaElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "extRefCounters",
+              "privacy": "private",
+              "default": "new Map()"
+            },
+            {
+              "kind": "field",
+              "name": "menuControlElement",
+              "type": {
+                "text": "Element | undefined"
+              },
+              "privacy": "private",
+              "description": "The control element that the context menu currently targets."
+            },
+            {
+              "kind": "field",
+              "name": "hideSubscribed",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "hideSubscribed"
+            },
+            {
+              "kind": "field",
+              "name": "hideNotSubscribed",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "hideNotSubscribed"
+            },
+            {
+              "kind": "field",
+              "name": "controlBlockList",
+              "type": {
+                "text": "FilteredList"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "controlBlockMenu",
+              "type": {
+                "text": "OscdMenu"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "filterItems",
+              "type": {
+                "text": "SelectItem[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "boundResetExtRefCount",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "getControlElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getFcdaElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "resetExtRefCount",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "SubscriptionChangedEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getExtRefCount",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "fcdaElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "openControlMenu",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                },
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "onMenuEdit",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onMenuEditDataSet",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onMenuEditSmvOpts",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onMenuEditCommunication",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onMenuRemove",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetSelection",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onFcdaSelect",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "fcdaElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderFCDA",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "fcdaElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateBaseFilterState",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onFilterDialogClose",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FilterButtonDialogCloseEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderTitle",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderControlBlockMenu",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderControls",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "controlElements",
+                  "type": {
+                    "text": "Element[]"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "controlTag",
+              "type": {
+                "text": "controlTag"
+              },
+              "fieldName": "controlTag"
+            },
+            {
+              "name": "includeLaterBinding",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "includeLaterBinding"
+            },
+            {
+              "name": "hideSubscribed",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "hideSubscribed"
+            },
+            {
+              "name": "hideNotSubscribed",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "hideNotSubscribed"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FcdaBindingList",
+          "declaration": {
+            "name": "FcdaBindingList",
+            "module": "src/subscription/fcda-binding-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/shared/control-block-helpers.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getAssociatedDataSet",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the DataSet referenced by a control block's `datSet` attribute.\nThe DataSet must be a sibling under the same LN0."
+        },
+        {
+          "kind": "function",
+          "name": "getAssociatedSMV",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the SMV communication element associated with a SampledValueControl.\nThe SMV is located in Communication > SubNetwork > ConnectedAP and matched\nby iedName, apName, ldInst, and cbName."
+        },
+        {
+          "kind": "function",
+          "name": "getAssociatedSmvOpts",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the SmvOpts child element of a SampledValueControl."
+        },
+        {
+          "kind": "function",
+          "name": "isDataSetSingleUse",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "dataSet",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns true if no other control block under the same LN0 references\nthe given DataSet. A single-use DataSet can be safely removed together\nwith its control block."
+        },
+        {
+          "kind": "function",
+          "name": "buildRemoveEdits",
+          "return": {
+            "type": {
+              "text": "EditV2[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds an EditV2 array that removes a SampledValueControl and its\nassociated elements: the DataSet (if single-use) and the SMV\ncommunication element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getAssociatedDataSet",
+          "declaration": {
+            "name": "getAssociatedDataSet",
+            "module": "src/foundation/shared/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAssociatedSMV",
+          "declaration": {
+            "name": "getAssociatedSMV",
+            "module": "src/foundation/shared/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAssociatedSmvOpts",
+          "declaration": {
+            "name": "getAssociatedSmvOpts",
+            "module": "src/foundation/shared/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isDataSetSingleUse",
+          "declaration": {
+            "name": "isDataSetSingleUse",
+            "module": "src/foundation/shared/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "buildRemoveEdits",
+          "declaration": {
+            "name": "buildRemoveEdits",
+            "module": "src/foundation/shared/control-block-helpers.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/subscription/later-binding/ext-ref-ln-binding-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A sub element for showing all Ext Refs from a FCDA Element.\nThe List reacts on a custom event to know which FCDA Element was selected and updated the view.",
+          "name": "ExtRefLnBindingList",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'filtered-list': FilteredList, 'oscd-icon': OscdIcon, 'oscd-list-item': OscdListItem, 'oscd-divider': OscdDivider, }"
+            },
+            {
+              "kind": "field",
+              "name": "doc",
+              "type": {
+                "text": "XMLDocument"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "docVersion",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nsdoc",
+              "type": {
+                "text": "Nsdoc"
+              },
+              "attribute": "nsdoc"
+            },
+            {
+              "kind": "field",
+              "name": "controlTag",
+              "type": {
+                "text": "'SampledValueControl' | 'GSEControl'"
+              },
+              "attribute": "controlTag"
+            },
+            {
+              "kind": "field",
+              "name": "currentSelectedControlElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentSelectedFcdaElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentIedElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "boundFcdaSelectHandler",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "getLNElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getSubscribedLNElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getAvailableLNElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onFcdaSelectEvent",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FcdaSelectEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "subscribeEdits",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EditV2 | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeEdits",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EditV2 | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "bindingNotSupported",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "buildLNTitle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderTitle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderSubscribedLN",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderSubscribedLNs",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderAvailableLNs",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nsdoc",
+              "type": {
+                "text": "Nsdoc"
+              },
+              "fieldName": "nsdoc"
+            },
+            {
+              "name": "controlTag",
+              "type": {
+                "text": "'SampledValueControl' | 'GSEControl'"
+              },
+              "fieldName": "controlTag"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ExtRefLnBindingList",
+          "declaration": {
+            "name": "ExtRefLnBindingList",
+            "module": "src/subscription/later-binding/ext-ref-ln-binding-list.ts"
+          }
+        }
+      ]
+    }
+  ]
+}
