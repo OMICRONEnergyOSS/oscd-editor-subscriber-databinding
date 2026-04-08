@@ -31,7 +31,7 @@ describe('oscd-editor-subscriber-databinding', () => {
   });
 
   it('tests that the plugin works as expected', async () => {
-    // Add your assertions here
     expect(plugin.doc).to.exist;
+    expect(plugin.controlTag).to.equal('SampledValueControl');
   });
 });

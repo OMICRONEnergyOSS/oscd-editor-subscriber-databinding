@@ -23,7 +23,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An editor plugin for Subscribe Data Binding (SMV).",
+          "description": "An editor plugin for GOOSE and SMV subscriber data binding.",
           "name": "OscdEditorSubscriberDatabinding",
           "members": [
             {
@@ -33,7 +33,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ 'fcda-binding-list': FcdaBindingList, 'extref-ln-binding-list': ExtRefLnBindingList, 'oscd-scl-dialogs': OscdSclDialogs, }"
+              "default": "{ 'oscd-icon': OscdIcon, 'oscd-outlined-segmented-button': OscdOutlinedSegmentedButton, 'oscd-outlined-segmented-button-set': OscdOutlinedSegmentedButtonSet, 'fcda-binding-list': FcdaBindingList, 'extref-ln-binding-list': ExtRefLnBindingList, 'oscd-scl-dialogs': OscdSclDialogs, }"
             },
             {
               "kind": "field",
@@ -58,6 +58,14 @@
             },
             {
               "kind": "field",
+              "name": "controlTag",
+              "type": {
+                "text": "ControlTag"
+              },
+              "attribute": "controlTag"
+            },
+            {
+              "kind": "field",
               "name": "sclDialogs",
               "type": {
                 "text": "OscdSclDialogs"
@@ -68,6 +76,33 @@
               "kind": "field",
               "name": "handleEditDialogEvent",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "onControlTagChange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "controlTag",
+                  "type": {
+                    "text": "ControlTag"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "controlTag",
+              "type": {
+                "text": "ControlTag"
+              },
+              "fieldName": "controlTag"
             }
           ],
           "mixins": [
@@ -91,6 +126,144 @@
           "declaration": {
             "name": "OscdEditorSubscriberDatabinding",
             "module": "src/oscd-editor-subscriber-databinding.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/control-block-helpers.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getAssociatedDataSet",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the DataSet referenced by a control block's `datSet` attribute.\nThe DataSet must be a sibling under the same LN0."
+        },
+        {
+          "kind": "function",
+          "name": "getAssociatedCommunication",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the communication element associated with a control block.\nThe element is located in Communication > SubNetwork > ConnectedAP and matched\nby iedName, apName, ldInst, and cbName."
+        },
+        {
+          "kind": "function",
+          "name": "getAssociatedSmvOpts",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the SmvOpts child element when editing a SampledValueControl."
+        },
+        {
+          "kind": "function",
+          "name": "isDataSetSingleUse",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "dataSet",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns true if no other control block under the same LN0 references\nthe given DataSet. A single-use DataSet can be safely removed together\nwith its control block."
+        },
+        {
+          "kind": "function",
+          "name": "buildRemoveEdits",
+          "return": {
+            "type": {
+              "text": "EditV2[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds an EditV2 array that removes a control block and its associated\nelements: the DataSet (if single-use) and its communication element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getAssociatedDataSet",
+          "declaration": {
+            "name": "getAssociatedDataSet",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAssociatedCommunication",
+          "declaration": {
+            "name": "getAssociatedCommunication",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAssociatedSmvOpts",
+          "declaration": {
+            "name": "getAssociatedSmvOpts",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isDataSetSingleUse",
+          "declaration": {
+            "name": "isDataSetSingleUse",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "buildRemoveEdits",
+          "declaration": {
+            "name": "buildRemoveEdits",
+            "module": "src/foundation/control-block-helpers.ts"
           }
         }
       ]
@@ -1234,7 +1407,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A sub element for showing all Goose/Sampled Value Controls.\nA control can be edited using the standard wizard.\nAnd when selecting a FCDA Element a custom event is fired, so other list can be updated.",
+          "description": "A sub element for showing all Goose/Sampled Value Controls.\nA control can be edited using the oscd-scl-dialogs.\nAnd when selecting a FCDA Element a custom event is fired, so other list can be updated.",
           "name": "FcdaBindingList",
           "members": [
             {
@@ -1274,6 +1447,7 @@
               "type": {
                 "text": "boolean"
               },
+              "default": "false",
               "attribute": "includeLaterBinding"
             },
             {
@@ -1625,6 +1799,7 @@
               "type": {
                 "text": "boolean"
               },
+              "default": "false",
               "fieldName": "includeLaterBinding"
             },
             {
@@ -1662,144 +1837,6 @@
           "declaration": {
             "name": "FcdaBindingList",
             "module": "src/subscription/fcda-binding-list.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/foundation/shared/control-block-helpers.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getAssociatedDataSet",
-          "return": {
-            "type": {
-              "text": "Element | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns the DataSet referenced by a control block's `datSet` attribute.\nThe DataSet must be a sibling under the same LN0."
-        },
-        {
-          "kind": "function",
-          "name": "getAssociatedSMV",
-          "return": {
-            "type": {
-              "text": "Element | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns the SMV communication element associated with a SampledValueControl.\nThe SMV is located in Communication > SubNetwork > ConnectedAP and matched\nby iedName, apName, ldInst, and cbName."
-        },
-        {
-          "kind": "function",
-          "name": "getAssociatedSmvOpts",
-          "return": {
-            "type": {
-              "text": "Element | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns the SmvOpts child element of a SampledValueControl."
-        },
-        {
-          "kind": "function",
-          "name": "isDataSetSingleUse",
-          "return": {
-            "type": {
-              "text": "boolean"
-            }
-          },
-          "parameters": [
-            {
-              "name": "dataSet",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns true if no other control block under the same LN0 references\nthe given DataSet. A single-use DataSet can be safely removed together\nwith its control block."
-        },
-        {
-          "kind": "function",
-          "name": "buildRemoveEdits",
-          "return": {
-            "type": {
-              "text": "EditV2[]"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Builds an EditV2 array that removes a SampledValueControl and its\nassociated elements: the DataSet (if single-use) and the SMV\ncommunication element."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getAssociatedDataSet",
-          "declaration": {
-            "name": "getAssociatedDataSet",
-            "module": "src/foundation/shared/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getAssociatedSMV",
-          "declaration": {
-            "name": "getAssociatedSMV",
-            "module": "src/foundation/shared/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getAssociatedSmvOpts",
-          "declaration": {
-            "name": "getAssociatedSmvOpts",
-            "module": "src/foundation/shared/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "isDataSetSingleUse",
-          "declaration": {
-            "name": "isDataSetSingleUse",
-            "module": "src/foundation/shared/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "buildRemoveEdits",
-          "declaration": {
-            "name": "buildRemoveEdits",
-            "module": "src/foundation/shared/control-block-helpers.ts"
           }
         }
       ]

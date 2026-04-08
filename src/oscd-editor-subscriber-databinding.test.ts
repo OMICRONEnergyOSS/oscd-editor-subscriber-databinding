@@ -43,11 +43,14 @@ describe('oscd-editor-subscriber-databinding', () => {
   });
 
   it('tests that the plugin works as expected', async () => {
-    // Add your assertions here
     await setViewport({ width: 1200, height: 800 });
 
     await plugin.updateComplete;
     await timeout(400);
+    const radios = plugin.shadowRoot?.querySelectorAll('oscd-radio');
+    if (!radios || radios.length !== 2) {
+      throw new Error('Expected two radios');
+    }
     // await visualDiff(document.body, `oscd-editor-subscriber-databinding/#1 Dummy Test`);
   });
 });

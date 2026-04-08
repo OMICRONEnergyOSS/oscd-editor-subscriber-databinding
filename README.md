@@ -1,12 +1,12 @@
 [![Tests](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/actions/workflows/test.yml/badge.svg)](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/actions/workflows/test.yml) ![NPM Version](https://img.shields.io/npm/v/@omicronenergy/oscd-editor-subscriber-databinding)
 
-# SMV Subscriber Data Binding
+# Subscriber Data Binding
 
 ## `<oscd-editor-subscriber-databinding>`
 
 ## What is this?
 
-This is an [OpenSCD](https://openscd.org) editor plugin for SMV (Sampled Values) subscriber data binding. Start up a demo server with `npm run start` and see for yourself!
+This is an [OpenSCD](https://openscd.org) editor plugin for GOOSE and SMV (Sampled Values) subscriber data binding. Start up a demo server with `npm run start` and see for yourself!
 
 ## Linting and formatting
 

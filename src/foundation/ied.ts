@@ -1,9 +1,3 @@
-// src/foundation/ied.ts
-//
-// IED-related helper functions copied from the legacy monorepo.
-// See recipe: replace-openscd-open-scd-foundation-with-local-helpers.md
-// Step 3: Removed emptyInputsDeleteActions (now handled by scl-lib unsubscribe).
-
 const fcdaReferences = [
   'ldInst',
   'lnClass',

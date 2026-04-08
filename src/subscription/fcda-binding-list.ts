@@ -1,29 +1,3 @@
-// src/subscription/fcda-binding-list.ts
-//
-// Copied from legacy monorepo and transformed for standalone use.
-// Original: legacy/compas-open-scd/packages/plugins/src/editors/subscription/fcda-binding-list.ts
-// Changes:
-//   - lit-element → lit + lit/decorators.js
-//   - lit-html → lit (nothing) + lit/directives/class-map.js
-//   - @openscd/open-scd/src/foundation.js → local foundation + @openscd/scl-lib
-//   - @openscd/open-scd/src/icons/icons.js → unified OscdIcon (text content auto-detects SCL icons)
-//   - ../../wizards/wizard-library.js → @omicronenergy/oscd-scl-dialogs (Step 4)
-//   - Removed @customElement('fcda-binding-list') decorator
-//   - editCount → docVersion
-//   - lit-translate → @lit/localize msg()
-//   - Step 5: Replaced all mwc-* with oscd-ui components
-//     mwc-icon → OscdIcon, mwc-icon-button → OscdIconButton, mwc-list-item → OscdListItem
-//     mwc-menu + mwc-check-list-item → OscdFilterButton (DP-1)
-//     Removed mwc-list (FilteredList wraps OscdList), removed SVGTemplateResult
-//     Slot renames: graphic→start, secondary→supporting-text, meta→end
-//     Removed: graphic, hasMeta, twoline, noninteractive, value attrs
-//     Added: type="button" for interactive items, data-value for search
-//     iconControlLookup changed from SVGTemplateResult to string (unified OscdIcon)
-//   - Step 6: Replaced edit icon button with context menu (more_vert trigger).
-//     Added OscdMenu/OscdMenuItem, control-block-helpers for associated element
-//     lookups, and buildRemoveEdits for Remove action.
-//     SMV variant includes Edit SmvOpts menu item.
-
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import type { PropertyValues } from 'lit';
@@ -60,10 +34,10 @@ import {
 import { getSubscribedExtRefElements } from '../foundation/subscription-later-binding.js';
 import {
   getAssociatedDataSet,
-  getAssociatedSMV,
+  getAssociatedCommunication,
   getAssociatedSmvOpts,
   buildRemoveEdits,
-} from '../foundation/shared/control-block-helpers.js';
+} from '../foundation/control-block-helpers.js';
 
 type controlTag = 'SampledValueControl' | 'GSEControl';
 
@@ -78,9 +52,14 @@ const controlBlockListTitle: Record<controlTag, string> = {
   SampledValueControl: 'Sampled Value Messages',
 };
 
+const removeActionTitle: Record<controlTag, string> = {
+  GSEControl: 'Remove GSEControl',
+  SampledValueControl: 'Remove SampledValueControl',
+};
+
 /**
  * A sub element for showing all Goose/Sampled Value Controls.
- * A control can be edited using the standard wizard.
+ * A control can be edited using the oscd-scl-dialogs.
  * And when selecting a FCDA Element a custom event is fired, so other list can be updated.
  */
 export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
@@ -97,18 +76,23 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
   @property({ attribute: false })
   doc!: XMLDocument;
+
   @property({ attribute: false })
   docVersion?: unknown;
+
   @property()
   controlTag!: controlTag;
+
   @property()
-  includeLaterBinding!: boolean;
+  includeLaterBinding: boolean = false;
 
   // The selected Elements when a FCDA Line is clicked.
   @state()
   private selectedControlElement: Element | undefined;
+
   @state()
   private selectedFcdaElement: Element | undefined;
+
   @state()
   private extRefCounters = new Map();
 
@@ -198,7 +182,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // In legacy, this ran in the constructor where global registration meant
+    // In the original monorepo version, this ran in the constructor where global registration meant
     // the element was already in the DOM. With ScopedElementsMixin the
     // constructor runs before the element is connected, so
     // this.closest('.container') would return null. We move it here.
@@ -281,12 +265,16 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   private onMenuEdit(): void {
-    if (!this.menuControlElement) return;
+    if (!this.menuControlElement) {
+      return;
+    }
     this.dispatchEvent(newEditDialogEditEvent(this.menuControlElement));
   }
 
   private onMenuEditDataSet(): void {
-    if (!this.menuControlElement) return;
+    if (!this.menuControlElement) {
+      return;
+    }
     const dataSet = getAssociatedDataSet(this.menuControlElement);
     if (dataSet) {
       this.dispatchEvent(newEditDialogEditEvent(dataSet));
@@ -294,7 +282,9 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   private onMenuEditSmvOpts(): void {
-    if (!this.menuControlElement) return;
+    if (!this.menuControlElement) {
+      return;
+    }
     const smvOpts = getAssociatedSmvOpts(this.menuControlElement);
     if (smvOpts) {
       this.dispatchEvent(newEditDialogEditEvent(smvOpts));
@@ -302,20 +292,24 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   private onMenuEditCommunication(): void {
-    if (!this.menuControlElement) return;
-    const smv = getAssociatedSMV(this.menuControlElement);
-    if (smv) {
-      this.dispatchEvent(newEditDialogEditEvent(smv));
+    if (!this.menuControlElement) {
+      return;
+    }
+    const communication = getAssociatedCommunication(this.menuControlElement);
+    if (communication) {
+      this.dispatchEvent(newEditDialogEditEvent(communication));
     }
   }
 
   private onMenuRemove(): void {
-    if (!this.menuControlElement) return;
+    if (!this.menuControlElement) {
+      return;
+    }
     const edits = buildRemoveEdits(this.menuControlElement);
     if (edits.length > 0) {
       this.dispatchEvent(
         newEditEventV2(edits, {
-          title: msg('Remove SampledValueControl'),
+          title: msg(removeActionTitle[this.controlTag]),
         }),
       );
     }
@@ -331,6 +325,16 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
     this.selectedControlElement = controlElement;
     this.selectedFcdaElement = fcdaElement;
+  }
+
+  protected willUpdate(_changedProperties: PropertyValues): void {
+    super.willUpdate(_changedProperties);
+
+    // Reset cached subscription counts before rendering against a new document
+    // so Lit does not need to schedule a second update.
+    if (_changedProperties.has('doc')) {
+      this.extRefCounters = new Map();
+    }
   }
 
   protected updated(_changedProperties: PropertyValues): void {
@@ -349,11 +353,6 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
           this.selectedFcdaElement,
         ),
       );
-    }
-
-    // When a new document is loaded we will reset the Map to clear old entries.
-    if (_changedProperties.has('doc')) {
-      this.extRefCounters = new Map();
     }
   }
 
@@ -426,7 +425,9 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   private renderControlBlockMenu(): TemplateResult {
     const control = this.menuControlElement;
     const hasDataSet = control ? !!getAssociatedDataSet(control) : false;
-    const hasCommunication = control ? !!getAssociatedSMV(control) : false;
+    const hasCommunication = control
+      ? !!getAssociatedCommunication(control)
+      : false;
     const hasSmvOpts = control ? !!getAssociatedSmvOpts(control) : false;
 
     return html`<oscd-menu class="control-block-menu" positioning="popover">
@@ -438,7 +439,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
             <div slot="headline">${msg('Edit DataSet')}</div>
           </oscd-menu-item>`
         : nothing}
-      ${hasSmvOpts
+      ${this.controlTag === 'SampledValueControl' && hasSmvOpts
         ? html`<oscd-menu-item @click=${() => this.onMenuEditSmvOpts()}>
             <div slot="headline">${msg('Edit SmvOpts')}</div>
           </oscd-menu-item>`

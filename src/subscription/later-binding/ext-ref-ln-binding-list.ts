@@ -1,20 +1,3 @@
-// src/subscription/later-binding/ext-ref-ln-binding-list.ts
-//
-// Copied from legacy monorepo and transformed for standalone use.
-// Original: legacy/compas-open-scd/packages/plugins/src/editors/subscription/later-binding/ext-ref-ln-binding-list.ts
-// Changes:
-//   - lit-element → lit + lit/decorators.js
-//   - lit-html → lit (nothing)
-//   - @openscd/open-scd/src/foundation.js → @openscd/scl-lib (identity)
-//   - Removed @customElement('extref-ln-binding-list') decorator
-//   - editCount → docVersion
-//   - lit-translate → @lit/localize msg()
-//   - Step 3: Replaced deprecated editor actions with EditV2 via scl-lib subscribe/unsubscribe
-//   - Step 5: Replaced mwc-icon → OscdIcon, mwc-list-item → OscdListItem
-//     Slot renames: graphic→start, secondary→supporting-text, meta→end
-//     Removed: graphic, hasMeta, twoline, noninteractive, value attrs
-//     Added: type="button" for interactive items, data-value for search
-
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { msg } from '@lit/localize';
@@ -167,14 +150,18 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
     }
 
     const inputElement = lnElement.querySelector(':scope > Inputs');
-    if (!inputElement) return null;
+    if (!inputElement) {
+      return null;
+    }
 
     const extRefElement = getExtRef(
       inputElement,
       this.currentSelectedFcdaElement,
       this.currentSelectedControlElement,
     );
-    if (!extRefElement) return null;
+    if (!extRefElement) {
+      return null;
+    }
 
     const edits = unsubscribe([extRefElement]);
 

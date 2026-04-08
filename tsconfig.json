@@ -5,6 +5,7 @@
     "moduleResolution": "bundler",
     "noEmitOnError": true,
     "lib": ["es2021", "dom"],
+    "types": ["mocha"],
     "strict": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,

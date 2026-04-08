@@ -1,12 +1,3 @@
-// src/foundation/subscription-later-binding.ts
-//
-// Copied from legacy monorepo and transformed for standalone use.
-// Original: legacy/compas-open-scd/packages/plugins/src/editors/subscription/later-binding/foundation.ts
-// Changes:
-//   - getSclSchemaVersion from local foundation/scl.ts instead of @openscd/open-scd
-//   - serviceTypes from local foundation/subscription.ts instead of relative legacy path
-//   - Moved from src/subscription/later-binding/foundation.ts to src/foundation/subscription-later-binding.ts
-
 import { getSclSchemaVersion } from './scl.js';
 import { serviceTypes } from './subscription.js';
 
@@ -28,7 +19,9 @@ function dataAttributeSpecification(
     );
     leaf = doc.querySelector(`DOType[id="${dO?.getAttribute('type')}"]`);
   }
-  if (!leaf || !leaf.getAttribute('cdc')) return { cdc: null, bType: null };
+  if (!leaf || !leaf.getAttribute('cdc')) {
+    return { cdc: null, bType: null };
+  }
 
   const cdc = leaf.getAttribute('cdc')!;
 
@@ -42,7 +35,9 @@ function dataAttributeSpecification(
         ? doc.querySelector(`DAType[id="${dA?.getAttribute('type')}"]`)
         : dA;
   }
-  if (!leaf || !leaf.getAttribute('bType')) return { cdc, bType: null };
+  if (!leaf || !leaf.getAttribute('bType')) {
+    return { cdc, bType: null };
+  }
 
   const bType = leaf.getAttribute('bType')!;
 
@@ -60,7 +55,9 @@ export function fcdaSpecification(fcda: Element): {
   const [doName, daName] = ['doName', 'daName'].map(attr =>
     fcda.getAttribute(attr),
   );
-  if (!doName || !daName) return { cdc: null, bType: null };
+  if (!doName || !daName) {
+    return { cdc: null, bType: null };
+  }
 
   const ied = fcda.closest('IED');
 
@@ -79,7 +76,9 @@ export function fcdaSpecification(fcda: Element): {
       (anyLn.getAttribute('inst') ?? '') === (fcda.getAttribute('lnInst') ?? '')
     );
   });
-  if (!anyLn) return { cdc: null, bType: null };
+  if (!anyLn) {
+    return { cdc: null, bType: null };
+  }
 
   return dataAttributeSpecification(anyLn, doName, daName);
 }
@@ -98,7 +97,9 @@ export function inputRestriction(extRef: Element): {
   const [pLN, pDO, pDA] = ['pLN', 'pDO', 'pDA'].map(attr =>
     extRef.getAttribute(attr),
   );
-  if (!pLN || !pDO || !pDA) return { cdc: null, bType: null };
+  if (!pLN || !pDO || !pDA) {
+    return { cdc: null, bType: null };
+  }
 
   const anyLns = Array.from(
     extRef
@@ -108,7 +109,9 @@ export function inputRestriction(extRef: Element): {
 
   for (const anyLn of anyLns) {
     const dataSpec = dataAttributeSpecification(anyLn, pDO, pDA);
-    if (dataSpec.cdc !== null && dataSpec.bType !== null) return dataSpec;
+    if (dataSpec.cdc !== null && dataSpec.bType !== null) {
+      return dataSpec;
+    }
   }
 
   return { cdc: null, bType: null };

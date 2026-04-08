@@ -1,21 +1,3 @@
-// src/foundation/subscription.ts
-//
-// Copied from legacy monorepo and transformed for standalone use.
-// Original: legacy/compas-open-scd/packages/plugins/src/editors/subscription/foundation.ts
-// Changes:
-//   - lit-element → lit + lit/decorators.js
-//   - @openscd/open-scd/src/foundation.js → local foundation + @openscd/scl-lib
-//   - @openscd/open-scd/src/foundation/ied.js → local foundation/ied.ts
-//   - @openscd/open-scd/src/schemas.js → local foundation/scl.ts
-//   - editCount → docVersion (in SubscriberListContainer)
-//   - Removed @customElement (none present in original, but SubscriberListContainer is a base class)
-//   - Step 3: Removed Create/Delete types, createElement/cloneElement imports,
-//     instantiateSubscriptionSupervision, removeSubscriptionSupervision,
-//     canRemoveSubscriptionSupervision, createExtRefElement, updateExtRefElement,
-//     canCreateValidExtRef, existExtRef, getFirstSubscribedExtRef,
-//     instantiatedSupervisionsCount, maxSupervisions, and related supervision helpers.
-//     These are now replaced by scl-lib subscribe()/unsubscribe() at the call sites.
-
 import { css, LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
 
@@ -213,7 +195,9 @@ export function getSupervisionCbRefs(
  * @returns The supervision LN instance or null if not found
  */
 export function getExistingSupervision(extRef: Element | null): Element | null {
-  if (extRef === null) return null;
+  if (extRef === null) {
+    return null;
+  }
 
   const extRefValues = ['iedName', 'serviceType', 'srcPrefix', 'srcCBName'];
   const [srcIedName, serviceType, srcPrefix, srcCBName] = extRefValues.map(

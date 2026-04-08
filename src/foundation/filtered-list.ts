@@ -1,11 +1,3 @@
-// src/foundation/filtered-list.ts
-//
-// Local FilteredList component that wraps OscdList + OscdOutlinedTextField
-// to provide a searchable slot-based list.
-//
-// This replaces the legacy @openscd/open-scd filtered-list component.
-// See recipe: replace-legacy-filtered-list-with-oscd-ui-filtered-list.md
-
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -15,7 +7,9 @@ import { OscdList } from '@omicronenergy/oscd-ui/list/OscdList.js';
 import { OscdOutlinedTextField } from '@omicronenergy/oscd-ui/textfield/OscdOutlinedTextField.js';
 
 function searchRegex(filter?: string): RegExp {
-  if (!filter) return /.*/i;
+  if (!filter) {
+    return /.*/i;
+  }
 
   const terms: string[] =
     filter
@@ -63,7 +57,9 @@ export class FilteredList extends ScopedElementsMixin(LitElement) {
   private applyFilter(): void {
     const regex = searchRegex(this.searchValue);
     const slot = this.shadowRoot?.querySelector('slot:not([name])');
-    if (!slot) return;
+    if (!slot) {
+      return;
+    }
 
     const items = (slot as HTMLSlotElement).assignedElements({ flatten: true });
     for (const item of items) {

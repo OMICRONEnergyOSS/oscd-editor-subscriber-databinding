@@ -20,8 +20,9 @@ export default [
       },
     },
   },
+  eslintConfigPrettier,
   {
-    files: ['**/*.{ts,tsx,mts,cts}'],
+    files: ['**/*.ts'],
     plugins: {
       tsdoc: eslintPluginTSDoc,
       'no-only-tests': noOnlyTests,
@@ -54,10 +55,9 @@ export default [
     },
   },
   {
-    files: ['src/**/*.test.{ts,tsx,mts,cts}', 'src/**/*.spec.{ts,tsx,mts,cts}'],
+    files: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
-  eslintConfigPrettier,
 ];
