@@ -57,7 +57,7 @@ export function getAssociatedCommunication(control: Element): Element | null {
  */
 export function getAssociatedSmvOpts(control: Element): Element | null {
   if (control.tagName === 'SampledValueControl') {
-    control.querySelector(':scope > SmvOpts');
+    return control.querySelector(':scope > SmvOpts');
   }
   return null;
 }
