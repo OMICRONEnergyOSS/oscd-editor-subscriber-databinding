@@ -192,7 +192,7 @@ function checkEditionSpecificRequirements(
     ) &&
     sameAttributeValueDiffName(
       extRefElement,
-      'scrPrefix',
+      'srcPrefix',
       lnElement,
       'prefix',
     ) &&
