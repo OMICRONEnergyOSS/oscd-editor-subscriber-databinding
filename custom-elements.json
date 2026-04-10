@@ -1273,8 +1273,8 @@
         },
         {
           "kind": "variable",
-          "name": "styles",
-          "default": "css` :host(.moving) section { opacity: 0.3; } section { background-color: var(--mdc-theme-surface); transition: all 200ms linear; outline-color: var(--mdc-theme-primary); outline-style: solid; outline-width: 0px; opacity: 1; } section:focus { box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); } section:focus-within { outline-width: 2px; transition: all 250ms linear; } h1, h2, h3 { color: var(--mdc-theme-on-surface); font-family: 'Roboto', sans-serif; font-weight: 300; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0px; line-height: 48px; padding-left: 0.3em; transition: background-color 150ms linear; } section:focus-within > h1, section:focus-within > h2, section:focus-within > h3 { color: var(--mdc-theme-surface); background-color: var(--mdc-theme-primary); transition: background-color 200ms linear; } h1 > nav, h2 > nav, h3 > nav, h1 > abbr > oscd-icon-button, h2 > abbr > oscd-icon-button, h3 > abbr > oscd-icon-button { float: right; } abbr[title] { border-bottom: none !important; cursor: inherit !important; text-decoration: none !important; } oscd-list-item[type='text'] { font-weight: 500; } `",
+          "name": "sharedStyles",
+          "default": "css` section { background-color: var(--mdc-theme-surface); transition: all 200ms linear; outline-color: var(--mdc-theme-primary); outline-style: solid; outline-width: 0px; opacity: 1; } section:focus { box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); } h2 { color: var(--md-sys-color-on-surface); font-family: 'Roboto', sans-serif; font-weight: 300; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0px; line-height: 48px; padding-left: 0.3em; transition: background-color 150ms linear; } filtered-list > oscd-list-item.selected { --md-sys-color-on-surface: var(--oscd-base3); --md-sys-color-on-surface-variant: var(--oscd-base2); background-color: var(--oscd-primary); transition: background-color 200ms linear; } h1 > nav, h1 > abbr > oscd-icon-button { float: right; } abbr[title] { border-bottom: none !important; cursor: inherit !important; text-decoration: none !important; } oscd-list-item.control > div[slot='headline'] { font-weight: 500; } `",
           "description": "Common `CSS` styles used by DataTypeTemplate subeditors"
         }
       ],
@@ -1393,10 +1393,298 @@
         },
         {
           "kind": "js",
-          "name": "styles",
+          "name": "sharedStyles",
           "declaration": {
-            "name": "styles",
+            "name": "sharedStyles",
             "module": "src/foundation/subscription.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/subscription/ext-ref-ln-binding-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A sub element for showing all Ext Refs from a FCDA Element.\nThe List reacts on a custom event to know which FCDA Element was selected and updated the view.",
+          "name": "ExtRefLnBindingList",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'filtered-list': FilteredList, 'oscd-icon': OscdIcon, 'oscd-list-item': OscdListItem, 'oscd-divider': OscdDivider, }"
+            },
+            {
+              "kind": "field",
+              "name": "doc",
+              "type": {
+                "text": "XMLDocument"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "docVersion",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nsdoc",
+              "type": {
+                "text": "Nsdoc"
+              },
+              "attribute": "nsdoc"
+            },
+            {
+              "kind": "field",
+              "name": "controlTag",
+              "type": {
+                "text": "'SampledValueControl' | 'GSEControl'"
+              },
+              "attribute": "controlTag"
+            },
+            {
+              "kind": "field",
+              "name": "currentSelectedControlElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentSelectedFcdaElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentIedElement",
+              "type": {
+                "text": "Element | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "boundFcdaSelectHandler",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "getLNElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getSubscribedLNElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getAvailableLNElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "onFcdaSelectEvent",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FcdaSelectEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "subscribeEdits",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EditV2 | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "unsubscribeEdits",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "EditV2 | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "bindingNotSupported",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "buildLNTitle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderTitle",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderEmptyState",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderSubscribedLN",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderSubscribedLNs",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderAvailableLNs",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "nsdoc",
+              "type": {
+                "text": "Nsdoc"
+              },
+              "fieldName": "nsdoc"
+            },
+            {
+              "name": "controlTag",
+              "type": {
+                "text": "'SampledValueControl' | 'GSEControl'"
+              },
+              "fieldName": "controlTag"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ExtRefLnBindingList",
+          "declaration": {
+            "name": "ExtRefLnBindingList",
+            "module": "src/subscription/ext-ref-ln-binding-list.ts"
           }
         }
       ]
@@ -1510,6 +1798,16 @@
               "type": {
                 "text": "OscdMenu"
               },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "profile",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "createProfileStats",
               "privacy": "private"
             },
             {
@@ -1837,284 +2135,6 @@
           "declaration": {
             "name": "FcdaBindingList",
             "module": "src/subscription/fcda-binding-list.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/subscription/later-binding/ext-ref-ln-binding-list.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A sub element for showing all Ext Refs from a FCDA Element.\nThe List reacts on a custom event to know which FCDA Element was selected and updated the view.",
-          "name": "ExtRefLnBindingList",
-          "members": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{ 'filtered-list': FilteredList, 'oscd-icon': OscdIcon, 'oscd-list-item': OscdListItem, 'oscd-divider': OscdDivider, }"
-            },
-            {
-              "kind": "field",
-              "name": "doc",
-              "type": {
-                "text": "XMLDocument"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "docVersion",
-              "type": {
-                "text": "unknown | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "nsdoc",
-              "type": {
-                "text": "Nsdoc"
-              },
-              "attribute": "nsdoc"
-            },
-            {
-              "kind": "field",
-              "name": "controlTag",
-              "type": {
-                "text": "'SampledValueControl' | 'GSEControl'"
-              },
-              "attribute": "controlTag"
-            },
-            {
-              "kind": "field",
-              "name": "currentSelectedControlElement",
-              "type": {
-                "text": "Element | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "currentSelectedFcdaElement",
-              "type": {
-                "text": "Element | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "currentIedElement",
-              "type": {
-                "text": "Element | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "boundFcdaSelectHandler",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "getLNElements",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Element[]"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getSubscribedLNElements",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Element[]"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getAvailableLNElements",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Element[]"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "onFcdaSelectEvent",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "FcdaSelectEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "subscribeEdits",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EditV2 | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "lnElement",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "unsubscribeEdits",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "EditV2 | null"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "lnElement",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "bindingNotSupported",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "lnElement",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "buildLNTitle",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "lnElement",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "renderTitle",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "TemplateResult"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "renderSubscribedLN",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "TemplateResult"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "lnElement",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "renderSubscribedLNs",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "TemplateResult"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "renderAvailableLNs",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "TemplateResult"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "nsdoc",
-              "type": {
-                "text": "Nsdoc"
-              },
-              "fieldName": "nsdoc"
-            },
-            {
-              "name": "controlTag",
-              "type": {
-                "text": "'SampledValueControl' | 'GSEControl'"
-              },
-              "fieldName": "controlTag"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ExtRefLnBindingList",
-          "declaration": {
-            "name": "ExtRefLnBindingList",
-            "module": "src/subscription/later-binding/ext-ref-ln-binding-list.ts"
           }
         }
       ]

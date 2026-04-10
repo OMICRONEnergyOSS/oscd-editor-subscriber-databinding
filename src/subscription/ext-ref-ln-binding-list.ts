@@ -1,4 +1,11 @@
-import { css, html, LitElement, nothing, TemplateResult } from 'lit';
+import {
+  css,
+  html,
+  LitElement,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { msg } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -11,17 +18,17 @@ import { identity, subscribe, unsubscribe } from '@openscd/scl-lib';
 import type { EditV2 } from '@openscd/oscd-api';
 import { newEditEventV2 } from '@openscd/oscd-api/utils.js';
 
-import type { Nsdoc } from '../../foundation/nsdoc.js';
-import { FilteredList } from '../../foundation/filtered-list.js';
+import type { Nsdoc } from '../foundation/nsdoc.js';
+import { FilteredList } from '../foundation/filtered-list.js';
 
 import {
   FcdaSelectEvent,
   getExtRef,
   getExistingSupervision,
   newSubscriptionChangedEvent,
-  styles,
-} from '../../foundation/subscription.js';
-import { getSubscribedExtRefElements } from '../../foundation/subscription-later-binding.js';
+  sharedStyles,
+} from '../foundation/subscription.js';
+import { getSubscribedExtRefElements } from '../foundation/subscription-later-binding.js';
 
 /**
  * A sub element for showing all Ext Refs from a FCDA Element.
@@ -37,17 +44,22 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
 
   @property({ attribute: false })
   doc!: XMLDocument;
+
   @property({ attribute: false })
   docVersion?: unknown;
+
   @property()
   nsdoc!: Nsdoc;
+
   @property()
   controlTag!: 'SampledValueControl' | 'GSEControl';
 
   @state()
   currentSelectedControlElement: Element | undefined;
+
   @state()
   currentSelectedFcdaElement: Element | undefined;
+
   @state()
   currentIedElement: Element | undefined;
 
@@ -72,6 +84,16 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       parentDiv.removeEventListener('fcda-select', this.boundFcdaSelectHandler);
     }
     super.disconnectedCallback();
+  }
+
+  protected updated(_changedProperties: PropertyValues): void {
+    super.updated(_changedProperties);
+
+    if (_changedProperties.has('controlTag')) {
+      this.currentSelectedControlElement = undefined;
+      this.currentSelectedFcdaElement = undefined;
+      this.currentIedElement = undefined;
+    }
   }
 
   private getLNElements(): Element[] {
@@ -191,9 +213,23 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   private renderTitle(): TemplateResult {
-    return html`<h1>
-      ${msg('Logical nodes available for selected data attribute')}
-    </h1>`;
+    return html`<h2>
+      ${msg('Logical nodes available for the selected FCDA')}
+    </h2>`;
+  }
+
+  private renderEmptyState(): TemplateResult {
+    return html`
+      <div class="empty-state">
+        <oscd-icon class="empty-state__icon">list_alt_check</oscd-icon>
+        <h3 class="empty-state__title">${msg('No FCDA selected')}</h3>
+        <p class="empty-state__description">
+          ${msg(
+            'Select an FCDA from the left-hand list to view subscribed and available logical nodes.',
+          )}
+        </p>
+      </div>
+    `;
   }
 
   private renderSubscribedLN(lnElement: Element): TemplateResult {
@@ -317,7 +353,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   render(): TemplateResult {
-    return html` <section tabindex="0">
+    return html` <section>
       ${this.currentSelectedControlElement && this.currentSelectedFcdaElement
         ? html`
             ${this.renderTitle()}
@@ -325,15 +361,61 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
               ${this.renderSubscribedLNs()} ${this.renderAvailableLNs()}
             </filtered-list>
           `
-        : html` <h1>${msg('No data attribute selected')}</h1> `}
+        : this.renderEmptyState()}
     </section>`;
   }
 
   static styles = css`
-    ${styles}
+    ${sharedStyles}
+
+    section {
+      height: 100%;
+    }
 
     oscd-list-item.hidden:not([type='button']) + oscd-divider {
       display: none;
+    }
+
+    .empty-state {
+      font-family: var(--oscd-font-family, 'Roboto', sans-serif);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      padding: 32px 24px;
+      box-sizing: border-box;
+      background-color: var(--oscd-base2);
+    }
+
+    .empty-state__icon {
+      font-size: 128px;
+      inline-size: 128px;
+      block-size: 128px;
+      line-height: 1;
+      color: var(--oscd-base01);
+      opacity: 0.7;
+    }
+
+    .empty-state__title {
+      margin: 0;
+      font-size: 1.125rem;
+      line-height: 1.4;
+      font-weight: 500;
+      color: var(--oscd-base01);
+    }
+
+    .empty-state__description {
+      margin: 0;
+      max-width: 32rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(
+        --oscd-base01,
+        var(--md-sys-color-on-surface-variant, #49454f)
+      );
     }
   `;
 }

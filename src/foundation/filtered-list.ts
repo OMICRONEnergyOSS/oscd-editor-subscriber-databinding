@@ -61,13 +61,22 @@ export class FilteredList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const items = (slot as HTMLSlotElement).assignedElements({ flatten: true });
-    for (const item of items) {
-      const searchText =
-        (item as HTMLElement).dataset?.['value'] ?? item.textContent ?? '';
+    const items = Array.from(
+      (slot as HTMLSlotElement).assignedElements({ flatten: true }),
+    );
+    items.forEach(item => {
+      const itemElement = item as HTMLElement;
+      const explicitSearchText = itemElement.dataset?.['value'] ?? '';
+      const itemText = itemElement.innerText ?? itemElement.textContent ?? '';
+      const childText = Array.from(itemElement.children)
+        .map(
+          child => (child as HTMLElement).innerText ?? child.textContent ?? '',
+        )
+        .join(' ');
+      const searchText = `${explicitSearchText} ${itemText} ${childText}`;
       const match = regex.test(searchText);
-      (item as HTMLElement).style.display = match ? '' : 'none';
-    }
+      itemElement.classList.toggle('hidden', !match);
+    });
   }
 
   protected override updated(): void {
@@ -103,6 +112,10 @@ export class FilteredList extends ScopedElementsMixin(LitElement) {
 
     oscd-outlined-text-field {
       margin: 8px;
+    }
+
+    ::slotted(.hidden) {
+      display: none;
     }
   `;
 }

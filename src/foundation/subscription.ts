@@ -278,11 +278,7 @@ export class SubscriberListContainer extends LitElement {
 }
 
 /** Common `CSS` styles used by DataTypeTemplate subeditors */
-export const styles = css`
-  :host(.moving) section {
-    opacity: 0.3;
-  }
-
+export const sharedStyles = css`
   section {
     background-color: var(--mdc-theme-surface);
     transition: all 200ms linear;
@@ -299,15 +295,8 @@ export const styles = css`
       0 5px 5px -3px rgba(0, 0, 0, 0.2);
   }
 
-  section:focus-within {
-    outline-width: 2px;
-    transition: all 250ms linear;
-  }
-
-  h1,
-  h2,
-  h3 {
-    color: var(--mdc-theme-on-surface);
+  h2 {
+    color: var(--md-sys-color-on-surface);
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     overflow: hidden;
@@ -319,20 +308,15 @@ export const styles = css`
     transition: background-color 150ms linear;
   }
 
-  section:focus-within > h1,
-  section:focus-within > h2,
-  section:focus-within > h3 {
-    color: var(--mdc-theme-surface);
-    background-color: var(--mdc-theme-primary);
+  filtered-list > oscd-list-item.selected {
+    --md-sys-color-on-surface: var(--oscd-base3);
+    --md-sys-color-on-surface-variant: var(--oscd-base2);
+    background-color: var(--oscd-primary);
     transition: background-color 200ms linear;
   }
 
   h1 > nav,
-  h2 > nav,
-  h3 > nav,
-  h1 > abbr > oscd-icon-button,
-  h2 > abbr > oscd-icon-button,
-  h3 > abbr > oscd-icon-button {
+  h1 > abbr > oscd-icon-button {
     float: right;
   }
 
@@ -342,7 +326,7 @@ export const styles = css`
     text-decoration: none !important;
   }
 
-  oscd-list-item[type='text'] {
+  oscd-list-item.control > div[slot='headline'] {
     font-weight: 500;
   }
 `;

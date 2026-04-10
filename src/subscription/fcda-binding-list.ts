@@ -28,7 +28,7 @@ import {
   getFcdaSubtitleValue,
   getFcdaTitleValue,
   newFcdaSelectEvent,
-  styles,
+  sharedStyles,
   SubscriptionChangedEvent,
 } from '../foundation/subscription.js';
 import { getSubscribedExtRefElements } from '../foundation/subscription-later-binding.js';
@@ -40,12 +40,6 @@ import {
 } from '../foundation/control-block-helpers.js';
 
 type controlTag = 'SampledValueControl' | 'GSEControl';
-
-/** Maps control tag to the SCL icon name recognized by unified OscdIcon. */
-const iconControlLookup: Record<controlTag, string> = {
-  GSEControl: 'gooseIcon',
-  SampledValueControl: 'smvIcon',
-};
 
 const controlBlockListTitle: Record<controlTag, string> = {
   GSEControl: 'GOOSE Messages',
@@ -363,24 +357,29 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
       subitem: true,
       'show-subscribed': fcdaCount !== 0,
       'show-not-subscribed': fcdaCount === 0,
+      selected: this.selectedFcdaElement === fcdaElement,
     };
 
     return html`<oscd-list-item
       type="button"
       class="${classMap(filterClasses)}"
       @click=${() => this.onFcdaSelect(controlElement, fcdaElement)}
-      data-value="${identity(controlElement)}
+      data-value="${getFcdaTitleValue(fcdaElement)}
+        ${getFcdaSubtitleValue(fcdaElement)}
+        ${identity(controlElement)}
              ${identity(fcdaElement)}"
     >
       <div slot="headline">${getFcdaTitleValue(fcdaElement)}</div>
       <div slot="supporting-text">${getFcdaSubtitleValue(fcdaElement)}</div>
       <oscd-icon slot="start">subdirectory_arrow_right</oscd-icon>
-      ${fcdaCount !== 0 ? html`<span slot="end">${fcdaCount}</span>` : nothing}
+      ${fcdaCount !== 0
+        ? html`<span slot="end" class="fcda-count">${fcdaCount}</span>`
+        : nothing}
     </oscd-list-item>`;
   }
 
   updateBaseFilterState(): void {
-    if (this.hideSubscribed) {
+    if (!this.hideSubscribed) {
       this.controlBlockList!.classList.add('show-subscribed');
     } else {
       this.controlBlockList!.classList.remove('show-subscribed');
@@ -409,7 +408,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     const menuClasses = {
       'filter-off': this.hideSubscribed || this.hideNotSubscribed,
     };
-    return html`<h1>
+    return html`<h2>
       ${controlBlockListTitle[this.controlTag]}
       <oscd-filter-button
         class="actions-menu-icon ${classMap(menuClasses)}"
@@ -419,7 +418,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
         @filter-button-dialog-close=${(e: FilterButtonDialogCloseEvent) =>
           this.onFilterDialogClose(e)}
       ></oscd-filter-button>
-    </h1> `;
+    </h2> `;
   }
 
   private renderControlBlockMenu(): TemplateResult {
@@ -499,14 +498,11 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
                   : nothing}
               </div>
               <div slot="supporting-text">${identity(controlElement)}</div>
-              <oscd-icon slot="start"
-                >${iconControlLookup[this.controlTag]}</oscd-icon
-              >
             </oscd-list-item>
-            <oscd-divider></oscd-divider>
             ${fcdaElements.map(fcdaElement =>
               this.renderFCDA(controlElement, fcdaElement),
             )}
+            <oscd-divider></oscd-divider>
           `;
         })}
     </filtered-list>`;
@@ -524,9 +520,13 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   static styles = css`
-    ${styles}
+    ${sharedStyles}
 
     oscd-list-item.hidden:not([type='button']) + oscd-divider {
+      display: none;
+    }
+
+    filtered-list.control-block-list > oscd-divider:last-of-type {
       display: none;
     }
 
@@ -541,6 +541,18 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     .actions-menu-icon.filter-off {
       color: var(--secondary);
       background-color: var(--mdc-theme-background);
+    }
+
+    .fcda-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-inline-size: 40px;
+      block-size: 40px;
+      padding: 0 8px;
+      box-sizing: border-box;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
     }
 
     /* Filtering rules for control blocks end up implementing logic to allow
@@ -578,10 +590,6 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
     .interactive {
       pointer-events: all;
-    }
-
-    .subitem {
-      padding-left: 16px;
     }
   `;
 }

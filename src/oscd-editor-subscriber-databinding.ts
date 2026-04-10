@@ -11,7 +11,7 @@ import { OscdOutlinedSegmentedButtonSet } from '@omicronenergy/oscd-ui/labs/segm
 import { Nsdoc, initializeNsdoc } from './foundation/nsdoc.js';
 
 import { FcdaBindingList } from './subscription/fcda-binding-list.js';
-import { ExtRefLnBindingList } from './subscription/later-binding/ext-ref-ln-binding-list.js';
+import { ExtRefLnBindingList } from './subscription/ext-ref-ln-binding-list.js';
 
 type ControlTag = 'GSEControl' | 'SampledValueControl';
 
@@ -116,12 +116,19 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
   }
 
   static styles = css`
+    * {
+      --oscd-primary: var(--oscd-theme-primary, #0b335b);
+      --oscd-base2: var(--oscd-theme-base2, #f3f5f6);
+      --oscd-base3: var(--oscd-theme-base3, white);
+    }
+
     .header {
       display: flex;
       align-items: flex-start;
       gap: 16px;
-      padding: 8px 12px 0;
+      padding: 8px 12px;
       flex-wrap: wrap;
+      background-color: var(--oscd-base2);
     }
 
     .title-group {
@@ -133,13 +140,13 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
       margin: 0;
       font-size: 1.25rem;
       line-height: 1.4;
-      color: var(--mdc-theme-on-surface);
+      color: var(--md-sys-color-on-surface);
       font-weight: 400;
     }
 
     .title-group p {
       margin: 4px 0 0;
-      color: var(--mdc-theme-text-secondary-on-background, #5f6368);
+      color: var(--md-sys-color-on-surface-variant, #5f6368);
       font-size: 0.9rem;
       line-height: 1.35;
     }
@@ -203,6 +210,7 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
       padding: 8px 6px 16px;
       height: calc(100vh - 136px);
       gap: 12px;
+      background-color: var(--oscd-base2);
     }
 
     .column {
