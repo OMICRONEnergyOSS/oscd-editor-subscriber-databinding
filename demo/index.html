@@ -45,14 +45,12 @@
         editor.setAttribute(name, value);
       }
 
-      const sample = await fetch('sample.scd').then(r => r.text());
+      const filename = 'sample.scd';
+      const sample = await fetch(filename).then(r => r.text());
       editor.docs = {
-        ['sample.scd']: new DOMParser().parseFromString(
-          sample,
-          'application/xml',
-        ),
+        [filename]: new DOMParser().parseFromString(sample, 'application/xml'),
       };
-      editor.docName = 'sample.scd';
+      editor.docName = filename;
     </script>
   </body>
 </html>

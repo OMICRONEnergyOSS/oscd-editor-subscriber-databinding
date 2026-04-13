@@ -19,7 +19,7 @@ import type { EditV2 } from '@openscd/oscd-api';
 import { newEditEventV2 } from '@openscd/oscd-api/utils.js';
 
 import type { Nsdoc } from '../foundation/nsdoc.js';
-import { FilteredList } from '../foundation/filtered-list.js';
+import { VirtualizedFilteredList } from '../foundation/virtualized-filtered-list.js';
 
 import {
   FcdaSelectEvent,
@@ -30,16 +30,67 @@ import {
 } from '../foundation/subscription.js';
 import { getSubscribedExtRefElements } from '../foundation/subscription-later-binding.js';
 
+interface SectionRow {
+  type: 'section';
+  key: string;
+  headline: string;
+}
+
+interface DividerRow {
+  type: 'divider';
+  key: string;
+}
+
+interface EmptyRow {
+  type: 'empty';
+  key: string;
+  headline: string;
+}
+
+interface SubscribedLnRow {
+  type: 'subscribed-ln';
+  key: string;
+  lnElement: Element;
+}
+
+interface AvailableLnRow {
+  type: 'available-ln';
+  key: string;
+  lnElement: Element;
+}
+
+type ExtRefVirtualRow =
+  | SectionRow
+  | DividerRow
+  | EmptyRow
+  | SubscribedLnRow
+  | AvailableLnRow;
+
+interface PartitionedLnElements {
+  subscribed: Element[];
+  available: Element[];
+}
+
+interface LnBindingGroupConfig<
+  RowType extends 'subscribed-ln' | 'available-ln',
+> {
+  emptyHeadline: string;
+  headline: string;
+  keyPrefix: 'subscribed' | 'available';
+  rowType: RowType;
+  lnElements: Element[];
+}
+
 /**
  * A sub element for showing all Ext Refs from a FCDA Element.
  * The List reacts on a custom event to know which FCDA Element was selected and updated the view.
  */
 export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
   static scopedElements = {
-    'filtered-list': FilteredList,
     'oscd-icon': OscdIcon,
     'oscd-list-item': OscdListItem,
     'oscd-divider': OscdDivider,
+    'virtualized-filtered-list': VirtualizedFilteredList,
   };
 
   @property({ attribute: false })
@@ -65,13 +116,23 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
 
   private boundFcdaSelectHandler = this.onFcdaSelectEvent.bind(this);
 
+  private rowSearchValue(lnElement: Element): string {
+    return `${this.buildLNTitle(lnElement)} ${identity(
+      lnElement.closest('LDevice'),
+    )} ${identity(lnElement)}`;
+  }
+
+  private matchesRowSearch(row: ExtRefVirtualRow, regex: RegExp): boolean {
+    if (row.type === 'subscribed-ln' || row.type === 'available-ln') {
+      return regex.test(this.rowSearchValue(row.lnElement));
+    }
+
+    return true;
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // In legacy, this ran in the constructor where global registration meant
-    // the element was already in the DOM. With ScopedElementsMixin the
-    // constructor runs before the element is connected, so
-    // this.closest('.container') would return null. We move it here.
     const parentDiv = this.closest('.container');
     if (parentDiv) {
       parentDiv.addEventListener('fcda-select', this.boundFcdaSelectHandler);
@@ -102,32 +163,35 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
         this.doc.querySelectorAll('LDevice > LN0, LDevice > LN'),
       ).filter(element => element.closest('IED') !== this.currentIedElement);
     }
+
     return [];
   }
 
-  private getSubscribedLNElements(): Element[] {
-    return this.getLNElements().filter(
-      element =>
-        getSubscribedExtRefElements(
-          element,
-          this.controlTag,
-          this.currentSelectedFcdaElement,
-          this.currentSelectedControlElement,
-          false,
-        ).length > 0,
-    );
+  private getPartitionedLNElements(): PartitionedLnElements {
+    const subscribed: Element[] = [];
+    const available: Element[] = [];
+
+    for (const lnElement of this.getLNElements()) {
+      if (this.getSubscribedExtRefs(lnElement, 'classification').length > 0) {
+        subscribed.push(lnElement);
+      } else {
+        available.push(lnElement);
+      }
+    }
+
+    return { subscribed, available };
   }
 
-  private getAvailableLNElements(): Element[] {
-    return this.getLNElements().filter(
-      element =>
-        getSubscribedExtRefElements(
-          element,
-          this.controlTag,
-          this.currentSelectedFcdaElement,
-          this.currentSelectedControlElement,
-          false,
-        ).length == 0,
+  private getSubscribedExtRefs(
+    lnElement: Element,
+    _phase: 'classification' | 'row',
+  ): Element[] {
+    return getSubscribedExtRefElements(
+      lnElement,
+      this.controlTag,
+      this.currentSelectedFcdaElement,
+      this.currentSelectedControlElement,
+      false,
     );
   }
 
@@ -135,8 +199,6 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
     this.currentSelectedControlElement = event.detail.control;
     this.currentSelectedFcdaElement = event.detail.fcda;
 
-    // Retrieve the IED Element to which the FCDA belongs.
-    // These LN Elements will be excluded.
     this.currentIedElement = this.currentSelectedFcdaElement
       ? (this.currentSelectedFcdaElement.closest('IED') ?? undefined)
       : undefined;
@@ -233,13 +295,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   private renderSubscribedLN(lnElement: Element): TemplateResult {
-    const extRefs = getSubscribedExtRefElements(
-      lnElement,
-      this.controlTag,
-      this.currentSelectedFcdaElement,
-      this.currentSelectedControlElement,
-      false,
-    );
+    const extRefs = this.getSubscribedExtRefs(lnElement, 'row');
     const supervisionNode = getExistingSupervision(extRefs[0]);
     return html`<oscd-list-item
       type="button"
@@ -273,93 +329,141 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
     >`;
   }
 
-  private renderSubscribedLNs(): TemplateResult {
-    const subscribedLNs = this.getSubscribedLNElements();
-    return html`
-      <oscd-list-item
-        data-value="${subscribedLNs
-          .map(
-            lnElement =>
-              this.buildLNTitle(lnElement) +
-              ' ' +
-              identity(lnElement.closest('LDevice')),
-          )
-          .join(' ')}"
-      >
-        <div slot="headline">${msg('Subscribed')}</div>
-      </oscd-list-item>
-      <oscd-divider></oscd-divider>
-      ${subscribedLNs.length > 0
-        ? html`${subscribedLNs.map(lN => this.renderSubscribedLN(lN))}`
-        : html`<oscd-list-item>
-            <div slot="headline">${msg('No subscribed logical nodes')}</div>
-          </oscd-list-item>`}
-    `;
+  private renderAvailableLN(lnElement: Element): TemplateResult {
+    return html`<oscd-list-item
+      type="button"
+      style="inline-size: 100%;"
+      ?disabled=${this.bindingNotSupported(lnElement)}
+      data-value="${identity(lnElement)}"
+      @click=${() => {
+        const edits = this.subscribeEdits(lnElement);
+        if (edits) {
+          this.dispatchEvent(
+            newEditEventV2(edits, {
+              title: msg('Connect data attribute'),
+            }),
+          );
+          this.dispatchEvent(
+            newSubscriptionChangedEvent(
+              this.currentSelectedControlElement,
+              this.currentSelectedFcdaElement,
+            ),
+          );
+        }
+      }}
+    >
+      <div slot="headline">${this.buildLNTitle(lnElement)}</div>
+      <div slot="supporting-text">
+        ${identity(lnElement.closest('LDevice'))}
+      </div>
+      <oscd-icon slot="start">add</oscd-icon>
+    </oscd-list-item>`;
   }
 
-  private renderAvailableLNs(): TemplateResult {
-    const availableLNs = this.getAvailableLNElements();
-    return html`
-      <oscd-list-item
-        data-value="${availableLNs
-          .map(
-            lnElement =>
-              this.buildLNTitle(lnElement) +
-              ' ' +
-              identity(lnElement.closest('LDevice')),
-          )
-          .join(' ')}"
-      >
-        <div slot="headline">${msg('Available to subscribe')}</div>
-      </oscd-list-item>
-      <oscd-divider></oscd-divider>
-      ${availableLNs.length > 0
-        ? html`${availableLNs.map(
-            lnElement =>
-              html` <oscd-list-item
-                type="button"
-                ?disabled=${this.bindingNotSupported(lnElement)}
-                data-value="${identity(lnElement)}"
-                @click=${() => {
-                  const edits = this.subscribeEdits(lnElement);
-                  if (edits) {
-                    this.dispatchEvent(
-                      newEditEventV2(edits, {
-                        title: msg('Connect data attribute'),
-                      }),
-                    );
-                    this.dispatchEvent(
-                      newSubscriptionChangedEvent(
-                        this.currentSelectedControlElement,
-                        this.currentSelectedFcdaElement,
-                      ),
-                    );
-                  }
-                }}
-              >
-                <div slot="headline">${this.buildLNTitle(lnElement)}</div>
-                <div slot="supporting-text">
-                  ${identity(lnElement.closest('LDevice'))}
-                </div>
-                <oscd-icon slot="start">add</oscd-icon>
-              </oscd-list-item>`,
-          )}`
-        : html`<oscd-list-item>
-            <div slot="headline">
-              ${msg('No available logical nodes to subscribe')}
-            </div>
-          </oscd-list-item>`}
-    `;
+  private buildLnBindingGroup<RowType extends 'subscribed-ln' | 'available-ln'>(
+    config: LnBindingGroupConfig<RowType>,
+  ): ExtRefVirtualRow[] {
+    const result: ExtRefVirtualRow[] = [
+      {
+        type: 'section',
+        key: `${config.keyPrefix}-header`,
+        headline: config.headline,
+      },
+      {
+        type: 'divider',
+        key: `${config.keyPrefix}-divider`,
+      },
+    ];
+
+    if (config.lnElements.length > 0) {
+      result.push(
+        ...config.lnElements.map(
+          lnElement =>
+            ({
+              type: config.rowType,
+              key: `${config.keyPrefix}-${identity(lnElement)}`,
+              lnElement,
+            }) as ExtRefVirtualRow,
+        ),
+      );
+    } else {
+      result.push({
+        type: 'empty',
+        key: `${config.keyPrefix}-empty`,
+        headline: config.emptyHeadline,
+      });
+    }
+
+    return result;
+  }
+
+  private buildSubscribedLnGroup(subscribedLNs: Element[]): ExtRefVirtualRow[] {
+    return this.buildLnBindingGroup({
+      emptyHeadline: msg('No subscribed logical nodes'),
+      headline: msg('Subscribed'),
+      keyPrefix: 'subscribed',
+      rowType: 'subscribed-ln',
+      lnElements: subscribedLNs,
+    });
+  }
+
+  private buildAvailableLnGroup(availableLNs: Element[]): ExtRefVirtualRow[] {
+    return this.buildLnBindingGroup({
+      emptyHeadline: msg('No available logical nodes to subscribe'),
+      headline: msg('Available to subscribe'),
+      keyPrefix: 'available',
+      rowType: 'available-ln',
+      lnElements: availableLNs,
+    });
+  }
+
+  private renderVirtualRow(row: ExtRefVirtualRow): TemplateResult {
+    if (row.type === 'section') {
+      return html`<oscd-list-item style="inline-size: 100%;">
+        <div slot="headline">${row.headline}</div>
+      </oscd-list-item>`;
+    }
+
+    if (row.type === 'divider') {
+      return html`<oscd-divider style="inline-size: 100%;"></oscd-divider>`;
+    }
+
+    if (row.type === 'empty') {
+      return html`<oscd-list-item style="inline-size: 100%;">
+        <div slot="headline">${row.headline}</div>
+      </oscd-list-item>`;
+    }
+
+    return row.type === 'subscribed-ln'
+      ? this.renderSubscribedLN(row.lnElement)
+      : this.renderAvailableLN(row.lnElement);
   }
 
   render(): TemplateResult {
+    const partitionedLNs =
+      this.currentSelectedControlElement && this.currentSelectedFcdaElement
+        ? this.getPartitionedLNElements()
+        : null;
+    const rows = partitionedLNs
+      ? [
+          ...this.buildSubscribedLnGroup(partitionedLNs.subscribed),
+          ...this.buildAvailableLnGroup(partitionedLNs.available),
+        ]
+      : [];
+
     return html` <section>
       ${this.currentSelectedControlElement && this.currentSelectedFcdaElement
         ? html`
             ${this.renderTitle()}
-            <filtered-list>
-              ${this.renderSubscribedLNs()} ${this.renderAvailableLNs()}
-            </filtered-list>
+            <virtualized-filtered-list
+              class="list-container"
+              .items=${rows}
+              .keyFunction=${(row: unknown) => (row as ExtRefVirtualRow).key}
+              .renderItem=${(row: unknown) =>
+                this.renderVirtualRow(row as ExtRefVirtualRow)}
+              .matchItem=${(row: unknown, regex: RegExp) =>
+                this.matchesRowSearch(row as ExtRefVirtualRow, regex)}
+            ></virtualized-filtered-list>
           `
         : this.renderEmptyState()}
     </section>`;
@@ -370,10 +474,13 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
 
     section {
       height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
-    oscd-list-item.hidden:not([type='button']) + oscd-divider {
-      display: none;
+    .list-container {
+      flex: 1 1 auto;
+      min-height: 0;
     }
 
     .empty-state {

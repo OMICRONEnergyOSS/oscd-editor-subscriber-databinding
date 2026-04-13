@@ -20,18 +20,18 @@ import { newEditEventV2 } from '@openscd/oscd-api/utils.js';
 import {
   getDescriptionAttribute,
   getNameAttribute,
+  getSclSchemaVersion,
 } from '../foundation/scl.js';
 import { newEditDialogEditEvent } from '@omicronenergy/oscd-scl-dialogs/oscd-scl-dialogs-events.js';
-import { FilteredList } from '../foundation/filtered-list.js';
 
 import {
   getFcdaSubtitleValue,
   getFcdaTitleValue,
   newFcdaSelectEvent,
+  serviceTypes,
   sharedStyles,
-  SubscriptionChangedEvent,
 } from '../foundation/subscription.js';
-import { getSubscribedExtRefElements } from '../foundation/subscription-later-binding.js';
+import { VirtualizedFilteredList } from '../foundation/virtualized-filtered-list.js';
 import {
   getAssociatedDataSet,
   getAssociatedCommunication,
@@ -40,6 +40,28 @@ import {
 } from '../foundation/control-block-helpers.js';
 
 type controlTag = 'SampledValueControl' | 'GSEControl';
+
+interface SubscriptionCountEntry {
+  total: number;
+  bySinkIedName: Map<string, number>;
+}
+
+interface ControlRow {
+  type: 'control';
+  key: string;
+  controlElement: Element;
+  searchText: string;
+}
+
+interface FcdaRow {
+  type: 'fcda';
+  key: string;
+  controlElement: Element;
+  fcdaElement: Element;
+  searchText: string;
+}
+
+type VirtualRow = ControlRow | FcdaRow;
 
 const controlBlockListTitle: Record<controlTag, string> = {
   GSEControl: 'GOOSE Messages',
@@ -58,7 +80,6 @@ const removeActionTitle: Record<controlTag, string> = {
  */
 export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   static scopedElements = {
-    'filtered-list': FilteredList,
     'oscd-icon': OscdIcon,
     'oscd-icon-button': OscdIconButton,
     'oscd-list-item': OscdListItem,
@@ -66,6 +87,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     'oscd-menu': OscdMenu,
     'oscd-menu-item': OscdMenuItem,
     'oscd-divider': OscdDivider,
+    'virtualized-filtered-list': VirtualizedFilteredList,
   };
 
   @property({ attribute: false })
@@ -111,14 +133,13 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   set hideSubscribed(value: boolean) {
-    const oldValue = this.hideSubscribed;
     localStorage.setItem(
       `fcda-binding-list-${
         this.includeLaterBinding ? 'later-binding' : 'data-binding'
       }-${this.controlTag}$hideSubscribed`,
       `${value}`,
     );
-    this.requestUpdate('hideSubscribed', oldValue);
+    this.requestUpdate();
   }
 
   @property({
@@ -138,18 +159,17 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   }
 
   set hideNotSubscribed(value: boolean) {
-    const oldValue = this.hideNotSubscribed;
     localStorage.setItem(
       `fcda-binding-list-${
         this.includeLaterBinding ? 'later-binding' : 'data-binding'
       }-${this.controlTag}$hideNotSubscribed`,
       `${value}`,
     );
-    this.requestUpdate('hideNotSubscribed', oldValue);
+    this.requestUpdate();
   }
 
-  @query('.control-block-list') controlBlockList!: FilteredList;
   @query('.control-block-menu') private controlBlockMenu!: OscdMenu;
+  private subscriptionCountIndex = new Map<string, SubscriptionCountEntry>();
 
   private get filterItems(): SelectItem[] {
     return [
@@ -164,40 +184,11 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     ];
   }
 
-  private boundResetExtRefCount = this.resetExtRefCount.bind(this);
-
   constructor() {
     super();
 
     this.resetSelection = this.resetSelection.bind(this);
     parent.addEventListener('open-doc', this.resetSelection);
-  }
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    // In the original monorepo version, this ran in the constructor where global registration meant
-    // the element was already in the DOM. With ScopedElementsMixin the
-    // constructor runs before the element is connected, so
-    // this.closest('.container') would return null. We move it here.
-    const parentDiv = this.closest('.container');
-    if (parentDiv) {
-      parentDiv.addEventListener(
-        'subscription-changed',
-        this.boundResetExtRefCount,
-      );
-    }
-  }
-
-  override disconnectedCallback(): void {
-    const parentDiv = this.closest('.container');
-    if (parentDiv) {
-      parentDiv.removeEventListener(
-        'subscription-changed',
-        this.boundResetExtRefCount,
-      );
-    }
-    super.disconnectedCallback();
   }
 
   private getControlElements(): Element[] {
@@ -221,13 +212,107 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     return [];
   }
 
-  private resetExtRefCount(event: SubscriptionChangedEvent): void {
-    if (event.detail.control && event.detail.fcda) {
-      const controlBlockFcdaId = `${identity(event.detail.control)} ${identity(
-        event.detail.fcda,
-      )}`;
-      this.extRefCounters.delete(controlBlockFcdaId);
+  private createSubscriptionCountKey(values: string[]): string {
+    return values.join('\u001F');
+  }
+
+  private getControlSourceValues(controlElement: Element): string[] {
+    const lDeviceElement = controlElement.closest('LDevice');
+    const lnElement = controlElement.closest('LN0, LN');
+
+    return [
+      serviceTypes[this.controlTag] ?? '',
+      lDeviceElement?.getAttribute('inst') ?? '',
+      lnElement?.getAttribute('prefix') ?? '',
+      lnElement?.getAttribute('lnClass') ?? 'LLN0',
+      lnElement?.getAttribute('inst') ?? '',
+      controlElement.getAttribute('name') ?? '',
+    ];
+  }
+
+  private getSubscriptionCountKeyForFcda(
+    fcdaElement: Element,
+    controlElement: Element,
+  ): string {
+    const keyParts = [
+      fcdaElement.closest('IED')?.getAttribute('name') ?? '',
+      fcdaElement.getAttribute('ldInst') ?? '',
+      fcdaElement.getAttribute('prefix') ?? '',
+      fcdaElement.getAttribute('lnClass') ?? '',
+      fcdaElement.getAttribute('lnInst') ?? '',
+      fcdaElement.getAttribute('doName') ?? '',
+      fcdaElement.getAttribute('daName') ?? '',
+    ];
+
+    if (getSclSchemaVersion(this.doc) !== '2003') {
+      keyParts.push(...this.getControlSourceValues(controlElement));
     }
+
+    return this.createSubscriptionCountKey(keyParts);
+  }
+
+  private getSubscriptionCountKeyForExtRef(extRefElement: Element): string {
+    const keyParts = [
+      extRefElement.getAttribute('iedName') ?? '',
+      extRefElement.getAttribute('ldInst') ?? '',
+      extRefElement.getAttribute('prefix') ?? '',
+      extRefElement.getAttribute('lnClass') ?? '',
+      extRefElement.getAttribute('lnInst') ?? '',
+      extRefElement.getAttribute('doName') ?? '',
+      extRefElement.getAttribute('daName') ?? '',
+    ];
+
+    if (getSclSchemaVersion(this.doc) !== '2003') {
+      keyParts.push(
+        extRefElement.getAttribute('serviceType') ?? '',
+        extRefElement.getAttribute('srcLDInst') ?? '',
+        extRefElement.getAttribute('srcPrefix') ?? '',
+        extRefElement.getAttribute('srcLNClass') ?? 'LLN0',
+        extRefElement.getAttribute('srcLNInst') ?? '',
+        extRefElement.getAttribute('srcCBName') ?? '',
+      );
+    }
+
+    return this.createSubscriptionCountKey(keyParts);
+  }
+
+  private buildSubscriptionCountIndex(): void {
+    const subscriptionCountIndex = new Map<string, SubscriptionCountEntry>();
+    if (!this.doc) {
+      this.subscriptionCountIndex = subscriptionCountIndex;
+      return;
+    }
+
+    const isEdition2003 = getSclSchemaVersion(this.doc) === '2003';
+    const extRefElements = Array.from(
+      this.doc.querySelectorAll('ExtRef'),
+    ).filter(
+      element =>
+        ((this.includeLaterBinding && element.hasAttribute('intAddr')) ||
+          (!this.includeLaterBinding && !element.hasAttribute('intAddr'))) &&
+        (isEdition2003 ||
+          element.getAttribute('serviceType') ===
+            serviceTypes[this.controlTag]),
+    );
+
+    extRefElements.forEach(extRefElement => {
+      const key = this.getSubscriptionCountKeyForExtRef(extRefElement);
+      const sinkIedName =
+        extRefElement.closest('IED')?.getAttribute('name') ?? '';
+      const existingEntry = subscriptionCountIndex.get(key) ?? {
+        total: 0,
+        bySinkIedName: new Map<string, number>(),
+      };
+
+      existingEntry.total += 1;
+      existingEntry.bySinkIedName.set(
+        sinkIedName,
+        (existingEntry.bySinkIedName.get(sinkIedName) ?? 0) + 1,
+      );
+      subscriptionCountIndex.set(key, existingEntry);
+    });
+
+    this.subscriptionCountIndex = subscriptionCountIndex;
   }
 
   private getExtRefCount(
@@ -238,13 +323,15 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
       fcdaElement,
     )}`;
     if (!this.extRefCounters.has(controlBlockFcdaId)) {
-      const extRefCount = getSubscribedExtRefElements(
-        <Element>this.doc.getRootNode(),
-        this.controlTag,
-        fcdaElement,
-        controlElement!,
-        this.includeLaterBinding,
-      ).length;
+      const sourceIedName =
+        fcdaElement.closest('IED')?.getAttribute('name') ?? '';
+      const subscriptionCountEntry = this.subscriptionCountIndex.get(
+        this.getSubscriptionCountKeyForFcda(fcdaElement, controlElement),
+      );
+      const extRefCount = subscriptionCountEntry
+        ? subscriptionCountEntry.total -
+          (subscriptionCountEntry.bySinkIedName.get(sourceIedName) ?? 0)
+        : 0;
       this.extRefCounters.set(controlBlockFcdaId, extRefCount);
     }
     return this.extRefCounters.get(controlBlockFcdaId);
@@ -326,8 +413,13 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
     // Reset cached subscription counts before rendering against a new document
     // so Lit does not need to schedule a second update.
-    if (_changedProperties.has('doc')) {
+    if (
+      _changedProperties.has('doc') ||
+      _changedProperties.has('docVersion') ||
+      _changedProperties.has('controlTag')
+    ) {
       this.extRefCounters = new Map();
+      this.buildSubscriptionCountIndex();
     }
   }
 
@@ -363,11 +455,12 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     return html`<oscd-list-item
       type="button"
       class="${classMap(filterClasses)}"
+      style="inline-size: 100%;"
       @click=${() => this.onFcdaSelect(controlElement, fcdaElement)}
       data-value="${getFcdaTitleValue(fcdaElement)}
         ${getFcdaSubtitleValue(fcdaElement)}
         ${identity(controlElement)}
-             ${identity(fcdaElement)}"
+        ${identity(fcdaElement)}"
     >
       <div slot="headline">${getFcdaTitleValue(fcdaElement)}</div>
       <div slot="supporting-text">${getFcdaSubtitleValue(fcdaElement)}</div>
@@ -378,30 +471,12 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     </oscd-list-item>`;
   }
 
-  updateBaseFilterState(): void {
-    if (!this.hideSubscribed) {
-      this.controlBlockList!.classList.add('show-subscribed');
-    } else {
-      this.controlBlockList!.classList.remove('show-subscribed');
-    }
-    if (!this.hideNotSubscribed) {
-      this.controlBlockList!.classList.add('show-not-subscribed');
-    } else {
-      this.controlBlockList!.classList.remove('show-not-subscribed');
-    }
-  }
-
   private onFilterDialogClose(event: FilterButtonDialogCloseEvent): void {
-    // OscdFilterButton extends OscdSelectionList which mutates its .items
-    // in-place on click. Read the selected state back from the component.
+    event.stopPropagation();
+    event.preventDefault();
     const filterButton = event.target as HTMLElement & { items: SelectItem[] };
     this.hideSubscribed = !filterButton.items[0]?.selected;
     this.hideNotSubscribed = !filterButton.items[1]?.selected;
-    this.updateBaseFilterState();
-  }
-
-  protected firstUpdated(): void {
-    this.updateBaseFilterState();
   }
 
   renderTitle(): TemplateResult {
@@ -454,63 +529,114 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     </oscd-menu>`;
   }
 
+  private renderControlRow(row: ControlRow): TemplateResult {
+    return html`
+      <oscd-list-item
+        class="control"
+        style="inline-size: 100%;"
+        data-value="${row.searchText}"
+      >
+        <oscd-icon-button
+          slot="end"
+          class="interactive"
+          @click=${(e: Event) => this.openControlMenu(e, row.controlElement)}
+          ><oscd-icon>more_vert</oscd-icon></oscd-icon-button
+        >
+        <div slot="headline">
+          ${getNameAttribute(row.controlElement)}
+          ${getDescriptionAttribute(row.controlElement)
+            ? html`${getDescriptionAttribute(row.controlElement)}`
+            : nothing}
+        </div>
+        <div slot="supporting-text">${identity(row.controlElement)}</div>
+      </oscd-list-item>
+    `;
+  }
+
+  private renderVirtualRow(row: VirtualRow): TemplateResult {
+    return row.type === 'control'
+      ? this.renderControlRow(row)
+      : this.renderFCDA(row.controlElement, row.fcdaElement);
+  }
+
+  private matchesRowSearch(row: VirtualRow, regex: RegExp): boolean {
+    return regex.test(row.searchText);
+  }
+
+  private buildVirtualRows(controlElements: Element[]): VirtualRow[] {
+    const rows: VirtualRow[] = [];
+
+    controlElements
+      .filter(controlElement => this.getFcdaElements(controlElement).length)
+      .forEach(controlElement => {
+        const fcdaElements = this.getFcdaElements(controlElement);
+        const fcdaRows = fcdaElements
+          .map(fcdaElement => {
+            const fcdaCount = this.getExtRefCount(fcdaElement, controlElement);
+            const showSubscribed = fcdaCount !== 0;
+            const matchesSubscriptionFilter =
+              (!this.hideSubscribed && showSubscribed) ||
+              (!this.hideNotSubscribed && !showSubscribed);
+
+            if (!matchesSubscriptionFilter) {
+              return null;
+            }
+
+            const searchText = `${getFcdaTitleValue(fcdaElement)}
+              ${getFcdaSubtitleValue(fcdaElement)}
+              ${identity(controlElement)}
+              ${identity(fcdaElement)}`;
+
+            return {
+              type: 'fcda' as const,
+              key: `fcda-${identity(controlElement)}-${identity(fcdaElement)}`,
+              controlElement,
+              fcdaElement,
+              searchText,
+            };
+          })
+          .filter((row): row is FcdaRow => row !== null);
+
+        if (fcdaRows.length === 0) {
+          return;
+        }
+
+        const searchText = `${identity(controlElement)}${fcdaElements
+          .map(
+            fcdaElement => `
+              ${getFcdaTitleValue(fcdaElement)}
+              ${getFcdaSubtitleValue(fcdaElement)}
+              ${identity(fcdaElement)}`,
+          )
+          .join('')}`;
+
+        rows.push({
+          type: 'control',
+          key: `control-${identity(controlElement)}`,
+          controlElement,
+          searchText,
+        });
+        rows.push(...fcdaRows);
+      });
+
+    return rows;
+  }
+
   renderControls(controlElements: Element[]): TemplateResult {
-    return html`<filtered-list class="control-block-list" activatable>
-      ${controlElements
-        .filter(controlElement => this.getFcdaElements(controlElement).length)
-        .map(controlElement => {
-          const fcdaElements = this.getFcdaElements(controlElement);
-          const showSubscribed = fcdaElements.some(
-            fcda => this.getExtRefCount(fcda, controlElement) !== 0,
-          );
-          const showNotSubscribed = fcdaElements.some(
-            fcda => this.getExtRefCount(fcda, controlElement) === 0,
-          );
-
-          const filterClasses = {
-            control: true,
-            'show-subscribed': showSubscribed,
-            'show-not-subscribed': showNotSubscribed,
-          };
-
-          return html`
-            <oscd-list-item
-              class="${classMap(filterClasses)}"
-              data-value="${identity(controlElement)}${fcdaElements
-                .map(
-                  fcdaElement => `
-                        ${getFcdaTitleValue(fcdaElement)}
-                        ${getFcdaSubtitleValue(fcdaElement)}
-                        ${identity(fcdaElement)}`,
-                )
-                .join('')}"
-            >
-              <oscd-icon-button
-                slot="end"
-                class="interactive"
-                @click=${(e: Event) => this.openControlMenu(e, controlElement)}
-                ><oscd-icon>more_vert</oscd-icon></oscd-icon-button
-              >
-              <div slot="headline">
-                ${getNameAttribute(controlElement)}
-                ${getDescriptionAttribute(controlElement)
-                  ? html`${getDescriptionAttribute(controlElement)}`
-                  : nothing}
-              </div>
-              <div slot="supporting-text">${identity(controlElement)}</div>
-            </oscd-list-item>
-            ${fcdaElements.map(fcdaElement =>
-              this.renderFCDA(controlElement, fcdaElement),
-            )}
-            <oscd-divider></oscd-divider>
-          `;
-        })}
-    </filtered-list>`;
+    const rows = this.buildVirtualRows(controlElements);
+    return html`<virtualized-filtered-list
+      class="control-block-list"
+      .items=${rows}
+      .keyFunction=${(row: unknown) => (row as VirtualRow).key}
+      .renderItem=${(row: unknown) => this.renderVirtualRow(row as VirtualRow)}
+      .matchItem=${(row: unknown, regex: RegExp) =>
+        this.matchesRowSearch(row as VirtualRow, regex)}
+    ></virtualized-filtered-list>`;
   }
 
   render(): TemplateResult {
     const controlElements = this.getControlElements();
-    return html`<section tabindex="0">
+    return html`<section>
       ${this.renderTitle()}
       ${controlElements
         ? this.renderControls(controlElements)
@@ -522,16 +648,16 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   static styles = css`
     ${sharedStyles}
 
-    oscd-list-item.hidden:not([type='button']) + oscd-divider {
-      display: none;
-    }
-
-    filtered-list.control-block-list > oscd-divider:last-of-type {
-      display: none;
+    .control-block-list {
+      flex: 1 1 auto;
+      min-height: 0;
     }
 
     section {
       position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .actions-menu-icon {
@@ -541,55 +667,6 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     .actions-menu-icon.filter-off {
       color: var(--secondary);
       background-color: var(--mdc-theme-background);
-    }
-
-    .fcda-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-inline-size: 40px;
-      block-size: 40px;
-      padding: 0 8px;
-      box-sizing: border-box;
-      font-variant-numeric: tabular-nums;
-      text-align: center;
-    }
-
-    /* Filtering rules for control blocks end up implementing logic to allow
-    very fast CSS response. The following rules appear to be minimal but can be
-    hard to understand intuitively for the multiple conditions. If modifying,
-    it is suggested to create a truth-table to check for side-effects */
-
-    /* remove all control blocks if no filters */
-    filtered-list.control-block-list:not(.show-subscribed, .show-not-subscribed)
-      oscd-list-item {
-      display: none;
-    }
-
-    /* remove control blocks taking care to respect multiple conditions */
-    filtered-list.control-block-list.show-not-subscribed:not(.show-subscribed)
-      oscd-list-item.control.show-subscribed:not(.show-not-subscribed) {
-      display: none;
-    }
-
-    filtered-list.control-block-list.show-subscribed:not(.show-not-subscribed)
-      oscd-list-item.control.show-not-subscribed:not(.show-subscribed) {
-      display: none;
-    }
-
-    /* remove fcdas if not part of filter */
-    filtered-list.control-block-list:not(.show-not-subscribed)
-      oscd-list-item.subitem.show-not-subscribed {
-      display: none;
-    }
-
-    filtered-list.control-block-list:not(.show-subscribed)
-      oscd-list-item.subitem.show-subscribed {
-      display: none;
-    }
-
-    .interactive {
-      pointer-events: all;
     }
   `;
 }

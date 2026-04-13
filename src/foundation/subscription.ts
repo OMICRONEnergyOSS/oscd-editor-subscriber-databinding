@@ -308,13 +308,6 @@ export const sharedStyles = css`
     transition: background-color 150ms linear;
   }
 
-  filtered-list > oscd-list-item.selected {
-    --md-sys-color-on-surface: var(--oscd-base3);
-    --md-sys-color-on-surface-variant: var(--oscd-base2);
-    background-color: var(--oscd-primary);
-    transition: background-color 200ms linear;
-  }
-
   h1 > nav,
   h1 > abbr > oscd-icon-button {
     float: right;
@@ -333,9 +326,6 @@ export const sharedStyles = css`
 
 declare global {
   interface ElementEventMap {
-    ['view']: ViewEvent;
-    ['ied-select']: IEDSelectEvent;
     ['fcda-select']: FcdaSelectEvent;
-    ['subscription-changed']: SubscriptionChangedEvent;
   }
 }

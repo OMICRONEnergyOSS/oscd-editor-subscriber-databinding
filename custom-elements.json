@@ -1274,7 +1274,7 @@
         {
           "kind": "variable",
           "name": "sharedStyles",
-          "default": "css` section { background-color: var(--mdc-theme-surface); transition: all 200ms linear; outline-color: var(--mdc-theme-primary); outline-style: solid; outline-width: 0px; opacity: 1; } section:focus { box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); } h2 { color: var(--md-sys-color-on-surface); font-family: 'Roboto', sans-serif; font-weight: 300; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0px; line-height: 48px; padding-left: 0.3em; transition: background-color 150ms linear; } filtered-list > oscd-list-item.selected { --md-sys-color-on-surface: var(--oscd-base3); --md-sys-color-on-surface-variant: var(--oscd-base2); background-color: var(--oscd-primary); transition: background-color 200ms linear; } h1 > nav, h1 > abbr > oscd-icon-button { float: right; } abbr[title] { border-bottom: none !important; cursor: inherit !important; text-decoration: none !important; } oscd-list-item.control > div[slot='headline'] { font-weight: 500; } `",
+          "default": "css` section { background-color: var(--mdc-theme-surface); transition: all 200ms linear; outline-color: var(--mdc-theme-primary); outline-style: solid; outline-width: 0px; opacity: 1; } section:focus { box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); } h2 { color: var(--md-sys-color-on-surface); font-family: 'Roboto', sans-serif; font-weight: 300; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0px; line-height: 48px; padding-left: 0.3em; transition: background-color 150ms linear; } h1 > nav, h1 > abbr > oscd-icon-button { float: right; } abbr[title] { border-bottom: none !important; cursor: inherit !important; text-decoration: none !important; } oscd-list-item.control > div[slot='headline'] { font-weight: 500; } `",
           "description": "Common `CSS` styles used by DataTypeTemplate subeditors"
         }
       ],
@@ -1403,6 +1403,143 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/foundation/virtualized-filtered-list.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VirtualizedFilteredList",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'oscd-icon': OscdIcon, 'oscd-icon-button': OscdIconButton, 'oscd-list': OscdList, 'oscd-list-item': OscdListItem, 'oscd-divider': OscdDivider, 'oscd-outlined-text-field': OscdOutlinedTextField, }"
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "unknown[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "renderItem",
+              "type": {
+                "text": "(item: unknown) => TemplateResult"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "keyFunction",
+              "type": {
+                "text": "(item: unknown) => string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "matchItem",
+              "type": {
+                "text": "(item: unknown, regex: RegExp) => boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "'search'",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "searchValue",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "searchField",
+              "type": {
+                "text": "HTMLElement & { value: string } | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "onInput",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "clearSearch",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "unknown[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "'search'",
+              "fieldName": "placeholder"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VirtualizedFilteredList",
+          "declaration": {
+            "name": "VirtualizedFilteredList",
+            "module": "src/foundation/virtualized-filtered-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/subscription/ext-ref-ln-binding-list.ts",
       "declarations": [
         {
@@ -1417,7 +1554,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ 'filtered-list': FilteredList, 'oscd-icon': OscdIcon, 'oscd-list-item': OscdListItem, 'oscd-divider': OscdDivider, }"
+              "default": "{ 'oscd-icon': OscdIcon, 'oscd-list-item': OscdListItem, 'oscd-divider': OscdDivider, 'virtualized-filtered-list': VirtualizedFilteredList, }"
             },
             {
               "kind": "field",
@@ -1477,6 +1614,48 @@
             },
             {
               "kind": "method",
+              "name": "rowSearchValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "matchesRowSearch",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "ExtRefVirtualRow"
+                  }
+                },
+                {
+                  "name": "regex",
+                  "type": {
+                    "text": "RegExp"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "getLNElements",
               "privacy": "private",
               "return": {
@@ -1487,23 +1666,37 @@
             },
             {
               "kind": "method",
-              "name": "getSubscribedLNElements",
+              "name": "getPartitionedLNElements",
               "privacy": "private",
               "return": {
                 "type": {
-                  "text": "Element[]"
+                  "text": "PartitionedLnElements"
                 }
               }
             },
             {
               "kind": "method",
-              "name": "getAvailableLNElements",
+              "name": "getSubscribedExtRefs",
               "privacy": "private",
               "return": {
                 "type": {
                   "text": "Element[]"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "_phase",
+                  "type": {
+                    "text": "'classification' | 'row'"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -1630,23 +1823,93 @@
             },
             {
               "kind": "method",
-              "name": "renderSubscribedLNs",
+              "name": "renderAvailableLN",
               "privacy": "private",
               "return": {
                 "type": {
                   "text": "TemplateResult"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "lnElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
-              "name": "renderAvailableLNs",
+              "name": "buildLnBindingGroup",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ExtRefVirtualRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "LnBindingGroupConfig<RowType>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "buildSubscribedLnGroup",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ExtRefVirtualRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "subscribedLNs",
+                  "type": {
+                    "text": "Element[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "buildAvailableLnGroup",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "ExtRefVirtualRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "availableLNs",
+                  "type": {
+                    "text": "Element[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderVirtualRow",
               "privacy": "private",
               "return": {
                 "type": {
                   "text": "TemplateResult"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "ExtRefVirtualRow"
+                  }
+                }
+              ]
             }
           ],
           "attributes": [
@@ -1705,7 +1968,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ 'filtered-list': FilteredList, 'oscd-icon': OscdIcon, 'oscd-icon-button': OscdIconButton, 'oscd-list-item': OscdListItem, 'oscd-filter-button': OscdFilterButton, 'oscd-menu': OscdMenu, 'oscd-menu-item': OscdMenuItem, 'oscd-divider': OscdDivider, }"
+              "default": "{ 'oscd-icon': OscdIcon, 'oscd-icon-button': OscdIconButton, 'oscd-list-item': OscdListItem, 'oscd-filter-button': OscdFilterButton, 'oscd-menu': OscdMenu, 'oscd-menu-item': OscdMenuItem, 'oscd-divider': OscdDivider, 'virtualized-filtered-list': VirtualizedFilteredList, }"
             },
             {
               "kind": "field",
@@ -1787,13 +2050,6 @@
             },
             {
               "kind": "field",
-              "name": "controlBlockList",
-              "type": {
-                "text": "FilteredList"
-              }
-            },
-            {
-              "kind": "field",
               "name": "controlBlockMenu",
               "type": {
                 "text": "OscdMenu"
@@ -1802,13 +2058,9 @@
             },
             {
               "kind": "field",
-              "name": "profile",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "createProfileStats",
-              "privacy": "private"
+              "name": "subscriptionCountIndex",
+              "privacy": "private",
+              "default": "new Map<string, SubscriptionCountEntry>()"
             },
             {
               "kind": "field",
@@ -1818,11 +2070,6 @@
               },
               "privacy": "private",
               "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "boundResetExtRefCount",
-              "privacy": "private"
             },
             {
               "kind": "method",
@@ -1854,21 +2101,91 @@
             },
             {
               "kind": "method",
-              "name": "resetExtRefCount",
+              "name": "createSubscriptionCountKey",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "values",
+                  "type": {
+                    "text": "string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getControlSourceValues",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getSubscriptionCountKeyForFcda",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "fcdaElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "controlElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getSubscriptionCountKeyForExtRef",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "extRefElement",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "buildSubscriptionCountIndex",
               "privacy": "private",
               "return": {
                 "type": {
                   "text": "void"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "SubscriptionChangedEvent"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
@@ -2022,15 +2339,6 @@
             },
             {
               "kind": "method",
-              "name": "updateBaseFilterState",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
               "name": "onFilterDialogClose",
               "privacy": "private",
               "return": {
@@ -2065,6 +2373,84 @@
                   "text": "TemplateResult"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "renderControlRow",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "ControlRow"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderVirtualRow",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "VirtualRow"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "matchesRowSearch",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "VirtualRow"
+                  }
+                },
+                {
+                  "name": "regex",
+                  "type": {
+                    "text": "RegExp"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "buildVirtualRows",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "VirtualRow[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "controlElements",
+                  "type": {
+                    "text": "Element[]"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
