@@ -51,9 +51,9 @@
   "dependencies": {
     "@lit-labs/virtualizer": "^2.1.1",
     "@lit/localize": "^0.12.2",
-    "@omicronenergy/oscd-scl-dialogs": "^0.0.12",
+    "@omicronenergy/oscd-scl-dialogs": "^0.0.13",
     "@omicronenergy/oscd-shell": "^0.0.13",
-    "@omicronenergy/oscd-ui": "file:../oscd-ui",
+    "@omicronenergy/oscd-ui": "^0.0.12",
     "@open-wc/scoped-elements": "^3.0.6",
     "@openscd/oscd-api": "^0.1.6",
     "@openscd/scl-lib": "^2.0.0",
