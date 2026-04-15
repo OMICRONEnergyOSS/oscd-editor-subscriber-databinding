@@ -13,7 +13,7 @@ import type { EditV2 } from '@openscd/oscd-api';
 export declare function getAssociatedDataSet(control: Element): Element | null;
 /**
  * Returns the communication element associated with a control block.
- * The element is located in Communication > SubNetwork > ConnectedAP and matched
+ * The element is located in Communication \> SubNetwork \> ConnectedAP and matched
  * by iedName, apName, ldInst, and cbName.
  */
 export declare function getAssociatedCommunication(control: Element): Element | null;
