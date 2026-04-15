@@ -1,6 +1,6 @@
 {
   "name": "@omicronenergy/oscd-editor-subscriber-databinding",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "OpenSCD Editor Plugin for GOOSE and SMV subscriber data binding with IEC 61850 SCL files.",
   "type": "module",
   "repository": {
