@@ -26,7 +26,7 @@ export function getAssociatedDataSet(control: Element): Element | null {
 
 /**
  * Returns the communication element associated with a control block.
- * The element is located in Communication > SubNetwork > ConnectedAP and matched
+ * The element is located in Communication \> SubNetwork \> ConnectedAP and matched
  * by iedName, apName, ldInst, and cbName.
  */
 export function getAssociatedCommunication(control: Element): Element | null {
