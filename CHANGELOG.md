@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.1...oscd-editor-subscriber-databinding-v0.0.2) (2026-04-17)
+
+
+### Bug Fixes
+
+* scl-dialog edits must dispatch edits ([0b90161](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/commit/0b9016159dbb669ec45ceddea29f92612a0bd97d))
+
 ## 0.0.1 (2026-04-15)
 
 
