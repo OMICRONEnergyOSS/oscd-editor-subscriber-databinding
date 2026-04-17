@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.2...oscd-editor-subscriber-databinding-v0.0.3) (2026-04-17)
+
+
+### Bug Fixes
+
+* remove css transtion so UI doesn't feel slugish ([01008c9](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/commit/01008c9c20410668934810935aeddbfad4c45ce7))
+
 ## [0.0.2](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.1...oscd-editor-subscriber-databinding-v0.0.2) (2026-04-17)
 
 
