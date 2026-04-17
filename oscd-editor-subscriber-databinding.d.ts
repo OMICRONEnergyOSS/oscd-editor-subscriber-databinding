@@ -4,8 +4,8 @@ import OscdSclDialogs from '@omicronenergy/oscd-scl-dialogs/OscdSclDialogs.js';
 import { OscdOutlinedSegmentedButton } from '@omicronenergy/oscd-ui/labs/segmentedbutton/OscdOutlinedSegmentedButton.js';
 import { OscdOutlinedSegmentedButtonSet } from '@omicronenergy/oscd-ui/labs/segmentedbuttonset/OscdOutlinedSegmentedButtonSet.js';
 import { Nsdoc } from './foundation/nsdoc.js';
-import { FcdaBindingList } from './subscription/fcda-binding-list.js';
-import { ExtRefLnBindingList } from './subscription/ext-ref-ln-binding-list.js';
+import { FcdaBindingList } from './components/fcda-binding-list.js';
+import { ExtRefLnBindingList } from './components/ext-ref-ln-binding-list.js';
 type ControlTag = 'GSEControl' | 'SampledValueControl';
 declare const OscdEditorSubscriberDatabinding_base: typeof LitElement & import("@open-wc/scoped-elements/lit-element.js").ScopedElementsHostConstructor;
 /** An editor plugin for GOOSE and SMV subscriber data binding. */
