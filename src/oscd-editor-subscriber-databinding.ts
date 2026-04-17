@@ -10,8 +10,8 @@ import { OscdOutlinedSegmentedButtonSet } from '@omicronenergy/oscd-ui/labs/segm
 
 import { Nsdoc, initializeNsdoc } from './foundation/nsdoc.js';
 
-import { FcdaBindingList } from './subscription/fcda-binding-list.js';
-import { ExtRefLnBindingList } from './subscription/ext-ref-ln-binding-list.js';
+import { FcdaBindingList } from './components/fcda-binding-list.js';
+import { ExtRefLnBindingList } from './components/ext-ref-ln-binding-list.js';
 
 type ControlTag = 'GSEControl' | 'SampledValueControl';
 
@@ -97,7 +97,6 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
         <fcda-binding-list
           class="column"
           controlTag=${this.controlTag}
-          .includeLaterBinding="${false}"
           .docVersion=${this.docVersion}
           .doc="${this.doc}"
         >

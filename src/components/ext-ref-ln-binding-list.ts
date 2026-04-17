@@ -19,7 +19,7 @@ import type { EditV2 } from '@openscd/oscd-api';
 import { newEditEventV2 } from '@openscd/oscd-api/utils.js';
 
 import type { Nsdoc } from '../foundation/nsdoc.js';
-import { VirtualizedFilteredList } from '../foundation/virtualized-filtered-list.js';
+import { VirtualizedFilteredList } from './virtualized-filtered-list.js';
 
 import {
   FcdaSelectEvent,
@@ -27,8 +27,8 @@ import {
   getExistingSupervision,
   newSubscriptionChangedEvent,
   sharedStyles,
-} from '../foundation/subscription.js';
-import { getSubscribedExtRefElements } from '../foundation/subscription-later-binding.js';
+} from './subscription.js';
+import { getSubscribedExtRefElements } from '../foundation.js';
 
 interface SectionRow {
   type: 'section';
@@ -191,7 +191,6 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       this.controlTag,
       this.currentSelectedFcdaElement,
       this.currentSelectedControlElement,
-      false,
     );
   }
 
@@ -299,6 +298,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
     const supervisionNode = getExistingSupervision(extRefs[0]);
     return html`<oscd-list-item
       type="button"
+      style="inline-size: 100%;"
       ?disabled=${this.bindingNotSupported(lnElement)}
       data-value="${identity(lnElement)}"
       @click=${() => {

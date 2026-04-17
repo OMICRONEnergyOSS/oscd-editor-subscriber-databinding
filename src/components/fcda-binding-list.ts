@@ -30,8 +30,8 @@ import {
   newFcdaSelectEvent,
   serviceTypes,
   sharedStyles,
-} from '../foundation/subscription.js';
-import { VirtualizedFilteredList } from '../foundation/virtualized-filtered-list.js';
+} from './subscription.js';
+import { VirtualizedFilteredList } from './virtualized-filtered-list.js';
 import {
   getAssociatedDataSet,
   getAssociatedCommunication,
@@ -99,9 +99,6 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   @property()
   controlTag!: controlTag;
 
-  @property()
-  includeLaterBinding: boolean = false;
-
   // The selected Elements when a FCDA Line is clicked.
   @state()
   private selectedControlElement: Element | undefined;
@@ -125,18 +122,14 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   get hideSubscribed(): boolean {
     return (
       localStorage.getItem(
-        `fcda-binding-list-${
-          this.includeLaterBinding ? 'later-binding' : 'data-binding'
-        }-${this.controlTag}$hideSubscribed`,
+        `fcda-binding-list-data-binding-${this.controlTag}$hideSubscribed`,
       ) === 'true'
     );
   }
 
   set hideSubscribed(value: boolean) {
     localStorage.setItem(
-      `fcda-binding-list-${
-        this.includeLaterBinding ? 'later-binding' : 'data-binding'
-      }-${this.controlTag}$hideSubscribed`,
+      `fcda-binding-list-data-binding-${this.controlTag}$hideSubscribed`,
       `${value}`,
     );
     this.requestUpdate();
@@ -151,18 +144,14 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   get hideNotSubscribed(): boolean {
     return (
       localStorage.getItem(
-        `fcda-binding-list-${
-          this.includeLaterBinding ? 'later-binding' : 'data-binding'
-        }-${this.controlTag}$hideNotSubscribed`,
+        `fcda-binding-list-data-binding-${this.controlTag}$hideNotSubscribed`,
       ) === 'true'
     );
   }
 
   set hideNotSubscribed(value: boolean) {
     localStorage.setItem(
-      `fcda-binding-list-${
-        this.includeLaterBinding ? 'later-binding' : 'data-binding'
-      }-${this.controlTag}$hideNotSubscribed`,
+      `fcda-binding-list-data-binding-${this.controlTag}$hideNotSubscribed`,
       `${value}`,
     );
     this.requestUpdate();
@@ -288,8 +277,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
       this.doc.querySelectorAll('ExtRef'),
     ).filter(
       element =>
-        ((this.includeLaterBinding && element.hasAttribute('intAddr')) ||
-          (!this.includeLaterBinding && !element.hasAttribute('intAddr'))) &&
+        !element.hasAttribute('intAddr') &&
         (isEdition2003 ||
           element.getAttribute('serviceType') ===
             serviceTypes[this.controlTag]),

@@ -1,9 +1,9 @@
 import { css, LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
 
-import { compareNames, getSclSchemaVersion } from './scl.js';
+import { compareNames, getSclSchemaVersion } from '../foundation/scl.js';
 
-import { getFcdaReferences } from './ied.js';
+import { getFcdaReferences } from '../foundation/ied.js';
 
 export enum View {
   PUBLISHER,
@@ -288,13 +288,6 @@ export const sharedStyles = css`
     opacity: 1;
   }
 
-  section:focus {
-    box-shadow:
-      0 8px 10px 1px rgba(0, 0, 0, 0.14),
-      0 3px 14px 2px rgba(0, 0, 0, 0.12),
-      0 5px 5px -3px rgba(0, 0, 0, 0.2);
-  }
-
   h2 {
     color: var(--md-sys-color-on-surface);
     font-family: 'Roboto', sans-serif;
@@ -306,11 +299,6 @@ export const sharedStyles = css`
     line-height: 48px;
     padding-left: 0.3em;
     transition: background-color 150ms linear;
-  }
-
-  h1 > nav,
-  h1 > abbr > oscd-icon-button {
-    float: right;
   }
 
   abbr[title] {
