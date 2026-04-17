@@ -84630,7 +84630,6 @@ VirtualizedFilteredList.styles = i$7 `
       --md-sys-color-on-surface: var(--oscd-base3);
       --md-sys-color-on-surface-variant: var(--oscd-base2);
       background-color: var(--oscd-primary);
-      transition: background-color 200ms linear;
     }
 
     oscd-list-item.control > div[slot='headline'] {
