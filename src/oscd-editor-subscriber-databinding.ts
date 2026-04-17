@@ -8,6 +8,7 @@ import OscdSclDialogs from '@omicronenergy/oscd-scl-dialogs/OscdSclDialogs.js';
 import { OscdOutlinedSegmentedButton } from '@omicronenergy/oscd-ui/labs/segmentedbutton/OscdOutlinedSegmentedButton.js';
 import { OscdOutlinedSegmentedButtonSet } from '@omicronenergy/oscd-ui/labs/segmentedbuttonset/OscdOutlinedSegmentedButtonSet.js';
 
+import { newEditEventV2 } from '@openscd/oscd-api/utils.js';
 import { Nsdoc, initializeNsdoc } from './foundation/nsdoc.js';
 
 import { FcdaBindingList } from './components/fcda-binding-list.js';
@@ -47,10 +48,11 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
   @query('oscd-scl-dialogs')
   private sclDialogs!: OscdSclDialogs;
 
-  private handleEditDialogEvent = (event: Event): void => {
+  private handleEditDialogEvent = async (event: Event): Promise<void> => {
     event.stopPropagation();
     const detail = (event as CustomEvent).detail;
-    this.sclDialogs.edit(detail);
+    const edits = await this.sclDialogs.edit(detail);
+    this.dispatchEvent(newEditEventV2(edits));
   };
 
   override connectedCallback(): void {
