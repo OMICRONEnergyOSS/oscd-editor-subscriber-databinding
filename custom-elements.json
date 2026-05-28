@@ -24,7 +24,7 @@
             {
               "name": "controlTag",
               "type": {
-                "text": "'SampledValueControl' | 'GSEControl'"
+                "text": "ControlTag"
               }
             },
             {
@@ -183,364 +183,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/foundation/control-block-helpers.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getAssociatedDataSet",
-          "return": {
-            "type": {
-              "text": "Element | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns the DataSet referenced by a control block's `datSet` attribute.\nThe DataSet must be a sibling under the same LN0."
-        },
-        {
-          "kind": "function",
-          "name": "getAssociatedCommunication",
-          "return": {
-            "type": {
-              "text": "Element | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns the communication element associated with a control block.\nThe element is located in Communication \\> SubNetwork \\> ConnectedAP and matched\nby iedName, apName, ldInst, and cbName."
-        },
-        {
-          "kind": "function",
-          "name": "getAssociatedSmvOpts",
-          "return": {
-            "type": {
-              "text": "Element | null"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns the SmvOpts child element when editing a SampledValueControl."
-        },
-        {
-          "kind": "function",
-          "name": "isDataSetSingleUse",
-          "return": {
-            "type": {
-              "text": "boolean"
-            }
-          },
-          "parameters": [
-            {
-              "name": "dataSet",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Returns true if no other control block under the same LN0 references\nthe given DataSet. A single-use DataSet can be safely removed together\nwith its control block."
-        },
-        {
-          "kind": "function",
-          "name": "buildRemoveEdits",
-          "return": {
-            "type": {
-              "text": "EditV2[]"
-            }
-          },
-          "parameters": [
-            {
-              "name": "control",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Builds an EditV2 array that removes a control block and its associated\nelements: the DataSet (if single-use) and its communication element."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getAssociatedDataSet",
-          "declaration": {
-            "name": "getAssociatedDataSet",
-            "module": "src/foundation/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getAssociatedCommunication",
-          "declaration": {
-            "name": "getAssociatedCommunication",
-            "module": "src/foundation/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getAssociatedSmvOpts",
-          "declaration": {
-            "name": "getAssociatedSmvOpts",
-            "module": "src/foundation/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "isDataSetSingleUse",
-          "declaration": {
-            "name": "isDataSetSingleUse",
-            "module": "src/foundation/control-block-helpers.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "buildRemoveEdits",
-          "declaration": {
-            "name": "buildRemoveEdits",
-            "module": "src/foundation/control-block-helpers.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/foundation/ied.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "getFcdaReferences",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "elementContainingFcdaReferences",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Builds a CSS attribute selector string from FCDA reference attributes."
-        },
-        {
-          "kind": "function",
-          "name": "getControlReferences",
-          "return": {
-            "type": {
-              "text": "string"
-            }
-          },
-          "parameters": [
-            {
-              "name": "extRef",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Builds a CSS attribute selector string from control reference attributes."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "getFcdaReferences",
-          "declaration": {
-            "name": "getFcdaReferences",
-            "module": "src/foundation/ied.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getControlReferences",
-          "declaration": {
-            "name": "getControlReferences",
-            "module": "src/foundation/ied.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/foundation/nsdoc.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "initializeNsdoc",
-          "return": {
-            "type": {
-              "text": "Nsdoc"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "initializeNsdoc",
-          "declaration": {
-            "name": "initializeNsdoc",
-            "module": "src/foundation/nsdoc.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/foundation/scl.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "SCL_NAMESPACE",
-          "type": {
-            "text": "string"
-          },
-          "default": "'http://www.iec.ch/61850/2003/SCL'",
-          "description": "SCL XML namespace URI."
-        },
-        {
-          "kind": "function",
-          "name": "getSclSchemaVersion",
-          "return": {
-            "type": {
-              "text": "SclEdition"
-            }
-          },
-          "parameters": [
-            {
-              "name": "doc",
-              "type": {
-                "text": "Document"
-              }
-            }
-          ],
-          "description": "Derives the SCL schema edition from the root element attributes."
-        },
-        {
-          "kind": "function",
-          "name": "getNameAttribute",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Extracts the `name` attribute from an element."
-        },
-        {
-          "kind": "function",
-          "name": "getDescriptionAttribute",
-          "return": {
-            "type": {
-              "text": ""
-            }
-          },
-          "parameters": [
-            {
-              "name": "element",
-              "type": {
-                "text": "Element"
-              }
-            }
-          ],
-          "description": "Extracts the `desc` attribute from an element."
-        },
-        {
-          "kind": "function",
-          "name": "compareNames",
-          "return": {
-            "type": {
-              "text": "number"
-            }
-          },
-          "parameters": [
-            {
-              "name": "a",
-              "type": {
-                "text": "Element | string"
-              }
-            },
-            {
-              "name": "b",
-              "type": {
-                "text": "Element | string"
-              }
-            }
-          ],
-          "description": "Locale-aware comparison of elements or strings by `name` attribute."
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SCL_NAMESPACE",
-          "declaration": {
-            "name": "SCL_NAMESPACE",
-            "module": "src/foundation/scl.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getSclSchemaVersion",
-          "declaration": {
-            "name": "getSclSchemaVersion",
-            "module": "src/foundation/scl.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getNameAttribute",
-          "declaration": {
-            "name": "getNameAttribute",
-            "module": "src/foundation/scl.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "getDescriptionAttribute",
-          "declaration": {
-            "name": "getDescriptionAttribute",
-            "module": "src/foundation/scl.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "compareNames",
-          "declaration": {
-            "name": "compareNames",
-            "module": "src/foundation/scl.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/components/ext-ref-ln-binding-list.ts",
       "declarations": [
         {
@@ -583,7 +225,7 @@
               "kind": "field",
               "name": "controlTag",
               "type": {
-                "text": "'SampledValueControl' | 'GSEControl'"
+                "text": "ControlTag"
               },
               "attribute": "controlTag"
             },
@@ -924,7 +566,7 @@
             {
               "name": "controlTag",
               "type": {
-                "text": "'SampledValueControl' | 'GSEControl'"
+                "text": "ControlTag"
               },
               "fieldName": "controlTag"
             }
@@ -987,11 +629,11 @@
             },
             {
               "kind": "field",
-              "name": "controlTag",
+              "name": "ControlTag",
               "type": {
-                "text": "controlTag"
+                "text": "ControlTag"
               },
-              "attribute": "controlTag"
+              "attribute": "ControlTag"
             },
             {
               "kind": "field",
@@ -1464,11 +1106,11 @@
           ],
           "attributes": [
             {
-              "name": "controlTag",
+              "name": "ControlTag",
               "type": {
-                "text": "controlTag"
+                "text": "ControlTag"
               },
-              "fieldName": "controlTag"
+              "fieldName": "ControlTag"
             },
             {
               "name": "hideSubscribed",
@@ -1705,14 +1347,14 @@
               "type": {
                 "text": "string"
               },
-              "description": "Either GSEControl or (defaults to) SampledValueControl."
+              "description": "GSEControl, SampledValueControl, or ReportControl."
             },
             {
               "description": "If true, return the first element found",
               "name": "firstOnly"
             }
           ],
-          "description": "Return Val elements within an LGOS/LSVS instance for a particular IED and control block type."
+          "description": "Return Val elements within an LGOS/LSVS/LRPT instance for a particular IED and control block type."
         },
         {
           "kind": "function",
@@ -2143,6 +1785,364 @@
           "declaration": {
             "name": "VirtualizedFilteredList",
             "module": "src/components/virtualized-filtered-list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/control-block-helpers.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getAssociatedDataSet",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the DataSet referenced by a control block's `datSet` attribute.\nThe DataSet must be a sibling under the same LN0."
+        },
+        {
+          "kind": "function",
+          "name": "getAssociatedCommunication",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the communication element associated with a control block.\nThe element is located in Communication \\> SubNetwork \\> ConnectedAP and matched\nby iedName, apName, ldInst, and cbName."
+        },
+        {
+          "kind": "function",
+          "name": "getAssociatedSmvOpts",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns the SmvOpts child element when editing a SampledValueControl."
+        },
+        {
+          "kind": "function",
+          "name": "isDataSetSingleUse",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "dataSet",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Returns true if no other control block under the same LN0 references\nthe given DataSet. A single-use DataSet can be safely removed together\nwith its control block."
+        },
+        {
+          "kind": "function",
+          "name": "buildRemoveEdits",
+          "return": {
+            "type": {
+              "text": "EditV2[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "control",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds an EditV2 array that removes a control block and its associated\nelements: the DataSet (if single-use) and its communication element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getAssociatedDataSet",
+          "declaration": {
+            "name": "getAssociatedDataSet",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAssociatedCommunication",
+          "declaration": {
+            "name": "getAssociatedCommunication",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAssociatedSmvOpts",
+          "declaration": {
+            "name": "getAssociatedSmvOpts",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isDataSetSingleUse",
+          "declaration": {
+            "name": "isDataSetSingleUse",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "buildRemoveEdits",
+          "declaration": {
+            "name": "buildRemoveEdits",
+            "module": "src/foundation/control-block-helpers.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/ied.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getFcdaReferences",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "elementContainingFcdaReferences",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds a CSS attribute selector string from FCDA reference attributes."
+        },
+        {
+          "kind": "function",
+          "name": "getControlReferences",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "extRef",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Builds a CSS attribute selector string from control reference attributes."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getFcdaReferences",
+          "declaration": {
+            "name": "getFcdaReferences",
+            "module": "src/foundation/ied.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getControlReferences",
+          "declaration": {
+            "name": "getControlReferences",
+            "module": "src/foundation/ied.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/nsdoc.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "initializeNsdoc",
+          "return": {
+            "type": {
+              "text": "Nsdoc"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "initializeNsdoc",
+          "declaration": {
+            "name": "initializeNsdoc",
+            "module": "src/foundation/nsdoc.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/foundation/scl.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "SCL_NAMESPACE",
+          "type": {
+            "text": "string"
+          },
+          "default": "'http://www.iec.ch/61850/2003/SCL'",
+          "description": "SCL XML namespace URI."
+        },
+        {
+          "kind": "function",
+          "name": "getSclSchemaVersion",
+          "return": {
+            "type": {
+              "text": "SclEdition"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Document"
+              }
+            }
+          ],
+          "description": "Derives the SCL schema edition from the root element attributes."
+        },
+        {
+          "kind": "function",
+          "name": "getNameAttribute",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Extracts the `name` attribute from an element."
+        },
+        {
+          "kind": "function",
+          "name": "getDescriptionAttribute",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Extracts the `desc` attribute from an element."
+        },
+        {
+          "kind": "function",
+          "name": "compareNames",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          },
+          "parameters": [
+            {
+              "name": "a",
+              "type": {
+                "text": "Element | string"
+              }
+            },
+            {
+              "name": "b",
+              "type": {
+                "text": "Element | string"
+              }
+            }
+          ],
+          "description": "Locale-aware comparison of elements or strings by `name` attribute."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SCL_NAMESPACE",
+          "declaration": {
+            "name": "SCL_NAMESPACE",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSclSchemaVersion",
+          "declaration": {
+            "name": "getSclSchemaVersion",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getNameAttribute",
+          "declaration": {
+            "name": "getNameAttribute",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getDescriptionAttribute",
+          "declaration": {
+            "name": "getDescriptionAttribute",
+            "module": "src/foundation/scl.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "compareNames",
+          "declaration": {
+            "name": "compareNames",
+            "module": "src/foundation/scl.ts"
           }
         }
       ]

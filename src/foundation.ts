@@ -1,6 +1,7 @@
 import { getSclSchemaVersion } from './foundation/scl.js';
 import { serviceTypes } from './components/subscription.js';
 
+export type ControlTag = 'GSEControl' | 'SampledValueControl' | 'ReportControl';
 /**
  * Simple function to check if the attribute of the Left Side has the same value as the attribute of the Right Element.
  *
@@ -47,7 +48,7 @@ function sameAttributeValueDiffName(
  * @param extRefElement  - The Ext Ref Element to check.
  */
 function checkEditionSpecificRequirements(
-  controlTag: 'SampledValueControl' | 'GSEControl',
+  controlTag: ControlTag,
   controlElement: Element | undefined,
   extRefElement: Element,
 ): boolean {
@@ -57,7 +58,7 @@ function checkEditionSpecificRequirements(
   }
 
   const lDeviceElement = controlElement?.closest('LDevice') ?? undefined;
-  const lnElement = controlElement?.closest('LN0') ?? undefined;
+  const lnElement = controlElement?.closest('LN0, LN') ?? undefined;
 
   // If ExtRef is missing 'srcLNClass', it defaults to 'LLN0' as specified in the standard
   const extRefIsMissingSrcLNClass = !extRefElement.hasAttribute('srcLNClass');
@@ -108,7 +109,7 @@ function checkEditionSpecificRequirements(
  * @param extRefElement  - The Ext Ref Element to check.
  */
 function isSubscribedTo(
-  controlTag: 'SampledValueControl' | 'GSEControl',
+  controlTag: ControlTag,
   controlElement: Element | undefined,
   fcdaElement: Element | undefined,
   extRefElement: Element,
@@ -137,7 +138,7 @@ function getExtRefElements(
 
 export function getSubscribedExtRefElements(
   rootElement: Element,
-  controlTag: 'SampledValueControl' | 'GSEControl',
+  controlTag: ControlTag,
   fcdaElement: Element | undefined,
   controlElement: Element | undefined,
 ): Element[] {

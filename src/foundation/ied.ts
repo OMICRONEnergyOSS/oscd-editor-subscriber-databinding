@@ -17,8 +17,8 @@ export function getFcdaReferences(
     .map(fcdaRef =>
       elementContainingFcdaReferences.getAttribute(fcdaRef)
         ? `[${fcdaRef}="${elementContainingFcdaReferences.getAttribute(
-            fcdaRef,
-          )}"]`
+          fcdaRef,
+        )}"]`
         : '',
     )
     .join('');

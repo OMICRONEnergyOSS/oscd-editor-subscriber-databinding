@@ -13,8 +13,8 @@ import { Nsdoc, initializeNsdoc } from './foundation/nsdoc.js';
 
 import { FcdaBindingList } from './components/fcda-binding-list.js';
 import { ExtRefLnBindingList } from './components/ext-ref-ln-binding-list.js';
+import { ControlTag } from './foundation.js';
 
-type ControlTag = 'GSEControl' | 'SampledValueControl';
 
 const viewStorageKey = 'oscd-editor-subscriber-databinding$controlTag';
 
@@ -93,6 +93,15 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
           >
             <oscd-icon slot="icon">smvIcon</oscd-icon>
           </oscd-outlined-segmented-button>
+          <oscd-outlined-segmented-button
+            label="${msg('Report')}"
+            no-checkmark
+            ?selected=${this.controlTag === 'ReportControl'}
+            @click=${() => this.onControlTagChange('ReportControl')}
+          >
+            <oscd-icon slot="icon">smvIcon</oscd-icon>
+          </oscd-outlined-segmented-button>
+
         </oscd-outlined-segmented-button-set>
       </header>
       <div class="container">
@@ -155,7 +164,7 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
     .control-switch {
       flex-shrink: 0;
       align-self: flex-start;
-      inline-size: min(100%, 28rem);
+      inline-size: min(100%, 42rem);
       --md-outlined-segmented-button-selected-container-color: var(
         --md-sys-color-primary,
         #005ac1

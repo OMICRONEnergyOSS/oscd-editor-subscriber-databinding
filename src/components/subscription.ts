@@ -88,23 +88,15 @@ export function newSubscriptionChangedEvent(
 }
 
 export function getFcdaTitleValue(fcdaElement: Element): string {
-  return `${fcdaElement.getAttribute('doName')}${
-    fcdaElement.hasAttribute('doName') && fcdaElement.hasAttribute('daName')
-      ? `.`
-      : ``
-  }${fcdaElement.getAttribute('daName')}`;
+  return attributesToString(fcdaElement, ['doName', 'daName']);
 }
 
 export function getFcdaSubtitleValue(fcdaElement: Element): string {
-  return `${fcdaElement.getAttribute('ldInst')} ${
-    fcdaElement.hasAttribute('ldInst') ? `/` : ''
-  }${
-    fcdaElement.getAttribute('prefix')
-      ? ` ${fcdaElement.getAttribute('prefix')}`
-      : ''
-  } ${fcdaElement.getAttribute('lnClass')} ${fcdaElement.getAttribute(
-    'lnInst',
-  )}`;
+  return attributesToString(fcdaElement, ['ldInst', 'prefix', 'lnClass', 'lnInst'], ' / ');
+}
+
+function attributesToString(element: Element, attrs: string[], separator: string = " "){
+  return attrs.map(attr => element.getAttribute(attr)).filter(value => value).join(separator);
 }
 
 export function getExtRef(
@@ -161,11 +153,11 @@ export function getExtRef(
 }
 
 /**
- * Return Val elements within an LGOS/LSVS instance for a particular IED and control block type.
+ * Return Val elements within an LGOS/LSVS/LRPT instance for a particular IED and control block type.
  * @param ied - IED SCL element.
- * @param cbTagName - Either GSEControl or (defaults to) SampledValueControl.
+ * @param cbTagName - GSEControl, SampledValueControl, or ReportControl.
  * @param firstOnly - If true, return the first element found
- * @returns an Element array of Val SCL elements within an LGOS/LSVS node.
+ * @returns an Element array of Val SCL elements within an LGOS/LSVS/LRPT node.
  */
 export function getSupervisionCbRefs(
   ied: Element,
@@ -181,8 +173,20 @@ export function getSupervisionCbRefs(
   cbTagName: string,
   firstOnly?: boolean,
 ): Element[] | Element | null {
-  const supervisionType = cbTagName === 'GSEControl' ? 'LGOS' : 'LSVS';
-  const supervisionName = supervisionType === 'LGOS' ? 'GoCBRef' : 'SvCBRef';
+  let supervisionType: string;
+  let supervisionName: string;
+
+  if (cbTagName === 'GSEControl') {
+    supervisionType = 'LGOS';
+    supervisionName = 'GoCBRef';
+  } else if (cbTagName === 'ReportControl') {
+    supervisionType = 'LRPT';
+    supervisionName = 'RpCBRef';
+  } else {
+    supervisionType = 'LSVS';
+    supervisionName = 'SvCBRef';
+  }
+
   const selectorString = `LN[lnClass="${supervisionType}"]>DOI[name="${supervisionName}"]>DAI[name="setSrcRef"]>Val,LN0[lnClass="${supervisionType}"]>DOI[name="${supervisionName}"]>DAI[name="setSrcRef"]>Val`;
   return firstOnly
     ? ied.querySelector(selectorString)
@@ -204,9 +208,19 @@ export function getExistingSupervision(extRef: Element | null): Element | null {
     attr => extRef.getAttribute(attr) ?? '',
   );
 
-  const supervisionType = serviceType === 'GOOSE' ? 'LGOS' : 'LSVS';
-  const refSelector =
-    supervisionType === 'LGOS' ? 'DOI[name="GoCBRef"]' : 'DOI[name="SvCBRef"]';
+  let supervisionType: string;
+  let refSelector: string;
+
+  if (serviceType === 'GOOSE') {
+    supervisionType = 'LGOS';
+    refSelector = 'DOI[name="GoCBRef"]';
+  } else if (serviceType === 'Report') {
+    supervisionType = 'LRPT';
+    refSelector = 'DOI[name="RpCBRef"]';
+  } else {
+    supervisionType = 'LSVS';
+    refSelector = 'DOI[name="SvCBRef"]';
+  }
 
   const srcLDInst =
     extRef.getAttribute('srcLDInst') ?? extRef.getAttribute('ldInst');
@@ -235,8 +249,8 @@ export const serviceTypes: Partial<Record<string, string>> = {
 export function getOrderedIeds(doc: XMLDocument): Element[] {
   return doc
     ? Array.from(doc.querySelectorAll(':root > IED')).sort((a, b) =>
-        compareNames(a, b),
-      )
+      compareNames(a, b),
+    )
     : [];
 }
 

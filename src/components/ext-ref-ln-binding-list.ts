@@ -28,7 +28,7 @@ import {
   newSubscriptionChangedEvent,
   sharedStyles,
 } from './subscription.js';
-import { getSubscribedExtRefElements } from '../foundation.js';
+import { getSubscribedExtRefElements, ControlTag } from '../foundation.js';
 
 interface SectionRow {
   type: 'section';
@@ -103,7 +103,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
   nsdoc!: Nsdoc;
 
   @property()
-  controlTag!: 'SampledValueControl' | 'GSEControl';
+  controlTag!: ControlTag;
 
   @state()
   currentSelectedControlElement: Element | undefined;
@@ -446,9 +446,9 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
         : null;
     const rows = partitionedLNs
       ? [
-          ...this.buildSubscribedLnGroup(partitionedLNs.subscribed),
-          ...this.buildAvailableLnGroup(partitionedLNs.available),
-        ]
+        ...this.buildSubscribedLnGroup(partitionedLNs.subscribed),
+        ...this.buildAvailableLnGroup(partitionedLNs.available),
+      ]
       : [];
 
     return html` <section>

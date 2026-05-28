@@ -45,6 +45,7 @@
       </ConnectedAP>
       <ConnectedAP iedName="SUB_A" apName="AP1"/>
       <ConnectedAP iedName="SUB_B" apName="AP1"/>
+      <ConnectedAP iedName="RPT_PUB" apName="AP1"/>
     </SubNetwork>
   </Communication>
   <IED name="PUB_A" manufacturer="OpenSCD">
@@ -123,6 +124,46 @@
       </Server>
     </AccessPoint>
   </IED>
+  <IED name="RPT_PUB" manufacturer="OpenSCD" desc="Report publisher">
+    <AccessPoint name="AP1">
+      <Server>
+        <Authentication/>
+        <LDevice inst="LD_RPT">
+          <LN0 lnClass="LLN0" inst="" lnType="LLN0_Test">
+            <DataSet name="DS_RPT_LN0">
+              <FCDA ldInst="LD_RPT" prefix="" lnClass="TCTR" lnInst="1" doName="Beh" daName="stVal" fc="ST"/>
+              <FCDA ldInst="LD_RPT" prefix="" lnClass="TCTR" lnInst="1" doName="Beh" daName="q" fc="ST"/>
+            </DataSet>
+            <ReportControl name="RCB_A" rptID="RPT_PUB/LD_RPT/LLN0.RCB_A" confRev="1" buffered="true" datSet="DS_RPT_LN0" intgPd="1000" bufTime="50">
+              <TrgOps dchg="true" qchg="true" dupd="false" period="true"/>
+              <OptFields seqNum="true" timeStamp="true" dataSet="true" reasonCode="true" entryID="true" configRef="true"/>
+              <RptEnabled max="5"/>
+            </ReportControl>
+          </LN0>
+          <LN lnClass="TCTR" inst="1" lnType="TCTR_Test">
+            <DOI name="Beh">
+              <DAI name="stVal">
+                <Val>on</Val>
+              </DAI>
+            </DOI>
+            <DOI name="HzRtg"/>
+            <DOI name="ARtg"/>
+          </LN>
+          <LN lnClass="MMXU" inst="1" lnType="MMXU_Test">
+            <DataSet name="DS_RPT_MMXU">
+              <FCDA ldInst="LD_RPT" prefix="" lnClass="MMXU" lnInst="1" doName="TotW" daName="mag.f" fc="MX"/>
+              <FCDA ldInst="LD_RPT" prefix="" lnClass="MMXU" lnInst="1" doName="TotW" daName="q" fc="MX"/>
+            </DataSet>
+            <ReportControl name="RCB_B" rptID="RPT_PUB/LD_RPT/MMXU1.RCB_B" confRev="1" buffered="false" datSet="DS_RPT_MMXU" intgPd="2000">
+              <TrgOps dchg="true" qchg="true" dupd="false" period="true"/>
+              <OptFields seqNum="true" timeStamp="true" dataSet="true" reasonCode="true"/>
+              <RptEnabled max="3"/>
+            </ReportControl>
+          </LN>
+        </LDevice>
+      </Server>
+    </AccessPoint>
+  </IED>
   <IED name="SUB_A" manufacturer="OpenSCD">
     <AccessPoint name="AP1">
       <Server>
@@ -154,6 +195,30 @@
                   srcLDInst="LD_A"
                   srcLNClass="LLN0"
                   srcCBName="GCB_A"/>
+              <ExtRef
+                  iedName="RPT_PUB"
+                  serviceType="Report"
+                  ldInst="LD_RPT"
+                  prefix=""
+                  lnClass="TCTR"
+                  lnInst="1"
+                  doName="Beh"
+                  daName="stVal"
+                  srcLDInst="LD_RPT"
+                  srcLNClass="LLN0"
+                  srcCBName="RCB_A"/>
+              <ExtRef
+                  iedName="RPT_PUB"
+                  serviceType="Report"
+                  ldInst="LD_RPT"
+                  prefix=""
+                  lnClass="TCTR"
+                  lnInst="1"
+                  doName="Beh"
+                  daName="q"
+                  srcLDInst="LD_RPT"
+                  srcLNClass="LLN0"
+                  srcCBName="RCB_A"/>
             </Inputs>
           </LN0>
           <LN lnClass="TCTR" inst="1" lnType="TCTR_Test">
@@ -222,6 +287,19 @@
                   srcLDInst="LD_B"
                   srcLNClass="LLN0"
                   srcCBName="GCB_B"/>
+              <ExtRef
+                  iedName="RPT_PUB"
+                  serviceType="Report"
+                  ldInst="LD_RPT"
+                  prefix=""
+                  lnClass="MMXU"
+                  lnInst="1"
+                  doName="TotW"
+                  daName="mag.f"
+                  srcLDInst="LD_RPT"
+                  srcLNClass="MMXU"
+                  srcLNInst="1"
+                  srcCBName="RCB_B"/>
             </Inputs>
           </LN0>
           <LN lnClass="TCTR" inst="1" lnType="TCTR_Test">
@@ -275,6 +353,10 @@
     <LNodeType lnClass="LLN0" id="LLN0_Test">
       <DO name="Beh" type="Beh_Test"/>
     </LNodeType>
+    <LNodeType lnClass="MMXU" id="MMXU_Test">
+      <DO name="TotW" type="MV_Test"/>
+      <DO name="Beh" type="Beh_Test"/>
+    </LNodeType>
     <LNodeType lnClass="TCTR" id="TCTR_Test">
       <DO name="Beh" type="Beh_Test"/>
       <DO name="HzRtg" type="HzRtg_Test"/>
@@ -296,6 +378,11 @@
       <DA name="instMag" fc="MX" bType="Struct" type="AnalogueValue"/>
       <DA name="q" fc="MX" bType="Quality"/>
     </DOType>
+    <DOType cdc="MV" id="MV_Test">
+      <DA name="mag" fc="MX" bType="Struct" type="AnalogueValue_F"/>
+      <DA name="q" fc="MX" bType="Quality"/>
+      <DA name="t" fc="MX" bType="Timestamp"/>
+    </DOType>
     <DOType cdc="ENS" id="Beh_Test">
       <DA name="stVal" fc="ST" dchg="true" dupd="true" bType="Enum" type="stVal_enums"/>
       <DA name="q" fc="ST" qchg="true" bType="Quality"/>
@@ -315,6 +402,9 @@
     </DOType>
     <DAType id="AnalogueValue">
       <BDA name="i" bType="INT32"/>
+    </DAType>
+    <DAType id="AnalogueValue_F">
+      <BDA name="f" bType="FLOAT32"/>
     </DAType>
     <DAType id="AnalogueValueCtl">
       <BDA name="i" bType="INT32"/>

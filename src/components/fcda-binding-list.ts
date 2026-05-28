@@ -38,8 +38,7 @@ import {
   getAssociatedSmvOpts,
   buildRemoveEdits,
 } from '../foundation/control-block-helpers.js';
-
-type controlTag = 'SampledValueControl' | 'GSEControl';
+import { ControlTag } from '../foundation.js';
 
 interface SubscriptionCountEntry {
   total: number;
@@ -63,14 +62,16 @@ interface FcdaRow {
 
 type VirtualRow = ControlRow | FcdaRow;
 
-const controlBlockListTitle: Record<controlTag, string> = {
+const controlBlockListTitle: Record<ControlTag, string> = {
   GSEControl: 'GOOSE Messages',
   SampledValueControl: 'Sampled Value Messages',
+  ReportControl: 'Report Control Blocks',
 };
 
-const removeActionTitle: Record<controlTag, string> = {
+const removeActionTitle: Record<ControlTag, string> = {
   GSEControl: 'Remove GSEControl',
   SampledValueControl: 'Remove SampledValueControl',
+  ReportControl: 'Remove ReportControl',
 };
 
 /**
@@ -97,7 +98,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   docVersion?: unknown;
 
   @property()
-  controlTag!: controlTag;
+  ControlTag!: ControlTag;
 
   // The selected Elements when a FCDA Line is clicked.
   @state()
@@ -122,14 +123,14 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   get hideSubscribed(): boolean {
     return (
       localStorage.getItem(
-        `fcda-binding-list-data-binding-${this.controlTag}$hideSubscribed`,
+        `fcda-binding-list-data-binding-${this.ControlTag}$hideSubscribed`,
       ) === 'true'
     );
   }
 
   set hideSubscribed(value: boolean) {
     localStorage.setItem(
-      `fcda-binding-list-data-binding-${this.controlTag}$hideSubscribed`,
+      `fcda-binding-list-data-binding-${this.ControlTag}$hideSubscribed`,
       `${value}`,
     );
     this.requestUpdate();
@@ -144,14 +145,14 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
   get hideNotSubscribed(): boolean {
     return (
       localStorage.getItem(
-        `fcda-binding-list-data-binding-${this.controlTag}$hideNotSubscribed`,
+        `fcda-binding-list-data-binding-${this.ControlTag}$hideNotSubscribed`,
       ) === 'true'
     );
   }
 
   set hideNotSubscribed(value: boolean) {
     localStorage.setItem(
-      `fcda-binding-list-data-binding-${this.controlTag}$hideNotSubscribed`,
+      `fcda-binding-list-data-binding-${this.ControlTag}$hideNotSubscribed`,
       `${value}`,
     );
     this.requestUpdate();
@@ -182,7 +183,11 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
   private getControlElements(): Element[] {
     if (this.doc) {
-      return Array.from(this.doc.querySelectorAll(`LN0 > ${this.controlTag}`));
+      const selector =
+        this.ControlTag === 'ReportControl'
+          ? `:is(LN0, LN) > ${this.ControlTag}`
+          : `LN0 > ${this.ControlTag}`;
+      return Array.from(this.doc.querySelectorAll(selector));
     }
     return [];
   }
@@ -210,7 +215,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     const lnElement = controlElement.closest('LN0, LN');
 
     return [
-      serviceTypes[this.controlTag] ?? '',
+      serviceTypes[this.ControlTag] ?? '',
       lDeviceElement?.getAttribute('inst') ?? '',
       lnElement?.getAttribute('prefix') ?? '',
       lnElement?.getAttribute('lnClass') ?? 'LLN0',
@@ -280,10 +285,10 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
         !element.hasAttribute('intAddr') &&
         (isEdition2003 ||
           element.getAttribute('serviceType') ===
-            serviceTypes[this.controlTag]),
+            serviceTypes[this.ControlTag]),
     );
 
-    extRefElements.forEach(extRefElement => {
+    extRefElements.forEach((extRefElement) => {
       const key = this.getSubscriptionCountKeyForExtRef(extRefElement);
       const sinkIedName =
         extRefElement.closest('IED')?.getAttribute('name') ?? '';
@@ -378,7 +383,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     if (edits.length > 0) {
       this.dispatchEvent(
         newEditEventV2(edits, {
-          title: msg(removeActionTitle[this.controlTag]),
+          title: msg(removeActionTitle[this.ControlTag]),
         }),
       );
     }
@@ -404,7 +409,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     if (
       _changedProperties.has('doc') ||
       _changedProperties.has('docVersion') ||
-      _changedProperties.has('controlTag')
+      _changedProperties.has('ControlTag')
     ) {
       this.extRefCounters = new Map();
       this.buildSubscriptionCountIndex();
@@ -472,7 +477,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
       'filter-off': this.hideSubscribed || this.hideNotSubscribed,
     };
     return html`<h2>
-      ${controlBlockListTitle[this.controlTag]}
+      ${controlBlockListTitle[this.ControlTag]}
       <oscd-filter-button
         class="actions-menu-icon ${classMap(menuClasses)}"
         .items=${this.filterItems}
@@ -501,7 +506,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
             <div slot="headline">${msg('Edit DataSet')}</div>
           </oscd-menu-item>`
         : nothing}
-      ${this.controlTag === 'SampledValueControl' && hasSmvOpts
+      ${this.ControlTag === 'SampledValueControl' && hasSmvOpts
         ? html`<oscd-menu-item @click=${() => this.onMenuEditSmvOpts()}>
             <div slot="headline">${msg('Edit SmvOpts')}</div>
           </oscd-menu-item>`
@@ -556,10 +561,10 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
     controlElements
       .filter(controlElement => this.getFcdaElements(controlElement).length)
-      .forEach(controlElement => {
+      .forEach((controlElement) => {
         const fcdaElements = this.getFcdaElements(controlElement);
         const fcdaRows = fcdaElements
-          .map(fcdaElement => {
+          .map((fcdaElement) => {
             const fcdaCount = this.getExtRefCount(fcdaElement, controlElement);
             const showSubscribed = fcdaCount !== 0;
             const matchesSubscriptionFilter =
