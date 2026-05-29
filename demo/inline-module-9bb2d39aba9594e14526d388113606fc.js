@@ -83351,14 +83351,13 @@ function newSubscriptionChangedEvent(control, fcda, eventInitDict) {
     });
 }
 function getFcdaTitleValue(fcdaElement) {
-    return `${fcdaElement.getAttribute('doName')}${fcdaElement.hasAttribute('doName') && fcdaElement.hasAttribute('daName')
-        ? `.`
-        : ``}${fcdaElement.getAttribute('daName')}`;
+    return attributesToString(fcdaElement, ['doName', 'daName']);
 }
 function getFcdaSubtitleValue(fcdaElement) {
-    return `${fcdaElement.getAttribute('ldInst')} ${fcdaElement.hasAttribute('ldInst') ? `/` : ''}${fcdaElement.getAttribute('prefix')
-        ? ` ${fcdaElement.getAttribute('prefix')}`
-        : ''} ${fcdaElement.getAttribute('lnClass')} ${fcdaElement.getAttribute('lnInst')}`;
+    return attributesToString(fcdaElement, ['ldInst', 'prefix', 'lnClass', 'lnInst'], ' / ');
+}
+function attributesToString(element, attrs, separator = " ") {
+    return attrs.map(attr => element.getAttribute(attr)).filter(value => value).join(separator);
 }
 function getExtRef(parentInputs, fcda, control) {
     function createCriteria(attributeName, value) {
@@ -83398,8 +83397,20 @@ function getExistingSupervision(extRef) {
     }
     const extRefValues = ['iedName', 'serviceType', 'srcPrefix', 'srcCBName'];
     const [srcIedName, serviceType, srcPrefix, srcCBName] = extRefValues.map(attr => extRef.getAttribute(attr) ?? '');
-    const supervisionType = serviceType === 'GOOSE' ? 'LGOS' : 'LSVS';
-    const refSelector = supervisionType === 'LGOS' ? 'DOI[name="GoCBRef"]' : 'DOI[name="SvCBRef"]';
+    let supervisionType;
+    let refSelector;
+    if (serviceType === 'GOOSE') {
+        supervisionType = 'LGOS';
+        refSelector = 'DOI[name="GoCBRef"]';
+    }
+    else if (serviceType === 'Report') {
+        supervisionType = 'LRPT';
+        refSelector = 'DOI[name="RpCBRef"]';
+    }
+    else {
+        supervisionType = 'LSVS';
+        refSelector = 'DOI[name="SvCBRef"]';
+    }
     const srcLDInst = extRef.getAttribute('srcLDInst') ?? extRef.getAttribute('ldInst');
     const srcLNClass = extRef.getAttribute('srcLNClass') ?? 'LLN0';
     const cbReference = `${srcIedName}${srcPrefix}${srcLDInst}/${srcLNClass}.${srcCBName}`;
@@ -84761,10 +84772,12 @@ function buildRemoveEdits(control) {
 const controlBlockListTitle = {
     GSEControl: 'GOOSE Messages',
     SampledValueControl: 'Sampled Value Messages',
+    ReportControl: 'Report Control Blocks',
 };
 const removeActionTitle = {
     GSEControl: 'Remove GSEControl',
     SampledValueControl: 'Remove SampledValueControl',
+    ReportControl: 'Remove ReportControl',
 };
 /**
  * A sub element for showing all Goose/Sampled Value Controls.
@@ -84773,17 +84786,17 @@ const removeActionTitle = {
  */
 class FcdaBindingList extends ScopedElementsMixin(i$4) {
     get hideSubscribed() {
-        return (localStorage.getItem(`fcda-binding-list-data-binding-${this.controlTag}$hideSubscribed`) === 'true');
+        return (localStorage.getItem(`fcda-binding-list-data-binding-${this.ControlTag}$hideSubscribed`) === 'true');
     }
     set hideSubscribed(value) {
-        localStorage.setItem(`fcda-binding-list-data-binding-${this.controlTag}$hideSubscribed`, `${value}`);
+        localStorage.setItem(`fcda-binding-list-data-binding-${this.ControlTag}$hideSubscribed`, `${value}`);
         this.requestUpdate();
     }
     get hideNotSubscribed() {
-        return (localStorage.getItem(`fcda-binding-list-data-binding-${this.controlTag}$hideNotSubscribed`) === 'true');
+        return (localStorage.getItem(`fcda-binding-list-data-binding-${this.ControlTag}$hideNotSubscribed`) === 'true');
     }
     set hideNotSubscribed(value) {
-        localStorage.setItem(`fcda-binding-list-data-binding-${this.controlTag}$hideNotSubscribed`, `${value}`);
+        localStorage.setItem(`fcda-binding-list-data-binding-${this.ControlTag}$hideNotSubscribed`, `${value}`);
         this.requestUpdate();
     }
     get filterItems() {
@@ -84807,7 +84820,10 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
     }
     getControlElements() {
         if (this.doc) {
-            return Array.from(this.doc.querySelectorAll(`LN0 > ${this.controlTag}`));
+            const selector = this.ControlTag === 'ReportControl'
+                ? `:is(LN0, LN) > ${this.ControlTag}`
+                : `LN0 > ${this.ControlTag}`;
+            return Array.from(this.doc.querySelectorAll(selector));
         }
         return [];
     }
@@ -84825,7 +84841,7 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
         const lDeviceElement = controlElement.closest('LDevice');
         const lnElement = controlElement.closest('LN0, LN');
         return [
-            serviceTypes[this.controlTag] ?? '',
+            serviceTypes[this.ControlTag] ?? '',
             lDeviceElement?.getAttribute('inst') ?? '',
             lnElement?.getAttribute('prefix') ?? '',
             lnElement?.getAttribute('lnClass') ?? 'LLN0',
@@ -84873,8 +84889,8 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
         const extRefElements = Array.from(this.doc.querySelectorAll('ExtRef')).filter(element => !element.hasAttribute('intAddr') &&
             (isEdition2003 ||
                 element.getAttribute('serviceType') ===
-                    serviceTypes[this.controlTag]));
-        extRefElements.forEach(extRefElement => {
+                    serviceTypes[this.ControlTag]));
+        extRefElements.forEach((extRefElement) => {
             const key = this.getSubscriptionCountKeyForExtRef(extRefElement);
             const sinkIedName = extRefElement.closest('IED')?.getAttribute('name') ?? '';
             const existingEntry = subscriptionCountIndex.get(key) ?? {
@@ -84947,7 +84963,7 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
         const edits = buildRemoveEdits(this.menuControlElement);
         if (edits.length > 0) {
             this.dispatchEvent(newEditEventV2(edits, {
-                title: msg(removeActionTitle[this.controlTag]),
+                title: msg(removeActionTitle[this.ControlTag]),
             }));
         }
     }
@@ -84966,7 +84982,7 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
         // so Lit does not need to schedule a second update.
         if (_changedProperties.has('doc') ||
             _changedProperties.has('docVersion') ||
-            _changedProperties.has('controlTag')) {
+            _changedProperties.has('ControlTag')) {
             this.extRefCounters = new Map();
             this.buildSubscriptionCountIndex();
         }
@@ -85019,7 +85035,7 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
             'filter-off': this.hideSubscribed || this.hideNotSubscribed,
         };
         return b `<h2>
-      ${controlBlockListTitle[this.controlTag]}
+      ${controlBlockListTitle[this.ControlTag]}
       <oscd-filter-button
         class="actions-menu-icon ${e(menuClasses)}"
         .items=${this.filterItems}
@@ -85045,7 +85061,7 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
             <div slot="headline">${msg('Edit DataSet')}</div>
           </oscd-menu-item>`
             : A}
-      ${this.controlTag === 'SampledValueControl' && hasSmvOpts
+      ${this.ControlTag === 'SampledValueControl' && hasSmvOpts
             ? b `<oscd-menu-item @click=${() => this.onMenuEditSmvOpts()}>
             <div slot="headline">${msg('Edit SmvOpts')}</div>
           </oscd-menu-item>`
@@ -85095,10 +85111,10 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
         const rows = [];
         controlElements
             .filter(controlElement => this.getFcdaElements(controlElement).length)
-            .forEach(controlElement => {
+            .forEach((controlElement) => {
             const fcdaElements = this.getFcdaElements(controlElement);
             const fcdaRows = fcdaElements
-                .map(fcdaElement => {
+                .map((fcdaElement) => {
                 const fcdaCount = this.getExtRefCount(fcdaElement, controlElement);
                 const showSubscribed = fcdaCount !== 0;
                 const matchesSubscriptionFilter = (!this.hideSubscribed && showSubscribed) ||
@@ -85201,7 +85217,7 @@ __decorate([
 ], FcdaBindingList.prototype, "docVersion", void 0);
 __decorate([
     n$4()
-], FcdaBindingList.prototype, "controlTag", void 0);
+], FcdaBindingList.prototype, "ControlTag", void 0);
 __decorate([
     r$3()
 ], FcdaBindingList.prototype, "selectedControlElement", void 0);
@@ -85270,7 +85286,7 @@ function checkEditionSpecificRequirements(controlTag, controlElement, extRefElem
         return true;
     }
     const lDeviceElement = controlElement?.closest('LDevice') ?? undefined;
-    const lnElement = controlElement?.closest('LN0') ?? undefined;
+    const lnElement = controlElement?.closest('LN0, LN') ?? undefined;
     // If ExtRef is missing 'srcLNClass', it defaults to 'LLN0' as specified in the standard
     const extRefIsMissingSrcLNClass = !extRefElement.hasAttribute('srcLNClass');
     const isLnClassLLN0 = lnElement?.getAttribute('lnClass') === 'LLN0';
@@ -85716,6 +85732,15 @@ class OscdEditorSubscriberDatabinding extends ScopedElementsMixin(i$4) {
           >
             <oscd-icon slot="icon">smvIcon</oscd-icon>
           </oscd-outlined-segmented-button>
+          <oscd-outlined-segmented-button
+            label="${msg('Report')}"
+            no-checkmark
+            ?selected=${this.controlTag === 'ReportControl'}
+            @click=${() => this.onControlTagChange('ReportControl')}
+          >
+            <oscd-icon slot="icon">smvIcon</oscd-icon>
+          </oscd-outlined-segmented-button>
+
         </oscd-outlined-segmented-button-set>
       </header>
       <div class="container">
@@ -85786,7 +85811,7 @@ OscdEditorSubscriberDatabinding.styles = i$7 `
     .control-switch {
       flex-shrink: 0;
       align-self: flex-start;
-      inline-size: min(100%, 28rem);
+      inline-size: min(100%, 42rem);
       --md-outlined-segmented-button-selected-container-color: var(
         --md-sys-color-primary,
         #005ac1

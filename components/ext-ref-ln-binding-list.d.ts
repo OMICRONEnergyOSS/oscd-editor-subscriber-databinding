@@ -4,6 +4,7 @@ import { OscdListItem } from '@omicronenergy/oscd-ui/list/OscdListItem.js';
 import { OscdDivider } from '@omicronenergy/oscd-ui/divider/OscdDivider.js';
 import type { Nsdoc } from '../foundation/nsdoc.js';
 import { VirtualizedFilteredList } from './virtualized-filtered-list.js';
+import { ControlTag } from '../foundation.js';
 declare const ExtRefLnBindingList_base: typeof LitElement & import("@open-wc/scoped-elements/lit-element.js").ScopedElementsHostConstructor;
 /**
  * A sub element for showing all Ext Refs from a FCDA Element.
@@ -19,7 +20,7 @@ export declare class ExtRefLnBindingList extends ExtRefLnBindingList_base {
     doc: XMLDocument;
     docVersion?: unknown;
     nsdoc: Nsdoc;
-    controlTag: 'SampledValueControl' | 'GSEControl';
+    controlTag: ControlTag;
     currentSelectedControlElement: Element | undefined;
     currentSelectedFcdaElement: Element | undefined;
     currentIedElement: Element | undefined;

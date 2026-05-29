@@ -8,7 +8,7 @@ import { OscdMenu } from '@omicronenergy/oscd-ui/menu/OscdMenu.js';
 import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
 import { OscdDivider } from '@omicronenergy/oscd-ui/divider/OscdDivider.js';
 import { VirtualizedFilteredList } from './virtualized-filtered-list.js';
-type controlTag = 'SampledValueControl' | 'GSEControl';
+import { ControlTag } from '../foundation.js';
 declare const FcdaBindingList_base: typeof LitElement & import("@open-wc/scoped-elements/lit-element.js").ScopedElementsHostConstructor;
 /**
  * A sub element for showing all Goose/Sampled Value Controls.
@@ -28,7 +28,7 @@ export declare class FcdaBindingList extends FcdaBindingList_base {
     };
     doc: XMLDocument;
     docVersion?: unknown;
-    controlTag: controlTag;
+    ControlTag: ControlTag;
     private selectedControlElement;
     private selectedFcdaElement;
     private extRefCounters;
