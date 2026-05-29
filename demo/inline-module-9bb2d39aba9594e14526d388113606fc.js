@@ -85738,7 +85738,7 @@ class OscdEditorSubscriberDatabinding extends ScopedElementsMixin(i$4) {
             ?selected=${this.controlTag === 'ReportControl'}
             @click=${() => this.onControlTagChange('ReportControl')}
           >
-            <oscd-icon slot="icon">smvIcon</oscd-icon>
+            <oscd-icon slot="icon">reportIcon</oscd-icon>
           </oscd-outlined-segmented-button>
 
         </oscd-outlined-segmented-button-set>
