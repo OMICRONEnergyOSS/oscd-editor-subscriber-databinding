@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.3...oscd-editor-subscriber-databinding-v0.0.4) (2026-05-29)
+
+
+### Features
+
+* added support for ReportControl ([22c2ae9](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/commit/22c2ae99c01f82a4684f9ad8dcbc39b63faf5fe6))
+
 ## [0.0.3](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.2...oscd-editor-subscriber-databinding-v0.0.3) (2026-04-17)
 
 
