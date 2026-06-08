@@ -37,11 +37,11 @@ export declare function getFcdaTitleValue(fcdaElement: Element): string;
 export declare function getFcdaSubtitleValue(fcdaElement: Element): string;
 export declare function getExtRef(parentInputs: Element, fcda: Element, control: Element | undefined): Element | undefined;
 /**
- * Return Val elements within an LGOS/LSVS/LRPT instance for a particular IED and control block type.
+ * Return Val elements within an LGOS/LSVS instance for a particular IED and control block type.
  * @param ied - IED SCL element.
- * @param cbTagName - GSEControl, SampledValueControl, or ReportControl.
+ * @param cbTagName - GSEControl or SampledValueControl.
  * @param firstOnly - If true, return the first element found
- * @returns an Element array of Val SCL elements within an LGOS/LSVS/LRPT node.
+ * @returns an Element array of Val SCL elements within an LGOS/LSVS node.
  */
 export declare function getSupervisionCbRefs(ied: Element, cbTagName: string): Element[];
 export declare function getSupervisionCbRefs(ied: Element, cbTagName: string, firstOnly: boolean): Element | null;

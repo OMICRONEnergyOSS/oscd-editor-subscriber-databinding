@@ -83397,20 +83397,8 @@ function getExistingSupervision(extRef) {
     }
     const extRefValues = ['iedName', 'serviceType', 'srcPrefix', 'srcCBName'];
     const [srcIedName, serviceType, srcPrefix, srcCBName] = extRefValues.map(attr => extRef.getAttribute(attr) ?? '');
-    let supervisionType;
-    let refSelector;
-    if (serviceType === 'GOOSE') {
-        supervisionType = 'LGOS';
-        refSelector = 'DOI[name="GoCBRef"]';
-    }
-    else if (serviceType === 'Report') {
-        supervisionType = 'LRPT';
-        refSelector = 'DOI[name="RpCBRef"]';
-    }
-    else {
-        supervisionType = 'LSVS';
-        refSelector = 'DOI[name="SvCBRef"]';
-    }
+    const supervisionType = serviceType === 'GOOSE' ? 'LGOS' : 'LSVS';
+    const refSelector = supervisionType === 'LGOS' ? 'DOI[name="GoCBRef"]' : 'DOI[name="SvCBRef"]';
     const srcLDInst = extRef.getAttribute('srcLDInst') ?? extRef.getAttribute('ldInst');
     const srcLNClass = extRef.getAttribute('srcLNClass') ?? 'LLN0';
     const cbReference = `${srcIedName}${srcPrefix}${srcLDInst}/${srcLNClass}.${srcCBName}`;
@@ -84772,12 +84760,10 @@ function buildRemoveEdits(control) {
 const controlBlockListTitle = {
     GSEControl: 'GOOSE Messages',
     SampledValueControl: 'Sampled Value Messages',
-    ReportControl: 'Report Control Blocks',
 };
 const removeActionTitle = {
     GSEControl: 'Remove GSEControl',
     SampledValueControl: 'Remove SampledValueControl',
-    ReportControl: 'Remove ReportControl',
 };
 /**
  * A sub element for showing all Goose/Sampled Value Controls.
@@ -84820,10 +84806,7 @@ class FcdaBindingList extends ScopedElementsMixin(i$4) {
     }
     getControlElements() {
         if (this.doc) {
-            const selector = this.ControlTag === 'ReportControl'
-                ? `:is(LN0, LN) > ${this.ControlTag}`
-                : `LN0 > ${this.ControlTag}`;
-            return Array.from(this.doc.querySelectorAll(selector));
+            return Array.from(this.doc.querySelectorAll(`LN0 > ${this.ControlTag}`));
         }
         return [];
     }
@@ -85732,14 +85715,6 @@ class OscdEditorSubscriberDatabinding extends ScopedElementsMixin(i$4) {
           >
             <oscd-icon slot="icon">smvIcon</oscd-icon>
           </oscd-outlined-segmented-button>
-          <oscd-outlined-segmented-button
-            label="${msg('Report')}"
-            no-checkmark
-            ?selected=${this.controlTag === 'ReportControl'}
-            @click=${() => this.onControlTagChange('ReportControl')}
-          >
-            <oscd-icon slot="icon">reportIcon</oscd-icon>
-          </oscd-outlined-segmented-button>
 
         </oscd-outlined-segmented-button-set>
       </header>
@@ -85811,7 +85786,7 @@ OscdEditorSubscriberDatabinding.styles = i$7 `
     .control-switch {
       flex-shrink: 0;
       align-self: flex-start;
-      inline-size: min(100%, 42rem);
+      inline-size: min(100%, 28rem);
       --md-outlined-segmented-button-selected-container-color: var(
         --md-sys-color-primary,
         #005ac1
