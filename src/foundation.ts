@@ -1,7 +1,7 @@
 import { getSclSchemaVersion } from './foundation/scl.js';
 import { serviceTypes } from './components/subscription.js';
 
-export type ControlTag = 'GSEControl' | 'SampledValueControl' | 'ReportControl';
+export type ControlTag = 'GSEControl' | 'SampledValueControl';
 /**
  * Simple function to check if the attribute of the Left Side has the same value as the attribute of the Right Element.
  *

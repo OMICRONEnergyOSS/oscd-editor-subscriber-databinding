@@ -153,11 +153,11 @@ export function getExtRef(
 }
 
 /**
- * Return Val elements within an LGOS/LSVS/LRPT instance for a particular IED and control block type.
+ * Return Val elements within an LGOS/LSVS instance for a particular IED and control block type.
  * @param ied - IED SCL element.
- * @param cbTagName - GSEControl, SampledValueControl, or ReportControl.
+ * @param cbTagName - GSEControl or SampledValueControl.
  * @param firstOnly - If true, return the first element found
- * @returns an Element array of Val SCL elements within an LGOS/LSVS/LRPT node.
+ * @returns an Element array of Val SCL elements within an LGOS/LSVS node.
  */
 export function getSupervisionCbRefs(
   ied: Element,
@@ -173,19 +173,8 @@ export function getSupervisionCbRefs(
   cbTagName: string,
   firstOnly?: boolean,
 ): Element[] | Element | null {
-  let supervisionType: string;
-  let supervisionName: string;
-
-  if (cbTagName === 'GSEControl') {
-    supervisionType = 'LGOS';
-    supervisionName = 'GoCBRef';
-  } else if (cbTagName === 'ReportControl') {
-    supervisionType = 'LRPT';
-    supervisionName = 'RpCBRef';
-  } else {
-    supervisionType = 'LSVS';
-    supervisionName = 'SvCBRef';
-  }
+  const supervisionType = cbTagName === 'GSEControl' ? 'LGOS' : 'LSVS';
+  const supervisionName = supervisionType === 'LGOS' ? 'GoCBRef' : 'SvCBRef';
 
   const selectorString = `LN[lnClass="${supervisionType}"]>DOI[name="${supervisionName}"]>DAI[name="setSrcRef"]>Val,LN0[lnClass="${supervisionType}"]>DOI[name="${supervisionName}"]>DAI[name="setSrcRef"]>Val`;
   return firstOnly
@@ -208,19 +197,9 @@ export function getExistingSupervision(extRef: Element | null): Element | null {
     attr => extRef.getAttribute(attr) ?? '',
   );
 
-  let supervisionType: string;
-  let refSelector: string;
-
-  if (serviceType === 'GOOSE') {
-    supervisionType = 'LGOS';
-    refSelector = 'DOI[name="GoCBRef"]';
-  } else if (serviceType === 'Report') {
-    supervisionType = 'LRPT';
-    refSelector = 'DOI[name="RpCBRef"]';
-  } else {
-    supervisionType = 'LSVS';
-    refSelector = 'DOI[name="SvCBRef"]';
-  }
+  const supervisionType = serviceType === 'GOOSE' ? 'LGOS' : 'LSVS';
+  const refSelector =
+    supervisionType === 'LGOS' ? 'DOI[name="GoCBRef"]' : 'DOI[name="SvCBRef"]';
 
   const srcLDInst =
     extRef.getAttribute('srcLDInst') ?? extRef.getAttribute('ldInst');

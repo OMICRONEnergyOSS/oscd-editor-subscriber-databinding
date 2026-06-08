@@ -93,14 +93,6 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
           >
             <oscd-icon slot="icon">smvIcon</oscd-icon>
           </oscd-outlined-segmented-button>
-          <oscd-outlined-segmented-button
-            label="${msg('Report')}"
-            no-checkmark
-            ?selected=${this.controlTag === 'ReportControl'}
-            @click=${() => this.onControlTagChange('ReportControl')}
-          >
-            <oscd-icon slot="icon">reportIcon</oscd-icon>
-          </oscd-outlined-segmented-button>
 
         </oscd-outlined-segmented-button-set>
       </header>
@@ -164,7 +156,7 @@ export default class OscdEditorSubscriberDatabinding extends ScopedElementsMixin
     .control-switch {
       flex-shrink: 0;
       align-self: flex-start;
-      inline-size: min(100%, 42rem);
+      inline-size: min(100%, 28rem);
       --md-outlined-segmented-button-selected-container-color: var(
         --md-sys-color-primary,
         #005ac1

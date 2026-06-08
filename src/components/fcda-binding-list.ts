@@ -65,13 +65,11 @@ type VirtualRow = ControlRow | FcdaRow;
 const controlBlockListTitle: Record<ControlTag, string> = {
   GSEControl: 'GOOSE Messages',
   SampledValueControl: 'Sampled Value Messages',
-  ReportControl: 'Report Control Blocks',
 };
 
 const removeActionTitle: Record<ControlTag, string> = {
   GSEControl: 'Remove GSEControl',
   SampledValueControl: 'Remove SampledValueControl',
-  ReportControl: 'Remove ReportControl',
 };
 
 /**
@@ -183,11 +181,7 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
 
   private getControlElements(): Element[] {
     if (this.doc) {
-      const selector =
-        this.ControlTag === 'ReportControl'
-          ? `:is(LN0, LN) > ${this.ControlTag}`
-          : `LN0 > ${this.ControlTag}`;
-      return Array.from(this.doc.querySelectorAll(selector));
+      return Array.from(this.doc.querySelectorAll(`LN0 > ${this.ControlTag}`));
     }
     return [];
   }
