@@ -5,7 +5,7 @@ import { OscdDivider } from '@omicronenergy/oscd-ui/divider/OscdDivider.js';
 import type { Nsdoc } from '../foundation/nsdoc.js';
 import { VirtualizedFilteredList } from './virtualized-filtered-list.js';
 import { ControlTag } from '../foundation.js';
-declare const ExtRefLnBindingList_base: typeof LitElement & import("@open-wc/scoped-elements/lit-element.js").ScopedElementsHostConstructor;
+declare const ExtRefLnBindingList_base: typeof LitElement & import("@open-wc/dedupe-mixin").Constructor<import("@open-wc/scoped-elements/types.js").ScopedElementsHost> & import("@open-wc/scoped-elements/types.js").ScopedElementsHostConstructor;
 /**
  * A sub element for showing all Ext Refs from a FCDA Element.
  * The List reacts on a custom event to know which FCDA Element was selected and updated the view.

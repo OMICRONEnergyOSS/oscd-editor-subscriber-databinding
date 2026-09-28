@@ -90,7 +90,7 @@ const t$7=globalThis,e$f=t$7.ShadowRoot&&(void 0===t$7.ShadyCSS||t$7.ShadyCSS.na
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$6=globalThis,i$c=t=>t,s$7=t$6.trustedTypes,e$d=s$7?s$7.createPolicy("lit-html",{createHTML:t=>t}):void 0,h$4="$lit$",o$f=`lit$${Math.random().toFixed(9).slice(2)}$`,n$c="?"+o$f,r$b=`<${n$c}>`,l$5=document,c$5=()=>l$5.createComment(""),a$4=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$6=Array.isArray,d$2=t=>u$6(t)||"function"==typeof t?.[Symbol.iterator],f$3="[ \t\n\f\r]",v$2=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_$1=/-->/g,m$2=/>/g,p$3=RegExp(`>|${f$3}(?:([^\\s"'>=/]+)(${f$3}*=${f$3}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g$1=/'/g,$$1=/"/g,y$2=/^(?:script|style|textarea|title)$/i,x$1=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),b$2=x$1(1),E$1=Symbol.for("lit-noChange"),A$1=Symbol.for("lit-nothing"),C$1=new WeakMap,P$1=l$5.createTreeWalker(l$5,129);function V$1(t,i){if(!u$6(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$d?e$d.createHTML(i):i}const N$1=(t,i)=>{const s=t.length-1,e=[];let n,l=2===i?"<svg>":3===i?"<math>":"",c=v$2;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,f=0;for(;f<s.length&&(c.lastIndex=f,u=c.exec(s),null!==u);)f=c.lastIndex,c===v$2?"!--"===u[1]?c=_$1:void 0!==u[1]?c=m$2:void 0!==u[2]?(y$2.test(u[2])&&(n=RegExp("</"+u[2],"g")),c=p$3):void 0!==u[3]&&(c=p$3):c===p$3?">"===u[0]?(c=n??v$2,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?p$3:'"'===u[3]?$$1:g$1):c===$$1||c===g$1?c=p$3:c===_$1||c===m$2?c=v$2:(c=p$3,n=void 0);const x=c===p$3&&t[i+1].startsWith("/>")?" ":"";l+=c===v$2?s+r$b:d>=0?(e.push(a),s.slice(0,d)+h$4+s.slice(d)+o$f+x):s+o$f+(-2===d?i:x);}return [V$1(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),e]};let S$2 = class S{constructor({strings:t,_$litType$:i},e){let r;this.parts=[];let l=0,a=0;const u=t.length-1,d=this.parts,[f,v]=N$1(t,i);if(this.el=S.createElement(f,e),P$1.currentNode=this.el.content,2===i||3===i){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=P$1.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(h$4)){const i=v[a++],s=r.getAttribute(t).split(o$f),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:l,name:e[2],strings:s,ctor:"."===e[1]?I$1:"?"===e[1]?L$1:"@"===e[1]?z$1:H$1}),r.removeAttribute(t);}else t.startsWith(o$f)&&(d.push({type:6,index:l}),r.removeAttribute(t));if(y$2.test(r.tagName)){const t=r.textContent.split(o$f),i=t.length-1;if(i>0){r.textContent=s$7?s$7.emptyScript:"";for(let s=0;s<i;s++)r.append(t[s],c$5()),P$1.nextNode(),d.push({type:2,index:++l});r.append(t[i],c$5());}}}else if(8===r.nodeType)if(r.data===n$c)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=r.data.indexOf(o$f,t+1));)d.push({type:7,index:l}),t+=o$f.length-1;}l++;}}static createElement(t,i){const s=l$5.createElement("template");return s.innerHTML=t,s}};function M$2(t,i,s=t,e){if(i===E$1)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=a$4(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=M$2(t,h._$AS(t,i.values),h,e)),i}let R$1 = class R{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??l$5).importNode(i,true);P$1.currentNode=e;let h=P$1.nextNode(),o=0,n=0,r=s[0];for(;void 0!==r;){if(o===r.index){let i;2===r.type?i=new k$1(h,h.nextSibling,this,t):1===r.type?i=new r.ctor(h,r.name,r.strings,this,t):6===r.type&&(i=new Z$1(h,this,t)),this._$AV.push(i),r=s[++n];}o!==r?.index&&(h=P$1.nextNode(),o++);}return P$1.currentNode=l$5,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}};let k$1 = class k{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=A$1,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=M$2(this,t,i),a$4(t)?t===A$1||null==t||""===t?(this._$AH!==A$1&&this._$AR(),this._$AH=A$1):t!==this._$AH&&t!==E$1&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):d$2(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==A$1&&a$4(this._$AH)?this._$AA.nextSibling.data=t:this.T(l$5.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=S$2.createElement(V$1(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new R$1(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=C$1.get(t.strings);return void 0===i&&C$1.set(t.strings,i=new S$2(t)),i}k(t){u$6(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new k(this.O(c$5()),this.O(c$5()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,s){for(this._$AP?.(false,true,s);t!==this._$AB;){const s=i$c(t).nextSibling;i$c(t).remove(),t=s;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}};let H$1 = class H{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=A$1,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A$1;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=M$2(this,t,i,0),o=!a$4(t)||t!==this._$AH&&t!==E$1,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=M$2(this,e[s+n],i,n),r===E$1&&(r=this._$AH[n]),o||=!a$4(r)||r!==this._$AH[n],r===A$1?t=A$1:t!==A$1&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===A$1?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}};let I$1 = class I extends H$1{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A$1?void 0:t;}};let L$1 = class L extends H$1{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==A$1);}};let z$1 = class z extends H$1{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=M$2(this,t,i,0)??A$1)===E$1)return;const s=this._$AH,e=t===A$1&&s!==A$1||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==A$1&&(s===A$1||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}};let Z$1 = class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){M$2(this,t);}};const B$1=t$6.litHtmlPolyfillSupport;B$1?.(S$2,k$1),(t$6.litHtmlVersions??=[]).push("3.3.2");const D$1=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new k$1(i.insertBefore(c$5(),t),t,void 0,s??{});}return h._$AI(t),h};
+const t$6=globalThis,i$c=t=>t,s$7=t$6.trustedTypes,e$d=s$7?s$7.createPolicy("lit-html",{createHTML:t=>t}):void 0,h$4="$lit$",o$f=`lit$${Math.random().toFixed(9).slice(2)}$`,n$c="?"+o$f,r$b=`<${n$c}>`,l$5=document,c$5=()=>l$5.createComment(""),a$4=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$6=Array.isArray,d$2=t=>u$6(t)||"function"==typeof t?.[Symbol.iterator],f$3="[ \t\n\f\r]",v$2=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_$1=/-->/g,m$2=/>/g,p$3=RegExp(`>|${f$3}(?:([^\\s"'>=/]+)(${f$3}*=${f$3}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g$1=/'/g,$$1=/"/g,y$2=/^(?:script|style|textarea|title)$/i,x$1=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),b$2=x$1(1),E$1=Symbol.for("lit-noChange"),A$1=Symbol.for("lit-nothing"),C$1=new WeakMap,P$1=l$5.createTreeWalker(l$5,129);function V$1(t,i){if(!u$6(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$d?e$d.createHTML(i):i}const N$1=(t,i)=>{const s=t.length-1,e=[];let n,l=2===i?"<svg>":3===i?"<math>":"",c=v$2;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,f=0;for(;f<s.length&&(c.lastIndex=f,u=c.exec(s),null!==u);)f=c.lastIndex,c===v$2?"!--"===u[1]?c=_$1:void 0!==u[1]?c=m$2:void 0!==u[2]?(y$2.test(u[2])&&(n=RegExp("</"+u[2],"g")),c=p$3):void 0!==u[3]&&(c=p$3):c===p$3?">"===u[0]?(c=n??v$2,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?p$3:'"'===u[3]?$$1:g$1):c===$$1||c===g$1?c=p$3:c===_$1||c===m$2?c=v$2:(c=p$3,n=void 0);const x=c===p$3&&t[i+1].startsWith("/>")?" ":"";l+=c===v$2?s+r$b:d>=0?(e.push(a),s.slice(0,d)+h$4+s.slice(d)+o$f+x):s+o$f+(-2===d?i:x);}return [V$1(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),e]};let S$2 = class S{constructor({strings:t,_$litType$:i},e){let r;this.parts=[];let l=0,a=0;const u=t.length-1,d=this.parts,[f,v]=N$1(t,i);if(this.el=S.createElement(f,e),P$1.currentNode=this.el.content,2===i||3===i){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=P$1.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(h$4)){const i=v[a++],s=r.getAttribute(t).split(o$f),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:l,name:e[2],strings:s,ctor:"."===e[1]?I$1:"?"===e[1]?L$1:"@"===e[1]?z$1:H$1}),r.removeAttribute(t);}else t.startsWith(o$f)&&(d.push({type:6,index:l}),r.removeAttribute(t));if(y$2.test(r.tagName)){const t=r.textContent.split(o$f),i=t.length-1;if(i>0){r.textContent=s$7?s$7.emptyScript:"";for(let s=0;s<i;s++)r.append(t[s],c$5()),P$1.nextNode(),d.push({type:2,index:++l});r.append(t[i],c$5());}}}else if(8===r.nodeType)if(r.data===n$c)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=r.data.indexOf(o$f,t+1));)d.push({type:7,index:l}),t+=o$f.length-1;}l++;}}static createElement(t,i){const s=l$5.createElement("template");return s.innerHTML=t,s}};function M$2(t,i,s=t,e){if(i===E$1)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=a$4(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=M$2(t,h._$AS(t,i.values),h,e)),i}let R$1 = class R{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??l$5).importNode(i,true);P$1.currentNode=e;let h=P$1.nextNode(),o=0,n=0,r=s[0];for(;void 0!==r;){if(o===r.index){let i;2===r.type?i=new k$1(h,h.nextSibling,this,t):1===r.type?i=new r.ctor(h,r.name,r.strings,this,t):6===r.type&&(i=new Z$1(h,this,t)),this._$AV.push(i),r=s[++n];}o!==r?.index&&(h=P$1.nextNode(),o++);}return P$1.currentNode=l$5,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}};let k$1 = class k{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=A$1,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=M$2(this,t,i),a$4(t)?t===A$1||null==t||""===t?(this._$AH!==A$1&&this._$AR(),this._$AH=A$1):t!==this._$AH&&t!==E$1&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):d$2(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==A$1&&a$4(this._$AH)?this._$AA.nextSibling.data=t:this.T(l$5.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=S$2.createElement(V$1(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new R$1(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=C$1.get(t.strings);return void 0===i&&C$1.set(t.strings,i=new S$2(t)),i}k(t){u$6(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new k(this.O(c$5()),this.O(c$5()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,s){for(this._$AP?.(false,true,s);t!==this._$AB;){const s=i$c(t).nextSibling;i$c(t).remove(),t=s;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}};let H$1 = class H{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=A$1,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A$1;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=M$2(this,t,i,0),o=!a$4(t)||t!==this._$AH&&t!==E$1,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=M$2(this,e[s+n],i,n),r===E$1&&(r=this._$AH[n]),o||=!a$4(r)||r!==this._$AH[n],r===A$1?t=A$1:t!==A$1&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===A$1?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}};let I$1 = class I extends H$1{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A$1?void 0:t;}};let L$1 = class L extends H$1{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==A$1);}};let z$1 = class z extends H$1{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=M$2(this,t,i,0)??A$1)===E$1)return;const s=this._$AH,e=t===A$1&&s!==A$1||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==A$1&&(s===A$1||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}};let Z$1 = class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){M$2(this,t);}};const B$1=t$6.litHtmlPolyfillSupport;B$1?.(S$2,k$1),(t$6.litHtmlVersions??=[]).push("3.3.3");const D$1=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new k$1(i.insertBefore(c$5(),t),t,void 0,s??{});}return h._$AI(t),h};
 
 /**
  * @license
@@ -187,6 +187,7 @@ function dedupeMixin$1(mixin) {
 /**
  * @typedef {import('./types.js').ScopedElementsHost} ScopedElementsHost
  * @typedef {import('./types.js').ScopedElementsMap} ScopedElementsMap
+ * @typedef {import('./types.js').ScopedElementsHostConstructor} ScopedElementsHostConstructor
  */
 
 const version$1 = '3.0.0';
@@ -198,7 +199,7 @@ if (!versions$1.includes(version$1)) {
 /**
  * @template {import('./types.js').Constructor<HTMLElement>} T
  * @param {T} superclass
- * @return {T & import('./types.js').Constructor<ScopedElementsHost>}
+ * @return {T & import('./types.js').Constructor<ScopedElementsHost> & ScopedElementsHostConstructor}
  */
 const ScopedElementsMixinImplementation$3 = superclass =>
   /** @type {ScopedElementsHost} */
@@ -277,17 +278,17 @@ const ScopedElementsMixin$3 = dedupeMixin$1(ScopedElementsMixinImplementation$3)
 /**
  * @typedef {import('./types.js').ScopedElementsHost} ScopedElementsHost
  * @typedef {import('./types.js').ScopedElementsMap} ScopedElementsMap
+ * @typedef {import('./types.js').ScopedElementsHostConstructor} ScopedElementsHostConstructor
  * @typedef {import('lit').CSSResultOrNative} CSSResultOrNative
  * @typedef {import('lit').LitElement} LitElement
  * @typedef {typeof import('lit').LitElement} TypeofLitElement
  * @typedef {import('@open-wc/dedupe-mixin').Constructor<LitElement>} LitElementConstructor
- * @typedef {import('@open-wc/dedupe-mixin').Constructor<ScopedElementsHost>} ScopedElementsHostConstructor
  */
 
 /**
  * @template {LitElementConstructor} T
  * @param {T} superclass
- * @return {T & ScopedElementsHostConstructor}
+ * @return {T & import('@open-wc/dedupe-mixin').Constructor<ScopedElementsHost> & ScopedElementsHostConstructor}
  */
 const ScopedElementsMixinImplementation$2 = superclass =>
   /** @type {ScopedElementsHost} */
@@ -1801,6 +1802,180 @@ function ariaAttributeToDataProperty$2(ariaAttribute) {
 
 /**
  * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Returns `true` if the given element is in a right-to-left direction.
+ *
+ * @param el Element to determine direction from
+ * @param shouldCheck Optional. If `false`, return `false` without checking
+ *     direction. Determining the direction of `el` is somewhat expensive, so
+ *     this parameter can be used as a conditional guard. Defaults to `true`.
+ */
+function isRtl$2(el, shouldCheck = true) {
+    return (shouldCheck &&
+        getComputedStyle(el).getPropertyValue('direction').trim() === 'rtl');
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A symbol used to access dispatch hooks on an event.
+ */
+const dispatchHooks$2 = Symbol('dispatchHooks');
+/**
+ * Add a hook for an event that is called after the event is dispatched and
+ * propagates to other event listeners.
+ *
+ * This is useful for behaviors that need to check if an event is canceled.
+ *
+ * The callback is invoked synchronously, which allows for better integration
+ * with synchronous platform APIs (like `<form>` or `<label>` clicking).
+ *
+ * Note: `setupDispatchHooks()` must be called on the element before adding any
+ * other event listeners. Call it in the constructor of an element or
+ * controller.
+ *
+ * @example
+ * ```ts
+ * class MyControl extends LitElement {
+ *   constructor() {
+ *     super();
+ *     setupDispatchHooks(this, 'click');
+ *     this.addEventListener('click', event => {
+ *       afterDispatch(event, () => {
+ *         if (event.defaultPrevented) {
+ *           return
+ *         }
+ *
+ *         // ... perform logic
+ *       });
+ *     });
+ *   }
+ * }
+ * ```
+ *
+ * @example
+ * ```ts
+ * class MyController implements ReactiveController {
+ *   constructor(host: ReactiveElement) {
+ *     // setupDispatchHooks() may be called multiple times for the same
+ *     // element and events, making it safe for multiple controllers to use it.
+ *     setupDispatchHooks(host, 'click');
+ *     host.addEventListener('click', event => {
+ *       afterDispatch(event, () => {
+ *         if (event.defaultPrevented) {
+ *           return;
+ *         }
+ *
+ *         // ... perform logic
+ *       });
+ *     });
+ *   }
+ * }
+ * ```
+ *
+ * @param event The event to add a hook to.
+ * @param callback A hook that is called after the event finishes dispatching.
+ */
+function afterDispatch$2(event, callback) {
+    const hooks = event[dispatchHooks$2];
+    if (!hooks) {
+        throw new Error(`'${event.type}' event needs setupDispatchHooks().`);
+    }
+    hooks.addEventListener('after', callback, { once: true });
+}
+/**
+ * A lookup map of elements and event types that have a dispatch hook listener
+ * set up. Used to ensure we don't set up multiple hook listeners on the same
+ * element for the same event.
+ */
+const ELEMENT_DISPATCH_HOOK_TYPES$2 = new WeakMap();
+/**
+ * Sets up an element to add dispatch hooks to given event types. This must be
+ * called before adding any event listeners that need to use dispatch hooks
+ * like `afterDispatch()`.
+ *
+ * This function is safe to call multiple times with the same element or event
+ * types. Call it in the constructor of elements, mixins, and controllers to
+ * ensure it is set up before external listeners.
+ *
+ * @example
+ * ```ts
+ * class MyControl extends LitElement {
+ *   constructor() {
+ *     super();
+ *     setupDispatchHooks(this, 'click');
+ *     this.addEventListener('click', this.listenerUsingAfterDispatch);
+ *   }
+ * }
+ * ```
+ *
+ * @param element The element to set up event dispatch hooks for.
+ * @param eventTypes The event types to add dispatch hooks to.
+ */
+function setupDispatchHooks$2(element, ...eventTypes) {
+    let typesAlreadySetUp = ELEMENT_DISPATCH_HOOK_TYPES$2.get(element);
+    if (!typesAlreadySetUp) {
+        typesAlreadySetUp = new Set();
+        ELEMENT_DISPATCH_HOOK_TYPES$2.set(element, typesAlreadySetUp);
+    }
+    for (const eventType of eventTypes) {
+        // Don't register multiple dispatch hook listeners. A second registration
+        // would lead to the second listener calling `afterDispatch()` hooks twice.
+        if (typesAlreadySetUp.has(eventType)) {
+            continue;
+        }
+        element.addEventListener(eventType, (event) => {
+            // Add hooks onto the event.
+            const hooks = new EventTarget();
+            event[dispatchHooks$2] = hooks;
+            const cleanupLastNodeListener = new AbortController();
+            const callAfterDispatch = () => {
+                cleanupLastNodeListener.abort();
+                hooks.dispatchEvent(new Event('after'));
+            };
+            const patchStopPropagation = (superMethod) => {
+                return function () {
+                    superMethod.call(this);
+                    // Synchronously call afterDispatch() hooks when interrupted.
+                    callAfterDispatch();
+                };
+            };
+            event.stopPropagation = patchStopPropagation(event.stopPropagation);
+            event.stopImmediatePropagation = patchStopPropagation(event.stopImmediatePropagation);
+            // Add an event listener to detect the end of the event's propagation.
+            const composedPath = event.composedPath();
+            let lastNodeForEvent;
+            if (event.composed && event.bubbles) {
+                lastNodeForEvent = composedPath[composedPath.length - 1];
+            }
+            else if (!event.bubbles) {
+                lastNodeForEvent = composedPath[0];
+            }
+            else {
+                lastNodeForEvent = composedPath[0].getRootNode();
+            }
+            lastNodeForEvent.addEventListener(eventType, () => {
+                // Synchronously call afterDispatch() hooks.
+                callAfterDispatch();
+            }, { once: true, signal: cleanupLastNodeListener.signal });
+        }, {
+            // Ensure this listener runs before other listeners.
+            // `setupDispatchHooks()` should be called in constructors to also
+            // ensure they run before any other externally-added capture listeners.
+            capture: true,
+        });
+        typesAlreadySetUp.add(eventType);
+    }
+}
+
+/**
+ * @license
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -1851,80 +2026,239 @@ function mixinElementInternals$2(base) {
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * Sets up an element's constructor to enable form submission. The element
- * instance should be form associated and have a `type` property.
+ * A symbol property to retrieve the form value for an element.
+ */
+const getFormValue$2 = Symbol('getFormValue');
+/**
+ * A symbol property to retrieve the form state for an element.
+ */
+const getFormState$2 = Symbol('getFormState');
+/**
+ * Mixes in form-associated behavior for a class. This allows an element to add
+ * values to `<form>` elements.
+ *
+ * Implementing classes should provide a `[formValue]` to return the current
+ * value of the element, as well as reset and restore callbacks.
+ *
+ * @example
+ * ```ts
+ * const base = mixinFormAssociated(mixinElementInternals(LitElement));
+ *
+ * class MyControl extends base {
+ *   \@property()
+ *   value = '';
+ *
+ *   override [getFormValue]() {
+ *     return this.value;
+ *   }
+ *
+ *   override formResetCallback() {
+ *     const defaultValue = this.getAttribute('value');
+ *     this.value = defaultValue;
+ *   }
+ *
+ *   override formStateRestoreCallback(state: string) {
+ *     this.value = state;
+ *   }
+ * }
+ * ```
+ *
+ * Elements may optionally provide a `[formState]` if their values do not
+ * represent the state of the component.
+ *
+ * @example
+ * ```ts
+ * const base = mixinFormAssociated(mixinElementInternals(LitElement));
+ *
+ * class MyCheckbox extends base {
+ *   \@property()
+ *   value = 'on';
+ *
+ *   \@property({type: Boolean})
+ *   checked = false;
+ *
+ *   override [getFormValue]() {
+ *     return this.checked ? this.value : null;
+ *   }
+ *
+ *   override [getFormState]() {
+ *     return String(this.checked);
+ *   }
+ *
+ *   override formResetCallback() {
+ *     const defaultValue = this.hasAttribute('checked');
+ *     this.checked = defaultValue;
+ *   }
+ *
+ *   override formStateRestoreCallback(state: string) {
+ *     this.checked = Boolean(state);
+ *   }
+ * }
+ * ```
+ *
+ * @param base The class to mix functionality into. The base class must use
+ *     `mixinElementInternals()`.
+ * @return The provided class with `FormAssociated` mixed in.
+ */
+function mixinFormAssociated$2(base) {
+    class FormAssociatedElement extends base {
+        get form() {
+            return this[internals$2].form;
+        }
+        get labels() {
+            return this[internals$2].labels;
+        }
+        // Use @property for the `name` and `disabled` properties to add them to the
+        // `observedAttributes` array and trigger `attributeChangedCallback()`.
+        //
+        // We don't use Lit's default getter/setter (`noAccessor: true`) because
+        // the attributes need to be updated synchronously to work with synchronous
+        // form APIs, and Lit updates attributes async by default.
+        get name() {
+            return this.getAttribute('name') ?? '';
+        }
+        set name(name) {
+            // Note: setting name to null or empty does not remove the attribute.
+            this.setAttribute('name', name);
+            // We don't need to call `requestUpdate()` since it's called synchronously
+            // in `attributeChangedCallback()`.
+        }
+        get disabled() {
+            return this.hasAttribute('disabled');
+        }
+        set disabled(disabled) {
+            // Coerce `disabled` in `Boolean()` to ensure that setting to `null` or
+            // `undefined` sets the attribute to `false`.
+            this.toggleAttribute('disabled', Boolean(disabled));
+            // We don't need to call `requestUpdate()` since it's called synchronously
+            // in `attributeChangedCallback()`.
+        }
+        attributeChangedCallback(name, old, value) {
+            // Manually `requestUpdate()` for `name` and `disabled` when their
+            // attribute or property changes.
+            // The properties update their attributes, so this callback is invoked
+            // immediately when the properties are set. We call `requestUpdate()` here
+            // instead of letting Lit set the properties from the attribute change.
+            // That would cause the properties to re-set the attribute and invoke this
+            // callback again in a loop. This leads to stale state when Lit tries to
+            // determine if a property changed or not.
+            if (name === 'name' || name === 'disabled') {
+                // Disabled's value is only false if the attribute is missing and null.
+                const oldValue = name === 'disabled' ? old !== null : old;
+                // Trigger a lit update when the attribute changes.
+                this.requestUpdate(name, oldValue);
+                return;
+            }
+            super.attributeChangedCallback(name, old, value);
+        }
+        requestUpdate(name, oldValue, options) {
+            super.requestUpdate(name, oldValue, options);
+            // If any properties change, update the form value, which may have changed
+            // as well.
+            // Update the form value synchronously in `requestUpdate()` rather than
+            // `update()` or `updated()`, which are async. This is necessary to ensure
+            // that form data is updated in time for synchronous event listeners.
+            this[internals$2].setFormValue(this[getFormValue$2](), this[getFormState$2]());
+        }
+        [getFormValue$2]() {
+            return this.getAttribute('value');
+        }
+        [getFormState$2]() {
+            return this[getFormValue$2]();
+        }
+        formDisabledCallback(disabled) {
+            this.disabled = disabled;
+        }
+    }
+    /** @nocollapse */
+    FormAssociatedElement.formAssociated = true;
+    __decorate$1([
+        n$b({ noAccessor: true })
+    ], FormAssociatedElement.prototype, "name", null);
+    __decorate$1([
+        n$b({ type: Boolean, noAccessor: true })
+    ], FormAssociatedElement.prototype, "disabled", null);
+    return FormAssociatedElement;
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Mixes in form submitter behavior for a class.
  *
  * A click listener is added to each element instance. If the click is not
  * default prevented, it will submit the element's form, if any.
  *
  * @example
  * ```ts
- * class MyElement extends mixinElementInternals(LitElement) {
- *   static {
- *     setupFormSubmitter(MyElement);
- *   }
- *
+ * const base = mixinFormSubmitter(mixinElementInternals(LitElement));
+ * class MyButton extends base {
  *   static formAssociated = true;
- *
- *   type: FormSubmitterType = 'submit';
  * }
  * ```
  *
- * @param ctor The form submitter element's constructor.
+ * @param base The class to mix functionality into.
+ * @return The provided class with `FormSubmitter` mixed in.
  */
-function setupFormSubmitter$2(ctor) {
-    ctor.addInitializer((instance) => {
-        const submitter = instance;
-        submitter.addEventListener('click', async (event) => {
-            const { type, [internals$2]: elementInternals } = submitter;
-            const { form } = elementInternals;
-            if (!form || type === 'button') {
-                return;
-            }
-            // Wait a full task for event bubbling to complete.
-            await new Promise((resolve) => {
-                setTimeout(resolve);
-            });
-            if (event.defaultPrevented) {
-                return;
-            }
-            if (type === 'reset') {
-                form.reset();
-                return;
-            }
-            // form.requestSubmit(submitter) does not work with form associated custom
-            // elements. This patches the dispatched submit event to add the correct
-            // `submitter`.
-            // See https://github.com/WICG/webcomponents/issues/814
-            form.addEventListener('submit', (submitEvent) => {
-                Object.defineProperty(submitEvent, 'submitter', {
-                    configurable: true,
-                    enumerable: true,
-                    get: () => submitter,
+function mixinFormSubmitter$1(base) {
+    class FormSubmitterElement extends base {
+        // Name attribute must reflect synchronously for form integration.
+        get name() {
+            return this.getAttribute('name') ?? '';
+        }
+        set name(name) {
+            this.setAttribute('name', name);
+        }
+        // Mixins must have a constructor with `...args: any[]`
+        // tslint:disable-next-line:no-any
+        constructor(...args) {
+            super(...args);
+            this.type = 'submit';
+            this.value = '';
+            setupDispatchHooks$2(this, 'click');
+            this.addEventListener('click', async (event) => {
+                const isReset = this.type === 'reset';
+                const isSubmit = this.type === 'submit';
+                const elementInternals = this[internals$2];
+                const { form } = elementInternals;
+                if (!form || !(isSubmit || isReset)) {
+                    return;
+                }
+                afterDispatch$2(event, () => {
+                    if (event.defaultPrevented) {
+                        return;
+                    }
+                    if (isReset) {
+                        form.reset();
+                        return;
+                    }
+                    // form.requestSubmit(submitter) does not work with form associated custom
+                    // elements. This patches the dispatched submit event to add the correct
+                    // `submitter`.
+                    // See https://github.com/WICG/webcomponents/issues/814
+                    form.addEventListener('submit', (submitEvent) => {
+                        Object.defineProperty(submitEvent, 'submitter', {
+                            configurable: true,
+                            enumerable: true,
+                            get: () => this,
+                        });
+                    }, { capture: true, once: true });
+                    elementInternals.setFormValue(this.value);
+                    form.requestSubmit();
                 });
-            }, { capture: true, once: true });
-            elementInternals.setFormValue(submitter.value);
-            form.requestSubmit();
-        });
-    });
-}
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Returns `true` if the given element is in a right-to-left direction.
- *
- * @param el Element to determine direction from
- * @param shouldCheck Optional. If `false`, return `false` without checking
- *     direction. Determining the direction of `el` is somewhat expensive, so
- *     this parameter can be used as a conditional guard. Defaults to `true`.
- */
-function isRtl$2(el, shouldCheck = true) {
-    return (shouldCheck &&
-        getComputedStyle(el).getPropertyValue('direction').trim() === 'rtl');
+            });
+        }
+    }
+    __decorate$1([
+        n$b()
+    ], FormSubmitterElement.prototype, "type", void 0);
+    __decorate$1([
+        n$b({ reflect: true })
+    ], FormSubmitterElement.prototype, "value", void 0);
+    return FormSubmitterElement;
 }
 
 /**
@@ -1933,7 +2267,7 @@ function isRtl$2(el, shouldCheck = true) {
  * SPDX-License-Identifier: Apache-2.0
  */
 // Separate variable needed for closure.
-const iconButtonBaseClass$2 = mixinDelegatesAria$2(mixinElementInternals$2(i$b));
+const iconButtonBaseClass$2 = mixinDelegatesAria$2(mixinFormSubmitter$1(mixinFormAssociated$2(mixinElementInternals$2(i$b))));
 /**
  * A button for rendering icons.
  *
@@ -1942,30 +2276,8 @@ const iconButtonBaseClass$2 = mixinDelegatesAria$2(mixinElementInternals$2(i$b))
  * @fires change {Event} Dispatched when a toggle button toggles --bubbles
  */
 let IconButton$2 = class IconButton extends iconButtonBaseClass$2 {
-    get name() {
-        return this.getAttribute('name') ?? '';
-    }
-    set name(name) {
-        this.setAttribute('name', name);
-    }
-    /**
-     * The associated form element with which this element's value will submit.
-     */
-    get form() {
-        return this[internals$2].form;
-    }
-    /**
-     * The labels this element is associated with.
-     */
-    get labels() {
-        return this[internals$2].labels;
-    }
     constructor() {
         super();
-        /**
-         * Disables the icon button and makes it non-interactive.
-         */
-        this.disabled = false;
         /**
          * "Soft-disables" the icon button (disabled but still focusable).
          *
@@ -2007,20 +2319,32 @@ let IconButton$2 = class IconButton extends iconButtonBaseClass$2 {
          * icon is provided.
          */
         this.selected = false;
-        /**
-         * The default behavior of the button. May be "button", "reset", or "submit"
-         * (default).
-         */
-        this.type = 'submit';
-        /**
-         * The value added to a form with the button's name when the button submits a
-         * form.
-         */
-        this.value = '';
         this.flipIcon = isRtl$2(this, this.flipIconInRtl);
-        {
-            this.addEventListener('click', this.handleClick.bind(this));
-        }
+        setupDispatchHooks$2(this, 'click');
+        this.addEventListener('click', (event) => {
+            // If the button is soft-disabled or a disabled link, we need to
+            // explicitly prevent the click from propagating to other event listeners
+            // as well as prevent the default action. This is because the underlying
+            // `<button>` or `<a>` element is not actually `:disabled`.
+            if (this.softDisabled || (this.disabled && this.href)) {
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                return;
+            }
+            // Save current selected state to toggle, since an external event listener
+            // may also change the selected state on click.
+            const wasSelected = this.selected;
+            afterDispatch$2(event, () => {
+                if (!this.toggle || this.disabled || event.defaultPrevented) {
+                    return;
+                }
+                this.selected = !wasSelected;
+                this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+                // Bubbles but does not compose to mimic native browser <input> & <select>
+                // Additionally, native change event is not an InputEvent.
+                this.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+        });
     }
     willUpdate() {
         // Link buttons cannot be disabled or soft-disabled.
@@ -2050,8 +2374,7 @@ let IconButton$2 = class IconButton extends iconButtonBaseClass$2 {
         aria-expanded="${(!this.href && ariaExpanded) || A$1}"
         aria-pressed="${ariaPressedValue}"
         aria-disabled=${(!this.href && this.softDisabled) || A$1}
-        ?disabled="${!this.href && this.disabled}"
-        @click="${this.handleClickOnChild}">
+        ?disabled="${!this.href && this.disabled}">
         ${this.renderFocusRing()}
         ${this.renderRipple()}
         ${!this.selected ? this.renderIcon() : A$1}
@@ -2109,50 +2432,12 @@ let IconButton$2 = class IconButton extends iconButtonBaseClass$2 {
         this.flipIcon = isRtl$2(this, this.flipIconInRtl);
         super.connectedCallback();
     }
-    /** Handles a click on this element. */
-    handleClick(event) {
-        // If the icon button is soft-disabled, we need to explicitly prevent the
-        // click from propagating to other event listeners as well as prevent the
-        // default action.
-        if (!this.href && this.softDisabled) {
-            event.stopImmediatePropagation();
-            event.preventDefault();
-            return;
-        }
-    }
-    /**
-     * Handles a click on the child <div> or <button> element within this
-     * element's shadow DOM.
-     */
-    async handleClickOnChild(event) {
-        // Allow the event to propagate
-        await 0;
-        if (!this.toggle ||
-            this.disabled ||
-            this.softDisabled ||
-            event.defaultPrevented) {
-            return;
-        }
-        this.selected = !this.selected;
-        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-        // Bubbles but does not compose to mimic native browser <input> & <select>
-        // Additionally, native change event is not an InputEvent.
-        this.dispatchEvent(new Event('change', { bubbles: true }));
-    }
 };
-(() => {
-    setupFormSubmitter$2(IconButton$2);
-})();
-/** @nocollapse */
-IconButton$2.formAssociated = true;
 /** @nocollapse */
 IconButton$2.shadowRootOptions = {
     mode: 'open',
     delegatesFocus: true,
 };
-__decorate$1([
-    n$b({ type: Boolean, reflect: true })
-], IconButton$2.prototype, "disabled", void 0);
 __decorate$1([
     n$b({ type: Boolean, attribute: 'soft-disabled', reflect: true })
 ], IconButton$2.prototype, "softDisabled", void 0);
@@ -2177,12 +2462,6 @@ __decorate$1([
 __decorate$1([
     n$b({ type: Boolean, reflect: true })
 ], IconButton$2.prototype, "selected", void 0);
-__decorate$1([
-    n$b()
-], IconButton$2.prototype, "type", void 0);
-__decorate$1([
-    n$b({ reflect: true })
-], IconButton$2.prototype, "value", void 0);
 __decorate$1([
     r$9()
 ], IconButton$2.prototype, "flipIcon", void 0);
@@ -2773,7 +3052,7 @@ OscdIconButton$1.styles = [styles$11, styles$10];
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * TODO(b/265336902): add docs
+ * An icon element.
  */
 let Icon$3 = class Icon extends i$b {
     render() {
@@ -3466,7 +3745,10 @@ MdItem$1.styles = [styles$Z];
 const listItemBaseClass$2 = mixinDelegatesAria$2(i$b);
 /**
  * @fires request-activation {Event} Requests the list to set `tabindex=0` on
- * the item and focus it. --bubbles --composed
+ * the item and focus it. Used internally for list keyboard navigation; most
+ * applications do not need to listen for this event. It is exposed for
+ * authors building their own list-item replacements or wrapping items in a
+ * custom controller. --bubbles --composed
  */
 let ListItemEl$2 = class ListItemEl extends listItemBaseClass$2 {
     constructor() {
@@ -6271,29 +6553,13 @@ async function squelchEventsForMicrotask$2() {
  * SPDX-License-Identifier: Apache-2.0
  */
 // Separate variable needed for closure.
-const buttonBaseClass$2 = mixinDelegatesAria$2(mixinElementInternals$2(i$b));
+const buttonBaseClass$2 = mixinDelegatesAria$2(mixinFormSubmitter$1(mixinFormAssociated$2(mixinElementInternals$2(i$b))));
 /**
  * A button component.
  */
 let Button$2 = class Button extends buttonBaseClass$2 {
-    get name() {
-        return this.getAttribute('name') ?? '';
-    }
-    set name(name) {
-        this.setAttribute('name', name);
-    }
-    /**
-     * The associated form element with which this element's value will submit.
-     */
-    get form() {
-        return this[internals$2].form;
-    }
     constructor() {
         super();
-        /**
-         * Whether or not the button is disabled.
-         */
-        this.disabled = false;
         /**
          * Whether or not the button is "soft-disabled" (disabled but still
          * focusable).
@@ -6329,16 +6595,6 @@ let Button$2 = class Button extends buttonBaseClass$2 {
          * Whether to display the icon or not.
          */
         this.hasIcon = false;
-        /**
-         * The default behavior of the button. May be "button", "reset", or "submit"
-         * (default).
-         */
-        this.type = 'submit';
-        /**
-         * The value added to a form with the button's name when the button submits a
-         * form.
-         */
-        this.value = '';
         {
             this.addEventListener('click', this.handleClick.bind(this));
         }
@@ -6427,19 +6683,11 @@ let Button$2 = class Button extends buttonBaseClass$2 {
         this.hasIcon = this.assignedIcons.length > 0;
     }
 };
-(() => {
-    setupFormSubmitter$2(Button$2);
-})();
-/** @nocollapse */
-Button$2.formAssociated = true;
 /** @nocollapse */
 Button$2.shadowRootOptions = {
     mode: 'open',
     delegatesFocus: true,
 };
-__decorate$1([
-    n$b({ type: Boolean, reflect: true })
-], Button$2.prototype, "disabled", void 0);
 __decorate$1([
     n$b({ type: Boolean, attribute: 'soft-disabled', reflect: true })
 ], Button$2.prototype, "softDisabled", void 0);
@@ -6458,12 +6706,6 @@ __decorate$1([
 __decorate$1([
     n$b({ type: Boolean, attribute: 'has-icon', reflect: true })
 ], Button$2.prototype, "hasIcon", void 0);
-__decorate$1([
-    n$b()
-], Button$2.prototype, "type", void 0);
-__decorate$1([
-    n$b({ reflect: true })
-], Button$2.prototype, "value", void 0);
 __decorate$1([
     e$b('.button')
 ], Button$2.prototype, "buttonElement", void 0);
@@ -7872,7 +8114,7 @@ const t$3=globalThis,e$7=t$3.ShadowRoot&&(void 0===t$3.ShadyCSS||t$3.ShadyCSS.na
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$2=globalThis,i$5=t=>t,s$3=t$2.trustedTypes,e$5=s$3?s$3.createPolicy("lit-html",{createHTML:t=>t}):void 0,h$2="$lit$",o$7=`lit$${Math.random().toFixed(9).slice(2)}$`,n$5="?"+o$7,r$5=`<${n$5}>`,l$2=document,c$2=()=>l$2.createComment(""),a$1=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$3=Array.isArray,d=t=>u$3(t)||"function"==typeof t?.[Symbol.iterator],f$1="[ \t\n\f\r]",v$1=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_=/-->/g,m$1=/>/g,p$1=RegExp(`>|${f$1}(?:([^\\s"'>=/]+)(${f$1}*=${f$1}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g=/'/g,$=/"/g,y=/^(?:script|style|textarea|title)$/i,x=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),b=x(1),w=x(2),E=Symbol.for("lit-noChange"),A=Symbol.for("lit-nothing"),C=new WeakMap,P=l$2.createTreeWalker(l$2,129);function V(t,i){if(!u$3(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$5?e$5.createHTML(i):i}const N=(t,i)=>{const s=t.length-1,e=[];let n,l=2===i?"<svg>":3===i?"<math>":"",c=v$1;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,f=0;for(;f<s.length&&(c.lastIndex=f,u=c.exec(s),null!==u);)f=c.lastIndex,c===v$1?"!--"===u[1]?c=_:void 0!==u[1]?c=m$1:void 0!==u[2]?(y.test(u[2])&&(n=RegExp("</"+u[2],"g")),c=p$1):void 0!==u[3]&&(c=p$1):c===p$1?">"===u[0]?(c=n??v$1,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?p$1:'"'===u[3]?$:g):c===$||c===g?c=p$1:c===_||c===m$1?c=v$1:(c=p$1,n=void 0);const x=c===p$1&&t[i+1].startsWith("/>")?" ":"";l+=c===v$1?s+r$5:d>=0?(e.push(a),s.slice(0,d)+h$2+s.slice(d)+o$7+x):s+o$7+(-2===d?i:x);}return [V(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),e]};class S{constructor({strings:t,_$litType$:i},e){let r;this.parts=[];let l=0,a=0;const u=t.length-1,d=this.parts,[f,v]=N(t,i);if(this.el=S.createElement(f,e),P.currentNode=this.el.content,2===i||3===i){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=P.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(h$2)){const i=v[a++],s=r.getAttribute(t).split(o$7),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:l,name:e[2],strings:s,ctor:"."===e[1]?I:"?"===e[1]?L:"@"===e[1]?z:H}),r.removeAttribute(t);}else t.startsWith(o$7)&&(d.push({type:6,index:l}),r.removeAttribute(t));if(y.test(r.tagName)){const t=r.textContent.split(o$7),i=t.length-1;if(i>0){r.textContent=s$3?s$3.emptyScript:"";for(let s=0;s<i;s++)r.append(t[s],c$2()),P.nextNode(),d.push({type:2,index:++l});r.append(t[i],c$2());}}}else if(8===r.nodeType)if(r.data===n$5)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=r.data.indexOf(o$7,t+1));)d.push({type:7,index:l}),t+=o$7.length-1;}l++;}}static createElement(t,i){const s=l$2.createElement("template");return s.innerHTML=t,s}}function M$1(t,i,s=t,e){if(i===E)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=a$1(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=M$1(t,h._$AS(t,i.values),h,e)),i}class R{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??l$2).importNode(i,true);P.currentNode=e;let h=P.nextNode(),o=0,n=0,r=s[0];for(;void 0!==r;){if(o===r.index){let i;2===r.type?i=new k(h,h.nextSibling,this,t):1===r.type?i=new r.ctor(h,r.name,r.strings,this,t):6===r.type&&(i=new Z(h,this,t)),this._$AV.push(i),r=s[++n];}o!==r?.index&&(h=P.nextNode(),o++);}return P.currentNode=l$2,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class k{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=A,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=M$1(this,t,i),a$1(t)?t===A||null==t||""===t?(this._$AH!==A&&this._$AR(),this._$AH=A):t!==this._$AH&&t!==E&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):d(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==A&&a$1(this._$AH)?this._$AA.nextSibling.data=t:this.T(l$2.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=S.createElement(V(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new R(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=C.get(t.strings);return void 0===i&&C.set(t.strings,i=new S(t)),i}k(t){u$3(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new k(this.O(c$2()),this.O(c$2()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,s){for(this._$AP?.(false,true,s);t!==this._$AB;){const s=i$5(t).nextSibling;i$5(t).remove(),t=s;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}}class H{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=A,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=M$1(this,t,i,0),o=!a$1(t)||t!==this._$AH&&t!==E,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=M$1(this,e[s+n],i,n),r===E&&(r=this._$AH[n]),o||=!a$1(r)||r!==this._$AH[n],r===A?t=A:t!==A&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===A?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}}class I extends H{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A?void 0:t;}}class L extends H{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==A);}}class z extends H{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=M$1(this,t,i,0)??A)===E)return;const s=this._$AH,e=t===A&&s!==A||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==A&&(s===A||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}}class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){M$1(this,t);}}const j={I:k},B=t$2.litHtmlPolyfillSupport;B?.(S,k),(t$2.litHtmlVersions??=[]).push("3.3.2");const D=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new k(i.insertBefore(c$2(),t),t,void 0,s??{});}return h._$AI(t),h};
+const t$2=globalThis,i$5=t=>t,s$3=t$2.trustedTypes,e$5=s$3?s$3.createPolicy("lit-html",{createHTML:t=>t}):void 0,h$2="$lit$",o$7=`lit$${Math.random().toFixed(9).slice(2)}$`,n$5="?"+o$7,r$5=`<${n$5}>`,l$2=document,c$2=()=>l$2.createComment(""),a$1=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$3=Array.isArray,d=t=>u$3(t)||"function"==typeof t?.[Symbol.iterator],f$1="[ \t\n\f\r]",v$1=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_=/-->/g,m$1=/>/g,p$1=RegExp(`>|${f$1}(?:([^\\s"'>=/]+)(${f$1}*=${f$1}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g=/'/g,$=/"/g,y=/^(?:script|style|textarea|title)$/i,x=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),b=x(1),w=x(2),E=Symbol.for("lit-noChange"),A=Symbol.for("lit-nothing"),C=new WeakMap,P=l$2.createTreeWalker(l$2,129);function V(t,i){if(!u$3(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$5?e$5.createHTML(i):i}const N=(t,i)=>{const s=t.length-1,e=[];let n,l=2===i?"<svg>":3===i?"<math>":"",c=v$1;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,f=0;for(;f<s.length&&(c.lastIndex=f,u=c.exec(s),null!==u);)f=c.lastIndex,c===v$1?"!--"===u[1]?c=_:void 0!==u[1]?c=m$1:void 0!==u[2]?(y.test(u[2])&&(n=RegExp("</"+u[2],"g")),c=p$1):void 0!==u[3]&&(c=p$1):c===p$1?">"===u[0]?(c=n??v$1,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?p$1:'"'===u[3]?$:g):c===$||c===g?c=p$1:c===_||c===m$1?c=v$1:(c=p$1,n=void 0);const x=c===p$1&&t[i+1].startsWith("/>")?" ":"";l+=c===v$1?s+r$5:d>=0?(e.push(a),s.slice(0,d)+h$2+s.slice(d)+o$7+x):s+o$7+(-2===d?i:x);}return [V(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),e]};class S{constructor({strings:t,_$litType$:i},e){let r;this.parts=[];let l=0,a=0;const u=t.length-1,d=this.parts,[f,v]=N(t,i);if(this.el=S.createElement(f,e),P.currentNode=this.el.content,2===i||3===i){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=P.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(h$2)){const i=v[a++],s=r.getAttribute(t).split(o$7),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:l,name:e[2],strings:s,ctor:"."===e[1]?I:"?"===e[1]?L:"@"===e[1]?z:H}),r.removeAttribute(t);}else t.startsWith(o$7)&&(d.push({type:6,index:l}),r.removeAttribute(t));if(y.test(r.tagName)){const t=r.textContent.split(o$7),i=t.length-1;if(i>0){r.textContent=s$3?s$3.emptyScript:"";for(let s=0;s<i;s++)r.append(t[s],c$2()),P.nextNode(),d.push({type:2,index:++l});r.append(t[i],c$2());}}}else if(8===r.nodeType)if(r.data===n$5)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=r.data.indexOf(o$7,t+1));)d.push({type:7,index:l}),t+=o$7.length-1;}l++;}}static createElement(t,i){const s=l$2.createElement("template");return s.innerHTML=t,s}}function M$1(t,i,s=t,e){if(i===E)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=a$1(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=M$1(t,h._$AS(t,i.values),h,e)),i}class R{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??l$2).importNode(i,true);P.currentNode=e;let h=P.nextNode(),o=0,n=0,r=s[0];for(;void 0!==r;){if(o===r.index){let i;2===r.type?i=new k(h,h.nextSibling,this,t):1===r.type?i=new r.ctor(h,r.name,r.strings,this,t):6===r.type&&(i=new Z(h,this,t)),this._$AV.push(i),r=s[++n];}o!==r?.index&&(h=P.nextNode(),o++);}return P.currentNode=l$2,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class k{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=A,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=M$1(this,t,i),a$1(t)?t===A||null==t||""===t?(this._$AH!==A&&this._$AR(),this._$AH=A):t!==this._$AH&&t!==E&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):d(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==A&&a$1(this._$AH)?this._$AA.nextSibling.data=t:this.T(l$2.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=S.createElement(V(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new R(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=C.get(t.strings);return void 0===i&&C.set(t.strings,i=new S(t)),i}k(t){u$3(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new k(this.O(c$2()),this.O(c$2()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,s){for(this._$AP?.(false,true,s);t!==this._$AB;){const s=i$5(t).nextSibling;i$5(t).remove(),t=s;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}}class H{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=A,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=M$1(this,t,i,0),o=!a$1(t)||t!==this._$AH&&t!==E,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=M$1(this,e[s+n],i,n),r===E&&(r=this._$AH[n]),o||=!a$1(r)||r!==this._$AH[n],r===A?t=A:t!==A&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===A?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}}class I extends H{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A?void 0:t;}}class L extends H{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==A);}}class z extends H{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=M$1(this,t,i,0)??A)===E)return;const s=this._$AH,e=t===A&&s!==A||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==A&&(s===A||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}}class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){M$1(this,t);}}const j={I:k},B=t$2.litHtmlPolyfillSupport;B?.(S,k),(t$2.litHtmlVersions??=[]).push("3.3.3");const D=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new k(i.insertBefore(c$2(),t),t,void 0,s??{});}return h._$AI(t),h};
 
 /**
  * @license
@@ -8071,6 +8313,7 @@ function dedupeMixin(mixin) {
 /**
  * @typedef {import('./types.js').ScopedElementsHost} ScopedElementsHost
  * @typedef {import('./types.js').ScopedElementsMap} ScopedElementsMap
+ * @typedef {import('./types.js').ScopedElementsHostConstructor} ScopedElementsHostConstructor
  */
 
 const version = '3.0.0';
@@ -8082,7 +8325,7 @@ if (!versions.includes(version)) {
 /**
  * @template {import('./types.js').Constructor<HTMLElement>} T
  * @param {T} superclass
- * @return {T & import('./types.js').Constructor<ScopedElementsHost>}
+ * @return {T & import('./types.js').Constructor<ScopedElementsHost> & ScopedElementsHostConstructor}
  */
 const ScopedElementsMixinImplementation$1 = superclass =>
   /** @type {ScopedElementsHost} */
@@ -8161,17 +8404,17 @@ const ScopedElementsMixin$1 = dedupeMixin(ScopedElementsMixinImplementation$1);
 /**
  * @typedef {import('./types.js').ScopedElementsHost} ScopedElementsHost
  * @typedef {import('./types.js').ScopedElementsMap} ScopedElementsMap
+ * @typedef {import('./types.js').ScopedElementsHostConstructor} ScopedElementsHostConstructor
  * @typedef {import('lit').CSSResultOrNative} CSSResultOrNative
  * @typedef {import('lit').LitElement} LitElement
  * @typedef {typeof import('lit').LitElement} TypeofLitElement
  * @typedef {import('@open-wc/dedupe-mixin').Constructor<LitElement>} LitElementConstructor
- * @typedef {import('@open-wc/dedupe-mixin').Constructor<ScopedElementsHost>} ScopedElementsHostConstructor
  */
 
 /**
  * @template {LitElementConstructor} T
  * @param {T} superclass
- * @return {T & ScopedElementsHostConstructor}
+ * @return {T & import('@open-wc/dedupe-mixin').Constructor<ScopedElementsHost> & ScopedElementsHostConstructor}
  */
 const ScopedElementsMixinImplementation = superclass =>
   /** @type {ScopedElementsHost} */
@@ -8201,7 +8444,7 @@ const ScopedElementsMixin = dedupeMixin(ScopedElementsMixinImplementation);
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * TODO(b/265336902): add docs
+ * An icon element.
  */
 let Icon$2 = class Icon extends i$4 {
     render() {
@@ -10880,7 +11123,7 @@ MdCheckbox.styles = [styles$P];
 /**
  * A symbol used to access dispatch hooks on an event.
  */
-const dispatchHooks = Symbol('dispatchHooks');
+const dispatchHooks$1 = Symbol('dispatchHooks');
 /**
  * Add a hook for an event that is called after the event is dispatched and
  * propagates to other event listeners.
@@ -10936,8 +11179,8 @@ const dispatchHooks = Symbol('dispatchHooks');
  * @param event The event to add a hook to.
  * @param callback A hook that is called after the event finishes dispatching.
  */
-function afterDispatch(event, callback) {
-    const hooks = event[dispatchHooks];
+function afterDispatch$1(event, callback) {
+    const hooks = event[dispatchHooks$1];
     if (!hooks) {
         throw new Error(`'${event.type}' event needs setupDispatchHooks().`);
     }
@@ -10948,7 +11191,7 @@ function afterDispatch(event, callback) {
  * set up. Used to ensure we don't set up multiple hook listeners on the same
  * element for the same event.
  */
-const ELEMENT_DISPATCH_HOOK_TYPES = new WeakMap();
+const ELEMENT_DISPATCH_HOOK_TYPES$1 = new WeakMap();
 /**
  * Sets up an element to add dispatch hooks to given event types. This must be
  * called before adding any event listeners that need to use dispatch hooks
@@ -10972,11 +11215,11 @@ const ELEMENT_DISPATCH_HOOK_TYPES = new WeakMap();
  * @param element The element to set up event dispatch hooks for.
  * @param eventTypes The event types to add dispatch hooks to.
  */
-function setupDispatchHooks(element, ...eventTypes) {
-    let typesAlreadySetUp = ELEMENT_DISPATCH_HOOK_TYPES.get(element);
+function setupDispatchHooks$1(element, ...eventTypes) {
+    let typesAlreadySetUp = ELEMENT_DISPATCH_HOOK_TYPES$1.get(element);
     if (!typesAlreadySetUp) {
         typesAlreadySetUp = new Set();
-        ELEMENT_DISPATCH_HOOK_TYPES.set(element, typesAlreadySetUp);
+        ELEMENT_DISPATCH_HOOK_TYPES$1.set(element, typesAlreadySetUp);
     }
     for (const eventType of eventTypes) {
         // Don't register multiple dispatch hook listeners. A second registration
@@ -11002,7 +11245,7 @@ function setupDispatchHooks(element, ...eventTypes) {
             ]);
             // Add hooks onto the event.
             const hooks = new EventTarget();
-            eventCopy[dispatchHooks] = hooks;
+            eventCopy[dispatchHooks$1] = hooks;
             // Re-dispatch the event. We can't reuse `redispatchEvent()` since we
             // need to add the hooks to the copy before it's dispatched.
             isRedispatching = true;
@@ -11076,9 +11319,9 @@ class Switch extends switchBaseClass {
         });
         // Add the aria keyboard interaction pattern for switch and the Enter key.
         // See https://www.w3.org/WAI/ARIA/apg/patterns/switch/.
-        setupDispatchHooks(this, 'keydown');
+        setupDispatchHooks$1(this, 'keydown');
         this.addEventListener('keydown', (event) => {
-            afterDispatch(event, () => {
+            afterDispatch$1(event, () => {
                 const ignoreEvent = event.defaultPrevented || event.key !== 'Enter';
                 if (ignoreEvent || this.disabled || !this.input) {
                     return;
@@ -16748,7 +16991,7 @@ MdIcon.styles = [styles$D];
  *
  * @param ctor The form submitter element's constructor.
  */
-function setupFormSubmitter$1(ctor) {
+function setupFormSubmitter(ctor) {
     ctor.addInitializer((instance) => {
         const submitter = instance;
         submitter.addEventListener('click', async (event) => {
@@ -17009,7 +17252,7 @@ let IconButton$1 = class IconButton extends iconButtonBaseClass$1 {
     }
 };
 (() => {
-    setupFormSubmitter$1(IconButton$1);
+    setupFormSubmitter(IconButton$1);
 })();
 /** @nocollapse */
 IconButton$1.formAssociated = true;
@@ -19296,7 +19539,7 @@ let Button$1 = class Button extends buttonBaseClass$1 {
     }
 };
 (() => {
-    setupFormSubmitter$1(Button$1);
+    setupFormSubmitter(Button$1);
 })();
 /** @nocollapse */
 Button$1.formAssociated = true;
@@ -50285,11 +50528,11 @@ var lookup = function(parentId, moduleName) {
     if (!module) {
         module = define.payloads[moduleName];
         if (typeof module === 'function') {
-            var exports$1 = {};
+            var exports = {};
             var mod = {
                 id: moduleName,
                 uri: '',
-                exports: exports$1,
+                exports: exports,
                 packaged: true
             };
 
@@ -50297,12 +50540,12 @@ var lookup = function(parentId, moduleName) {
                 return _require(moduleName, module, callback);
             };
 
-            var returnValue = module(req, exports$1, mod);
-            exports$1 = returnValue || mod.exports;
-            define.modules[moduleName] = exports$1;
+            var returnValue = module(req, exports, mod);
+            exports = returnValue || mod.exports;
+            define.modules[moduleName] = exports;
             delete define.payloads[moduleName];
         }
-        module = define.modules[moduleName] = exports$1 || module;
+        module = define.modules[moduleName] = exports || module;
     }
     return module;
 };
@@ -50332,7 +50575,7 @@ exportAce(ACE_NAMESPACE);
 
 })();
 
-ace.define("ace/lib/es6-shim",["require","exports","module"], function(require, exports$1, module){function defineProp(obj, name, val) {
+ace.define("ace/lib/es6-shim",["require","exports","module"], function(require, exports, module){function defineProp(obj, name, val) {
     Object.defineProperty(obj, name, {
         value: val,
         enumerable: false,
@@ -50457,12 +50700,12 @@ if (!Array.of) {
 
 });
 
-ace.define("ace/lib/fixoldbrowsers",["require","exports","module","ace/lib/es6-shim"], function(require, exports$1, module){// vim:set ts=4 sts=4 sw=4 st:
+ace.define("ace/lib/fixoldbrowsers",["require","exports","module","ace/lib/es6-shim"], function(require, exports, module){// vim:set ts=4 sts=4 sw=4 st:
 require("./es6-shim");
 
 });
 
-ace.define("ace/lib/deep_copy",["require","exports","module"], function(require, exports$1, module){exports$1.deepCopy = function deepCopy(obj) {
+ace.define("ace/lib/deep_copy",["require","exports","module"], function(require, exports, module){exports.deepCopy = function deepCopy(obj) {
     if (typeof obj !== "object" || !obj)
         return obj;
     var copy;
@@ -50483,13 +50726,13 @@ ace.define("ace/lib/deep_copy",["require","exports","module"], function(require,
 
 });
 
-ace.define("ace/lib/lang",["require","exports","module","ace/lib/deep_copy"], function(require, exports$1, module){exports$1.last = function (a) {
+ace.define("ace/lib/lang",["require","exports","module","ace/lib/deep_copy"], function(require, exports, module){exports.last = function (a) {
     return a[a.length - 1];
 };
-exports$1.stringReverse = function (string) {
+exports.stringReverse = function (string) {
     return string.split("").reverse().join("");
 };
-exports$1.stringRepeat = function (string, count) {
+exports.stringRepeat = function (string, count) {
     var result = '';
     while (count > 0) {
         if (count & 1)
@@ -50501,20 +50744,20 @@ exports$1.stringRepeat = function (string, count) {
 };
 var trimBeginRegexp = /^\s\s*/;
 var trimEndRegexp = /\s\s*$/;
-exports$1.stringTrimLeft = function (string) {
+exports.stringTrimLeft = function (string) {
     return string.replace(trimBeginRegexp, '');
 };
-exports$1.stringTrimRight = function (string) {
+exports.stringTrimRight = function (string) {
     return string.replace(trimEndRegexp, '');
 };
-exports$1.copyObject = function (obj) {
+exports.copyObject = function (obj) {
     var copy = {};
     for (var key in obj) {
         copy[key] = obj[key];
     }
     return copy;
 };
-exports$1.copyArray = function (array) {
+exports.copyArray = function (array) {
     var copy = [];
     for (var i = 0, l = array.length; i < l; i++) {
         if (array[i] && typeof array[i] == "object")
@@ -50524,35 +50767,35 @@ exports$1.copyArray = function (array) {
     }
     return copy;
 };
-exports$1.deepCopy = require("./deep_copy").deepCopy;
-exports$1.arrayToMap = function (arr) {
+exports.deepCopy = require("./deep_copy").deepCopy;
+exports.arrayToMap = function (arr) {
     var map = {};
     for (var i = 0; i < arr.length; i++) {
         map[arr[i]] = 1;
     }
     return map;
 };
-exports$1.createMap = function (props) {
+exports.createMap = function (props) {
     var map = Object.create(null);
     for (var i in props) {
         map[i] = props[i];
     }
     return map;
 };
-exports$1.arrayRemove = function (array, value) {
+exports.arrayRemove = function (array, value) {
     for (var i = 0; i <= array.length; i++) {
         if (value === array[i]) {
             array.splice(i, 1);
         }
     }
 };
-exports$1.escapeRegExp = function (str) {
+exports.escapeRegExp = function (str) {
     return str.replace(/([.*+?^${}()|[\]\/\\])/g, '\\$1');
 };
-exports$1.escapeHTML = function (str) {
+exports.escapeHTML = function (str) {
     return ("" + str).replace(/&/g, "&#38;").replace(/"/g, "&#34;").replace(/'/g, "&#39;").replace(/</g, "&#60;");
 };
-exports$1.getMatchOffsets = function (string, regExp) {
+exports.getMatchOffsets = function (string, regExp) {
     var matches = [];
     string.replace(regExp, function (str) {
         matches.push({
@@ -50562,7 +50805,7 @@ exports$1.getMatchOffsets = function (string, regExp) {
     });
     return matches;
 };
-exports$1.deferredCall = function (fcn) {
+exports.deferredCall = function (fcn) {
     var timer = null;
     var callback = function () {
         timer = null;
@@ -50589,7 +50832,7 @@ exports$1.deferredCall = function (fcn) {
     };
     return deferred;
 };
-exports$1.delayedCall = function (fcn, defaultTimeout) {
+exports.delayedCall = function (fcn, defaultTimeout) {
     var timer = null;
     var callback = function () {
         timer = null;
@@ -50617,7 +50860,12 @@ exports$1.delayedCall = function (fcn, defaultTimeout) {
     };
     return _self;
 };
-exports$1.supportsLookbehind = function () {
+exports.sleep = function (ms) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, ms);
+    });
+};
+exports.supportsLookbehind = function () {
     try {
         new RegExp('(?<=.)');
     }
@@ -50626,59 +50874,59 @@ exports$1.supportsLookbehind = function () {
     }
     return true;
 };
-exports$1.skipEmptyMatch = function (line, last, supportsUnicodeFlag) {
+exports.skipEmptyMatch = function (line, last, supportsUnicodeFlag) {
     return supportsUnicodeFlag && line.codePointAt(last) > 0xffff ? 2 : 1;
 };
 
 });
 
-ace.define("ace/lib/useragent",["require","exports","module"], function(require, exports$1, module){exports$1.OS = {
+ace.define("ace/lib/useragent",["require","exports","module"], function(require, exports, module){exports.OS = {
     LINUX: "LINUX",
     MAC: "MAC",
     WINDOWS: "WINDOWS"
 };
-exports$1.getOS = function () {
-    if (exports$1.isMac) {
-        return exports$1.OS.MAC;
+exports.getOS = function () {
+    if (exports.isMac) {
+        return exports.OS.MAC;
     }
-    else if (exports$1.isLinux) {
-        return exports$1.OS.LINUX;
+    else if (exports.isLinux) {
+        return exports.OS.LINUX;
     }
     else {
-        return exports$1.OS.WINDOWS;
+        return exports.OS.WINDOWS;
     }
 };
 var _navigator = typeof navigator == "object" ? navigator : {};
 var os = (/mac|win|linux/i.exec(_navigator.platform) || ["other"])[0].toLowerCase();
 var ua = _navigator.userAgent || "";
 var appName = _navigator.appName || "";
-exports$1.isWin = (os == "win");
-exports$1.isMac = (os == "mac");
-exports$1.isLinux = (os == "linux");
-exports$1.isIE =
+exports.isWin = (os == "win");
+exports.isMac = (os == "mac");
+exports.isLinux = (os == "linux");
+exports.isIE =
     (appName == "Microsoft Internet Explorer" || appName.indexOf("MSAppHost") >= 0)
         ? parseFloat((ua.match(/(?:MSIE |Trident\/[0-9]+[\.0-9]+;.*rv:)([0-9]+[\.0-9]+)/) || [])[1])
         : parseFloat((ua.match(/(?:Trident\/[0-9]+[\.0-9]+;.*rv:)([0-9]+[\.0-9]+)/) || [])[1]); // for ie
-exports$1.isOldIE = exports$1.isIE && exports$1.isIE < 9;
-exports$1.isGecko = exports$1.isMozilla = ua.match(/ Gecko\/\d+/);
-exports$1.isOpera = typeof opera == "object" && Object.prototype.toString.call(window["opera"]) == "[object Opera]";
-exports$1.isWebKit = parseFloat(ua.split("WebKit/")[1]) || undefined;
-exports$1.isChrome = parseFloat(ua.split(" Chrome/")[1]) || undefined;
-exports$1.isSafari = parseFloat(ua.split(" Safari/")[1]) && !exports$1.isChrome || undefined;
-exports$1.isEdge = parseFloat(ua.split(" Edge/")[1]) || undefined;
-exports$1.isAIR = ua.indexOf("AdobeAIR") >= 0;
-exports$1.isAndroid = ua.indexOf("Android") >= 0;
-exports$1.isChromeOS = ua.indexOf(" CrOS ") >= 0;
-exports$1.isIOS = /iPad|iPhone|iPod/.test(ua) && !window["MSStream"];
-if (exports$1.isIOS)
-    exports$1.isMac = true;
-exports$1.isMobile = exports$1.isIOS || exports$1.isAndroid;
+exports.isOldIE = exports.isIE && exports.isIE < 9;
+exports.isGecko = exports.isMozilla = ua.match(/ Gecko\/\d+/);
+exports.isOpera = typeof opera == "object" && Object.prototype.toString.call(window["opera"]) == "[object Opera]";
+exports.isWebKit = parseFloat(ua.split("WebKit/")[1]) || undefined;
+exports.isChrome = parseFloat(ua.split(" Chrome/")[1]) || undefined;
+exports.isSafari = parseFloat(ua.split(" Safari/")[1]) && !exports.isChrome || undefined;
+exports.isEdge = parseFloat(ua.split(" Edge/")[1]) || undefined;
+exports.isAIR = ua.indexOf("AdobeAIR") >= 0;
+exports.isAndroid = ua.indexOf("Android") >= 0;
+exports.isChromeOS = ua.indexOf(" CrOS ") >= 0;
+exports.isIOS = /iPad|iPhone|iPod/.test(ua) && !window["MSStream"];
+if (exports.isIOS)
+    exports.isMac = true;
+exports.isMobile = exports.isIOS || exports.isAndroid;
 
 });
 
-ace.define("ace/lib/dom",["require","exports","module","ace/lib/useragent"], function(require, exports$1, module){var useragent = require("./useragent");
+ace.define("ace/lib/dom",["require","exports","module","ace/lib/useragent"], function(require, exports, module){var useragent = require("./useragent");
 var XHTML_NS = "http://www.w3.org/1999/xhtml";
-exports$1.buildDom = function buildDom(arr, parent, refs) {
+exports.buildDom = function buildDom(arr, parent, refs) {
     if (typeof arr == "string" && arr) {
         var txt = document.createTextNode(arr);
         if (parent)
@@ -50731,35 +50979,35 @@ exports$1.buildDom = function buildDom(arr, parent, refs) {
         parent.appendChild(el);
     return el;
 };
-exports$1.getDocumentHead = function (doc) {
+exports.getDocumentHead = function (doc) {
     if (!doc)
         doc = document;
     return doc.head || doc.getElementsByTagName("head")[0] || doc.documentElement;
 };
-exports$1.createElement = function (tag, ns) {
+exports.createElement = function (tag, ns) {
     return document.createElementNS ? document.createElementNS(ns || XHTML_NS, tag) : document.createElement(tag);
 };
-exports$1.removeChildren = function (element) {
+exports.removeChildren = function (element) {
     element.innerHTML = "";
 };
-exports$1.createTextNode = function (textContent, element) {
+exports.createTextNode = function (textContent, element) {
     var doc = element ? element.ownerDocument : document;
     return doc.createTextNode(textContent);
 };
-exports$1.createFragment = function (element) {
+exports.createFragment = function (element) {
     var doc = element ? element.ownerDocument : document;
     return doc.createDocumentFragment();
 };
-exports$1.hasCssClass = function (el, name) {
+exports.hasCssClass = function (el, name) {
     var classes = (el.className + "").split(/\s+/g);
     return classes.indexOf(name) !== -1;
 };
-exports$1.addCssClass = function (el, name) {
-    if (!exports$1.hasCssClass(el, name)) {
+exports.addCssClass = function (el, name) {
+    if (!exports.hasCssClass(el, name)) {
         el.className += " " + name;
     }
 };
-exports$1.removeCssClass = function (el, name) {
+exports.removeCssClass = function (el, name) {
     var classes = el.className.split(/\s+/g);
     while (true) {
         var index = classes.indexOf(name);
@@ -50770,7 +51018,7 @@ exports$1.removeCssClass = function (el, name) {
     }
     el.className = classes.join(" ");
 };
-exports$1.toggleCssClass = function (el, name) {
+exports.toggleCssClass = function (el, name) {
     var classes = el.className.split(/\s+/g), add = true;
     while (true) {
         var index = classes.indexOf(name);
@@ -50785,15 +51033,15 @@ exports$1.toggleCssClass = function (el, name) {
     el.className = classes.join(" ");
     return add;
 };
-exports$1.setCssClass = function (node, className, include) {
+exports.setCssClass = function (node, className, include) {
     if (include) {
-        exports$1.addCssClass(node, className);
+        exports.addCssClass(node, className);
     }
     else {
-        exports$1.removeCssClass(node, className);
+        exports.removeCssClass(node, className);
     }
 };
-exports$1.hasCssString = function (id, doc) {
+exports.hasCssString = function (id, doc) {
     var index = 0, sheets;
     doc = doc || document;
     if ((sheets = doc.querySelectorAll("style"))) {
@@ -50804,7 +51052,7 @@ exports$1.hasCssString = function (id, doc) {
         }
     }
 };
-exports$1.removeElementById = function (id, doc) {
+exports.removeElementById = function (id, doc) {
     doc = doc || document;
     if (doc.getElementById(id)) {
         doc.getElementById(id).remove();
@@ -50812,7 +51060,7 @@ exports$1.removeElementById = function (id, doc) {
 };
 var strictCSP;
 var cssCache = [];
-exports$1.useStrictCSP = function (value) {
+exports.useStrictCSP = function (value) {
     strictCSP = value;
     if (value == false)
         insertPendingStyles();
@@ -50849,23 +51097,23 @@ function importCssString(cssText, id, target) {
             container = document;
     }
     var doc = container.ownerDocument || container;
-    if (id && exports$1.hasCssString(id, container))
+    if (id && exports.hasCssString(id, container))
         return null;
     if (id)
         cssText += "\n/*# sourceURL=ace/css/" + id + " */";
-    var style = exports$1.createElement("style");
+    var style = exports.createElement("style");
     style.appendChild(doc.createTextNode(cssText));
     if (id)
         style.id = id;
     if (container == doc)
-        container = exports$1.getDocumentHead(doc);
+        container = exports.getDocumentHead(doc);
     container.insertBefore(style, container.firstChild);
 }
-exports$1.importCssString = importCssString;
-exports$1.importCssStylsheet = function (uri, doc) {
-    exports$1.buildDom(["link", { rel: "stylesheet", href: uri }], exports$1.getDocumentHead(doc));
+exports.importCssString = importCssString;
+exports.importCssStylsheet = function (uri, doc) {
+    exports.buildDom(["link", { rel: "stylesheet", href: uri }], exports.getDocumentHead(doc));
 };
-exports$1.$fixPositionBug = function (el) {
+exports.$fixPositionBug = function (el) {
     var rect = el.getBoundingClientRect();
     if (el.style.left) {
         var target = parseFloat(el.style.left);
@@ -50896,13 +51144,13 @@ exports$1.$fixPositionBug = function (el) {
         }
     }
 };
-exports$1.scrollbarWidth = function (doc) {
-    var inner = exports$1.createElement("ace_inner");
+exports.scrollbarWidth = function (doc) {
+    var inner = exports.createElement("ace_inner");
     inner.style.width = "100%";
     inner.style.minWidth = "0px";
     inner.style.height = "200px";
     inner.style.display = "block";
-    var outer = exports$1.createElement("ace_outer");
+    var outer = exports.createElement("ace_outer");
     var style = outer.style;
     style.position = "absolute";
     style.left = "-10000px";
@@ -50925,36 +51173,36 @@ exports$1.scrollbarWidth = function (doc) {
     body.removeChild(outer);
     return noScrollbar - withScrollbar;
 };
-exports$1.computedStyle = function (element, style) {
+exports.computedStyle = function (element, style) {
     return window.getComputedStyle(element, "") || {};
 };
-exports$1.setStyle = function (styles, property, value) {
+exports.setStyle = function (styles, property, value) {
     if (styles[property] !== value) {
         styles[property] = value;
     }
 };
-exports$1.HAS_CSS_ANIMATION = false;
-exports$1.HAS_CSS_TRANSFORMS = false;
-exports$1.HI_DPI = useragent.isWin
+exports.HAS_CSS_ANIMATION = false;
+exports.HAS_CSS_TRANSFORMS = false;
+exports.HI_DPI = useragent.isWin
     ? typeof window !== "undefined" && window.devicePixelRatio >= 1.5
     : true;
 if (useragent.isChromeOS)
-    exports$1.HI_DPI = false;
+    exports.HI_DPI = false;
 if (typeof document !== "undefined") {
     var div = document.createElement("div");
-    if (exports$1.HI_DPI && div.style.transform !== undefined)
-        exports$1.HAS_CSS_TRANSFORMS = true;
+    if (exports.HI_DPI && div.style.transform !== undefined)
+        exports.HAS_CSS_TRANSFORMS = true;
     if (!useragent.isEdge && typeof div.style.animationName !== "undefined")
-        exports$1.HAS_CSS_ANIMATION = true;
+        exports.HAS_CSS_ANIMATION = true;
     div = null;
 }
-if (exports$1.HAS_CSS_TRANSFORMS) {
-    exports$1.translate = function (element, tx, ty) {
+if (exports.HAS_CSS_TRANSFORMS) {
+    exports.translate = function (element, tx, ty) {
         element.style.transform = "translate(" + Math.round(tx) + "px, " + Math.round(ty) + "px)";
     };
 }
 else {
-    exports$1.translate = function (element, tx, ty) {
+    exports.translate = function (element, tx, ty) {
         element.style.top = Math.round(ty) + "px";
         element.style.left = Math.round(tx) + "px";
     };
@@ -50962,7 +51210,7 @@ else {
 
 });
 
-ace.define("ace/lib/net",["require","exports","module","ace/lib/dom"], function(require, exports$1, module){/*
+ace.define("ace/lib/net",["require","exports","module","ace/lib/dom"], function(require, exports, module){/*
  * based on code from:
  *
  * @license RequireJS text 0.25.0 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.
@@ -50970,7 +51218,7 @@ ace.define("ace/lib/net",["require","exports","module","ace/lib/dom"], function(
  * see: http://github.com/jrburke/requirejs for details
  */
 var dom = require("./dom");
-exports$1.get = function (url, callback) {
+exports.get = function (url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.onreadystatechange = function () {
@@ -50980,7 +51228,7 @@ exports$1.get = function (url, callback) {
     };
     xhr.send(null);
 };
-exports$1.loadScript = function (path, callback) {
+exports.loadScript = function (path, callback) {
     var head = dom.getDocumentHead();
     var s = document.createElement('script');
     s.src = path;
@@ -50993,7 +51241,7 @@ exports$1.loadScript = function (path, callback) {
         }
     };
 };
-exports$1.qualifyURL = function (url) {
+exports.qualifyURL = function (url) {
     var a = document.createElement('a');
     a.href = url;
     return a.href;
@@ -51001,7 +51249,7 @@ exports$1.qualifyURL = function (url) {
 
 });
 
-ace.define("ace/lib/oop",["require","exports","module"], function(require, exports$1, module){exports$1.inherits = function (ctor, superCtor) {
+ace.define("ace/lib/oop",["require","exports","module"], function(require, exports, module){exports.inherits = function (ctor, superCtor) {
     ctor.super_ = superCtor;
     ctor.prototype = Object.create(superCtor.prototype, {
         constructor: {
@@ -51012,19 +51260,19 @@ ace.define("ace/lib/oop",["require","exports","module"], function(require, expor
         }
     });
 };
-exports$1.mixin = function (obj, mixin) {
+exports.mixin = function (obj, mixin) {
     for (var key in mixin) {
         obj[key] = mixin[key];
     }
     return obj;
 };
-exports$1.implement = function (proto, mixin) {
-    exports$1.mixin(proto, mixin);
+exports.implement = function (proto, mixin) {
+    exports.mixin(proto, mixin);
 };
 
 });
 
-ace.define("ace/lib/event_emitter",["require","exports","module"], function(require, exports$1, module){var EventEmitter = {};
+ace.define("ace/lib/event_emitter",["require","exports","module"], function(require, exports, module){var EventEmitter = {};
 var stopPropagation = function () { this.propagationStopped = true; };
 var preventDefault = function () { this.defaultPrevented = true; };
 EventEmitter._emit =
@@ -51132,11 +51380,11 @@ EventEmitter.removeAllListeners = function (eventName) {
     if (this._defaultHandlers)
         this._defaultHandlers[eventName] = undefined;
 };
-exports$1.EventEmitter = EventEmitter;
+exports.EventEmitter = EventEmitter;
 
 });
 
-ace.define("ace/lib/report_error",["require","exports","module"], function(require, exports$1, module){exports$1.reportError = function reportError(msg, data) {
+ace.define("ace/lib/report_error",["require","exports","module"], function(require, exports, module){exports.reportError = function reportError(msg, data) {
     var e = new Error(msg);
     e["data"] = data;
     if (typeof console == "object" && console.error)
@@ -51146,7 +51394,7 @@ ace.define("ace/lib/report_error",["require","exports","module"], function(requi
 
 });
 
-ace.define("ace/lib/default_english_messages",["require","exports","module"], function(require, exports$1, module){var defaultEnglishMessages = {
+ace.define("ace/lib/default_english_messages",["require","exports","module"], function(require, exports, module){var defaultEnglishMessages = {
     "autocomplete.popup.aria-roledescription": "Autocomplete suggestions",
     "autocomplete.popup.aria-label": "Autocomplete suggestions",
     "autocomplete.popup.item.aria-roledescription": "item",
@@ -51195,11 +51443,11 @@ ace.define("ace/lib/default_english_messages",["require","exports","module"], fu
     "gutter-tooltip.aria-label.hint.plural": "suggestions",
     "editor.tooltip.disable-editing": "Editing is disabled"
 };
-exports$1.defaultEnglishMessages = defaultEnglishMessages;
+exports.defaultEnglishMessages = defaultEnglishMessages;
 
 });
 
-ace.define("ace/lib/app_config",["require","exports","module","ace/lib/oop","ace/lib/event_emitter","ace/lib/report_error","ace/lib/default_english_messages"], function(require, exports$1, module){"no use strict";
+ace.define("ace/lib/app_config",["require","exports","module","ace/lib/oop","ace/lib/event_emitter","ace/lib/report_error","ace/lib/default_english_messages"], function(require, exports, module){"no use strict";
 var oop = require("./oop");
 var EventEmitter = require("./event_emitter").EventEmitter;
 var reportError = require("./report_error").reportError;
@@ -51340,29 +51588,29 @@ var AppConfig = /** @class */ (function () {
 AppConfig.prototype.warn = warn;
 AppConfig.prototype.reportError = reportError;
 oop.implement(AppConfig.prototype, EventEmitter);
-exports$1.AppConfig = AppConfig;
+exports.AppConfig = AppConfig;
 
 });
 
-ace.define("ace/theme/textmate-css",["require","exports","module"], function(require, exports$1, module){module.exports = ".ace-tm .ace_gutter {\n  background: #f0f0f0;\n  color: #333;\n}\n\n.ace-tm .ace_print-margin {\n  width: 1px;\n  background: #e8e8e8;\n}\n\n.ace-tm .ace_fold {\n    background-color: #6B72E6;\n}\n\n.ace-tm {\n  background-color: #FFFFFF;\n  color: black;\n}\n\n.ace-tm .ace_cursor {\n  color: black;\n}\n        \n.ace-tm .ace_invisible {\n  color: rgb(191, 191, 191);\n}\n\n.ace-tm .ace_storage,\n.ace-tm .ace_keyword {\n  color: blue;\n}\n\n.ace-tm .ace_constant {\n  color: rgb(197, 6, 11);\n}\n\n.ace-tm .ace_constant.ace_buildin {\n  color: rgb(88, 72, 246);\n}\n\n.ace-tm .ace_constant.ace_language {\n  color: rgb(88, 92, 246);\n}\n\n.ace-tm .ace_constant.ace_library {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_invalid {\n  background-color: rgba(255, 0, 0, 0.1);\n  color: red;\n}\n\n.ace-tm .ace_support.ace_function {\n  color: rgb(60, 76, 114);\n}\n\n.ace-tm .ace_support.ace_constant {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_support.ace_type,\n.ace-tm .ace_support.ace_class {\n  color: rgb(109, 121, 222);\n}\n\n.ace-tm .ace_keyword.ace_operator {\n  color: rgb(104, 118, 135);\n}\n\n.ace-tm .ace_string {\n  color: rgb(3, 106, 7);\n}\n\n.ace-tm .ace_comment {\n  color: rgb(76, 136, 107);\n}\n\n.ace-tm .ace_comment.ace_doc {\n  color: rgb(0, 102, 255);\n}\n\n.ace-tm .ace_comment.ace_doc.ace_tag {\n  color: rgb(128, 159, 191);\n}\n\n.ace-tm .ace_constant.ace_numeric {\n  color: rgb(0, 0, 205);\n}\n\n.ace-tm .ace_variable {\n  color: rgb(49, 132, 149);\n}\n\n.ace-tm .ace_xml-pe {\n  color: rgb(104, 104, 91);\n}\n\n.ace-tm .ace_entity.ace_name.ace_function {\n  color: #0000A2;\n}\n\n\n.ace-tm .ace_heading {\n  color: rgb(12, 7, 255);\n}\n\n.ace-tm .ace_list {\n  color:rgb(185, 6, 144);\n}\n\n.ace-tm .ace_meta.ace_tag {\n  color:rgb(0, 22, 142);\n}\n\n.ace-tm .ace_string.ace_regex {\n  color: rgb(255, 0, 0)\n}\n\n.ace-tm .ace_marker-layer .ace_selection {\n  background: rgb(181, 213, 255);\n}\n.ace-tm.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px white;\n}\n.ace-tm .ace_marker-layer .ace_step {\n  background: rgb(252, 255, 0);\n}\n\n.ace-tm .ace_marker-layer .ace_stack {\n  background: rgb(164, 229, 101);\n}\n\n.ace-tm .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid rgb(192, 192, 192);\n}\n\n.ace-tm .ace_marker-layer .ace_active-line {\n  background: rgba(0, 0, 0, 0.07);\n}\n\n.ace-tm .ace_gutter-active-line {\n    background-color : #dcdcdc;\n}\n\n.ace-tm .ace_marker-layer .ace_selected-word {\n  background: rgb(250, 250, 255);\n  border: 1px solid rgb(200, 200, 250);\n}\n\n.ace-tm .ace_indent-guide {\n  background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==\") right repeat-y;\n}\n\n.ace-tm .ace_indent-guide-active {\n  background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC\") right repeat-y;\n}\n";
+ace.define("ace/theme/textmate-css",["require","exports","module"], function(require, exports, module){module.exports = ".ace-tm .ace_gutter {\n  background: #f0f0f0;\n  color: #333;\n}\n\n.ace-tm .ace_print-margin {\n  width: 1px;\n  background: #e8e8e8;\n}\n\n.ace-tm .ace_fold {\n    background-color: #6B72E6;\n}\n\n.ace-tm {\n  background-color: #FFFFFF;\n  color: black;\n}\n\n.ace-tm .ace_cursor {\n  color: black;\n}\n        \n.ace-tm .ace_invisible {\n  color: rgb(191, 191, 191);\n}\n\n.ace-tm .ace_storage,\n.ace-tm .ace_keyword {\n  color: blue;\n}\n\n.ace-tm .ace_constant {\n  color: rgb(197, 6, 11);\n}\n\n.ace-tm .ace_constant.ace_buildin {\n  color: rgb(88, 72, 246);\n}\n\n.ace-tm .ace_constant.ace_language {\n  color: rgb(88, 92, 246);\n}\n\n.ace-tm .ace_constant.ace_library {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_invalid {\n  background-color: rgba(255, 0, 0, 0.1);\n  color: red;\n}\n\n.ace-tm .ace_support.ace_function {\n  color: rgb(60, 76, 114);\n}\n\n.ace-tm .ace_support.ace_constant {\n  color: rgb(6, 150, 14);\n}\n\n.ace-tm .ace_support.ace_type,\n.ace-tm .ace_support.ace_class {\n  color: rgb(109, 121, 222);\n}\n\n.ace-tm .ace_keyword.ace_operator {\n  color: rgb(104, 118, 135);\n}\n\n.ace-tm .ace_string {\n  color: rgb(3, 106, 7);\n}\n\n.ace-tm .ace_comment {\n  color: rgb(76, 136, 107);\n}\n\n.ace-tm .ace_comment.ace_doc {\n  color: rgb(0, 102, 255);\n}\n\n.ace-tm .ace_comment.ace_doc.ace_tag {\n  color: rgb(128, 159, 191);\n}\n\n.ace-tm .ace_constant.ace_numeric {\n  color: rgb(0, 0, 205);\n}\n\n.ace-tm .ace_variable {\n  color: rgb(49, 132, 149);\n}\n\n.ace-tm .ace_xml-pe {\n  color: rgb(104, 104, 91);\n}\n\n.ace-tm .ace_entity.ace_name.ace_function {\n  color: #0000A2;\n}\n\n\n.ace-tm .ace_heading {\n  color: rgb(12, 7, 255);\n}\n\n.ace-tm .ace_list {\n  color:rgb(185, 6, 144);\n}\n\n.ace-tm .ace_meta.ace_tag {\n  color:rgb(0, 22, 142);\n}\n\n.ace-tm .ace_string.ace_regex {\n  color: rgb(255, 0, 0)\n}\n\n.ace-tm .ace_marker-layer .ace_selection {\n  background: rgb(181, 213, 255);\n}\n.ace-tm.ace_multiselect .ace_selection.ace_start {\n  box-shadow: 0 0 3px 0px white;\n}\n.ace-tm .ace_marker-layer .ace_step {\n  background: rgb(252, 255, 0);\n}\n\n.ace-tm .ace_marker-layer .ace_stack {\n  background: rgb(164, 229, 101);\n}\n\n.ace-tm .ace_marker-layer .ace_bracket {\n  margin: -1px 0 0 -1px;\n  border: 1px solid rgb(192, 192, 192);\n}\n\n.ace-tm .ace_marker-layer .ace_active-line {\n  background: rgba(0, 0, 0, 0.07);\n}\n\n.ace-tm .ace_gutter-active-line {\n    background-color : #dcdcdc;\n}\n\n.ace-tm .ace_marker-layer .ace_selected-word {\n  background: rgb(250, 250, 255);\n  border: 1px solid rgb(200, 200, 250);\n}\n\n.ace-tm .ace_indent-guide {\n  background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==\") right repeat-y;\n}\n\n.ace-tm .ace_indent-guide-active {\n  background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC\") right repeat-y;\n}\n";
 
 });
 
-ace.define("ace/theme/textmate",["require","exports","module","ace/theme/textmate-css","ace/lib/dom"], function(require, exports$1, module){exports$1.isDark = false;
-exports$1.cssClass = "ace-tm";
-exports$1.cssText = require("./textmate-css");
-exports$1.$id = "ace/theme/textmate";
+ace.define("ace/theme/textmate",["require","exports","module","ace/theme/textmate-css","ace/lib/dom"], function(require, exports, module){exports.isDark = false;
+exports.cssClass = "ace-tm";
+exports.cssText = require("./textmate-css");
+exports.$id = "ace/theme/textmate";
 var dom = require("../lib/dom");
-dom.importCssString(exports$1.cssText, exports$1.cssClass, false);
+dom.importCssString(exports.cssText, exports.cssClass, false);
 
 });
 
-ace.define("ace/config",["require","exports","module","ace/lib/lang","ace/lib/net","ace/lib/dom","ace/lib/app_config","ace/theme/textmate"], function(require, exports$1, module){"no use strict";
+ace.define("ace/config",["require","exports","module","ace/lib/lang","ace/lib/net","ace/lib/dom","ace/lib/app_config","ace/theme/textmate"], function(require, exports, module){"no use strict";
 var lang = require("./lib/lang");
 var net = require("./lib/net");
 var dom = require("./lib/dom");
 var AppConfig = require("./lib/app_config").AppConfig;
-module.exports = exports$1 = new AppConfig();
+module.exports = exports = new AppConfig();
 var options = {
     packaged: false,
     workerPath: null,
@@ -51375,12 +51623,12 @@ var options = {
     sharedPopups: false,
     useStrictCSP: null
 };
-exports$1.get = function (key) {
+exports.get = function (key) {
     if (!options.hasOwnProperty(key))
         throw new Error("Unknown config key: " + key);
     return options[key];
 };
-exports$1.set = function (key, value) {
+exports.set = function (key, value) {
     if (options.hasOwnProperty(key))
         options[key] = value;
     else if (this.setDefaultValue("", key, value) == false)
@@ -51388,11 +51636,11 @@ exports$1.set = function (key, value) {
     if (key == "useStrictCSP")
         dom.useStrictCSP(value);
 };
-exports$1.all = function () {
+exports.all = function () {
     return lang.copyObject(options);
 };
-exports$1.$modes = {};
-exports$1.moduleUrl = function (name, component) {
+exports.$modes = {};
+exports.moduleUrl = function (name, component) {
     if (options.$moduleUrls[name])
         return options.$moduleUrls[name];
     var parts = name.split("/");
@@ -51416,7 +51664,7 @@ exports$1.moduleUrl = function (name, component) {
         path += "/";
     return path + component + sep + base + this.get("suffix");
 };
-exports$1.setModuleUrl = function (name, subst) {
+exports.setModuleUrl = function (name, subst) {
     return options.$moduleUrls[name] = subst;
 };
 var loader = function (moduleName, cb) {
@@ -51427,13 +51675,13 @@ var loader = function (moduleName, cb) {
     console.error("loader is not configured");
 };
 var customLoader;
-exports$1.setLoader = function (cb) {
+exports.setLoader = function (cb) {
     customLoader = cb;
 };
-exports$1.dynamicModules = Object.create(null);
-exports$1.$loading = {};
-exports$1.$loaded = {};
-exports$1.loadModule = function (moduleId, onLoad) {
+exports.dynamicModules = Object.create(null);
+exports.$loading = {};
+exports.$loaded = {};
+exports.loadModule = function (moduleId, onLoad) {
     var loadedModule;
     if (Array.isArray(moduleId)) {
         var moduleType = moduleId[0];
@@ -51443,32 +51691,32 @@ exports$1.loadModule = function (moduleId, onLoad) {
         var moduleName = moduleId;
     }
     var load = function (module) {
-        if (module && !exports$1.$loading[moduleName])
+        if (module && !exports.$loading[moduleName])
             return onLoad && onLoad(module);
-        if (!exports$1.$loading[moduleName])
-            exports$1.$loading[moduleName] = [];
-        exports$1.$loading[moduleName].push(onLoad);
-        if (exports$1.$loading[moduleName].length > 1)
+        if (!exports.$loading[moduleName])
+            exports.$loading[moduleName] = [];
+        exports.$loading[moduleName].push(onLoad);
+        if (exports.$loading[moduleName].length > 1)
             return;
         var afterLoad = function () {
             loader(moduleName, function (err, module) {
                 if (module)
-                    exports$1.$loaded[moduleName] = module;
-                exports$1._emit("load.module", { name: moduleName, module: module });
-                var listeners = exports$1.$loading[moduleName];
-                exports$1.$loading[moduleName] = null;
+                    exports.$loaded[moduleName] = module;
+                exports._emit("load.module", { name: moduleName, module: module });
+                var listeners = exports.$loading[moduleName];
+                exports.$loading[moduleName] = null;
                 listeners.forEach(function (onLoad) {
                     onLoad && onLoad(module);
                 });
             });
         };
-        if (!exports$1.get("packaged"))
+        if (!exports.get("packaged"))
             return afterLoad();
-        net.loadScript(exports$1.moduleUrl(moduleName, moduleType), afterLoad);
+        net.loadScript(exports.moduleUrl(moduleName, moduleType), afterLoad);
         reportErrorIfPathIsNotConfigured();
     };
-    if (exports$1.dynamicModules[moduleName]) {
-        exports$1.dynamicModules[moduleName]().then(function (module) {
+    if (exports.dynamicModules[moduleName]) {
+        exports.dynamicModules[moduleName]().then(function (module) {
             if (module.default) {
                 load(module.default);
             }
@@ -51482,17 +51730,17 @@ exports$1.loadModule = function (moduleId, onLoad) {
             loadedModule = this.$require(moduleName);
         }
         catch (e) { }
-        load(loadedModule || exports$1.$loaded[moduleName]);
+        load(loadedModule || exports.$loaded[moduleName]);
     }
 };
-exports$1.$require = function (moduleName) {
+exports.$require = function (moduleName) {
     if (typeof module["require"] == "function") {
         var req = "require";
         return module[req](moduleName);
     }
 };
-exports$1.setModuleLoader = function (moduleName, onLoad) {
-    exports$1.dynamicModules[moduleName] = onLoad;
+exports.setModuleLoader = function (moduleName, onLoad) {
+    exports.dynamicModules[moduleName] = onLoad;
 };
 var reportErrorIfPathIsNotConfigured = function () {
     if (!options.basePath && !options.workerPath
@@ -51502,11 +51750,11 @@ var reportErrorIfPathIsNotConfigured = function () {
         reportErrorIfPathIsNotConfigured = function () { };
     }
 };
-exports$1.version = "1.43.6";
+exports.version = "1.44.0";
 
 });
 
-ace.define("ace/loader_build",["require","exports","module","ace/lib/fixoldbrowsers","ace/config"], function(require, exports$1, module) {
+ace.define("ace/loader_build",["require","exports","module","ace/lib/fixoldbrowsers","ace/config"], function(require, exports, module) {
 
 require("./lib/fixoldbrowsers");
 var config = require("./config");
@@ -51586,7 +51834,7 @@ function deHyphenate(str) {
 }
 });
 
-ace.define("ace/range",["require","exports","module"], function(require, exports$1, module){var Range = /** @class */ (function () {
+ace.define("ace/range",["require","exports","module"], function(require, exports, module){var Range = /** @class */ (function () {
     function Range(startRow, startColumn, endRow, endColumn) {
         this.start = {
             row: startRow,
@@ -51808,11 +52056,11 @@ Range.fromPoints = function (start, end) {
 Range.comparePoints = function (p1, p2) {
     return p1.row - p2.row || p1.column - p2.column;
 };
-exports$1.Range = Range;
+exports.Range = Range;
 
 });
 
-ace.define("ace/lib/keys",["require","exports","module","ace/lib/oop"], function(require, exports$1, module){var oop = require("./oop");
+ace.define("ace/lib/keys",["require","exports","module","ace/lib/oop"], function(require, exports, module){var oop = require("./oop");
 var Keys = {
     MODIFIER_KEYS: {
         16: 'Shift', 17: 'Ctrl', 18: 'Alt', 224: 'Meta',
@@ -51912,7 +52160,7 @@ for (var mod in modifiers) {
     codeToKeyCode[mod] = codeToKeyCode[mod + "Left"]
         = codeToKeyCode[mod + "Right"] = modifiers[mod];
 }
-exports$1.$codeToKeyCode = codeToKeyCode;
+exports.$codeToKeyCode = codeToKeyCode;
 Keys.PRINTABLE_KEYS[173] = '-';
 for (var j in Keys.FUNCTION_KEYS) {
     var name = Keys.FUNCTION_KEYS[j].toLowerCase();
@@ -51938,9 +52186,9 @@ Keys.del = Keys["delete"];
 })();
 Keys.KEY_MODS[0] = "";
 Keys.KEY_MODS[-1] = "input-";
-oop.mixin(exports$1, Keys);
-exports$1.default = exports$1;
-exports$1.keyCodeToString = function (keyCode) {
+oop.mixin(exports, Keys);
+exports.default = exports;
+exports.keyCodeToString = function (keyCode) {
     var keyString = Keys[keyCode];
     if (typeof keyString != "string")
         keyString = String.fromCharCode(keyCode);
@@ -51949,7 +52197,7 @@ exports$1.keyCodeToString = function (keyCode) {
 
 });
 
-ace.define("ace/lib/event",["require","exports","module","ace/lib/keys","ace/lib/useragent"], function(require, exports$1, module){ var keys = require("./keys");
+ace.define("ace/lib/event",["require","exports","module","ace/lib/keys","ace/lib/useragent"], function(require, exports, module){ var keys = require("./keys");
 var useragent = require("./useragent");
 var pressedKeys = null;
 var ts = 0;
@@ -51980,35 +52228,35 @@ EventListener.prototype.destroy = function () {
     removeListener(this.elem, this.type, this.callback);
     this.elem = this.type = this.callback = undefined;
 };
-var addListener = exports$1.addListener = function (elem, type, callback, destroyer) {
+var addListener = exports.addListener = function (elem, type, callback, destroyer) {
     elem.addEventListener(type, callback, getListenerOptions());
     if (destroyer)
         destroyer.$toDestroy.push(new EventListener(elem, type, callback));
 };
-var removeListener = exports$1.removeListener = function (elem, type, callback) {
+var removeListener = exports.removeListener = function (elem, type, callback) {
     elem.removeEventListener(type, callback, getListenerOptions());
 };
-exports$1.stopEvent = function (e) {
-    exports$1.stopPropagation(e);
-    exports$1.preventDefault(e);
+exports.stopEvent = function (e) {
+    exports.stopPropagation(e);
+    exports.preventDefault(e);
     return false;
 };
-exports$1.stopPropagation = function (e) {
+exports.stopPropagation = function (e) {
     if (e.stopPropagation)
         e.stopPropagation();
 };
-exports$1.preventDefault = function (e) {
+exports.preventDefault = function (e) {
     if (e.preventDefault)
         e.preventDefault();
 };
-exports$1.getButton = function (e) {
+exports.getButton = function (e) {
     if (e.type == "dblclick")
         return 0;
     if (e.type == "contextmenu" || (useragent.isMac && (e.ctrlKey && !e.altKey && !e.shiftKey)))
         return 2;
     return e.button;
 };
-exports$1.capture = function (el, eventHandler, releaseCaptureHandler) {
+exports.capture = function (el, eventHandler, releaseCaptureHandler) {
     var ownerDocument = el && el.ownerDocument || document;
     function onMouseUp(e) {
         eventHandler && eventHandler(e);
@@ -52022,7 +52270,7 @@ exports$1.capture = function (el, eventHandler, releaseCaptureHandler) {
     addListener(ownerDocument, "dragstart", onMouseUp);
     return onMouseUp;
 };
-exports$1.addMouseWheelListener = function (el, callback, destroyer) {
+exports.addMouseWheelListener = function (el, callback, destroyer) {
     addListener(el, "wheel", function (e) {
         var factor = 0.15;
         var deltaX = e.deltaX || 0;
@@ -52046,7 +52294,7 @@ exports$1.addMouseWheelListener = function (el, callback, destroyer) {
         callback(e);
     }, destroyer);
 };
-exports$1.addMultiMouseDownListener = function (elements, timeouts, eventHandler, callbackName, destroyer) {
+exports.addMultiMouseDownListener = function (elements, timeouts, eventHandler, callbackName, destroyer) {
     var clicks = 0;
     var startX, startY, timer;
     var eventNames = {
@@ -52055,7 +52303,7 @@ exports$1.addMultiMouseDownListener = function (elements, timeouts, eventHandler
         4: "quadclick"
     };
     function onMousedown(e) {
-        if (exports$1.getButton(e) !== 0) {
+        if (exports.getButton(e) !== 0) {
             clicks = 0;
         }
         else if (e.detail > 1) {
@@ -52094,7 +52342,7 @@ exports$1.addMultiMouseDownListener = function (elements, timeouts, eventHandler
 function getModifierHash(e) {
     return 0 | (e.ctrlKey ? 1 : 0) | (e.altKey ? 2 : 0) | (e.shiftKey ? 4 : 0) | (e.metaKey ? 8 : 0);
 }
-exports$1.getModifierString = function (e) {
+exports.getModifierString = function (e) {
     return keys.KEY_MODS[getModifierHash(e)];
 };
 function normalizeCommandKeys(callback, e, keyCode) {
@@ -52146,7 +52394,7 @@ function normalizeCommandKeys(callback, e, keyCode) {
     }
     return callback(e, hashId, keyCode);
 }
-exports$1.addCommandKeyListener = function (el, callback, destroyer) {
+exports.addCommandKeyListener = function (el, callback, destroyer) {
     var lastDefaultPrevented = null;
     addListener(el, "keydown", function (e) {
         pressedKeys[e.keyCode] = (pressedKeys[e.keyCode] || 0) + 1;
@@ -52156,7 +52404,7 @@ exports$1.addCommandKeyListener = function (el, callback, destroyer) {
     }, destroyer);
     addListener(el, "keypress", function (e) {
         if (lastDefaultPrevented && (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey)) {
-            exports$1.stopEvent(e);
+            exports.stopEvent(e);
             lastDefaultPrevented = null;
         }
     }, destroyer);
@@ -52173,12 +52421,12 @@ function resetPressedKeys() {
 }
 if (typeof window == "object" && window.postMessage && !useragent.isOldIE) {
     var postMessageId = 1;
-    exports$1.nextTick = function (callback, win) {
+    exports.nextTick = function (callback, win) {
         win = win || window;
         var messageName = "zero-timeout-message-" + (postMessageId++);
         var listener = function (e) {
             if (e.data == messageName) {
-                exports$1.stopPropagation(e);
+                exports.stopPropagation(e);
                 removeListener(win, "message", listener);
                 callback();
             }
@@ -52187,10 +52435,10 @@ if (typeof window == "object" && window.postMessage && !useragent.isOldIE) {
         win.postMessage(messageName, "*");
     };
 }
-exports$1.$idleBlocked = false;
-exports$1.onIdle = function (cb, timeout) {
+exports.$idleBlocked = false;
+exports.onIdle = function (cb, timeout) {
     return setTimeout(function handler() {
-        if (!exports$1.$idleBlocked) {
+        if (!exports.$idleBlocked) {
             cb();
         }
         else {
@@ -52198,30 +52446,30 @@ exports$1.onIdle = function (cb, timeout) {
         }
     }, timeout);
 };
-exports$1.$idleBlockId = null;
-exports$1.blockIdle = function (delay) {
-    if (exports$1.$idleBlockId)
-        clearTimeout(exports$1.$idleBlockId);
-    exports$1.$idleBlocked = true;
-    exports$1.$idleBlockId = setTimeout(function () {
-        exports$1.$idleBlocked = false;
+exports.$idleBlockId = null;
+exports.blockIdle = function (delay) {
+    if (exports.$idleBlockId)
+        clearTimeout(exports.$idleBlockId);
+    exports.$idleBlocked = true;
+    exports.$idleBlockId = setTimeout(function () {
+        exports.$idleBlocked = false;
     }, delay || 100);
 };
-exports$1.nextFrame = typeof window == "object" && (window.requestAnimationFrame
+exports.nextFrame = typeof window == "object" && (window.requestAnimationFrame
     || window["mozRequestAnimationFrame"]
     || window["webkitRequestAnimationFrame"]
     || window["msRequestAnimationFrame"]
     || window["oRequestAnimationFrame"]);
-if (exports$1.nextFrame)
-    exports$1.nextFrame = exports$1.nextFrame.bind(window);
+if (exports.nextFrame)
+    exports.nextFrame = exports.nextFrame.bind(window);
 else
-    exports$1.nextFrame = function (callback) {
+    exports.nextFrame = function (callback) {
         setTimeout(callback, 17);
     };
 
 });
 
-ace.define("ace/clipboard",["require","exports","module"], function(require, exports$1, module){var $cancelT;
+ace.define("ace/clipboard",["require","exports","module"], function(require, exports, module){var $cancelT;
 module.exports = {
     lineMode: false,
     pasteCancelled: function () {
@@ -52236,7 +52484,7 @@ module.exports = {
 
 });
 
-ace.define("ace/keyboard/textinput",["require","exports","module","ace/lib/event","ace/config","ace/lib/useragent","ace/lib/dom","ace/lib/lang","ace/clipboard","ace/lib/keys"], function(require, exports$1, module){var event = require("../lib/event");
+ace.define("ace/keyboard/textinput",["require","exports","module","ace/lib/event","ace/config","ace/lib/useragent","ace/lib/dom","ace/lib/lang","ace/clipboard","ace/lib/keys"], function(require, exports, module){var event = require("../lib/event");
 var nls = require("../config").nls;
 var useragent = require("../lib/useragent");
 var dom = require("../lib/dom");
@@ -52960,15 +53208,15 @@ var TextInput = /** @class */ (function () {
     };
     return TextInput;
 }());
-exports$1.TextInput = TextInput;
-exports$1.$setUserAgentForTests = function (_isMobile, _isIOS) {
+exports.TextInput = TextInput;
+exports.$setUserAgentForTests = function (_isMobile, _isIOS) {
     isMobile = _isMobile;
     isIOS = _isIOS;
 };
 
 });
 
-ace.define("ace/mouse/default_handlers",["require","exports","module","ace/lib/useragent"], function(require, exports$1, module){var useragent = require("../lib/useragent");
+ace.define("ace/mouse/default_handlers",["require","exports","module","ace/lib/useragent"], function(require, exports, module){var useragent = require("../lib/useragent");
 var DRAG_OFFSET = 0; // pixels
 var SCROLL_COOLDOWN_T = 550; // milliseconds
 var DefaultHandlers = /** @class */ (function () {
@@ -52980,9 +53228,9 @@ var DefaultHandlers = /** @class */ (function () {
         editor.setDefaultHandler("tripleclick", this.onTripleClick.bind(mouseHandler));
         editor.setDefaultHandler("quadclick", this.onQuadClick.bind(mouseHandler));
         editor.setDefaultHandler("mousewheel", this.onMouseWheel.bind(mouseHandler));
-        var exports$1 = ["select", "startSelect", "selectEnd", "selectAllEnd", "selectByWordsEnd",
+        var exports = ["select", "startSelect", "selectEnd", "selectAllEnd", "selectByWordsEnd",
             "selectByLinesEnd", "dragWait", "dragWaitEnd", "focusWait"];
-        exports$1.forEach(function (x) {
+        exports.forEach(function (x) {
             mouseHandler[x] = this[x];
         }, this);
         mouseHandler["selectByLines"] = this.extendSelectionBy.bind(mouseHandler, "getLineRange");
@@ -53186,7 +53434,7 @@ var DefaultHandlers = /** @class */ (function () {
 DefaultHandlers.prototype.selectEnd = DefaultHandlers.prototype.selectByLinesEnd;
 DefaultHandlers.prototype.selectAllEnd = DefaultHandlers.prototype.selectByLinesEnd;
 DefaultHandlers.prototype.selectByWordsEnd = DefaultHandlers.prototype.selectByLinesEnd;
-exports$1.DefaultHandlers = DefaultHandlers;
+exports.DefaultHandlers = DefaultHandlers;
 function calcDistance(ax, ay, bx, by) {
     return Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2));
 }
@@ -53205,7 +53453,7 @@ function calcRangeOrientation(range, cursor, session) {
 
 });
 
-ace.define("ace/mouse/mouse_event",["require","exports","module","ace/lib/event","ace/lib/useragent"], function(require, exports$1, module){var event = require("../lib/event");
+ace.define("ace/mouse/mouse_event",["require","exports","module","ace/lib/event","ace/lib/useragent"], function(require, exports, module){var event = require("../lib/event");
 var useragent = require("../lib/useragent");
 var MouseEvent = /** @class */ (function () {
     function MouseEvent(domEvent, editor) { this.speed; this.wheelX; this.wheelY;
@@ -53266,11 +53514,11 @@ var MouseEvent = /** @class */ (function () {
     };
     return MouseEvent;
 }());
-exports$1.MouseEvent = MouseEvent;
+exports.MouseEvent = MouseEvent;
 
 });
 
-ace.define("ace/lib/scroll",["require","exports","module"], function(require, exports$1, module){exports$1.preventParentScroll = function preventParentScroll(event) {
+ace.define("ace/lib/scroll",["require","exports","module"], function(require, exports, module){exports.preventParentScroll = function preventParentScroll(event) {
     event.stopPropagation();
     var target = event.currentTarget;
     var contentOverflows = target.scrollHeight > target.clientHeight;
@@ -53281,7 +53529,7 @@ ace.define("ace/lib/scroll",["require","exports","module"], function(require, ex
 
 });
 
-ace.define("ace/tooltip",["require","exports","module","ace/lib/dom","ace/lib/event","ace/range","ace/lib/scroll"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/tooltip",["require","exports","module","ace/lib/dom","ace/lib/event","ace/range","ace/lib/scroll"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -53452,8 +53700,8 @@ var PopupManager = /** @class */ (function () {
     return PopupManager;
 }());
 var popupManager = new PopupManager();
-exports$1.popupManager = popupManager;
-exports$1.Tooltip = Tooltip;
+exports.popupManager = popupManager;
+exports.Tooltip = Tooltip;
 var HoverTooltip = /** @class */ (function (_super) {
     __extends(HoverTooltip, _super);
     function HoverTooltip(parentNode) {
@@ -53648,11 +53896,11 @@ var HoverTooltip = /** @class */ (function (_super) {
     };
     return HoverTooltip;
 }(Tooltip));
-exports$1.HoverTooltip = HoverTooltip;
+exports.HoverTooltip = HoverTooltip;
 
 });
 
-ace.define("ace/mouse/default_gutter_handler",["require","exports","module","ace/lib/dom","ace/mouse/mouse_event","ace/tooltip","ace/config","ace/range"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/mouse/default_gutter_handler",["require","exports","module","ace/lib/dom","ace/mouse/mouse_event","ace/tooltip","ace/config","ace/range"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -53714,7 +53962,7 @@ function GutterHandler(mouseHandler) {
         return e.preventDefault();
     });
 }
-exports$1.GutterHandler = GutterHandler;
+exports.GutterHandler = GutterHandler;
 var GutterTooltip = /** @class */ (function (_super) {
     __extends(GutterTooltip, _super);
     function GutterTooltip(editor) {
@@ -53931,11 +54179,11 @@ var GutterTooltip = /** @class */ (function (_super) {
     return GutterTooltip;
 }(HoverTooltip));
 GutterTooltip.$uid = 0;
-exports$1.GutterTooltip = GutterTooltip;
+exports.GutterTooltip = GutterTooltip;
 
 });
 
-ace.define("ace/mouse/dragdrop_handler",["require","exports","module","ace/lib/dom","ace/lib/event","ace/lib/useragent"], function(require, exports$1, module){var dom = require("../lib/dom");
+ace.define("ace/mouse/dragdrop_handler",["require","exports","module","ace/lib/dom","ace/lib/event","ace/lib/useragent"], function(require, exports, module){var dom = require("../lib/dom");
 var event = require("../lib/event");
 var useragent = require("../lib/useragent");
 var AUTOSCROLL_DELAY = 200;
@@ -53946,8 +54194,8 @@ function DragdropHandler(mouseHandler) {
     var dragImage = dom.createElement("div");
     dragImage.style.cssText = "top:-100px;position:absolute;z-index:2147483647;opacity:0.5";
     dragImage.textContent = "\xa0";
-    var exports$1 = ["dragWait", "dragWaitEnd", "startDrag", "dragReadyEnd", "onMouseDrag"];
-    exports$1.forEach(function (x) {
+    var exports = ["dragWait", "dragWaitEnd", "startDrag", "dragReadyEnd", "onMouseDrag"];
+    exports.forEach(function (x) {
         mouseHandler[x] = this[x];
     }, this);
     editor.on("mousedown", this.onMouseDown.bind(mouseHandler));
@@ -54269,14 +54517,14 @@ function DragdropHandler(mouseHandler) {
 function calcDistance(ax, ay, bx, by) {
     return Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2));
 }
-exports$1.DragdropHandler = DragdropHandler;
+exports.DragdropHandler = DragdropHandler;
 
 });
 
-ace.define("ace/mouse/touch_handler",["require","exports","module","ace/mouse/mouse_event","ace/lib/event","ace/lib/dom"], function(require, exports$1, module){var MouseEvent = require("./mouse_event").MouseEvent;
+ace.define("ace/mouse/touch_handler",["require","exports","module","ace/mouse/mouse_event","ace/lib/event","ace/lib/dom"], function(require, exports, module){var MouseEvent = require("./mouse_event").MouseEvent;
 var event = require("../lib/event");
 var dom = require("../lib/dom");
-exports$1.addTouchListeners = function (el, editor) {
+exports.addTouchListeners = function (el, editor) {
     var mode = "scroll";
     var startX;
     var startY;
@@ -54338,22 +54586,22 @@ exports$1.addTouchListeners = function (el, editor) {
         contextMenu = dom.buildDom(["div",
             {
                 class: "ace_mobile-menu",
-                ontouchstart: function (e) {
-                    mode = "menu";
-                    e.stopPropagation();
-                    e.preventDefault();
-                    editor.textInput.focus();
-                },
-                ontouchend: function (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    handleClick(e);
-                },
                 onclick: handleClick
             },
             ["span"],
             ["span", { class: "ace_mobile-button", action: "more" }, "..."]
         ], editor.container);
+        contextMenu.addEventListener("touchstart", function (e) {
+            mode = "menu";
+            e.stopPropagation();
+            e.preventDefault();
+            editor.textInput.focus();
+        });
+        contextMenu.addEventListener("touchend", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            handleClick(e);
+        });
     }
     function showContextMenu() {
         if (!editor.getOption("enableMobileMenu")) {
@@ -54583,7 +54831,7 @@ exports$1.addTouchListeners = function (el, editor) {
 
 });
 
-ace.define("ace/mouse/mouse_handler",["require","exports","module","ace/lib/event","ace/lib/useragent","ace/mouse/default_handlers","ace/mouse/default_gutter_handler","ace/mouse/mouse_event","ace/mouse/dragdrop_handler","ace/mouse/touch_handler","ace/config"], function(require, exports$1, module){var event = require("../lib/event");
+ace.define("ace/mouse/mouse_handler",["require","exports","module","ace/lib/event","ace/lib/useragent","ace/mouse/default_handlers","ace/mouse/default_gutter_handler","ace/mouse/mouse_event","ace/mouse/dragdrop_handler","ace/mouse/touch_handler","ace/config"], function(require, exports, module){var event = require("../lib/event");
 var useragent = require("../lib/useragent");
 var DefaultHandlers = require("./default_handlers").DefaultHandlers;
 var DefaultGutterHandler = require("./default_gutter_handler").GutterHandler;
@@ -54755,11 +55003,11 @@ config.defineOptions(MouseHandler.prototype, "mouseHandler", {
     dragEnabled: { initialValue: true },
     focusTimeout: { initialValue: 0 },
 });
-exports$1.MouseHandler = MouseHandler;
+exports.MouseHandler = MouseHandler;
 
 });
 
-ace.define("ace/mouse/fold_handler",["require","exports","module","ace/lib/dom"], function(require, exports$1, module){var dom = require("../lib/dom");
+ace.define("ace/mouse/fold_handler",["require","exports","module","ace/lib/dom"], function(require, exports, module){var dom = require("../lib/dom");
 var FoldHandler = /** @class */ (function () {
     function FoldHandler(editor) {
         editor.on("click", function (e) {
@@ -54817,11 +55065,11 @@ var FoldHandler = /** @class */ (function () {
     }
     return FoldHandler;
 }());
-exports$1.FoldHandler = FoldHandler;
+exports.FoldHandler = FoldHandler;
 
 });
 
-ace.define("ace/keyboard/keybinding",["require","exports","module","ace/lib/keys","ace/lib/event"], function(require, exports$1, module){var keyUtil = require("../lib/keys");
+ace.define("ace/keyboard/keybinding",["require","exports","module","ace/lib/keys","ace/lib/event"], function(require, exports, module){var keyUtil = require("../lib/keys");
 var event = require("../lib/event");
 var KeyBinding = /** @class */ (function () {
     function KeyBinding(editor) {
@@ -54915,11 +55163,11 @@ var KeyBinding = /** @class */ (function () {
     };
     return KeyBinding;
 }());
-exports$1.KeyBinding = KeyBinding;
+exports.KeyBinding = KeyBinding;
 
 });
 
-ace.define("ace/lib/bidiutil",["require","exports","module"], function(require, exports$1, module){var dir = 0, hiLevel = 0;
+ace.define("ace/lib/bidiutil",["require","exports","module"], function(require, exports, module){var dir = 0, hiLevel = 0;
 var lastArabic = false, hasUBAT_B = false, hasUBAT_S = false;
 var impTab_LTR = [ [0, 3, 0, 1, 0, 0, 0], [0, 3, 0, 1, 2, 2, 0], [0, 3, 0, 0x11, 2, 0, 1], [0, 3, 5, 5, 4, 1, 0], [0, 3, 0x15, 0x15, 4, 0, 1], [0, 3, 5, 5, 4, 2, 0]
 ];
@@ -55166,16 +55414,16 @@ function _getCharacterType(ch) {
     }
     return ON;
 }
-exports$1.L = L;
-exports$1.R = R;
-exports$1.EN = EN;
-exports$1.ON_R = 3;
-exports$1.AN = 4;
-exports$1.R_H = 5;
-exports$1.B = 6;
-exports$1.RLE = 7;
-exports$1.DOT = "\xB7";
-exports$1.doBidiReorder = function (text, textCharTypes, isRtl) {
+exports.L = L;
+exports.R = R;
+exports.EN = EN;
+exports.ON_R = 3;
+exports.AN = 4;
+exports.R_H = 5;
+exports.B = 6;
+exports.RLE = 7;
+exports.DOT = "\xB7";
+exports.doBidiReorder = function (text, textCharTypes, isRtl) {
     if (text.length < 2)
         return {};
     var chars = text.split(""), logicalFromVisual = new Array(chars.length), bidiLevels = new Array(chars.length), levels = [];
@@ -55187,27 +55435,27 @@ exports$1.doBidiReorder = function (text, textCharTypes, isRtl) {
     _invertLevel(1, levels, logicalFromVisual);
     for (var i = 0; i < logicalFromVisual.length - 1; i++) { //fix levels to reflect character width
         if (textCharTypes[i] === AN) {
-            levels[i] = exports$1.AN;
+            levels[i] = exports.AN;
         }
         else if (levels[i] === R && ((textCharTypes[i] > AL && textCharTypes[i] < LRE)
             || textCharTypes[i] === ON || textCharTypes[i] === BN)) {
-            levels[i] = exports$1.ON_R;
+            levels[i] = exports.ON_R;
         }
         else if ((i > 0 && chars[i - 1] === '\u0644') && /\u0622|\u0623|\u0625|\u0627/.test(chars[i])) {
-            levels[i - 1] = levels[i] = exports$1.R_H;
+            levels[i - 1] = levels[i] = exports.R_H;
             i++;
         }
     }
-    if (chars[chars.length - 1] === exports$1.DOT)
-        levels[chars.length - 1] = exports$1.B;
+    if (chars[chars.length - 1] === exports.DOT)
+        levels[chars.length - 1] = exports.B;
     if (chars[0] === '\u202B')
-        levels[0] = exports$1.RLE;
+        levels[0] = exports.RLE;
     for (var i = 0; i < logicalFromVisual.length; i++) {
         bidiLevels[i] = levels[logicalFromVisual[i]];
     }
     return { 'logicalFromVisual': logicalFromVisual, 'bidiLevels': bidiLevels };
 };
-exports$1.hasBidiCharacters = function (text, textCharTypes) {
+exports.hasBidiCharacters = function (text, textCharTypes) {
     var ret = false;
     for (var i = 0; i < text.length; i++) {
         textCharTypes[i] = _getCharacterType(text.charAt(i));
@@ -55216,7 +55464,7 @@ exports$1.hasBidiCharacters = function (text, textCharTypes) {
     }
     return ret;
 };
-exports$1.getVisualFromLogicalIdx = function (logIdx, rowMap) {
+exports.getVisualFromLogicalIdx = function (logIdx, rowMap) {
     for (var i = 0; i < rowMap.logicalFromVisual.length; i++) {
         if (rowMap.logicalFromVisual[i] == logIdx)
             return i;
@@ -55226,7 +55474,7 @@ exports$1.getVisualFromLogicalIdx = function (logIdx, rowMap) {
 
 });
 
-ace.define("ace/bidihandler",["require","exports","module","ace/lib/bidiutil","ace/lib/lang"], function(require, exports$1, module){var bidiUtil = require("./lib/bidiutil");
+ace.define("ace/bidihandler",["require","exports","module","ace/lib/bidiutil","ace/lib/lang"], function(require, exports, module){var bidiUtil = require("./lib/bidiutil");
 var lang = require("./lib/lang");
 var bidiRE = /[\u0590-\u05f4\u0600-\u06ff\u0700-\u08ac\u202B]/;
 var BidiHandler = /** @class */ (function () {
@@ -55478,11 +55726,11 @@ var BidiHandler = /** @class */ (function () {
     };
     return BidiHandler;
 }());
-exports$1.BidiHandler = BidiHandler;
+exports.BidiHandler = BidiHandler;
 
 });
 
-ace.define("ace/selection",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/lib/event_emitter","ace/range"], function(require, exports$1, module){var oop = require("./lib/oop");
+ace.define("ace/selection",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/lib/event_emitter","ace/range"], function(require, exports, module){var oop = require("./lib/oop");
 var lang = require("./lib/lang");
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Range = require("./range").Range;
@@ -56044,11 +56292,11 @@ Selection.prototype.setSelectionAnchor = Selection.prototype.setAnchor;
 Selection.prototype.getSelectionAnchor = Selection.prototype.getAnchor;
 Selection.prototype.setSelectionRange = Selection.prototype.setRange;
 oop.implement(Selection.prototype, EventEmitter);
-exports$1.Selection = Selection;
+exports.Selection = Selection;
 
 });
 
-ace.define("ace/tokenizer",["require","exports","module","ace/lib/report_error"], function(require, exports$1, module){var reportError = require("./lib/report_error").reportError;
+ace.define("ace/tokenizer",["require","exports","module","ace/lib/report_error"], function(require, exports, module){var reportError = require("./lib/report_error").reportError;
 var MAX_TOKEN_COUNT = 2000;
 var Tokenizer = /** @class */ (function () {
     function Tokenizer(rules) {
@@ -56331,11 +56579,11 @@ var Tokenizer = /** @class */ (function () {
     return Tokenizer;
 }());
 Tokenizer.prototype.reportError = reportError;
-exports$1.Tokenizer = Tokenizer;
+exports.Tokenizer = Tokenizer;
 
 });
 
-ace.define("ace/mode/text_highlight_rules",["require","exports","module","ace/lib/deep_copy"], function(require, exports$1, module){var deepCopy = require("../lib/deep_copy").deepCopy;
+ace.define("ace/mode/text_highlight_rules",["require","exports","module","ace/lib/deep_copy"], function(require, exports, module){var deepCopy = require("../lib/deep_copy").deepCopy;
 var TextHighlightRules;
 TextHighlightRules = function () {
     this.$rules = {
@@ -56515,11 +56763,11 @@ TextHighlightRules = function () {
         return this.$keywords;
     };
 }).call(TextHighlightRules.prototype);
-exports$1.TextHighlightRules = TextHighlightRules;
+exports.TextHighlightRules = TextHighlightRules;
 
 });
 
-ace.define("ace/mode/behaviour",["require","exports","module"], function(require, exports$1, module){var Behaviour;
+ace.define("ace/mode/behaviour",["require","exports","module"], function(require, exports, module){var Behaviour;
 Behaviour = function () {
     this.$behaviours = {};
 };
@@ -56569,11 +56817,11 @@ Behaviour = function () {
         }
     };
 }).call(Behaviour.prototype);
-exports$1.Behaviour = Behaviour;
+exports.Behaviour = Behaviour;
 
 });
 
-ace.define("ace/token_iterator",["require","exports","module","ace/range"], function(require, exports$1, module){var Range = require("./range").Range;
+ace.define("ace/token_iterator",["require","exports","module","ace/range"], function(require, exports, module){var Range = require("./range").Range;
 var TokenIterator = /** @class */ (function () {
     function TokenIterator(session, initialRow, initialColumn) {
         this.$session = session;
@@ -56640,11 +56888,11 @@ var TokenIterator = /** @class */ (function () {
     };
     return TokenIterator;
 }());
-exports$1.TokenIterator = TokenIterator;
+exports.TokenIterator = TokenIterator;
 
 });
 
-ace.define("ace/mode/behaviour/cstyle",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator","ace/lib/lang"], function(require, exports$1, module){var oop = require("../../lib/oop");
+ace.define("ace/mode/behaviour/cstyle",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator","ace/lib/lang"], function(require, exports, module){var oop = require("../../lib/oop");
 var Behaviour = require("../behaviour").Behaviour;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 var lang = require("../../lib/lang");
@@ -57071,11 +57319,11 @@ CstyleBehaviour["clearMaybeInsertedClosing"] = function () {
     }
 };
 oop.inherits(CstyleBehaviour, Behaviour);
-exports$1.CstyleBehaviour = CstyleBehaviour;
+exports.CstyleBehaviour = CstyleBehaviour;
 
 });
 
-ace.define("ace/unicode",["require","exports","module"], function(require, exports$1, module){var wordChars = [48, 9, 8, 25, 5, 0, 2, 25, 48, 0, 11, 0, 5, 0, 6, 22, 2, 30, 2, 457, 5, 11, 15, 4, 8, 0, 2, 0, 18, 116, 2, 1, 3, 3, 9, 0, 2, 2, 2, 0, 2, 19, 2, 82, 2, 138, 2, 4, 3, 155, 12, 37, 3, 0, 8, 38, 10, 44, 2, 0, 2, 1, 2, 1, 2, 0, 9, 26, 6, 2, 30, 10, 7, 61, 2, 9, 5, 101, 2, 7, 3, 9, 2, 18, 3, 0, 17, 58, 3, 100, 15, 53, 5, 0, 6, 45, 211, 57, 3, 18, 2, 5, 3, 11, 3, 9, 2, 1, 7, 6, 2, 2, 2, 7, 3, 1, 3, 21, 2, 6, 2, 0, 4, 3, 3, 8, 3, 1, 3, 3, 9, 0, 5, 1, 2, 4, 3, 11, 16, 2, 2, 5, 5, 1, 3, 21, 2, 6, 2, 1, 2, 1, 2, 1, 3, 0, 2, 4, 5, 1, 3, 2, 4, 0, 8, 3, 2, 0, 8, 15, 12, 2, 2, 8, 2, 2, 2, 21, 2, 6, 2, 1, 2, 4, 3, 9, 2, 2, 2, 2, 3, 0, 16, 3, 3, 9, 18, 2, 2, 7, 3, 1, 3, 21, 2, 6, 2, 1, 2, 4, 3, 8, 3, 1, 3, 2, 9, 1, 5, 1, 2, 4, 3, 9, 2, 0, 17, 1, 2, 5, 4, 2, 2, 3, 4, 1, 2, 0, 2, 1, 4, 1, 4, 2, 4, 11, 5, 4, 4, 2, 2, 3, 3, 0, 7, 0, 15, 9, 18, 2, 2, 7, 2, 2, 2, 22, 2, 9, 2, 4, 4, 7, 2, 2, 2, 3, 8, 1, 2, 1, 7, 3, 3, 9, 19, 1, 2, 7, 2, 2, 2, 22, 2, 9, 2, 4, 3, 8, 2, 2, 2, 3, 8, 1, 8, 0, 2, 3, 3, 9, 19, 1, 2, 7, 2, 2, 2, 22, 2, 15, 4, 7, 2, 2, 2, 3, 10, 0, 9, 3, 3, 9, 11, 5, 3, 1, 2, 17, 4, 23, 2, 8, 2, 0, 3, 6, 4, 0, 5, 5, 2, 0, 2, 7, 19, 1, 14, 57, 6, 14, 2, 9, 40, 1, 2, 0, 3, 1, 2, 0, 3, 0, 7, 3, 2, 6, 2, 2, 2, 0, 2, 0, 3, 1, 2, 12, 2, 2, 3, 4, 2, 0, 2, 5, 3, 9, 3, 1, 35, 0, 24, 1, 7, 9, 12, 0, 2, 0, 2, 0, 5, 9, 2, 35, 5, 19, 2, 5, 5, 7, 2, 35, 10, 0, 58, 73, 7, 77, 3, 37, 11, 42, 2, 0, 4, 328, 2, 3, 3, 6, 2, 0, 2, 3, 3, 40, 2, 3, 3, 32, 2, 3, 3, 6, 2, 0, 2, 3, 3, 14, 2, 56, 2, 3, 3, 66, 5, 0, 33, 15, 17, 84, 13, 619, 3, 16, 2, 25, 6, 74, 22, 12, 2, 6, 12, 20, 12, 19, 13, 12, 2, 2, 2, 1, 13, 51, 3, 29, 4, 0, 5, 1, 3, 9, 34, 2, 3, 9, 7, 87, 9, 42, 6, 69, 11, 28, 4, 11, 5, 11, 11, 39, 3, 4, 12, 43, 5, 25, 7, 10, 38, 27, 5, 62, 2, 28, 3, 10, 7, 9, 14, 0, 89, 75, 5, 9, 18, 8, 13, 42, 4, 11, 71, 55, 9, 9, 4, 48, 83, 2, 2, 30, 14, 230, 23, 280, 3, 5, 3, 37, 3, 5, 3, 7, 2, 0, 2, 0, 2, 0, 2, 30, 3, 52, 2, 6, 2, 0, 4, 2, 2, 6, 4, 3, 3, 5, 5, 12, 6, 2, 2, 6, 67, 1, 20, 0, 29, 0, 14, 0, 17, 4, 60, 12, 5, 0, 4, 11, 18, 0, 5, 0, 3, 9, 2, 0, 4, 4, 7, 0, 2, 0, 2, 0, 2, 3, 2, 10, 3, 3, 6, 4, 5, 0, 53, 1, 2684, 46, 2, 46, 2, 132, 7, 6, 15, 37, 11, 53, 10, 0, 17, 22, 10, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 31, 48, 0, 470, 1, 36, 5, 2, 4, 6, 1, 5, 85, 3, 1, 3, 2, 2, 89, 2, 3, 6, 40, 4, 93, 18, 23, 57, 15, 513, 6581, 75, 20939, 53, 1164, 68, 45, 3, 268, 4, 27, 21, 31, 3, 13, 13, 1, 2, 24, 9, 69, 11, 1, 38, 8, 3, 102, 3, 1, 111, 44, 25, 51, 13, 68, 12, 9, 7, 23, 4, 0, 5, 45, 3, 35, 13, 28, 4, 64, 15, 10, 39, 54, 10, 13, 3, 9, 7, 22, 4, 1, 5, 66, 25, 2, 227, 42, 2, 1, 3, 9, 7, 11171, 13, 22, 5, 48, 8453, 301, 3, 61, 3, 105, 39, 6, 13, 4, 6, 11, 2, 12, 2, 4, 2, 0, 2, 1, 2, 1, 2, 107, 34, 362, 19, 63, 3, 53, 41, 11, 5, 15, 17, 6, 13, 1, 25, 2, 33, 4, 2, 134, 20, 9, 8, 25, 5, 0, 2, 25, 12, 88, 4, 5, 3, 5, 3, 5, 3, 2];
+ace.define("ace/unicode",["require","exports","module"], function(require, exports, module){var wordChars = [48, 9, 8, 25, 5, 0, 2, 25, 48, 0, 11, 0, 5, 0, 6, 22, 2, 30, 2, 457, 5, 11, 15, 4, 8, 0, 2, 0, 18, 116, 2, 1, 3, 3, 9, 0, 2, 2, 2, 0, 2, 19, 2, 82, 2, 138, 2, 4, 3, 155, 12, 37, 3, 0, 8, 38, 10, 44, 2, 0, 2, 1, 2, 1, 2, 0, 9, 26, 6, 2, 30, 10, 7, 61, 2, 9, 5, 101, 2, 7, 3, 9, 2, 18, 3, 0, 17, 58, 3, 100, 15, 53, 5, 0, 6, 45, 211, 57, 3, 18, 2, 5, 3, 11, 3, 9, 2, 1, 7, 6, 2, 2, 2, 7, 3, 1, 3, 21, 2, 6, 2, 0, 4, 3, 3, 8, 3, 1, 3, 3, 9, 0, 5, 1, 2, 4, 3, 11, 16, 2, 2, 5, 5, 1, 3, 21, 2, 6, 2, 1, 2, 1, 2, 1, 3, 0, 2, 4, 5, 1, 3, 2, 4, 0, 8, 3, 2, 0, 8, 15, 12, 2, 2, 8, 2, 2, 2, 21, 2, 6, 2, 1, 2, 4, 3, 9, 2, 2, 2, 2, 3, 0, 16, 3, 3, 9, 18, 2, 2, 7, 3, 1, 3, 21, 2, 6, 2, 1, 2, 4, 3, 8, 3, 1, 3, 2, 9, 1, 5, 1, 2, 4, 3, 9, 2, 0, 17, 1, 2, 5, 4, 2, 2, 3, 4, 1, 2, 0, 2, 1, 4, 1, 4, 2, 4, 11, 5, 4, 4, 2, 2, 3, 3, 0, 7, 0, 15, 9, 18, 2, 2, 7, 2, 2, 2, 22, 2, 9, 2, 4, 4, 7, 2, 2, 2, 3, 8, 1, 2, 1, 7, 3, 3, 9, 19, 1, 2, 7, 2, 2, 2, 22, 2, 9, 2, 4, 3, 8, 2, 2, 2, 3, 8, 1, 8, 0, 2, 3, 3, 9, 19, 1, 2, 7, 2, 2, 2, 22, 2, 15, 4, 7, 2, 2, 2, 3, 10, 0, 9, 3, 3, 9, 11, 5, 3, 1, 2, 17, 4, 23, 2, 8, 2, 0, 3, 6, 4, 0, 5, 5, 2, 0, 2, 7, 19, 1, 14, 57, 6, 14, 2, 9, 40, 1, 2, 0, 3, 1, 2, 0, 3, 0, 7, 3, 2, 6, 2, 2, 2, 0, 2, 0, 3, 1, 2, 12, 2, 2, 3, 4, 2, 0, 2, 5, 3, 9, 3, 1, 35, 0, 24, 1, 7, 9, 12, 0, 2, 0, 2, 0, 5, 9, 2, 35, 5, 19, 2, 5, 5, 7, 2, 35, 10, 0, 58, 73, 7, 77, 3, 37, 11, 42, 2, 0, 4, 328, 2, 3, 3, 6, 2, 0, 2, 3, 3, 40, 2, 3, 3, 32, 2, 3, 3, 6, 2, 0, 2, 3, 3, 14, 2, 56, 2, 3, 3, 66, 5, 0, 33, 15, 17, 84, 13, 619, 3, 16, 2, 25, 6, 74, 22, 12, 2, 6, 12, 20, 12, 19, 13, 12, 2, 2, 2, 1, 13, 51, 3, 29, 4, 0, 5, 1, 3, 9, 34, 2, 3, 9, 7, 87, 9, 42, 6, 69, 11, 28, 4, 11, 5, 11, 11, 39, 3, 4, 12, 43, 5, 25, 7, 10, 38, 27, 5, 62, 2, 28, 3, 10, 7, 9, 14, 0, 89, 75, 5, 9, 18, 8, 13, 42, 4, 11, 71, 55, 9, 9, 4, 48, 83, 2, 2, 30, 14, 230, 23, 280, 3, 5, 3, 37, 3, 5, 3, 7, 2, 0, 2, 0, 2, 0, 2, 30, 3, 52, 2, 6, 2, 0, 4, 2, 2, 6, 4, 3, 3, 5, 5, 12, 6, 2, 2, 6, 67, 1, 20, 0, 29, 0, 14, 0, 17, 4, 60, 12, 5, 0, 4, 11, 18, 0, 5, 0, 3, 9, 2, 0, 4, 4, 7, 0, 2, 0, 2, 0, 2, 3, 2, 10, 3, 3, 6, 4, 5, 0, 53, 1, 2684, 46, 2, 46, 2, 132, 7, 6, 15, 37, 11, 53, 10, 0, 17, 22, 10, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 6, 2, 31, 48, 0, 470, 1, 36, 5, 2, 4, 6, 1, 5, 85, 3, 1, 3, 2, 2, 89, 2, 3, 6, 40, 4, 93, 18, 23, 57, 15, 513, 6581, 75, 20939, 53, 1164, 68, 45, 3, 268, 4, 27, 21, 31, 3, 13, 13, 1, 2, 24, 9, 69, 11, 1, 38, 8, 3, 102, 3, 1, 111, 44, 25, 51, 13, 68, 12, 9, 7, 23, 4, 0, 5, 45, 3, 35, 13, 28, 4, 64, 15, 10, 39, 54, 10, 13, 3, 9, 7, 22, 4, 1, 5, 66, 25, 2, 227, 42, 2, 1, 3, 9, 7, 11171, 13, 22, 5, 48, 8453, 301, 3, 61, 3, 105, 39, 6, 13, 4, 6, 11, 2, 12, 2, 4, 2, 0, 2, 1, 2, 1, 2, 107, 34, 362, 19, 63, 3, 53, 41, 11, 5, 15, 17, 6, 13, 1, 25, 2, 33, 4, 2, 134, 20, 9, 8, 25, 5, 0, 2, 25, 12, 88, 4, 5, 3, 5, 3, 5, 3, 2];
 var code = 0;
 var str = [];
 for (var i = 0; i < wordChars.length; i += 2) {
@@ -57083,11 +57331,11 @@ for (var i = 0; i < wordChars.length; i += 2) {
     if (wordChars[i + 1])
         str.push(45, code += wordChars[i + 1]);
 }
-exports$1.wordChars = String.fromCharCode.apply(null, str);
+exports.wordChars = String.fromCharCode.apply(null, str);
 
 });
 
-ace.define("ace/mode/text",["require","exports","module","ace/config","ace/tokenizer","ace/mode/text_highlight_rules","ace/mode/behaviour/cstyle","ace/unicode","ace/lib/lang","ace/token_iterator","ace/range"], function(require, exports$1, module){var config = require("../config");
+ace.define("ace/mode/text",["require","exports","module","ace/config","ace/tokenizer","ace/mode/text_highlight_rules","ace/mode/behaviour/cstyle","ace/unicode","ace/lib/lang","ace/token_iterator","ace/range"], function(require, exports, module){var config = require("../config");
 var Tokenizer = require("../tokenizer").Tokenizer;
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 var CstyleBehaviour = require("./behaviour/cstyle").CstyleBehaviour;
@@ -57408,11 +57656,11 @@ Mode = function () {
     };
     this.$id = "ace/mode/text";
 }).call(Mode.prototype);
-exports$1.Mode = Mode;
+exports.Mode = Mode;
 
 });
 
-ace.define("ace/line_widgets",["require","exports","module","ace/lib/dom"], function(require, exports$1, module){var dom = require("./lib/dom");
+ace.define("ace/line_widgets",["require","exports","module","ace/lib/dom"], function(require, exports, module){var dom = require("./lib/dom");
 var LineWidgets = /** @class */ (function () {
     function LineWidgets(session) {
         this.session = session;
@@ -57745,11 +57993,11 @@ var LineWidgets = /** @class */ (function () {
     };
     return LineWidgets;
 }());
-exports$1.LineWidgets = LineWidgets;
+exports.LineWidgets = LineWidgets;
 
 });
 
-ace.define("ace/apply_delta",["require","exports","module"], function(require, exports$1, module){exports$1.applyDelta = function (docLines, delta, doNotValidate) {
+ace.define("ace/apply_delta",["require","exports","module"], function(require, exports, module){exports.applyDelta = function (docLines, delta, doNotValidate) {
     var row = delta.start.row;
     var startColumn = delta.start.column;
     var line = docLines[row] || "";
@@ -57781,7 +58029,7 @@ ace.define("ace/apply_delta",["require","exports","module"], function(require, e
 
 });
 
-ace.define("ace/anchor",["require","exports","module","ace/lib/oop","ace/lib/event_emitter"], function(require, exports$1, module){var oop = require("./lib/oop");
+ace.define("ace/anchor",["require","exports","module","ace/lib/oop","ace/lib/event_emitter"], function(require, exports, module){var oop = require("./lib/oop");
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Anchor = /** @class */ (function () {
     function Anchor(doc, row, column) {
@@ -57886,11 +58134,11 @@ function $getTransformedPoint(delta, point, moveIfEqual) {
         column: deltaStart.column
     };
 }
-exports$1.Anchor = Anchor;
+exports.Anchor = Anchor;
 
 });
 
-ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply_delta","ace/lib/event_emitter","ace/range","ace/anchor"], function(require, exports$1, module){var oop = require("./lib/oop");
+ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply_delta","ace/lib/event_emitter","ace/range","ace/anchor"], function(require, exports, module){var oop = require("./lib/oop");
 var applyDelta = require("./apply_delta").applyDelta;
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Range = require("./range").Range;
@@ -58222,11 +58470,11 @@ var Document = /** @class */ (function () {
 Document.prototype.$autoNewLine = "";
 Document.prototype.$newLineMode = "auto";
 oop.implement(Document.prototype, EventEmitter);
-exports$1.Document = Document;
+exports.Document = Document;
 
 });
 
-ace.define("ace/background_tokenizer",["require","exports","module","ace/lib/oop","ace/lib/event_emitter"], function(require, exports$1, module){var oop = require("./lib/oop");
+ace.define("ace/background_tokenizer",["require","exports","module","ace/lib/oop","ace/lib/event_emitter"], function(require, exports, module){var oop = require("./lib/oop");
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var BackgroundTokenizer = /** @class */ (function () {
     function BackgroundTokenizer(tokenizer, session) {
@@ -58356,11 +58604,11 @@ var BackgroundTokenizer = /** @class */ (function () {
     return BackgroundTokenizer;
 }());
 oop.implement(BackgroundTokenizer.prototype, EventEmitter);
-exports$1.BackgroundTokenizer = BackgroundTokenizer;
+exports.BackgroundTokenizer = BackgroundTokenizer;
 
 });
 
-ace.define("ace/search_highlight",["require","exports","module","ace/lib/lang","ace/range"], function(require, exports$1, module){var lang = require("./lib/lang");
+ace.define("ace/search_highlight",["require","exports","module","ace/lib/lang","ace/range"], function(require, exports, module){var lang = require("./lib/lang");
 var Range = require("./range").Range;
 var SearchHighlight = /** @class */ (function () {
     function SearchHighlight(regExp, clazz, type) {
@@ -58425,11 +58673,11 @@ var SearchHighlight = /** @class */ (function () {
     return SearchHighlight;
 }());
 SearchHighlight.prototype.MAX_RANGES = 500;
-exports$1.SearchHighlight = SearchHighlight;
+exports.SearchHighlight = SearchHighlight;
 
 });
 
-ace.define("ace/undomanager",["require","exports","module","ace/range"], function(require, exports$1, module){var UndoManager = /** @class */ (function () {
+ace.define("ace/undomanager",["require","exports","module","ace/range"], function(require, exports, module){var UndoManager = /** @class */ (function () {
     function UndoManager() {
         this.$keepRedoStack;
         this.$maxRev = 0;
@@ -58866,11 +59114,11 @@ function rebaseRedoStack(redoStack, deltaSets) {
         }
     }
 }
-exports$1.UndoManager = UndoManager;
+exports.UndoManager = UndoManager;
 
 });
 
-ace.define("ace/edit_session/fold_line",["require","exports","module","ace/range"], function(require, exports$1, module){var Range = require("../range").Range;
+ace.define("ace/edit_session/fold_line",["require","exports","module","ace/range"], function(require, exports, module){var Range = require("../range").Range;
 var FoldLine = /** @class */ (function () {
     function FoldLine(foldData, folds) {
         this.foldData = foldData;
@@ -59058,11 +59306,11 @@ var FoldLine = /** @class */ (function () {
     };
     return FoldLine;
 }());
-exports$1.FoldLine = FoldLine;
+exports.FoldLine = FoldLine;
 
 });
 
-ace.define("ace/range_list",["require","exports","module","ace/range"], function(require, exports$1, module){var Range = require("./range").Range;
+ace.define("ace/range_list",["require","exports","module","ace/range"], function(require, exports, module){var Range = require("./range").Range;
 var comparePoints = Range.comparePoints;
 var RangeList = /** @class */ (function () {
     function RangeList() {
@@ -59279,11 +59527,11 @@ var RangeList = /** @class */ (function () {
     return RangeList;
 }());
 RangeList.prototype.comparePoints = comparePoints;
-exports$1.RangeList = RangeList;
+exports.RangeList = RangeList;
 
 });
 
-ace.define("ace/edit_session/fold",["require","exports","module","ace/range_list"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/edit_session/fold",["require","exports","module","ace/range_list"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -59387,11 +59635,11 @@ function restoreRange(range, anchor) {
     restorePoint(range.start, anchor);
     restorePoint(range.end, anchor);
 }
-exports$1.Fold = Fold;
+exports.Fold = Fold;
 
 });
 
-ace.define("ace/edit_session/folding",["require","exports","module","ace/range","ace/edit_session/fold_line","ace/edit_session/fold","ace/token_iterator","ace/mouse/mouse_event"], function(require, exports$1, module){// @ts-nocheck
+ace.define("ace/edit_session/folding",["require","exports","module","ace/range","ace/edit_session/fold_line","ace/edit_session/fold","ace/token_iterator","ace/mouse/mouse_event"], function(require, exports, module){// @ts-nocheck
 var Range = require("../range").Range;
 var FoldLine = require("./fold_line").FoldLine;
 var Fold = require("./fold").Fold;
@@ -60113,11 +60361,11 @@ function Folding() {
         }
     };
 }
-exports$1.Folding = Folding;
+exports.Folding = Folding;
 
 });
 
-ace.define("ace/edit_session/bracket_match",["require","exports","module","ace/token_iterator","ace/range"], function(require, exports$1, module){var TokenIterator = require("../token_iterator").TokenIterator;
+ace.define("ace/edit_session/bracket_match",["require","exports","module","ace/token_iterator","ace/range"], function(require, exports, module){var TokenIterator = require("../token_iterator").TokenIterator;
 var Range = require("../range").Range;
 function BracketMatch() {
     this.findMatchingBracket = function (position, chr) {
@@ -60465,11 +60713,11 @@ function BracketMatch() {
         }
     };
 }
-exports$1.BracketMatch = BracketMatch;
+exports.BracketMatch = BracketMatch;
 
 });
 
-ace.define("ace/edit_session",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/bidihandler","ace/config","ace/lib/event_emitter","ace/selection","ace/mode/text","ace/range","ace/line_widgets","ace/document","ace/background_tokenizer","ace/search_highlight","ace/undomanager","ace/edit_session/folding","ace/edit_session/bracket_match"], function(require, exports$1, module){var oop = require("./lib/oop");
+ace.define("ace/edit_session",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/bidihandler","ace/config","ace/lib/event_emitter","ace/selection","ace/mode/text","ace/range","ace/line_widgets","ace/document","ace/background_tokenizer","ace/search_highlight","ace/undomanager","ace/edit_session/folding","ace/edit_session/bracket_match"], function(require, exports, module){var oop = require("./lib/oop");
 var lang = require("./lib/lang");
 var BidiHandler = require("./bidihandler").BidiHandler;
 var config = require("./config");
@@ -60680,8 +60928,8 @@ var EditSession = /** @class */ (function () {
         if (typeof session == "string")
             session = JSON.parse(session);
         var undoManager = new UndoManager();
-        undoManager.$undoStack = session.history.undo;
-        undoManager.$redoStack = session.history.redo;
+        undoManager.$undoStack = session.history.$undoStack;
+        undoManager.$redoStack = session.history.$redoStack;
         undoManager.mark = session.history.mark;
         undoManager.$rev = session.history.rev;
         var editSession = new EditSession(session.value);
@@ -62211,11 +62459,11 @@ config.defineOptions(EditSession.prototype, "session", {
         handlesSet: true
     }
 });
-exports$1.EditSession = EditSession;
+exports.EditSession = EditSession;
 
 });
 
-ace.define("ace/search",["require","exports","module","ace/lib/lang","ace/lib/oop","ace/range"], function(require, exports$1, module){var lang = require("./lib/lang");
+ace.define("ace/search",["require","exports","module","ace/lib/lang","ace/lib/oop","ace/range"], function(require, exports, module){var lang = require("./lib/lang");
 var oop = require("./lib/oop");
 var Range = require("./range").Range;
 var Search = /** @class */ (function () {
@@ -62692,11 +62940,11 @@ function chunkEnd(session, start) {
     var base = 5000, startPosition = { row: start, column: 0 }, startIndex = session.doc.positionToIndex(startPosition), targetIndex = startIndex + base, targetPosition = session.doc.indexToPosition(targetIndex), targetLine = targetPosition.row;
     return targetLine + 1;
 }
-exports$1.Search = Search;
+exports.Search = Search;
 
 });
 
-ace.define("ace/keyboard/hash_handler",["require","exports","module","ace/lib/keys","ace/lib/useragent"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/keyboard/hash_handler",["require","exports","module","ace/lib/keys","ace/lib/useragent"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -62910,12 +63158,12 @@ HashHandler.call = function (thisArg, config, platform) {
 MultiHashHandler.call = function (thisArg, config, platform) {
     MultiHashHandler.prototype.$init.call(thisArg, config, platform, false);
 };
-exports$1.HashHandler = HashHandler;
-exports$1.MultiHashHandler = MultiHashHandler;
+exports.HashHandler = HashHandler;
+exports.MultiHashHandler = MultiHashHandler;
 
 });
 
-ace.define("ace/commands/command_manager",["require","exports","module","ace/lib/oop","ace/keyboard/hash_handler","ace/lib/event_emitter"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/commands/command_manager",["require","exports","module","ace/lib/oop","ace/keyboard/hash_handler","ace/lib/event_emitter"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -63027,17 +63275,17 @@ var CommandManager = /** @class */ (function (_super) {
     return CommandManager;
 }(MultiHashHandler));
 oop.implement(CommandManager.prototype, EventEmitter);
-exports$1.CommandManager = CommandManager;
+exports.CommandManager = CommandManager;
 
 });
 
-ace.define("ace/commands/default_commands",["require","exports","module","ace/lib/lang","ace/config","ace/range"], function(require, exports$1, module){var lang = require("../lib/lang");
+ace.define("ace/commands/default_commands",["require","exports","module","ace/lib/lang","ace/config","ace/range"], function(require, exports, module){var lang = require("../lib/lang");
 var config = require("../config");
 var Range = require("../range").Range;
 function bindKey(win, mac) {
     return { win: win, mac: mac };
 }
-exports$1.commands = [{
+exports.commands = [{
         name: "showSettingsMenu",
         description: "Show settings menu",
         bindKey: bindKey("Ctrl-,", "Command-,"),
@@ -63882,7 +64130,7 @@ exports$1.commands = [{
         readOnly: true
     }];
 for (var i = 1; i < 9; i++) {
-    exports$1.commands.push({
+    exports.commands.push({
         name: "foldToLevel" + i,
         description: "Fold To Level " + i,
         level: i,
@@ -63894,7 +64142,7 @@ for (var i = 1; i < 9; i++) {
 
 });
 
-ace.define("ace/keyboard/gutter_handler",["require","exports","module","ace/lib/keys"], function(require, exports$1, module){var keys = require('../lib/keys');
+ace.define("ace/keyboard/gutter_handler",["require","exports","module","ace/lib/keys"], function(require, exports, module){var keys = require('../lib/keys');
 var GutterKeyboardHandler = /** @class */ (function () {
     function GutterKeyboardHandler(editor) {
         this.editor = editor;
@@ -64287,7 +64535,7 @@ var GutterKeyboardHandler = /** @class */ (function () {
     };
     return GutterKeyboardHandler;
 }());
-exports$1.GutterKeyboardHandler = GutterKeyboardHandler;
+exports.GutterKeyboardHandler = GutterKeyboardHandler;
 var GutterKeyboardEvent = /** @class */ (function () {
     function GutterKeyboardEvent(domEvent, gutterKeyboardHandler) {
         this.gutterKeyboardHandler = gutterKeyboardHandler;
@@ -64307,11 +64555,11 @@ var GutterKeyboardEvent = /** @class */ (function () {
     };
     return GutterKeyboardEvent;
 }());
-exports$1.GutterKeyboardEvent = GutterKeyboardEvent;
+exports.GutterKeyboardEvent = GutterKeyboardEvent;
 
 });
 
-ace.define("ace/editor",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/lib/useragent","ace/keyboard/textinput","ace/mouse/mouse_handler","ace/mouse/fold_handler","ace/keyboard/keybinding","ace/edit_session","ace/search","ace/range","ace/lib/event_emitter","ace/commands/command_manager","ace/commands/default_commands","ace/config","ace/token_iterator","ace/keyboard/gutter_handler","ace/config","ace/clipboard","ace/lib/keys","ace/lib/event","ace/tooltip"], function(require, exports$1, module){var __values = (this && this.__values) || function(o) {
+ace.define("ace/editor",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/lib/useragent","ace/keyboard/textinput","ace/mouse/mouse_handler","ace/mouse/fold_handler","ace/keyboard/keybinding","ace/edit_session","ace/search","ace/range","ace/lib/event_emitter","ace/commands/command_manager","ace/commands/default_commands","ace/config","ace/token_iterator","ace/keyboard/gutter_handler","ace/config","ace/clipboard","ace/lib/keys","ace/lib/event","ace/tooltip"], function(require, exports, module){var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
     if (o && typeof o.length === "number") return {
@@ -66382,11 +66630,11 @@ var relativeNumberRenderer = {
         this.update(null, editor);
     }
 };
-exports$1.Editor = Editor;
+exports.Editor = Editor;
 
 });
 
-ace.define("ace/layer/lines",["require","exports","module","ace/lib/dom"], function(require, exports$1, module){var dom = require("../lib/dom");
+ace.define("ace/layer/lines",["require","exports","module","ace/lib/dom"], function(require, exports, module){var dom = require("../lib/dom");
 var Lines = /** @class */ (function () {
     function Lines(element, canvasHeight) {
         this.element = element;
@@ -66485,11 +66733,11 @@ var Lines = /** @class */ (function () {
     };
     return Lines;
 }());
-exports$1.Lines = Lines;
+exports.Lines = Lines;
 
 });
 
-ace.define("ace/layer/gutter",["require","exports","module","ace/lib/dom","ace/lib/oop","ace/lib/lang","ace/lib/event_emitter","ace/layer/lines","ace/config"], function(require, exports$1, module){var dom = require("../lib/dom");
+ace.define("ace/layer/gutter",["require","exports","module","ace/lib/dom","ace/lib/oop","ace/lib/lang","ace/lib/event_emitter","ace/layer/lines","ace/config"], function(require, exports, module){var dom = require("../lib/dom");
 var oop = require("../lib/oop");
 var lang = require("../lib/lang");
 var EventEmitter = require("../lib/event_emitter").EventEmitter;
@@ -67079,11 +67327,11 @@ function onCreateCell(element) {
     annotationNode.appendChild(annotationIconNode);
     return element;
 }
-exports$1.Gutter = Gutter;
+exports.Gutter = Gutter;
 
 });
 
-ace.define("ace/layer/marker",["require","exports","module","ace/range","ace/lib/dom"], function(require, exports$1, module){var Range = require("../range").Range;
+ace.define("ace/layer/marker",["require","exports","module","ace/range","ace/lib/dom"], function(require, exports, module){var Range = require("../range").Range;
 var dom = require("../lib/dom");
 var Marker = /** @class */ (function () {
     function Marker(parentEl) {
@@ -67261,19 +67509,19 @@ Marker.prototype.$padding = 0;
 function getBorderClass(tl, tr, br, bl) {
     return (tl ? 1 : 0) | (tr ? 2 : 0) | (br ? 4 : 0) | (bl ? 8 : 0);
 }
-exports$1.Marker = Marker;
+exports.Marker = Marker;
 
 });
 
-ace.define("ace/layer/text_util",["require","exports","module"], function(require, exports$1, module){// Tokens for which Ace just uses a simple TextNode and does not add any special className.
+ace.define("ace/layer/text_util",["require","exports","module"], function(require, exports, module){// Tokens for which Ace just uses a simple TextNode and does not add any special className.
 var textTokens = new Set(["text", "rparen", "lparen"]);
-exports$1.isTextToken = function (tokenType) {
+exports.isTextToken = function (tokenType) {
     return textTokens.has(tokenType);
 };
 
 });
 
-ace.define("ace/layer/text",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/layer/lines","ace/lib/event_emitter","ace/config","ace/layer/text_util"], function(require, exports$1, module){var oop = require("../lib/oop");
+ace.define("ace/layer/text",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/layer/lines","ace/lib/event_emitter","ace/config","ace/layer/text_util"], function(require, exports, module){var oop = require("../lib/oop");
 var dom = require("../lib/dom");
 var lang = require("../lib/lang");
 var Lines = require("./lines").Lines;
@@ -67607,7 +67855,9 @@ var Text = /** @class */ (function () {
         }
         else if (value[0] == "\t") {
             for (var i = 0; i < cols; i++) {
-                parent.appendChild(this.$tabStrings["\t"].cloneNode(true));
+                var tabSpan = this.$tabStrings["\t"].cloneNode(true);
+                tabSpan["charCount"] = 1;
+                parent.appendChild(tabSpan);
             }
             this.$highlightIndentGuide();
             return value.substr(cols);
@@ -67906,11 +68156,11 @@ Text.prototype.$tabStrings = [];
 Text.prototype.destroy = {};
 Text.prototype.onChangeTabSize = Text.prototype.$computeTabString;
 oop.implement(Text.prototype, EventEmitter);
-exports$1.Text = Text;
+exports.Text = Text;
 
 });
 
-ace.define("ace/layer/cursor",["require","exports","module","ace/lib/dom"], function(require, exports$1, module){var dom = require("../lib/dom");
+ace.define("ace/layer/cursor",["require","exports","module","ace/lib/dom"], function(require, exports, module){var dom = require("../lib/dom");
 var Cursor = /** @class */ (function () {
     function Cursor(parentEl) {
         this.element = dom.createElement("div");
@@ -68103,11 +68353,11 @@ var Cursor = /** @class */ (function () {
 }());
 Cursor.prototype.$padding = 0;
 Cursor.prototype.drawCursor = null;
-exports$1.Cursor = Cursor;
+exports.Cursor = Cursor;
 
 });
 
-ace.define("ace/scrollbar",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/event","ace/lib/event_emitter"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/scrollbar",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/event","ace/lib/event_emitter"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -68131,6 +68381,7 @@ var Scrollbar = /** @class */ (function () {
     function Scrollbar(parent, classSuffix) {
         this.element = dom.createElement("div");
         this.element.className = "ace_scrollbar ace_scrollbar" + classSuffix;
+        this.element.tabIndex = -1;
         this.inner = dom.createElement("div");
         this.inner.className = "ace_scrollbar-inner";
         this.inner.textContent = "\xa0";
@@ -68237,15 +68488,15 @@ var HScrollBar = /** @class */ (function (_super) {
     };
     return HScrollBar;
 }(Scrollbar));
-exports$1.ScrollBar = VScrollBar; // backward compatibility
-exports$1.ScrollBarV = VScrollBar; // backward compatibility
-exports$1.ScrollBarH = HScrollBar; // backward compatibility
-exports$1.VScrollBar = VScrollBar;
-exports$1.HScrollBar = HScrollBar;
+exports.ScrollBar = VScrollBar; // backward compatibility
+exports.ScrollBarV = VScrollBar; // backward compatibility
+exports.ScrollBarH = HScrollBar; // backward compatibility
+exports.VScrollBar = VScrollBar;
+exports.HScrollBar = HScrollBar;
 
 });
 
-ace.define("ace/scrollbar_custom",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/event","ace/lib/event_emitter"], function(require, exports$1, module){var __extends = (this && this.__extends) || (function () {
+ace.define("ace/scrollbar_custom",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/event","ace/lib/event_emitter"], function(require, exports, module){var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -68475,15 +68726,15 @@ var HScrollBar = /** @class */ (function (_super) {
     return HScrollBar;
 }(ScrollBar));
 HScrollBar.prototype.setInnerWidth = HScrollBar.prototype.setScrollWidth;
-exports$1.ScrollBar = VScrollBar; // backward compatibility
-exports$1.ScrollBarV = VScrollBar; // backward compatibility
-exports$1.ScrollBarH = HScrollBar; // backward compatibility
-exports$1.VScrollBar = VScrollBar;
-exports$1.HScrollBar = HScrollBar;
+exports.ScrollBar = VScrollBar; // backward compatibility
+exports.ScrollBarV = VScrollBar; // backward compatibility
+exports.ScrollBarH = HScrollBar; // backward compatibility
+exports.VScrollBar = VScrollBar;
+exports.HScrollBar = HScrollBar;
 
 });
 
-ace.define("ace/renderloop",["require","exports","module","ace/lib/event"], function(require, exports$1, module){var event = require("./lib/event");
+ace.define("ace/renderloop",["require","exports","module","ace/lib/event"], function(require, exports, module){var event = require("./lib/event");
 var RenderLoop = /** @class */ (function () {
     function RenderLoop(onRender, win) {
         this.onRender = onRender;
@@ -68524,11 +68775,11 @@ var RenderLoop = /** @class */ (function () {
     };
     return RenderLoop;
 }());
-exports$1.RenderLoop = RenderLoop;
+exports.RenderLoop = RenderLoop;
 
 });
 
-ace.define("ace/layer/font_metrics",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/lib/event","ace/lib/useragent","ace/lib/event_emitter"], function(require, exports$1, module){var oop = require("../lib/oop");
+ace.define("ace/layer/font_metrics",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/lib/event","ace/lib/useragent","ace/lib/event_emitter"], function(require, exports, module){var oop = require("../lib/oop");
 var dom = require("../lib/dom");
 var lang = require("../lib/lang");
 var event = require("../lib/event");
@@ -68690,11 +68941,11 @@ var FontMetrics = /** @class */ (function () {
 }());
 FontMetrics.prototype.$characterSize = { width: 0, height: 0 };
 oop.implement(FontMetrics.prototype, EventEmitter);
-exports$1.FontMetrics = FontMetrics;
+exports.FontMetrics = FontMetrics;
 
 });
 
-ace.define("ace/css/editor-css",["require","exports","module"], function(require, exports$1, module){/*
+ace.define("ace/css/editor-css",["require","exports","module"], function(require, exports, module){/*
 styles = []
 for (var i = 1; i < 16; i++) {
     styles.push(".ace_br" + i + "{" + (
@@ -68709,7 +68960,7 @@ module.exports = "\n.ace_br1 {border-top-left-radius    : 3px;}\n.ace_br2 {borde
 
 });
 
-ace.define("ace/layer/decorators",["require","exports","module","ace/lib/dom","ace/lib/oop","ace/lib/event_emitter"], function(require, exports$1, module){var dom = require("../lib/dom");
+ace.define("ace/layer/decorators",["require","exports","module","ace/lib/dom","ace/lib/oop","ace/lib/event_emitter"], function(require, exports, module){var dom = require("../lib/dom");
 var oop = require("../lib/oop");
 var EventEmitter = require("../lib/event_emitter").EventEmitter;
 var Decorator = /** @class */ (function () {
@@ -68833,11 +69084,11 @@ var Decorator = /** @class */ (function () {
     return Decorator;
 }());
 oop.implement(Decorator.prototype, EventEmitter);
-exports$1.Decorator = Decorator;
+exports.Decorator = Decorator;
 
 });
 
-ace.define("ace/virtual_renderer",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/config","ace/layer/gutter","ace/layer/marker","ace/layer/text","ace/layer/cursor","ace/scrollbar","ace/scrollbar","ace/scrollbar_custom","ace/scrollbar_custom","ace/renderloop","ace/layer/font_metrics","ace/lib/event_emitter","ace/css/editor-css","ace/layer/decorators","ace/lib/useragent","ace/layer/text_util"], function(require, exports$1, module){var oop = require("./lib/oop");
+ace.define("ace/virtual_renderer",["require","exports","module","ace/lib/oop","ace/lib/dom","ace/lib/lang","ace/config","ace/layer/gutter","ace/layer/marker","ace/layer/text","ace/layer/cursor","ace/scrollbar","ace/scrollbar","ace/scrollbar_custom","ace/scrollbar_custom","ace/renderloop","ace/layer/font_metrics","ace/lib/event_emitter","ace/css/editor-css","ace/layer/decorators","ace/lib/useragent","ace/layer/text_util"], function(require, exports, module){var oop = require("./lib/oop");
 var dom = require("./lib/dom");
 var lang = require("./lib/lang");
 var config = require("./config");
@@ -69846,7 +70097,7 @@ var VirtualRenderer = /** @class */ (function () {
         var offsetX = x + this.scrollLeft - canvasPos.left - this.$padding;
         var offset = offsetX / this.characterWidth;
         var col = this.$blockCursor ? Math.floor(offset) : Math.round(offset);
-        var row = Math.floor((y + this.scrollTop - canvasPos.top) / this.lineHeight);
+        var row = (y + this.scrollTop - canvasPos.top) / this.lineHeight;
         return this.session.screenToDocumentPosition(row, Math.max(col, 0), offsetX);
     };
     VirtualRenderer.prototype.textToScreenCoordinates = function (row, column) {
@@ -70379,11 +70630,11 @@ config.defineOptions(VirtualRenderer.prototype, "renderer", {
         initialValue: !useragent.isMobile && !useragent.isIE
     }
 });
-exports$1.VirtualRenderer = VirtualRenderer;
+exports.VirtualRenderer = VirtualRenderer;
 
 });
 
-ace.define("ace/worker/worker_client",["require","exports","module","ace/lib/oop","ace/lib/net","ace/lib/event_emitter","ace/config"], function(require, exports$1, module) {
+ace.define("ace/worker/worker_client",["require","exports","module","ace/lib/oop","ace/lib/net","ace/lib/event_emitter","ace/config"], function(require, exports, module) {
 
 var oop = require("../lib/oop");
 var net = require("../lib/net");
@@ -70610,14 +70861,14 @@ var UIWorkerClient = function(topLevelNamespaces, mod, classname) {
     return workerClient;
 };
 
-exports$1.UIWorkerClient = UIWorkerClient;
-exports$1.WorkerClient = WorkerClient;
-exports$1.createWorker = createWorker;
+exports.UIWorkerClient = UIWorkerClient;
+exports.WorkerClient = WorkerClient;
+exports.createWorker = createWorker;
 
 
 });
 
-ace.define("ace/placeholder",["require","exports","module","ace/range","ace/lib/event_emitter","ace/lib/oop"], function(require, exports$1, module){var Range = require("./range").Range;
+ace.define("ace/placeholder",["require","exports","module","ace/range","ace/lib/event_emitter","ace/lib/oop"], function(require, exports, module){var Range = require("./range").Range;
 var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var oop = require("./lib/oop");
 var PlaceHolder = /** @class */ (function () {
@@ -70769,11 +71020,11 @@ var PlaceHolder = /** @class */ (function () {
     return PlaceHolder;
 }());
 oop.implement(PlaceHolder.prototype, EventEmitter);
-exports$1.PlaceHolder = PlaceHolder;
+exports.PlaceHolder = PlaceHolder;
 
 });
 
-ace.define("ace/mouse/multi_select_handler",["require","exports","module","ace/lib/event","ace/lib/useragent"], function(require, exports$1, module){var event = require("../lib/event");
+ace.define("ace/mouse/multi_select_handler",["require","exports","module","ace/lib/event","ace/lib/useragent"], function(require, exports, module){var event = require("../lib/event");
 var useragent = require("../lib/useragent");
 function isSamePoint(p1, p2) {
     return p1.row == p2.row && p1.column == p2.column;
@@ -70916,15 +71167,15 @@ function onMouseDown(e) {
         return e.preventDefault();
     }
 }
-exports$1.onMouseDown = onMouseDown;
+exports.onMouseDown = onMouseDown;
 
 });
 
-ace.define("ace/commands/multi_select_commands",["require","exports","module","ace/keyboard/hash_handler"], function(require, exports$1, module){/**
+ace.define("ace/commands/multi_select_commands",["require","exports","module","ace/keyboard/hash_handler"], function(require, exports, module){/**
  * commands to enter multiselect mode
  * @type {import("../../ace-internal").Ace.Command[]}
  */
-exports$1.defaultCommands = [{
+exports.defaultCommands = [{
         name: "addCursorAbove",
         description: "Add cursor above",
         exec: function (editor) { editor.selectMoreLines(-1); },
@@ -71010,7 +71261,7 @@ exports$1.defaultCommands = [{
         scrollIntoView: "cursor",
         readOnly: true
     }];
-exports$1.multiSelectCommands = [{
+exports.multiSelectCommands = [{
         name: "singleSelection",
         description: "Single selection",
         bindKey: "esc",
@@ -71020,11 +71271,11 @@ exports$1.multiSelectCommands = [{
         isAvailable: function (editor) { return editor && editor.inMultiSelectMode; }
     }];
 var HashHandler = require("../keyboard/hash_handler").HashHandler;
-exports$1.keyboardHandler = new HashHandler(exports$1.multiSelectCommands);
+exports.keyboardHandler = new HashHandler(exports.multiSelectCommands);
 
 });
 
-ace.define("ace/multi_select",["require","exports","module","ace/range_list","ace/range","ace/selection","ace/mouse/multi_select_handler","ace/lib/event","ace/lib/lang","ace/commands/multi_select_commands","ace/search","ace/edit_session","ace/editor","ace/config"], function(require, exports$1, module){/**
+ace.define("ace/multi_select",["require","exports","module","ace/range_list","ace/range","ace/selection","ace/mouse/multi_select_handler","ace/lib/event","ace/lib/lang","ace/commands/multi_select_commands","ace/search","ace/edit_session","ace/editor","ace/config"], function(require, exports, module){/**
  * @typedef {import("./anchor").Anchor} Anchor
  * @typedef {import("../ace-internal").Ace.Point} Point
  * @typedef {import("../ace-internal").Ace.ScreenCoordinates} ScreenCoordinates
@@ -71036,7 +71287,7 @@ var onMouseDown = require("./mouse/multi_select_handler").onMouseDown;
 var event = require("./lib/event");
 var lang = require("./lib/lang");
 var commands = require("./commands/multi_select_commands");
-exports$1.commands = commands.defaultCommands.concat(commands.multiSelectCommands);
+exports.commands = commands.defaultCommands.concat(commands.multiSelectCommands);
 var Search = require("./search").Search;
 var search = new Search();
 function find(session, needle, dir) {
@@ -71650,7 +71901,7 @@ var Editor = require("./editor").Editor;
 function isSamePoint(p1, p2) {
     return p1.row == p2.row && p1.column == p2.column;
 }
-exports$1.onSessionChange = function (e) {
+exports.onSessionChange = function (e) {
     var session = e.session;
     if (session && !session.multiSelect) {
         session.$selectionMarkers = [];
@@ -71689,7 +71940,7 @@ function MultiSelect(editor) {
     editor.$onRemoveRange = editor.$onRemoveRange.bind(editor);
     editor.$onMultiSelect = editor.$onMultiSelect.bind(editor);
     editor.$onSingleSelect = editor.$onSingleSelect.bind(editor);
-    editor.$multiselectOnSessionChange = exports$1.onSessionChange.bind(editor);
+    editor.$multiselectOnSessionChange = exports.onSessionChange.bind(editor);
     editor.$checkMultiselectChange = editor.$checkMultiselectChange.bind(editor);
     editor.$multiselectOnSessionChange(editor);
     editor.on("changeSession", editor.$multiselectOnSessionChange);
@@ -71723,7 +71974,7 @@ function addAltCursorListeners(editor) {
         }
     }
 }
-exports$1.MultiSelect = MultiSelect;
+exports.MultiSelect = MultiSelect;
 require("./config").defineOptions(Editor.prototype, "editor", {
     enableMultiselect: {
         set: function (val) {
@@ -71747,8 +71998,8 @@ require("./config").defineOptions(Editor.prototype, "editor", {
 
 });
 
-ace.define("ace/mode/folding/fold_mode",["require","exports","module","ace/range"], function(require, exports$1, module){var Range = require("../../range").Range;
-var FoldMode = exports$1.FoldMode = function () { };
+ace.define("ace/mode/folding/fold_mode",["require","exports","module","ace/range"], function(require, exports, module){var Range = require("../../range").Range;
+var FoldMode = exports.FoldMode = function () { };
 (function () {
     this.foldingStartMarker = null;
     this.foldingStopMarker = null;
@@ -71818,7 +72069,7 @@ var FoldMode = exports$1.FoldMode = function () { };
 
 });
 
-ace.define("ace/ext/error_marker",["require","exports","module","ace/lib/dom","ace/range","ace/config"], function(require, exports$1, module){/**
+ace.define("ace/ext/error_marker",["require","exports","module","ace/lib/dom","ace/range","ace/config"], function(require, exports, module){/**
  * ## Error Marker extension
  *
  * Provides inline error display functionality for Ace editor. Creates visual error markers that appear as tooltips
@@ -71874,7 +72125,7 @@ function findAnnotations(session, row, dir) {
     } while (annotation && annotation.row == row);
     return matched.length && matched;
 }
-exports$1.showErrorMarker = function (editor, dir) {
+exports.showErrorMarker = function (editor, dir) {
     var session = editor.session;
     var pos = editor.getCursorPosition();
     var row = pos.row;
@@ -71959,12 +72210,12 @@ dom.importCssString("\n    .error_widget_wrapper {\n        background: inherit;
 
 });
 
-ace.define("ace/ace",["require","exports","module","ace/lib/dom","ace/range","ace/editor","ace/edit_session","ace/undomanager","ace/virtual_renderer","ace/worker/worker_client","ace/keyboard/hash_handler","ace/placeholder","ace/multi_select","ace/mode/folding/fold_mode","ace/theme/textmate","ace/ext/error_marker","ace/config","ace/loader_build"], function(require, exports$1, module){/**
+ace.define("ace/ace",["require","exports","module","ace/lib/dom","ace/range","ace/editor","ace/edit_session","ace/undomanager","ace/virtual_renderer","ace/worker/worker_client","ace/keyboard/hash_handler","ace/placeholder","ace/multi_select","ace/mode/folding/fold_mode","ace/theme/textmate","ace/ext/error_marker","ace/config","ace/loader_build"], function(require, exports, module){/**
  * The main class required to set up an Ace instance in the browser.
  *
  * @namespace Ace
  **/
-require("./loader_build")(exports$1);
+require("./loader_build")(exports);
 var dom = require("./lib/dom");
 var Range = require("./range").Range;
 var Editor = require("./editor").Editor;
@@ -71978,8 +72229,8 @@ require("./multi_select");
 require("./mode/folding/fold_mode");
 require("./theme/textmate");
 require("./ext/error_marker");
-exports$1.config = require("./config");
-exports$1.edit = function (el, options) {
+exports.config = require("./config");
+exports.edit = function (el, options) {
     if (typeof el == "string") {
         var _id = el;
         el = document.getElementById(_id);
@@ -71999,7 +72250,7 @@ exports$1.edit = function (el, options) {
         value = el.textContent;
         el.innerHTML = "";
     }
-    var doc = exports$1.createEditSession(value);
+    var doc = exports.createEditSession(value);
     var editor = new Editor(new Renderer(el), doc, options);
     var env = {
         document: doc,
@@ -72014,18 +72265,18 @@ exports$1.edit = function (el, options) {
     editor.container.env = editor.env = env;
     return editor;
 };
-exports$1.createEditSession = function (text, mode) {
+exports.createEditSession = function (text, mode) {
     var doc = new EditSession(text, mode);
     doc.setUndoManager(new UndoManager());
     return doc;
 };
-exports$1.Range = Range;
-exports$1.Editor = Editor;
-exports$1.EditSession = EditSession;
-exports$1.UndoManager = UndoManager;
-exports$1.VirtualRenderer = Renderer;
-var version = exports$1.config.version;
-exports$1.version = version;
+exports.Range = Range;
+exports.Editor = Editor;
+exports.EditSession = EditSession;
+exports.UndoManager = UndoManager;
+exports.VirtualRenderer = Renderer;
+var version = exports.config.version;
+exports.version = version;
 
 });            (function() {
                 ace.require(["ace/ace"], function(a) {
@@ -72050,15 +72301,15 @@ exports$1.version = version;
                 });
             })();
 
-ace.define("ace/theme/sqlserver-css",["require","exports","module"], function(require, exports$1, module){module.exports = ".ace-sqlserver .ace_gutter {\n    background: #ebebeb;\n    color: #333;\n    overflow: hidden;\n}\n\n.ace-sqlserver .ace_print-margin {\n    width: 1px;\n    background: #e8e8e8;\n}\n\n.ace-sqlserver {\n    background-color: #FFFFFF;\n    color: black;\n}\n\n.ace-sqlserver .ace_identifier {\n    color: black;\n}\n\n.ace-sqlserver .ace_keyword {\n    color: #0000FF;\n}\n\n.ace-sqlserver .ace_numeric {\n    color: black;\n}\n\n.ace-sqlserver .ace_storage {\n    color: #11B7BE;\n}\n\n.ace-sqlserver .ace_keyword.ace_operator,\n.ace-sqlserver .ace_lparen,\n.ace-sqlserver .ace_rparen,\n.ace-sqlserver .ace_punctuation {\n    color: #808080;\n}\n\n.ace-sqlserver .ace_set.ace_statement {\n    color: #0000FF;\n    text-decoration: underline;\n}\n\n.ace-sqlserver .ace_cursor {\n    color: black;\n}\n\n.ace-sqlserver .ace_invisible {\n    color: rgb(191, 191, 191);\n}\n\n.ace-sqlserver .ace_constant.ace_buildin {\n    color: rgb(88, 72, 246);\n}\n\n.ace-sqlserver .ace_constant.ace_language {\n    color: #979797;\n}\n\n.ace-sqlserver .ace_constant.ace_library {\n    color: rgb(6, 150, 14);\n}\n\n.ace-sqlserver .ace_invalid {\n    background-color: rgb(153, 0, 0);\n    color: white;\n}\n\n.ace-sqlserver .ace_support.ace_function {\n    color: #FF00FF;\n}\n\n.ace-sqlserver .ace_support.ace_constant {\n    color: rgb(6, 150, 14);\n}\n\n.ace-sqlserver .ace_class {\n    color: #008080;\n}\n\n.ace-sqlserver .ace_support.ace_other {\n    color: #6D79DE;\n}\n\n.ace-sqlserver .ace_variable.ace_parameter {\n    font-style: italic;\n    color: #FD971F;\n}\n\n.ace-sqlserver .ace_comment {\n    color: #008000;\n}\n\n.ace-sqlserver .ace_constant.ace_numeric {\n    color: black;\n}\n\n.ace-sqlserver .ace_variable {\n    color: rgb(49, 132, 149);\n}\n\n.ace-sqlserver .ace_xml-pe {\n    color: rgb(104, 104, 91);\n}\n\n.ace-sqlserver .ace_support.ace_storedprocedure {\n    color: #800000;\n}\n\n.ace-sqlserver .ace_heading {\n    color: rgb(12, 7, 255);\n}\n\n.ace-sqlserver .ace_list {\n    color: rgb(185, 6, 144);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_selection {\n    background: rgb(181, 213, 255);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_step {\n    background: rgb(252, 255, 0);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_stack {\n    background: rgb(164, 229, 101);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_bracket {\n    margin: -1px 0 0 -1px;\n    border: 1px solid rgb(192, 192, 192);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_active-line {\n    background: rgba(0, 0, 0, 0.07);\n}\n\n.ace-sqlserver .ace_gutter-active-line {\n    background-color: #dcdcdc;\n}\n\n.ace-sqlserver .ace_marker-layer .ace_selected-word {\n    background: rgb(250, 250, 255);\n    border: 1px solid rgb(200, 200, 250);\n}\n\n.ace-sqlserver .ace_meta.ace_tag {\n    color: #0000FF;\n}\n\n.ace-sqlserver .ace_string.ace_regex {\n    color: #FF0000;\n}\n\n.ace-sqlserver .ace_string {\n    color: #FF0000;\n}\n\n.ace-sqlserver .ace_entity.ace_other.ace_attribute-name {\n    color: #994409;\n}\n\n.ace-sqlserver .ace_indent-guide {\n    background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==\") right repeat-y;\n}\n\n.ace-sqlserver .ace_indent-guide-active {\n  background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC\") right repeat-y;\n} \n";
+ace.define("ace/theme/sqlserver-css",["require","exports","module"], function(require, exports, module){module.exports = ".ace-sqlserver .ace_gutter {\n    background: #ebebeb;\n    color: #333;\n    overflow: hidden;\n}\n\n.ace-sqlserver .ace_print-margin {\n    width: 1px;\n    background: #e8e8e8;\n}\n\n.ace-sqlserver {\n    background-color: #FFFFFF;\n    color: black;\n}\n\n.ace-sqlserver .ace_identifier {\n    color: black;\n}\n\n.ace-sqlserver .ace_keyword {\n    color: #0000FF;\n}\n\n.ace-sqlserver .ace_numeric {\n    color: black;\n}\n\n.ace-sqlserver .ace_storage {\n    color: #11B7BE;\n}\n\n.ace-sqlserver .ace_keyword.ace_operator,\n.ace-sqlserver .ace_lparen,\n.ace-sqlserver .ace_rparen,\n.ace-sqlserver .ace_punctuation {\n    color: #808080;\n}\n\n.ace-sqlserver .ace_set.ace_statement {\n    color: #0000FF;\n    text-decoration: underline;\n}\n\n.ace-sqlserver .ace_cursor {\n    color: black;\n}\n\n.ace-sqlserver .ace_invisible {\n    color: rgb(191, 191, 191);\n}\n\n.ace-sqlserver .ace_constant.ace_buildin {\n    color: rgb(88, 72, 246);\n}\n\n.ace-sqlserver .ace_constant.ace_language {\n    color: #979797;\n}\n\n.ace-sqlserver .ace_constant.ace_library {\n    color: rgb(6, 150, 14);\n}\n\n.ace-sqlserver .ace_invalid {\n    background-color: rgb(153, 0, 0);\n    color: white;\n}\n\n.ace-sqlserver .ace_support.ace_function {\n    color: #FF00FF;\n}\n\n.ace-sqlserver .ace_support.ace_constant {\n    color: rgb(6, 150, 14);\n}\n\n.ace-sqlserver .ace_class {\n    color: #008080;\n}\n\n.ace-sqlserver .ace_support.ace_other {\n    color: #6D79DE;\n}\n\n.ace-sqlserver .ace_variable.ace_parameter {\n    font-style: italic;\n    color: #FD971F;\n}\n\n.ace-sqlserver .ace_comment {\n    color: #008000;\n}\n\n.ace-sqlserver .ace_constant.ace_numeric {\n    color: black;\n}\n\n.ace-sqlserver .ace_variable {\n    color: rgb(49, 132, 149);\n}\n\n.ace-sqlserver .ace_xml-pe {\n    color: rgb(104, 104, 91);\n}\n\n.ace-sqlserver .ace_support.ace_storedprocedure {\n    color: #800000;\n}\n\n.ace-sqlserver .ace_heading {\n    color: rgb(12, 7, 255);\n}\n\n.ace-sqlserver .ace_list {\n    color: rgb(185, 6, 144);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_selection {\n    background: rgb(181, 213, 255);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_step {\n    background: rgb(252, 255, 0);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_stack {\n    background: rgb(164, 229, 101);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_bracket {\n    margin: -1px 0 0 -1px;\n    border: 1px solid rgb(192, 192, 192);\n}\n\n.ace-sqlserver .ace_marker-layer .ace_active-line {\n    background: rgba(0, 0, 0, 0.07);\n}\n\n.ace-sqlserver .ace_gutter-active-line {\n    background-color: #dcdcdc;\n}\n\n.ace-sqlserver .ace_marker-layer .ace_selected-word {\n    background: rgb(250, 250, 255);\n    border: 1px solid rgb(200, 200, 250);\n}\n\n.ace-sqlserver .ace_meta.ace_tag {\n    color: #0000FF;\n}\n\n.ace-sqlserver .ace_string.ace_regex {\n    color: #FF0000;\n}\n\n.ace-sqlserver .ace_string {\n    color: #FF0000;\n}\n\n.ace-sqlserver .ace_entity.ace_other.ace_attribute-name {\n    color: #994409;\n}\n\n.ace-sqlserver .ace_indent-guide {\n    background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==\") right repeat-y;\n}\n\n.ace-sqlserver .ace_indent-guide-active {\n  background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC\") right repeat-y;\n} \n";
 
 });
 
-ace.define("ace/theme/sqlserver",["require","exports","module","ace/theme/sqlserver-css","ace/lib/dom"], function(require, exports$1, module){exports$1.isDark = false;
-exports$1.cssClass = "ace-sqlserver";
-exports$1.cssText = require("./sqlserver-css");
+ace.define("ace/theme/sqlserver",["require","exports","module","ace/theme/sqlserver-css","ace/lib/dom"], function(require, exports, module){exports.isDark = false;
+exports.cssClass = "ace-sqlserver";
+exports.cssText = require("./sqlserver-css");
 var dom = require("../lib/dom");
-dom.importCssString(exports$1.cssText, exports$1.cssClass, false);
+dom.importCssString(exports.cssText, exports.cssClass, false);
 
 });                (function() {
                     ace.require(["ace/theme/sqlserver"], function(m) {
@@ -72068,7 +72319,7 @@ dom.importCssString(exports$1.cssText, exports$1.cssClass, false);
                     });
                 })();
 
-ace.define("ace/mode/xml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports$1, module){var oop = require("../lib/oop");
+ace.define("ace/mode/xml_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module){var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 var XmlHighlightRules = function (normalize) {
     var tagRegex = "[_:a-zA-Z\xc0-\uffff][-_:.a-zA-Z0-9\xc0-\uffff]*";
@@ -72243,11 +72494,11 @@ var XmlHighlightRules = function (normalize) {
     };
 }).call(TextHighlightRules.prototype);
 oop.inherits(XmlHighlightRules, TextHighlightRules);
-exports$1.XmlHighlightRules = XmlHighlightRules;
+exports.XmlHighlightRules = XmlHighlightRules;
 
 });
 
-ace.define("ace/mode/behaviour/xml",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator"], function(require, exports$1, module){var oop = require("../../lib/oop");
+ace.define("ace/mode/behaviour/xml",["require","exports","module","ace/lib/oop","ace/mode/behaviour","ace/token_iterator"], function(require, exports, module){var oop = require("../../lib/oop");
 var Behaviour = require("../behaviour").Behaviour;
 var TokenIterator = require("../../token_iterator").TokenIterator;
 function is(token, type) {
@@ -72389,14 +72640,14 @@ var XmlBehaviour = function () {
     });
 };
 oop.inherits(XmlBehaviour, Behaviour);
-exports$1.XmlBehaviour = XmlBehaviour;
+exports.XmlBehaviour = XmlBehaviour;
 
 });
 
-ace.define("ace/mode/folding/xml",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports$1, module){var oop = require("../../lib/oop");
+ace.define("ace/mode/folding/xml",["require","exports","module","ace/lib/oop","ace/range","ace/mode/folding/fold_mode"], function(require, exports, module){var oop = require("../../lib/oop");
 var Range = require("../../range").Range;
 var BaseFoldMode = require("./fold_mode").FoldMode;
-var FoldMode = exports$1.FoldMode = function (voidElements, optionalEndTags) {
+var FoldMode = exports.FoldMode = function (voidElements, optionalEndTags) {
     BaseFoldMode.call(this);
     this.voidElements = voidElements || {};
     this.optionalEndTags = oop.mixin({}, this.voidElements);
@@ -72502,7 +72753,7 @@ function is(token, type) {
 
 });
 
-ace.define("ace/mode/xml",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text","ace/mode/xml_highlight_rules","ace/mode/behaviour/xml","ace/mode/folding/xml","ace/worker/worker_client"], function(require, exports$1, module){var oop = require("../lib/oop");
+ace.define("ace/mode/xml",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/text","ace/mode/xml_highlight_rules","ace/mode/behaviour/xml","ace/mode/folding/xml","ace/worker/worker_client"], function(require, exports, module){var oop = require("../lib/oop");
 var lang = require("../lib/lang");
 var TextMode = require("./text").Mode;
 var XmlHighlightRules = require("./xml_highlight_rules").XmlHighlightRules;
@@ -72531,7 +72782,7 @@ oop.inherits(Mode, TextMode);
     };
     this.$id = "ace/mode/xml";
 }).call(Mode.prototype);
-exports$1.Mode = Mode;
+exports.Mode = Mode;
 
 });                (function() {
                     ace.require(["ace/mode/xml"], function(m) {
@@ -72541,11 +72792,11 @@ exports$1.Mode = Mode;
                     });
                 })();
 
-ace.define("ace/ext/searchbox-css",["require","exports","module"], function(require, exports$1, module){module.exports = "\n\n/* ------------------------------------------------------------------------------------------\n * Editor Search Form\n * --------------------------------------------------------------------------------------- */\n.ace_search {\n    background-color: #ddd;\n    color: #666;\n    border: 1px solid #cbcbcb;\n    border-top: 0 none;\n    overflow: hidden;\n    margin: 0;\n    padding: 4px 6px 0 4px;\n    position: absolute;\n    top: 0;\n    z-index: 99;\n    white-space: normal;\n}\n.ace_search.left {\n    border-left: 0 none;\n    border-radius: 0px 0px 5px 0px;\n    left: 0;\n}\n.ace_search.right {\n    border-radius: 0px 0px 0px 5px;\n    border-right: 0 none;\n    right: 0;\n}\n\n.ace_search_form, .ace_replace_form {\n    margin: 0 20px 4px 0;\n    overflow: hidden;\n    line-height: 1.9;\n}\n.ace_replace_form {\n    margin-right: 0;\n}\n.ace_search_form.ace_nomatch {\n    outline: 1px solid red;\n}\n\n.ace_search_field {\n    border-radius: 3px 0 0 3px;\n    background-color: white;\n    color: black;\n    border: 1px solid #cbcbcb;\n    border-right: 0 none;\n    outline: 0;\n    padding: 0;\n    font-size: inherit;\n    margin: 0;\n    line-height: inherit;\n    padding: 0 6px;\n    min-width: 17em;\n    vertical-align: top;\n    min-height: 1.8em;\n    box-sizing: content-box;\n}\n.ace_searchbtn {\n    border: 1px solid #cbcbcb;\n    line-height: inherit;\n    display: inline-block;\n    padding: 0 6px;\n    background: #fff;\n    border-right: 0 none;\n    border-left: 1px solid #dcdcdc;\n    cursor: pointer;\n    margin: 0;\n    position: relative;\n    color: #666;\n}\n.ace_searchbtn:last-child {\n    border-radius: 0 3px 3px 0;\n    border-right: 1px solid #cbcbcb;\n}\n.ace_searchbtn:disabled {\n    background: none;\n    cursor: default;\n}\n.ace_searchbtn:hover {\n    background-color: #eef1f6;\n}\n.ace_searchbtn.prev, .ace_searchbtn.next {\n     padding: 0px 0.7em\n}\n.ace_searchbtn.prev:after, .ace_searchbtn.next:after {\n     content: \"\";\n     border: solid 2px #888;\n     width: 0.5em;\n     height: 0.5em;\n     border-width:  2px 0 0 2px;\n     display:inline-block;\n     transform: rotate(-45deg);\n}\n.ace_searchbtn.next:after {\n     border-width: 0 2px 2px 0 ;\n}\n.ace_searchbtn_close {\n    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAcCAYAAABRVo5BAAAAZ0lEQVR42u2SUQrAMAhDvazn8OjZBilCkYVVxiis8H4CT0VrAJb4WHT3C5xU2a2IQZXJjiQIRMdkEoJ5Q2yMqpfDIo+XY4k6h+YXOyKqTIj5REaxloNAd0xiKmAtsTHqW8sR2W5f7gCu5nWFUpVjZwAAAABJRU5ErkJggg==) no-repeat 50% 0;\n    border-radius: 50%;\n    border: 0 none;\n    color: #656565;\n    cursor: pointer;\n    font: 16px/16px Arial;\n    padding: 0;\n    height: 14px;\n    width: 14px;\n    top: 9px;\n    right: 7px;\n    position: absolute;\n}\n.ace_searchbtn_close:hover {\n    background-color: #656565;\n    background-position: 50% 100%;\n    color: white;\n}\n\n.ace_button {\n    margin-left: 2px;\n    cursor: pointer;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -o-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    overflow: hidden;\n    opacity: 0.7;\n    border: 1px solid rgba(100,100,100,0.23);\n    padding: 1px;\n    box-sizing:    border-box!important;\n    color: black;\n}\n\n.ace_button:hover {\n    background-color: #eee;\n    opacity:1;\n}\n.ace_button:active {\n    background-color: #ddd;\n}\n\n.ace_button.checked {\n    border-color: #3399ff;\n    opacity:1;\n}\n\n.ace_search_options{\n    margin-bottom: 3px;\n    text-align: right;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -o-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    clear: both;\n}\n\n.ace_search_counter {\n    float: left;\n    font-family: arial;\n    padding: 0 8px;\n}";
+ace.define("ace/ext/searchbox-css",["require","exports","module"], function(require, exports, module){module.exports = "\n\n/* ------------------------------------------------------------------------------------------\n * Editor Search Form\n * --------------------------------------------------------------------------------------- */\n.ace_search {\n    background-color: #ddd;\n    color: #666;\n    border: 1px solid #cbcbcb;\n    border-top: 0 none;\n    overflow: hidden;\n    margin: 0;\n    padding: 4px 6px 0 4px;\n    position: absolute;\n    top: 0;\n    z-index: 99;\n    white-space: normal;\n}\n.ace_search.left {\n    border-left: 0 none;\n    border-radius: 0px 0px 5px 0px;\n    left: 0;\n}\n.ace_search.right {\n    border-radius: 0px 0px 0px 5px;\n    border-right: 0 none;\n    right: 0;\n}\n\n.ace_search_form, .ace_replace_form {\n    margin: 0 20px 4px 0;\n    overflow: hidden;\n    line-height: 1.9;\n}\n.ace_replace_form {\n    margin-right: 0;\n}\n.ace_search_form.ace_nomatch {\n    outline: 1px solid red;\n}\n\n.ace_search_field {\n    border-radius: 3px 0 0 3px;\n    background-color: white;\n    color: black;\n    border: 1px solid #cbcbcb;\n    border-right: 0 none;\n    outline: 0;\n    padding: 0;\n    font-size: inherit;\n    margin: 0;\n    line-height: inherit;\n    padding: 0 6px;\n    min-width: 17em;\n    vertical-align: top;\n    min-height: 1.8em;\n    box-sizing: content-box;\n}\n.ace_searchbtn {\n    border: 1px solid #cbcbcb;\n    line-height: inherit;\n    display: inline-block;\n    padding: 0 6px;\n    background: #fff;\n    border-right: 0 none;\n    border-left: 1px solid #dcdcdc;\n    cursor: pointer;\n    margin: 0;\n    position: relative;\n    color: #666;\n}\n.ace_searchbtn:last-child {\n    border-radius: 0 3px 3px 0;\n    border-right: 1px solid #cbcbcb;\n}\n.ace_searchbtn:disabled {\n    background: none;\n    cursor: default;\n}\n.ace_searchbtn:hover {\n    background-color: #eef1f6;\n}\n.ace_searchbtn.prev, .ace_searchbtn.next {\n     padding: 0px 0.7em\n}\n.ace_searchbtn.prev:after, .ace_searchbtn.next:after {\n     content: \"\";\n     border: solid 2px #888;\n     width: 0.5em;\n     height: 0.5em;\n     border-width:  2px 0 0 2px;\n     display:inline-block;\n     transform: rotate(-45deg);\n}\n.ace_searchbtn.next:after {\n     border-width: 0 2px 2px 0 ;\n}\n.ace_searchbtn_close {\n    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAcCAYAAABRVo5BAAAAZ0lEQVR42u2SUQrAMAhDvazn8OjZBilCkYVVxiis8H4CT0VrAJb4WHT3C5xU2a2IQZXJjiQIRMdkEoJ5Q2yMqpfDIo+XY4k6h+YXOyKqTIj5REaxloNAd0xiKmAtsTHqW8sR2W5f7gCu5nWFUpVjZwAAAABJRU5ErkJggg==) no-repeat 50% 0;\n    border-radius: 50%;\n    border: 0 none;\n    color: #656565;\n    cursor: pointer;\n    font: 16px/16px Arial;\n    padding: 0;\n    height: 14px;\n    width: 14px;\n    top: 9px;\n    right: 7px;\n    position: absolute;\n}\n.ace_searchbtn_close:hover {\n    background-color: #656565;\n    background-position: 50% 100%;\n    color: white;\n}\n\n.ace_button {\n    margin-left: 2px;\n    cursor: pointer;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -o-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    overflow: hidden;\n    opacity: 0.7;\n    border: 1px solid rgba(100,100,100,0.23);\n    padding: 1px;\n    box-sizing:    border-box!important;\n    color: black;\n}\n\n.ace_button:hover {\n    background-color: #eee;\n    opacity:1;\n}\n.ace_button:active {\n    background-color: #ddd;\n}\n\n.ace_button.checked {\n    border-color: #3399ff;\n    opacity:1;\n}\n\n.ace_search_options{\n    margin-bottom: 3px;\n    text-align: right;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -o-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    clear: both;\n}\n\n.ace_search_counter {\n    float: left;\n    font-family: arial;\n    padding: 0 8px;\n}";
 
 });
 
-ace.define("ace/ext/searchbox",["require","exports","module","ace/ext/searchbox","ace/ext/searchbox","ace/lib/dom","ace/lib/lang","ace/lib/event","ace/ext/searchbox-css","ace/keyboard/hash_handler","ace/lib/keys","ace/config"], function(require, exports$1, module){/**
+ace.define("ace/ext/searchbox",["require","exports","module","ace/ext/searchbox","ace/ext/searchbox","ace/lib/dom","ace/lib/lang","ace/lib/event","ace/ext/searchbox-css","ace/keyboard/hash_handler","ace/lib/keys","ace/config"], function(require, exports, module){/**
  * ## Interactive search and replace UI extension for text editing
  *
  * Provides a floating search box interface with find/replace functionality including live search results, regex
@@ -72861,7 +73112,7 @@ $searchBarKb.bindKeys({
             sb.replaceAll();
         sb.findAll();
     },
-    "Tab": function (sb) {
+    "Tab|Shift-Tab": function (sb) {
         (sb.activeInput == sb.replaceInput ? sb.searchInput : sb.replaceInput).focus();
     }
 });
@@ -72909,8 +73160,8 @@ var $closeSearchBarKb = new HashHandler([{
     }]);
 SearchBox.prototype.$searchBarKb = $searchBarKb;
 SearchBox.prototype.$closeSearchBarKb = $closeSearchBarKb;
-exports$1.SearchBox = SearchBox;
-exports$1.Search = function (editor, isReplace) {
+exports.SearchBox = SearchBox;
+exports.Search = function (editor, isReplace) {
     var sb = editor.searchBox || new SearchBox(editor);
     var range = editor.session.selection.getRange();
     var value = range.isMultiLine() ? "" : editor.session.getTextRange(range);
@@ -75364,6 +75615,180 @@ function initializeNsdoc() {
 
 /**
  * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Returns `true` if the given element is in a right-to-left direction.
+ *
+ * @param el Element to determine direction from
+ * @param shouldCheck Optional. If `false`, return `false` without checking
+ *     direction. Determining the direction of `el` is somewhat expensive, so
+ *     this parameter can be used as a conditional guard. Defaults to `true`.
+ */
+function isRtl(el, shouldCheck = true) {
+    return (shouldCheck &&
+        getComputedStyle(el).getPropertyValue('direction').trim() === 'rtl');
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A symbol used to access dispatch hooks on an event.
+ */
+const dispatchHooks = Symbol('dispatchHooks');
+/**
+ * Add a hook for an event that is called after the event is dispatched and
+ * propagates to other event listeners.
+ *
+ * This is useful for behaviors that need to check if an event is canceled.
+ *
+ * The callback is invoked synchronously, which allows for better integration
+ * with synchronous platform APIs (like `<form>` or `<label>` clicking).
+ *
+ * Note: `setupDispatchHooks()` must be called on the element before adding any
+ * other event listeners. Call it in the constructor of an element or
+ * controller.
+ *
+ * @example
+ * ```ts
+ * class MyControl extends LitElement {
+ *   constructor() {
+ *     super();
+ *     setupDispatchHooks(this, 'click');
+ *     this.addEventListener('click', event => {
+ *       afterDispatch(event, () => {
+ *         if (event.defaultPrevented) {
+ *           return
+ *         }
+ *
+ *         // ... perform logic
+ *       });
+ *     });
+ *   }
+ * }
+ * ```
+ *
+ * @example
+ * ```ts
+ * class MyController implements ReactiveController {
+ *   constructor(host: ReactiveElement) {
+ *     // setupDispatchHooks() may be called multiple times for the same
+ *     // element and events, making it safe for multiple controllers to use it.
+ *     setupDispatchHooks(host, 'click');
+ *     host.addEventListener('click', event => {
+ *       afterDispatch(event, () => {
+ *         if (event.defaultPrevented) {
+ *           return;
+ *         }
+ *
+ *         // ... perform logic
+ *       });
+ *     });
+ *   }
+ * }
+ * ```
+ *
+ * @param event The event to add a hook to.
+ * @param callback A hook that is called after the event finishes dispatching.
+ */
+function afterDispatch(event, callback) {
+    const hooks = event[dispatchHooks];
+    if (!hooks) {
+        throw new Error(`'${event.type}' event needs setupDispatchHooks().`);
+    }
+    hooks.addEventListener('after', callback, { once: true });
+}
+/**
+ * A lookup map of elements and event types that have a dispatch hook listener
+ * set up. Used to ensure we don't set up multiple hook listeners on the same
+ * element for the same event.
+ */
+const ELEMENT_DISPATCH_HOOK_TYPES = new WeakMap();
+/**
+ * Sets up an element to add dispatch hooks to given event types. This must be
+ * called before adding any event listeners that need to use dispatch hooks
+ * like `afterDispatch()`.
+ *
+ * This function is safe to call multiple times with the same element or event
+ * types. Call it in the constructor of elements, mixins, and controllers to
+ * ensure it is set up before external listeners.
+ *
+ * @example
+ * ```ts
+ * class MyControl extends LitElement {
+ *   constructor() {
+ *     super();
+ *     setupDispatchHooks(this, 'click');
+ *     this.addEventListener('click', this.listenerUsingAfterDispatch);
+ *   }
+ * }
+ * ```
+ *
+ * @param element The element to set up event dispatch hooks for.
+ * @param eventTypes The event types to add dispatch hooks to.
+ */
+function setupDispatchHooks(element, ...eventTypes) {
+    let typesAlreadySetUp = ELEMENT_DISPATCH_HOOK_TYPES.get(element);
+    if (!typesAlreadySetUp) {
+        typesAlreadySetUp = new Set();
+        ELEMENT_DISPATCH_HOOK_TYPES.set(element, typesAlreadySetUp);
+    }
+    for (const eventType of eventTypes) {
+        // Don't register multiple dispatch hook listeners. A second registration
+        // would lead to the second listener calling `afterDispatch()` hooks twice.
+        if (typesAlreadySetUp.has(eventType)) {
+            continue;
+        }
+        element.addEventListener(eventType, (event) => {
+            // Add hooks onto the event.
+            const hooks = new EventTarget();
+            event[dispatchHooks] = hooks;
+            const cleanupLastNodeListener = new AbortController();
+            const callAfterDispatch = () => {
+                cleanupLastNodeListener.abort();
+                hooks.dispatchEvent(new Event('after'));
+            };
+            const patchStopPropagation = (superMethod) => {
+                return function () {
+                    superMethod.call(this);
+                    // Synchronously call afterDispatch() hooks when interrupted.
+                    callAfterDispatch();
+                };
+            };
+            event.stopPropagation = patchStopPropagation(event.stopPropagation);
+            event.stopImmediatePropagation = patchStopPropagation(event.stopImmediatePropagation);
+            // Add an event listener to detect the end of the event's propagation.
+            const composedPath = event.composedPath();
+            let lastNodeForEvent;
+            if (event.composed && event.bubbles) {
+                lastNodeForEvent = composedPath[composedPath.length - 1];
+            }
+            else if (!event.bubbles) {
+                lastNodeForEvent = composedPath[0];
+            }
+            else {
+                lastNodeForEvent = composedPath[0].getRootNode();
+            }
+            lastNodeForEvent.addEventListener(eventType, () => {
+                // Synchronously call afterDispatch() hooks.
+                callAfterDispatch();
+            }, { once: true, signal: cleanupLastNodeListener.signal });
+        }, {
+            // Ensure this listener runs before other listeners.
+            // `setupDispatchHooks()` should be called in constructors to also
+            // ensure they run before any other externally-added capture listeners.
+            capture: true,
+        });
+        typesAlreadySetUp.add(eventType);
+    }
+}
+
+/**
+ * @license
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -75414,80 +75839,239 @@ function mixinElementInternals(base) {
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * Sets up an element's constructor to enable form submission. The element
- * instance should be form associated and have a `type` property.
+ * A symbol property to retrieve the form value for an element.
+ */
+const getFormValue = Symbol('getFormValue');
+/**
+ * A symbol property to retrieve the form state for an element.
+ */
+const getFormState = Symbol('getFormState');
+/**
+ * Mixes in form-associated behavior for a class. This allows an element to add
+ * values to `<form>` elements.
+ *
+ * Implementing classes should provide a `[formValue]` to return the current
+ * value of the element, as well as reset and restore callbacks.
+ *
+ * @example
+ * ```ts
+ * const base = mixinFormAssociated(mixinElementInternals(LitElement));
+ *
+ * class MyControl extends base {
+ *   \@property()
+ *   value = '';
+ *
+ *   override [getFormValue]() {
+ *     return this.value;
+ *   }
+ *
+ *   override formResetCallback() {
+ *     const defaultValue = this.getAttribute('value');
+ *     this.value = defaultValue;
+ *   }
+ *
+ *   override formStateRestoreCallback(state: string) {
+ *     this.value = state;
+ *   }
+ * }
+ * ```
+ *
+ * Elements may optionally provide a `[formState]` if their values do not
+ * represent the state of the component.
+ *
+ * @example
+ * ```ts
+ * const base = mixinFormAssociated(mixinElementInternals(LitElement));
+ *
+ * class MyCheckbox extends base {
+ *   \@property()
+ *   value = 'on';
+ *
+ *   \@property({type: Boolean})
+ *   checked = false;
+ *
+ *   override [getFormValue]() {
+ *     return this.checked ? this.value : null;
+ *   }
+ *
+ *   override [getFormState]() {
+ *     return String(this.checked);
+ *   }
+ *
+ *   override formResetCallback() {
+ *     const defaultValue = this.hasAttribute('checked');
+ *     this.checked = defaultValue;
+ *   }
+ *
+ *   override formStateRestoreCallback(state: string) {
+ *     this.checked = Boolean(state);
+ *   }
+ * }
+ * ```
+ *
+ * @param base The class to mix functionality into. The base class must use
+ *     `mixinElementInternals()`.
+ * @return The provided class with `FormAssociated` mixed in.
+ */
+function mixinFormAssociated(base) {
+    class FormAssociatedElement extends base {
+        get form() {
+            return this[internals].form;
+        }
+        get labels() {
+            return this[internals].labels;
+        }
+        // Use @property for the `name` and `disabled` properties to add them to the
+        // `observedAttributes` array and trigger `attributeChangedCallback()`.
+        //
+        // We don't use Lit's default getter/setter (`noAccessor: true`) because
+        // the attributes need to be updated synchronously to work with synchronous
+        // form APIs, and Lit updates attributes async by default.
+        get name() {
+            return this.getAttribute('name') ?? '';
+        }
+        set name(name) {
+            // Note: setting name to null or empty does not remove the attribute.
+            this.setAttribute('name', name);
+            // We don't need to call `requestUpdate()` since it's called synchronously
+            // in `attributeChangedCallback()`.
+        }
+        get disabled() {
+            return this.hasAttribute('disabled');
+        }
+        set disabled(disabled) {
+            // Coerce `disabled` in `Boolean()` to ensure that setting to `null` or
+            // `undefined` sets the attribute to `false`.
+            this.toggleAttribute('disabled', Boolean(disabled));
+            // We don't need to call `requestUpdate()` since it's called synchronously
+            // in `attributeChangedCallback()`.
+        }
+        attributeChangedCallback(name, old, value) {
+            // Manually `requestUpdate()` for `name` and `disabled` when their
+            // attribute or property changes.
+            // The properties update their attributes, so this callback is invoked
+            // immediately when the properties are set. We call `requestUpdate()` here
+            // instead of letting Lit set the properties from the attribute change.
+            // That would cause the properties to re-set the attribute and invoke this
+            // callback again in a loop. This leads to stale state when Lit tries to
+            // determine if a property changed or not.
+            if (name === 'name' || name === 'disabled') {
+                // Disabled's value is only false if the attribute is missing and null.
+                const oldValue = name === 'disabled' ? old !== null : old;
+                // Trigger a lit update when the attribute changes.
+                this.requestUpdate(name, oldValue);
+                return;
+            }
+            super.attributeChangedCallback(name, old, value);
+        }
+        requestUpdate(name, oldValue, options) {
+            super.requestUpdate(name, oldValue, options);
+            // If any properties change, update the form value, which may have changed
+            // as well.
+            // Update the form value synchronously in `requestUpdate()` rather than
+            // `update()` or `updated()`, which are async. This is necessary to ensure
+            // that form data is updated in time for synchronous event listeners.
+            this[internals].setFormValue(this[getFormValue](), this[getFormState]());
+        }
+        [getFormValue]() {
+            return this.getAttribute('value');
+        }
+        [getFormState]() {
+            return this[getFormValue]();
+        }
+        formDisabledCallback(disabled) {
+            this.disabled = disabled;
+        }
+    }
+    /** @nocollapse */
+    FormAssociatedElement.formAssociated = true;
+    __decorate([
+        n$4({ noAccessor: true })
+    ], FormAssociatedElement.prototype, "name", null);
+    __decorate([
+        n$4({ type: Boolean, noAccessor: true })
+    ], FormAssociatedElement.prototype, "disabled", null);
+    return FormAssociatedElement;
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Mixes in form submitter behavior for a class.
  *
  * A click listener is added to each element instance. If the click is not
  * default prevented, it will submit the element's form, if any.
  *
  * @example
  * ```ts
- * class MyElement extends mixinElementInternals(LitElement) {
- *   static {
- *     setupFormSubmitter(MyElement);
- *   }
- *
+ * const base = mixinFormSubmitter(mixinElementInternals(LitElement));
+ * class MyButton extends base {
  *   static formAssociated = true;
- *
- *   type: FormSubmitterType = 'submit';
  * }
  * ```
  *
- * @param ctor The form submitter element's constructor.
+ * @param base The class to mix functionality into.
+ * @return The provided class with `FormSubmitter` mixed in.
  */
-function setupFormSubmitter(ctor) {
-    ctor.addInitializer((instance) => {
-        const submitter = instance;
-        submitter.addEventListener('click', async (event) => {
-            const { type, [internals]: elementInternals } = submitter;
-            const { form } = elementInternals;
-            if (!form || type === 'button') {
-                return;
-            }
-            // Wait a full task for event bubbling to complete.
-            await new Promise((resolve) => {
-                setTimeout(resolve);
-            });
-            if (event.defaultPrevented) {
-                return;
-            }
-            if (type === 'reset') {
-                form.reset();
-                return;
-            }
-            // form.requestSubmit(submitter) does not work with form associated custom
-            // elements. This patches the dispatched submit event to add the correct
-            // `submitter`.
-            // See https://github.com/WICG/webcomponents/issues/814
-            form.addEventListener('submit', (submitEvent) => {
-                Object.defineProperty(submitEvent, 'submitter', {
-                    configurable: true,
-                    enumerable: true,
-                    get: () => submitter,
+function mixinFormSubmitter(base) {
+    class FormSubmitterElement extends base {
+        // Name attribute must reflect synchronously for form integration.
+        get name() {
+            return this.getAttribute('name') ?? '';
+        }
+        set name(name) {
+            this.setAttribute('name', name);
+        }
+        // Mixins must have a constructor with `...args: any[]`
+        // tslint:disable-next-line:no-any
+        constructor(...args) {
+            super(...args);
+            this.type = 'submit';
+            this.value = '';
+            setupDispatchHooks(this, 'click');
+            this.addEventListener('click', async (event) => {
+                const isReset = this.type === 'reset';
+                const isSubmit = this.type === 'submit';
+                const elementInternals = this[internals];
+                const { form } = elementInternals;
+                if (!form || !(isSubmit || isReset)) {
+                    return;
+                }
+                afterDispatch(event, () => {
+                    if (event.defaultPrevented) {
+                        return;
+                    }
+                    if (isReset) {
+                        form.reset();
+                        return;
+                    }
+                    // form.requestSubmit(submitter) does not work with form associated custom
+                    // elements. This patches the dispatched submit event to add the correct
+                    // `submitter`.
+                    // See https://github.com/WICG/webcomponents/issues/814
+                    form.addEventListener('submit', (submitEvent) => {
+                        Object.defineProperty(submitEvent, 'submitter', {
+                            configurable: true,
+                            enumerable: true,
+                            get: () => this,
+                        });
+                    }, { capture: true, once: true });
+                    elementInternals.setFormValue(this.value);
+                    form.requestSubmit();
                 });
-            }, { capture: true, once: true });
-            elementInternals.setFormValue(submitter.value);
-            form.requestSubmit();
-        });
-    });
-}
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * Returns `true` if the given element is in a right-to-left direction.
- *
- * @param el Element to determine direction from
- * @param shouldCheck Optional. If `false`, return `false` without checking
- *     direction. Determining the direction of `el` is somewhat expensive, so
- *     this parameter can be used as a conditional guard. Defaults to `true`.
- */
-function isRtl(el, shouldCheck = true) {
-    return (shouldCheck &&
-        getComputedStyle(el).getPropertyValue('direction').trim() === 'rtl');
+            });
+        }
+    }
+    __decorate([
+        n$4()
+    ], FormSubmitterElement.prototype, "type", void 0);
+    __decorate([
+        n$4({ reflect: true })
+    ], FormSubmitterElement.prototype, "value", void 0);
+    return FormSubmitterElement;
 }
 
 /**
@@ -75496,7 +76080,7 @@ function isRtl(el, shouldCheck = true) {
  * SPDX-License-Identifier: Apache-2.0
  */
 // Separate variable needed for closure.
-const iconButtonBaseClass = mixinDelegatesAria(mixinElementInternals(i$4));
+const iconButtonBaseClass = mixinDelegatesAria(mixinFormSubmitter(mixinFormAssociated(mixinElementInternals(i$4))));
 /**
  * A button for rendering icons.
  *
@@ -75505,30 +76089,8 @@ const iconButtonBaseClass = mixinDelegatesAria(mixinElementInternals(i$4));
  * @fires change {Event} Dispatched when a toggle button toggles --bubbles
  */
 class IconButton extends iconButtonBaseClass {
-    get name() {
-        return this.getAttribute('name') ?? '';
-    }
-    set name(name) {
-        this.setAttribute('name', name);
-    }
-    /**
-     * The associated form element with which this element's value will submit.
-     */
-    get form() {
-        return this[internals].form;
-    }
-    /**
-     * The labels this element is associated with.
-     */
-    get labels() {
-        return this[internals].labels;
-    }
     constructor() {
         super();
-        /**
-         * Disables the icon button and makes it non-interactive.
-         */
-        this.disabled = false;
         /**
          * "Soft-disables" the icon button (disabled but still focusable).
          *
@@ -75570,20 +76132,32 @@ class IconButton extends iconButtonBaseClass {
          * icon is provided.
          */
         this.selected = false;
-        /**
-         * The default behavior of the button. May be "button", "reset", or "submit"
-         * (default).
-         */
-        this.type = 'submit';
-        /**
-         * The value added to a form with the button's name when the button submits a
-         * form.
-         */
-        this.value = '';
         this.flipIcon = isRtl(this, this.flipIconInRtl);
-        {
-            this.addEventListener('click', this.handleClick.bind(this));
-        }
+        setupDispatchHooks(this, 'click');
+        this.addEventListener('click', (event) => {
+            // If the button is soft-disabled or a disabled link, we need to
+            // explicitly prevent the click from propagating to other event listeners
+            // as well as prevent the default action. This is because the underlying
+            // `<button>` or `<a>` element is not actually `:disabled`.
+            if (this.softDisabled || (this.disabled && this.href)) {
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                return;
+            }
+            // Save current selected state to toggle, since an external event listener
+            // may also change the selected state on click.
+            const wasSelected = this.selected;
+            afterDispatch(event, () => {
+                if (!this.toggle || this.disabled || event.defaultPrevented) {
+                    return;
+                }
+                this.selected = !wasSelected;
+                this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+                // Bubbles but does not compose to mimic native browser <input> & <select>
+                // Additionally, native change event is not an InputEvent.
+                this.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+        });
     }
     willUpdate() {
         // Link buttons cannot be disabled or soft-disabled.
@@ -75613,8 +76187,7 @@ class IconButton extends iconButtonBaseClass {
         aria-expanded="${(!this.href && ariaExpanded) || A}"
         aria-pressed="${ariaPressedValue}"
         aria-disabled=${(!this.href && this.softDisabled) || A}
-        ?disabled="${!this.href && this.disabled}"
-        @click="${this.handleClickOnChild}">
+        ?disabled="${!this.href && this.disabled}">
         ${this.renderFocusRing()}
         ${this.renderRipple()}
         ${!this.selected ? this.renderIcon() : A}
@@ -75672,50 +76245,12 @@ class IconButton extends iconButtonBaseClass {
         this.flipIcon = isRtl(this, this.flipIconInRtl);
         super.connectedCallback();
     }
-    /** Handles a click on this element. */
-    handleClick(event) {
-        // If the icon button is soft-disabled, we need to explicitly prevent the
-        // click from propagating to other event listeners as well as prevent the
-        // default action.
-        if (!this.href && this.softDisabled) {
-            event.stopImmediatePropagation();
-            event.preventDefault();
-            return;
-        }
-    }
-    /**
-     * Handles a click on the child <div> or <button> element within this
-     * element's shadow DOM.
-     */
-    async handleClickOnChild(event) {
-        // Allow the event to propagate
-        await 0;
-        if (!this.toggle ||
-            this.disabled ||
-            this.softDisabled ||
-            event.defaultPrevented) {
-            return;
-        }
-        this.selected = !this.selected;
-        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-        // Bubbles but does not compose to mimic native browser <input> & <select>
-        // Additionally, native change event is not an InputEvent.
-        this.dispatchEvent(new Event('change', { bubbles: true }));
-    }
 }
-(() => {
-    setupFormSubmitter(IconButton);
-})();
-/** @nocollapse */
-IconButton.formAssociated = true;
 /** @nocollapse */
 IconButton.shadowRootOptions = {
     mode: 'open',
     delegatesFocus: true,
 };
-__decorate([
-    n$4({ type: Boolean, reflect: true })
-], IconButton.prototype, "disabled", void 0);
 __decorate([
     n$4({ type: Boolean, attribute: 'soft-disabled', reflect: true })
 ], IconButton.prototype, "softDisabled", void 0);
@@ -75740,12 +76275,6 @@ __decorate([
 __decorate([
     n$4({ type: Boolean, reflect: true })
 ], IconButton.prototype, "selected", void 0);
-__decorate([
-    n$4()
-], IconButton.prototype, "type", void 0);
-__decorate([
-    n$4({ reflect: true })
-], IconButton.prototype, "value", void 0);
 __decorate([
     r$3()
 ], IconButton.prototype, "flipIcon", void 0);
@@ -76172,7 +76701,10 @@ function isItemNotDisabled(item) {
 const listItemBaseClass = mixinDelegatesAria(i$4);
 /**
  * @fires request-activation {Event} Requests the list to set `tabindex=0` on
- * the item and focus it. --bubbles --composed
+ * the item and focus it. Used internally for list keyboard navigation; most
+ * applications do not need to listen for this event. It is exposed for
+ * authors building their own list-item replacements or wrapping items in a
+ * custom controller. --bubbles --composed
  */
 class ListItemEl extends listItemBaseClass {
     constructor() {
@@ -76681,178 +77213,6 @@ function mixinConstraintValidation(base) {
         }
     }
     return ConstraintValidationElement;
-}
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * A symbol property to retrieve the form value for an element.
- */
-const getFormValue = Symbol('getFormValue');
-/**
- * A symbol property to retrieve the form state for an element.
- */
-const getFormState = Symbol('getFormState');
-/**
- * Mixes in form-associated behavior for a class. This allows an element to add
- * values to `<form>` elements.
- *
- * Implementing classes should provide a `[formValue]` to return the current
- * value of the element, as well as reset and restore callbacks.
- *
- * @example
- * ```ts
- * const base = mixinFormAssociated(mixinElementInternals(LitElement));
- *
- * class MyControl extends base {
- *   \@property()
- *   value = '';
- *
- *   override [getFormValue]() {
- *     return this.value;
- *   }
- *
- *   override formResetCallback() {
- *     const defaultValue = this.getAttribute('value');
- *     this.value = defaultValue;
- *   }
- *
- *   override formStateRestoreCallback(state: string) {
- *     this.value = state;
- *   }
- * }
- * ```
- *
- * Elements may optionally provide a `[formState]` if their values do not
- * represent the state of the component.
- *
- * @example
- * ```ts
- * const base = mixinFormAssociated(mixinElementInternals(LitElement));
- *
- * class MyCheckbox extends base {
- *   \@property()
- *   value = 'on';
- *
- *   \@property({type: Boolean})
- *   checked = false;
- *
- *   override [getFormValue]() {
- *     return this.checked ? this.value : null;
- *   }
- *
- *   override [getFormState]() {
- *     return String(this.checked);
- *   }
- *
- *   override formResetCallback() {
- *     const defaultValue = this.hasAttribute('checked');
- *     this.checked = defaultValue;
- *   }
- *
- *   override formStateRestoreCallback(state: string) {
- *     this.checked = Boolean(state);
- *   }
- * }
- * ```
- *
- * IMPORTANT: Requires declares for lit-analyzer
- * @example
- * ```ts
- * const base = mixinFormAssociated(mixinElementInternals(LitElement));
- * class MyControl extends base {
- *   // Writable mixin properties for lit-html binding, needed for lit-analyzer
- *   declare disabled: boolean;
- *   declare name: string;
- * }
- * ```
- *
- * @param base The class to mix functionality into. The base class must use
- *     `mixinElementInternals()`.
- * @return The provided class with `FormAssociated` mixed in.
- */
-function mixinFormAssociated(base) {
-    class FormAssociatedElement extends base {
-        get form() {
-            return this[internals].form;
-        }
-        get labels() {
-            return this[internals].labels;
-        }
-        // Use @property for the `name` and `disabled` properties to add them to the
-        // `observedAttributes` array and trigger `attributeChangedCallback()`.
-        //
-        // We don't use Lit's default getter/setter (`noAccessor: true`) because
-        // the attributes need to be updated synchronously to work with synchronous
-        // form APIs, and Lit updates attributes async by default.
-        get name() {
-            return this.getAttribute('name') ?? '';
-        }
-        set name(name) {
-            // Note: setting name to null or empty does not remove the attribute.
-            this.setAttribute('name', name);
-            // We don't need to call `requestUpdate()` since it's called synchronously
-            // in `attributeChangedCallback()`.
-        }
-        get disabled() {
-            return this.hasAttribute('disabled');
-        }
-        set disabled(disabled) {
-            this.toggleAttribute('disabled', disabled);
-            // We don't need to call `requestUpdate()` since it's called synchronously
-            // in `attributeChangedCallback()`.
-        }
-        attributeChangedCallback(name, old, value) {
-            // Manually `requestUpdate()` for `name` and `disabled` when their
-            // attribute or property changes.
-            // The properties update their attributes, so this callback is invoked
-            // immediately when the properties are set. We call `requestUpdate()` here
-            // instead of letting Lit set the properties from the attribute change.
-            // That would cause the properties to re-set the attribute and invoke this
-            // callback again in a loop. This leads to stale state when Lit tries to
-            // determine if a property changed or not.
-            if (name === 'name' || name === 'disabled') {
-                // Disabled's value is only false if the attribute is missing and null.
-                const oldValue = name === 'disabled' ? old !== null : old;
-                // Trigger a lit update when the attribute changes.
-                this.requestUpdate(name, oldValue);
-                return;
-            }
-            super.attributeChangedCallback(name, old, value);
-        }
-        requestUpdate(name, oldValue, options) {
-            super.requestUpdate(name, oldValue, options);
-            // If any properties change, update the form value, which may have changed
-            // as well.
-            // Update the form value synchronously in `requestUpdate()` rather than
-            // `update()` or `updated()`, which are async. This is necessary to ensure
-            // that form data is updated in time for synchronous event listeners.
-            this[internals].setFormValue(this[getFormValue](), this[getFormState]());
-        }
-        [getFormValue]() {
-            // Closure does not allow abstract symbol members, so a default
-            // implementation is needed.
-            throw new Error('Implement [getFormValue]');
-        }
-        [getFormState]() {
-            return this[getFormValue]();
-        }
-        formDisabledCallback(disabled) {
-            this.disabled = disabled;
-        }
-    }
-    /** @nocollapse */
-    FormAssociatedElement.formAssociated = true;
-    __decorate([
-        n$4({ noAccessor: true })
-    ], FormAssociatedElement.prototype, "name", null);
-    __decorate([
-        n$4({ type: Boolean, noAccessor: true })
-    ], FormAssociatedElement.prototype, "disabled", null);
-    return FormAssociatedElement;
 }
 
 /**
@@ -79437,6 +79797,10 @@ class Field extends i$4 {
         if (wasFloating === shouldBeFloating) {
             return;
         }
+        const keyframes = this.getLabelKeyframes();
+        if (!keyframes.length) {
+            return;
+        }
         this.isAnimating = true;
         this.labelAnimation?.cancel();
         // Only one label is visible at a time for clearer text rendering.
@@ -79451,7 +79815,10 @@ class Field extends i$4 {
         // Re-calculating the animation each time will prevent any visual glitches
         // from appearing.
         // TODO(b/241113345): use animation tokens
-        this.labelAnimation = this.floatingLabelEl?.animate(this.getLabelKeyframes(), { duration: 150, easing: EASING.STANDARD });
+        this.labelAnimation = this.floatingLabelEl?.animate(keyframes, {
+            duration: 150,
+            easing: EASING.STANDARD,
+        });
         this.labelAnimation?.addEventListener('finish', () => {
             // At the end of the animation, update the visible label.
             this.isAnimating = false;
@@ -79466,6 +79833,10 @@ class Field extends i$4 {
         const { x: restingX, y: restingY, height: restingHeight, } = restingLabelEl.getBoundingClientRect();
         const floatingScrollWidth = floatingLabelEl.scrollWidth;
         const restingScrollWidth = restingLabelEl.scrollWidth;
+        // If either label has no dimensions (e.g., display: none), skip animation
+        if (floatingScrollWidth === 0 || restingScrollWidth === 0) {
+            return [];
+        }
         // Scale by width ratio instead of font size since letter-spacing will scale
         // incorrectly. Using the width we can better approximate the adjusted
         // scale and compensate for tracking and overflow.
@@ -80713,29 +81084,13 @@ OscdElevation.styles = [styles$6];
  * SPDX-License-Identifier: Apache-2.0
  */
 // Separate variable needed for closure.
-const buttonBaseClass = mixinDelegatesAria(mixinElementInternals(i$4));
+const buttonBaseClass = mixinDelegatesAria(mixinFormSubmitter(mixinFormAssociated(mixinElementInternals(i$4))));
 /**
  * A button component.
  */
 class Button extends buttonBaseClass {
-    get name() {
-        return this.getAttribute('name') ?? '';
-    }
-    set name(name) {
-        this.setAttribute('name', name);
-    }
-    /**
-     * The associated form element with which this element's value will submit.
-     */
-    get form() {
-        return this[internals].form;
-    }
     constructor() {
         super();
-        /**
-         * Whether or not the button is disabled.
-         */
-        this.disabled = false;
         /**
          * Whether or not the button is "soft-disabled" (disabled but still
          * focusable).
@@ -80771,16 +81126,6 @@ class Button extends buttonBaseClass {
          * Whether to display the icon or not.
          */
         this.hasIcon = false;
-        /**
-         * The default behavior of the button. May be "button", "reset", or "submit"
-         * (default).
-         */
-        this.type = 'submit';
-        /**
-         * The value added to a form with the button's name when the button submits a
-         * form.
-         */
-        this.value = '';
         {
             this.addEventListener('click', this.handleClick.bind(this));
         }
@@ -80869,19 +81214,11 @@ class Button extends buttonBaseClass {
         this.hasIcon = this.assignedIcons.length > 0;
     }
 }
-(() => {
-    setupFormSubmitter(Button);
-})();
-/** @nocollapse */
-Button.formAssociated = true;
 /** @nocollapse */
 Button.shadowRootOptions = {
     mode: 'open',
     delegatesFocus: true,
 };
-__decorate([
-    n$4({ type: Boolean, reflect: true })
-], Button.prototype, "disabled", void 0);
 __decorate([
     n$4({ type: Boolean, attribute: 'soft-disabled', reflect: true })
 ], Button.prototype, "softDisabled", void 0);
@@ -80900,12 +81237,6 @@ __decorate([
 __decorate([
     n$4({ type: Boolean, attribute: 'has-icon', reflect: true })
 ], Button.prototype, "hasIcon", void 0);
-__decorate([
-    n$4()
-], Button.prototype, "type", void 0);
-__decorate([
-    n$4({ reflect: true })
-], Button.prototype, "value", void 0);
 __decorate([
     e$3('.button')
 ], Button.prototype, "buttonElement", void 0);
