@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.5...oscd-editor-subscriber-databinding-v0.0.6) (2026-09-28)
+
+
+### Bug Fixes
+
+* remove Report feature ([350c93c](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/commit/350c93c71cce0999e81a16165b5bc01917d20007))
+
 ## [0.0.5](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.4...oscd-editor-subscriber-databinding-v0.0.5) (2026-05-29)
 
 
