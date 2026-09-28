@@ -24,23 +24,34 @@ npm run format
 
 ## Testing with Web Test Runner
 
-To execute a single test run:
+To execute a single run of the unit tests (`src/**/*.spec.ts`):
 
 ```bash
 npm run test
 ```
 
-To run the tests in interactive watch mode run:
+To run the unit tests in interactive watch mode run:
 
 ```bash
 npm run test:watch
 ```
 
+To run the visual regression tests (`src/**/*.test.ts`), or update their baseline screenshots:
+
+```bash
+npm run test:visual
+npm run test:update
+```
+
 ## Tooling configs
 
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
+This package uses [`@omicronenergy/oscd-tooling`](https://www.npmjs.com/package/@omicronenergy/oscd-tooling) for linting, building, bundling, testing, deploying and git hooks. The `oscd` CLI it provides resolves its own shared configs (ESLint, TypeScript, Rollup, Web Test Runner, commitlint, lint-staged), so this repo only keeps the minimal config it needs:
 
-If you customize the configuration a lot, you can consider moving them to individual files.
+- `package.json` `scripts` call `oscd <command>` instead of invoking each tool directly.
+- `tsconfig.json` and `eslint.config.js` are thin wrappers that extend `@omicronenergy/oscd-tooling`'s shared configs.
+- `npm run prepare` (`oscd install-hooks`, run automatically by `npm install`) installs Git hooks into `.githooks/` and points `core.hooksPath` at them.
+
+If you need to diverge from the shared defaults for a specific tool, add a local config file of the same name (e.g. `rollup.config.js`) - see the `@omicronenergy/oscd-tooling` README for what's overridable.
 
 ## Local Demo with `web-dev-server`
 
