@@ -1,4 +1,5 @@
 import { LitElement } from 'lit';
+import type { EditV2 } from '@openscd/oscd-api';
 export declare enum View {
     PUBLISHER = 0,
     SUBSCRIBER = 1
@@ -36,6 +37,7 @@ export declare function newSubscriptionChangedEvent(control: Element | undefined
 export declare function getFcdaTitleValue(fcdaElement: Element): string;
 export declare function getFcdaSubtitleValue(fcdaElement: Element): string;
 export declare function getExtRef(parentInputs: Element, fcda: Element, control: Element | undefined): Element | undefined;
+export declare function subscribeFcdaToLn(ln: Element, fcda: Element, controlBlock: Element): EditV2[];
 /**
  * Return Val elements within an LGOS/LSVS instance for a particular IED and control block type.
  * @param ied - IED SCL element.

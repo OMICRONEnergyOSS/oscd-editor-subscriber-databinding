@@ -75648,6 +75648,16 @@ function getExtRef(parentInputs, fcda, control) {
     }
     return Array.from(parentInputs.querySelectorAll(`ExtRef[iedName="${iedName}"]${getFcdaReferences(fcda)}${controlCriteria}`)).find(extRefElement => !extRefElement.hasAttribute('intAddr'));
 }
+function subscribeFcdaToLn(ln, fcda, controlBlock) {
+    const inputs = ln.querySelector(':scope > Inputs');
+    if (inputs && getExtRef(inputs, fcda, controlBlock)) {
+        return [];
+    }
+    return subscribe({
+        sink: inputs ?? ln,
+        source: { fcda, controlBlock },
+    });
+}
 /** Returns the subscriber's supervision LN for a given control block and extRef element
  *
  * @param extRef - The extRef SCL element in the subscribing IED.
@@ -77651,13 +77661,7 @@ class ExtRefLnBindingList extends ScopedElementsMixin(i$4) {
             !this.currentSelectedControlElement) {
             return null;
         }
-        const edits = subscribe({
-            sink: lnElement,
-            source: {
-                fcda: this.currentSelectedFcdaElement,
-                controlBlock: this.currentSelectedControlElement,
-            },
-        });
+        const edits = subscribeFcdaToLn(lnElement, this.currentSelectedFcdaElement, this.currentSelectedControlElement);
         return edits.length > 0 ? edits : null;
     }
     unsubscribeEdits(lnElement) {
