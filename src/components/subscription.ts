@@ -1,6 +1,9 @@
 import { css, LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
 
+import { subscribe } from '@openscd/scl-lib';
+import type { EditV2 } from '@openscd/oscd-api';
+
 import { compareNames, getSclSchemaVersion } from '../foundation/scl.js';
 
 import { getFcdaReferences } from '../foundation/ied.js';
@@ -150,6 +153,22 @@ export function getExtRef(
       `ExtRef[iedName="${iedName}"]${getFcdaReferences(fcda)}${controlCriteria}`,
     ),
   ).find(extRefElement => !extRefElement.hasAttribute('intAddr'));
+}
+
+export function subscribeFcdaToLn(
+  ln: Element,
+  fcda: Element,
+  controlBlock: Element,
+): EditV2[] {
+  const inputs = ln.querySelector(':scope > Inputs');
+  if (inputs && getExtRef(inputs, fcda, controlBlock)) {
+    return [];
+  }
+
+  return subscribe({
+    sink: inputs ?? ln,
+    source: { fcda, controlBlock },
+  });
 }
 
 /**

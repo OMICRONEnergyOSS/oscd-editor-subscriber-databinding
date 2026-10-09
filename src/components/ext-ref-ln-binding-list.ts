@@ -14,7 +14,7 @@ import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 import { OscdListItem } from '@omicronenergy/oscd-ui/list/OscdListItem.js';
 import { OscdDivider } from '@omicronenergy/oscd-ui/divider/OscdDivider.js';
 
-import { identity, subscribe, unsubscribe } from '@openscd/scl-lib';
+import { identity, unsubscribe } from '@openscd/scl-lib';
 import type { EditV2 } from '@openscd/oscd-api';
 import { newEditEventV2 } from '@openscd/oscd-api/utils.js';
 
@@ -26,6 +26,7 @@ import {
   getExtRef,
   getExistingSupervision,
   newSubscriptionChangedEvent,
+  subscribeFcdaToLn,
   sharedStyles,
 } from './subscription.js';
 import { getSubscribedExtRefElements, ControlTag } from '../foundation.js';
@@ -212,13 +213,11 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       return null;
     }
 
-    const edits = subscribe({
-      sink: lnElement,
-      source: {
-        fcda: this.currentSelectedFcdaElement,
-        controlBlock: this.currentSelectedControlElement,
-      },
-    });
+    const edits = subscribeFcdaToLn(
+      lnElement,
+      this.currentSelectedFcdaElement,
+      this.currentSelectedControlElement,
+    );
 
     return edits.length > 0 ? edits : null;
   }
