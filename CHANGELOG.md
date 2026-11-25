@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.7](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.6...oscd-editor-subscriber-databinding-v0.0.7) (2026-11-25)
+
+
+### Features
+
+* update to oscd-ui 0.1.4 & align theme handling accordingly ([c093157](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/commit/c09315795948d6f115d6ae9c9d50296a85c5176d))
+
 ## [0.0.6](https://github.com/OMICRONEnergyOSS/oscd-editor-subscriber-databinding/compare/oscd-editor-subscriber-databinding-v0.0.5...oscd-editor-subscriber-databinding-v0.0.6) (2026-10-09)
 
 
