@@ -21,7 +21,7 @@ function ha(a,b,d){if(0!==b.size&&void 0!==d){var e=a.prototype.setAttribute;e&&
 function(g,h){N(this);g=g.toLowerCase();if(b.has(g)){var u=this.getAttribute(g);f.call(this,g,h);h=this.getAttribute(g);u!==h&&d.call(this,g,u,h);}else f.call(this,g,h);});}}var O;"loading"===document.readyState&&(O=new Set,document.addEventListener("readystatechange",function(){O.forEach(function(a){return P(a,E.get(a))});},{once:true}));function N(a){var b;null!=(b=O)&&b.has(a)&&P(a,E.get(a));}
 function P(a,b){var d;null==(d=O)||d.delete(a);b.attributeChangedCallback&&b.observedAttributes.forEach(function(e){a.hasAttribute(e)&&b.attributeChangedCallback.call(a,e,null,a.getAttribute(e));});}function Q(a){var b=Object.getPrototypeOf(a);if(b!==window.HTMLElement)return b===C?Object.setPrototypeOf(a,window.HTMLElement):Q(b)}
 function J(a,b,d){d=void 0===d?false:d;Object.setPrototypeOf(a,b.g.prototype);E.set(a,b);M=a;try{new b.g;}catch(e){Q(b.g),new b.g;}b.attributeChangedCallback&&(void 0===O||a.hasAttributes()?P(a,b):O.add(a));d&&b.connectedCallback&&a.isConnected&&b.connectedCallback.call(a);}var R=Element.prototype.attachShadow;
-Element.prototype.attachShadow=function(a,b){for(var d=[],e=1;e<arguments.length;++e)d[e-1]=arguments[e];var c=Object.assign({},a);e=a.customElements;e=void 0===a.registry?e:a.registry;c=(delete c.customElements,delete c.registry,c);d=R.call.apply(R,[this,c].concat(r(d)));void 0!==e&&(d.customElements=d.registry=e);return d};var K=[document];
+Element.prototype.attachShadow=function(a,b){for(var d=[],e=1;e<arguments.length;++e)d[e-1]=arguments[e];var c=Object.assign({},a);e=a.customElements;e=void 0===a.registry?e:a.registry;c=(delete c.customElements,delete c.registry,c);d=R.call.apply(R,[this,c].concat(r(d)));void 0!==e&&(e={value:e,configurable:true,writable:true},Object.defineProperty(d,"customElements",e),Object.defineProperty(d,"registry",e));return d};var K=[document];
 function S(a,b,d){var e=(d?Object.getPrototypeOf(d):a.prototype)[b];a.prototype[b]=function(c){for(var f=[],g=0;g<arguments.length;++g)f[g]=arguments[g];K.push(this);f=e.apply(d||this,f);void 0!==f&&H.set(f,this);K.pop();return f};}S(ShadowRoot,"createElement",document);S(ShadowRoot,"createElementNS",document);S(ShadowRoot,"importNode",document);S(Element,"insertAdjacentHTML");
 function T(a){var b=Object.getOwnPropertyDescriptor(a.prototype,"innerHTML");Object.defineProperty(a.prototype,"innerHTML",Object.assign({},b,{set:function(d){K.push(this);b.set.call(this,d);K.pop();}}));}T(Element);T(ShadowRoot);Object.defineProperty(window,"customElements",{value:new CustomElementRegistry,configurable:true,writable:true});
 if(window.ElementInternals&&window.ElementInternals.prototype.setFormValue){var U=new WeakMap,V=HTMLElement.prototype.attachInternals,methods=["setFormValue","setValidity","checkValidity","reportValidity"];HTMLElement.prototype.attachInternals=function(a){for(var b=[],d=0;d<arguments.length;++d)b[d]=arguments[d];b=V.call.apply(V,[this].concat(r(b)));U.set(b,this);return b};methods.forEach(function(a){var b=window.ElementInternals.prototype,d=b[a];b[a]=function(e){for(var c=[],f=0;f<arguments.length;++f)c[f]=
@@ -77,20 +77,20 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$7=globalThis,e$f=t$7.ShadowRoot&&(void 0===t$7.ShadyCSS||t$7.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s$8=Symbol(),o$h=new WeakMap;let n$e = class n{constructor(t,e,o){if(this._$cssResult$=true,o!==s$8)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e;}get styleSheet(){let t=this.o;const s=this.t;if(e$f&&void 0===t){const e=void 0!==s&&1===s.length;e&&(t=o$h.get(s)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),e&&o$h.set(s,t));}return t}toString(){return this.cssText}};const r$d=t=>new n$e("string"==typeof t?t:t+"",void 0,s$8),i$e=(t,...e)=>{const o=1===t.length?t[0]:e.reduce((e,s,o)=>e+(t=>{if(true===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(s)+t[o+1],t[0]);return new n$e(o,t,s$8)},S$3=(s,o)=>{if(e$f)s.adoptedStyleSheets=o.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(const e of o){const o=document.createElement("style"),n=t$7.litNonce;void 0!==n&&o.setAttribute("nonce",n),o.textContent=e.cssText,s.appendChild(o);}},c$7=e$f?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const s of t.cssRules)e+=s.cssText;return r$d(e)})(t):t;
+const t$8=globalThis,e$f=t$8.ShadowRoot&&(void 0===t$8.ShadyCSS||t$8.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s$8=Symbol(),o$h=new WeakMap;let n$e = class n{constructor(t,e,o){if(this._$cssResult$=true,o!==s$8)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e;}get styleSheet(){let t=this.o;const s=this.t;if(e$f&&void 0===t){const e=void 0!==s&&1===s.length;e&&(t=o$h.get(s)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),e&&o$h.set(s,t));}return t}toString(){return this.cssText}};const r$e=t=>new n$e("string"==typeof t?t:t+"",void 0,s$8),i$e=(t,...e)=>{const o=1===t.length?t[0]:e.reduce((e,s,o)=>e+(t=>{if(true===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(s)+t[o+1],t[0]);return new n$e(o,t,s$8)},S$3=(s,o)=>{if(e$f)s.adoptedStyleSheets=o.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(const e of o){const o=document.createElement("style"),n=t$8.litNonce;void 0!==n&&o.setAttribute("nonce",n),o.textContent=e.cssText,s.appendChild(o);}},c$7=e$f?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const s of t.cssRules)e+=s.cssText;return r$e(e)})(t):t;
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{is:i$d,defineProperty:e$e,getOwnPropertyDescriptor:h$5,getOwnPropertyNames:r$c,getOwnPropertySymbols:o$g,getPrototypeOf:n$d}=Object,a$5=globalThis,c$6=a$5.trustedTypes,l$6=c$6?c$6.emptyScript:"",p$4=a$5.reactiveElementPolyfillSupport,d$3=(t,s)=>t,u$7={toAttribute(t,s){switch(s){case Boolean:t=t?l$6:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,s){let i=t;switch(s){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t);}catch(t){i=null;}}return i}},f$4=(t,s)=>!i$d(t,s),b$3={attribute:true,type:String,converter:u$7,reflect:false,useDefault:false,hasChanged:f$4};Symbol.metadata??=Symbol("metadata"),a$5.litPropertyMetadata??=new WeakMap;let y$3 = class y extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t);}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,s=b$3){if(s.state&&(s.attribute=false),this._$Ei(),this.prototype.hasOwnProperty(t)&&((s=Object.create(s)).wrapped=true),this.elementProperties.set(t,s),!s.noAccessor){const i=Symbol(),h=this.getPropertyDescriptor(t,i,s);void 0!==h&&e$e(this.prototype,t,h);}}static getPropertyDescriptor(t,s,i){const{get:e,set:r}=h$5(this.prototype,t)??{get(){return this[s]},set(t){this[s]=t;}};return {get:e,set(s){const h=e?.call(this);r?.call(this,s),this.requestUpdate(t,h,i);},configurable:true,enumerable:true}}static getPropertyOptions(t){return this.elementProperties.get(t)??b$3}static _$Ei(){if(this.hasOwnProperty(d$3("elementProperties")))return;const t=n$d(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties);}static finalize(){if(this.hasOwnProperty(d$3("finalized")))return;if(this.finalized=true,this._$Ei(),this.hasOwnProperty(d$3("properties"))){const t=this.properties,s=[...r$c(t),...o$g(t)];for(const i of s)this.createProperty(i,t[i]);}const t=this[Symbol.metadata];if(null!==t){const s=litPropertyMetadata.get(t);if(void 0!==s)for(const[t,i]of s)this.elementProperties.set(t,i);}this._$Eh=new Map;for(const[t,s]of this.elementProperties){const i=this._$Eu(t,s);void 0!==i&&this._$Eh.set(i,t);}this.elementStyles=this.finalizeStyles(this.styles);}static finalizeStyles(s){const i=[];if(Array.isArray(s)){const e=new Set(s.flat(1/0).reverse());for(const s of e)i.unshift(c$7(s));}else void 0!==s&&i.push(c$7(s));return i}static _$Eu(t,s){const i=s.attribute;return  false===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=false,this.hasUpdated=false,this._$Em=null,this._$Ev();}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this));}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.();}removeController(t){this._$EO?.delete(t);}_$E_(){const t=new Map,s=this.constructor.elementProperties;for(const i of s.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t);}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return S$3(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(true),this._$EO?.forEach(t=>t.hostConnected?.());}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.());}attributeChangedCallback(t,s,i){this._$AK(t,i);}_$ET(t,s){const i=this.constructor.elementProperties.get(t),e=this.constructor._$Eu(t,i);if(void 0!==e&&true===i.reflect){const h=(void 0!==i.converter?.toAttribute?i.converter:u$7).toAttribute(s,i.type);this._$Em=t,null==h?this.removeAttribute(e):this.setAttribute(e,h),this._$Em=null;}}_$AK(t,s){const i=this.constructor,e=i._$Eh.get(t);if(void 0!==e&&this._$Em!==e){const t=i.getPropertyOptions(e),h="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:u$7;this._$Em=e;const r=h.fromAttribute(s,t.type);this[e]=r??this._$Ej?.get(e)??r,this._$Em=null;}}requestUpdate(t,s,i,e=false,h){if(void 0!==t){const r=this.constructor;if(false===e&&(h=this[t]),i??=r.getPropertyOptions(t),!((i.hasChanged??f$4)(h,s)||i.useDefault&&i.reflect&&h===this._$Ej?.get(t)&&!this.hasAttribute(r._$Eu(t,i))))return;this.C(t,s,i);} false===this.isUpdatePending&&(this._$ES=this._$EP());}C(t,s,{useDefault:i,reflect:e,wrapped:h},r){i&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,r??s??this[t]),true!==h||void 0!==r)||(this._$AL.has(t)||(this.hasUpdated||i||(s=void 0),this._$AL.set(t,s)),true===e&&this._$Em!==t&&(this._$Eq??=new Set).add(t));}async _$EP(){this.isUpdatePending=true;try{await this._$ES;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,s]of this._$Ep)this[t]=s;this._$Ep=void 0;}const t=this.constructor.elementProperties;if(t.size>0)for(const[s,i]of t){const{wrapped:t}=i,e=this[s];true!==t||this._$AL.has(s)||void 0===e||this.C(s,void 0,i,e);}}let t=false;const s=this._$AL;try{t=this.shouldUpdate(s),t?(this.willUpdate(s),this._$EO?.forEach(t=>t.hostUpdate?.()),this.update(s)):this._$EM();}catch(s){throw t=false,this._$EM(),s}t&&this._$AE(s);}willUpdate(t){}_$AE(t){this._$EO?.forEach(t=>t.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=true,this.firstUpdated(t)),this.updated(t);}_$EM(){this._$AL=new Map,this.isUpdatePending=false;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return  true}update(t){this._$Eq&&=this._$Eq.forEach(t=>this._$ET(t,this[t])),this._$EM();}updated(t){}firstUpdated(t){}};y$3.elementStyles=[],y$3.shadowRootOptions={mode:"open"},y$3[d$3("elementProperties")]=new Map,y$3[d$3("finalized")]=new Map,p$4?.({ReactiveElement:y$3}),(a$5.reactiveElementVersions??=[]).push("2.1.2");
+ */const{is:i$d,defineProperty:e$e,getOwnPropertyDescriptor:h$5,getOwnPropertyNames:r$d,getOwnPropertySymbols:o$g,getPrototypeOf:n$d}=Object,a$5=globalThis,c$6=a$5.trustedTypes,l$7=c$6?c$6.emptyScript:"",p$5=a$5.reactiveElementPolyfillSupport,d$3=(t,s)=>t,u$7={toAttribute(t,s){switch(s){case Boolean:t=t?l$7:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,s){let i=t;switch(s){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t);}catch(t){i=null;}}return i}},f$4=(t,s)=>!i$d(t,s),b$3={attribute:true,type:String,converter:u$7,reflect:false,useDefault:false,hasChanged:f$4};Symbol.metadata??=Symbol("metadata"),a$5.litPropertyMetadata??=new WeakMap;let y$3 = class y extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t);}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,s=b$3){if(s.state&&(s.attribute=false),this._$Ei(),this.prototype.hasOwnProperty(t)&&((s=Object.create(s)).wrapped=true),this.elementProperties.set(t,s),!s.noAccessor){const i=Symbol(),h=this.getPropertyDescriptor(t,i,s);void 0!==h&&e$e(this.prototype,t,h);}}static getPropertyDescriptor(t,s,i){const{get:e,set:r}=h$5(this.prototype,t)??{get(){return this[s]},set(t){this[s]=t;}};return {get:e,set(s){const h=e?.call(this);r?.call(this,s),this.requestUpdate(t,h,i);},configurable:true,enumerable:true}}static getPropertyOptions(t){return this.elementProperties.get(t)??b$3}static _$Ei(){if(this.hasOwnProperty(d$3("elementProperties")))return;const t=n$d(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties);}static finalize(){if(this.hasOwnProperty(d$3("finalized")))return;if(this.finalized=true,this._$Ei(),this.hasOwnProperty(d$3("properties"))){const t=this.properties,s=[...r$d(t),...o$g(t)];for(const i of s)this.createProperty(i,t[i]);}const t=this[Symbol.metadata];if(null!==t){const s=litPropertyMetadata.get(t);if(void 0!==s)for(const[t,i]of s)this.elementProperties.set(t,i);}this._$Eh=new Map;for(const[t,s]of this.elementProperties){const i=this._$Eu(t,s);void 0!==i&&this._$Eh.set(i,t);}this.elementStyles=this.finalizeStyles(this.styles);}static finalizeStyles(s){const i=[];if(Array.isArray(s)){const e=new Set(s.flat(1/0).reverse());for(const s of e)i.unshift(c$7(s));}else void 0!==s&&i.push(c$7(s));return i}static _$Eu(t,s){const i=s.attribute;return  false===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=false,this.hasUpdated=false,this._$Em=null,this._$Ev();}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this));}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.();}removeController(t){this._$EO?.delete(t);}_$E_(){const t=new Map,s=this.constructor.elementProperties;for(const i of s.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t);}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return S$3(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(true),this._$EO?.forEach(t=>t.hostConnected?.());}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.());}attributeChangedCallback(t,s,i){this._$AK(t,i);}_$ET(t,s){const i=this.constructor.elementProperties.get(t),e=this.constructor._$Eu(t,i);if(void 0!==e&&true===i.reflect){const h=(void 0!==i.converter?.toAttribute?i.converter:u$7).toAttribute(s,i.type);this._$Em=t,null==h?this.removeAttribute(e):this.setAttribute(e,h),this._$Em=null;}}_$AK(t,s){const i=this.constructor,e=i._$Eh.get(t);if(void 0!==e&&this._$Em!==e){const t=i.getPropertyOptions(e),h="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:u$7;this._$Em=e;const r=h.fromAttribute(s,t.type);this[e]=r??this._$Ej?.get(e)??r,this._$Em=null;}}requestUpdate(t,s,i,e=false,h){if(void 0!==t){const r=this.constructor;if(false===e&&(h=this[t]),i??=r.getPropertyOptions(t),!((i.hasChanged??f$4)(h,s)||i.useDefault&&i.reflect&&h===this._$Ej?.get(t)&&!this.hasAttribute(r._$Eu(t,i))))return;this.C(t,s,i);} false===this.isUpdatePending&&(this._$ES=this._$EP());}C(t,s,{useDefault:i,reflect:e,wrapped:h},r){i&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,r??s??this[t]),true!==h||void 0!==r)||(this._$AL.has(t)||(this.hasUpdated||i||(s=void 0),this._$AL.set(t,s)),true===e&&this._$Em!==t&&(this._$Eq??=new Set).add(t));}async _$EP(){this.isUpdatePending=true;try{await this._$ES;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,s]of this._$Ep)this[t]=s;this._$Ep=void 0;}const t=this.constructor.elementProperties;if(t.size>0)for(const[s,i]of t){const{wrapped:t}=i,e=this[s];true!==t||this._$AL.has(s)||void 0===e||this.C(s,void 0,i,e);}}let t=false;const s=this._$AL;try{t=this.shouldUpdate(s),t?(this.willUpdate(s),this._$EO?.forEach(t=>t.hostUpdate?.()),this.update(s)):this._$EM();}catch(s){throw t=false,this._$EM(),s}t&&this._$AE(s);}willUpdate(t){}_$AE(t){this._$EO?.forEach(t=>t.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=true,this.firstUpdated(t)),this.updated(t);}_$EM(){this._$AL=new Map,this.isUpdatePending=false;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return  true}update(t){this._$Eq&&=this._$Eq.forEach(t=>this._$ET(t,this[t])),this._$EM();}updated(t){}firstUpdated(t){}};y$3.elementStyles=[],y$3.shadowRootOptions={mode:"open"},y$3[d$3("elementProperties")]=new Map,y$3[d$3("finalized")]=new Map,p$5?.({ReactiveElement:y$3}),(a$5.reactiveElementVersions??=[]).push("2.1.2");
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$6=globalThis,i$c=t=>t,s$7=t$6.trustedTypes,e$d=s$7?s$7.createPolicy("lit-html",{createHTML:t=>t}):void 0,h$4="$lit$",o$f=`lit$${Math.random().toFixed(9).slice(2)}$`,n$c="?"+o$f,r$b=`<${n$c}>`,l$5=document,c$5=()=>l$5.createComment(""),a$4=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$6=Array.isArray,d$2=t=>u$6(t)||"function"==typeof t?.[Symbol.iterator],f$3="[ \t\n\f\r]",v$2=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_$1=/-->/g,m$2=/>/g,p$3=RegExp(`>|${f$3}(?:([^\\s"'>=/]+)(${f$3}*=${f$3}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g$1=/'/g,$$1=/"/g,y$2=/^(?:script|style|textarea|title)$/i,x$1=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),b$2=x$1(1),E$1=Symbol.for("lit-noChange"),A$1=Symbol.for("lit-nothing"),C$1=new WeakMap,P$1=l$5.createTreeWalker(l$5,129);function V$1(t,i){if(!u$6(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$d?e$d.createHTML(i):i}const N$1=(t,i)=>{const s=t.length-1,e=[];let n,l=2===i?"<svg>":3===i?"<math>":"",c=v$2;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,f=0;for(;f<s.length&&(c.lastIndex=f,u=c.exec(s),null!==u);)f=c.lastIndex,c===v$2?"!--"===u[1]?c=_$1:void 0!==u[1]?c=m$2:void 0!==u[2]?(y$2.test(u[2])&&(n=RegExp("</"+u[2],"g")),c=p$3):void 0!==u[3]&&(c=p$3):c===p$3?">"===u[0]?(c=n??v$2,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?p$3:'"'===u[3]?$$1:g$1):c===$$1||c===g$1?c=p$3:c===_$1||c===m$2?c=v$2:(c=p$3,n=void 0);const x=c===p$3&&t[i+1].startsWith("/>")?" ":"";l+=c===v$2?s+r$b:d>=0?(e.push(a),s.slice(0,d)+h$4+s.slice(d)+o$f+x):s+o$f+(-2===d?i:x);}return [V$1(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),e]};let S$2 = class S{constructor({strings:t,_$litType$:i},e){let r;this.parts=[];let l=0,a=0;const u=t.length-1,d=this.parts,[f,v]=N$1(t,i);if(this.el=S.createElement(f,e),P$1.currentNode=this.el.content,2===i||3===i){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=P$1.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(h$4)){const i=v[a++],s=r.getAttribute(t).split(o$f),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:l,name:e[2],strings:s,ctor:"."===e[1]?I$1:"?"===e[1]?L$1:"@"===e[1]?z$1:H$1}),r.removeAttribute(t);}else t.startsWith(o$f)&&(d.push({type:6,index:l}),r.removeAttribute(t));if(y$2.test(r.tagName)){const t=r.textContent.split(o$f),i=t.length-1;if(i>0){r.textContent=s$7?s$7.emptyScript:"";for(let s=0;s<i;s++)r.append(t[s],c$5()),P$1.nextNode(),d.push({type:2,index:++l});r.append(t[i],c$5());}}}else if(8===r.nodeType)if(r.data===n$c)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=r.data.indexOf(o$f,t+1));)d.push({type:7,index:l}),t+=o$f.length-1;}l++;}}static createElement(t,i){const s=l$5.createElement("template");return s.innerHTML=t,s}};function M$2(t,i,s=t,e){if(i===E$1)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=a$4(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=M$2(t,h._$AS(t,i.values),h,e)),i}let R$1 = class R{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??l$5).importNode(i,true);P$1.currentNode=e;let h=P$1.nextNode(),o=0,n=0,r=s[0];for(;void 0!==r;){if(o===r.index){let i;2===r.type?i=new k$1(h,h.nextSibling,this,t):1===r.type?i=new r.ctor(h,r.name,r.strings,this,t):6===r.type&&(i=new Z$1(h,this,t)),this._$AV.push(i),r=s[++n];}o!==r?.index&&(h=P$1.nextNode(),o++);}return P$1.currentNode=l$5,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}};let k$1 = class k{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=A$1,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=M$2(this,t,i),a$4(t)?t===A$1||null==t||""===t?(this._$AH!==A$1&&this._$AR(),this._$AH=A$1):t!==this._$AH&&t!==E$1&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):d$2(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==A$1&&a$4(this._$AH)?this._$AA.nextSibling.data=t:this.T(l$5.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=S$2.createElement(V$1(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new R$1(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=C$1.get(t.strings);return void 0===i&&C$1.set(t.strings,i=new S$2(t)),i}k(t){u$6(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new k(this.O(c$5()),this.O(c$5()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,s){for(this._$AP?.(false,true,s);t!==this._$AB;){const s=i$c(t).nextSibling;i$c(t).remove(),t=s;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}};let H$1 = class H{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=A$1,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A$1;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=M$2(this,t,i,0),o=!a$4(t)||t!==this._$AH&&t!==E$1,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=M$2(this,e[s+n],i,n),r===E$1&&(r=this._$AH[n]),o||=!a$4(r)||r!==this._$AH[n],r===A$1?t=A$1:t!==A$1&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===A$1?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}};let I$1 = class I extends H$1{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A$1?void 0:t;}};let L$1 = class L extends H$1{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==A$1);}};let z$1 = class z extends H$1{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=M$2(this,t,i,0)??A$1)===E$1)return;const s=this._$AH,e=t===A$1&&s!==A$1||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==A$1&&(s===A$1||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}};let Z$1 = class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){M$2(this,t);}};const B$1=t$6.litHtmlPolyfillSupport;B$1?.(S$2,k$1),(t$6.litHtmlVersions??=[]).push("3.3.3");const D$1=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new k$1(i.insertBefore(c$5(),t),t,void 0,s??{});}return h._$AI(t),h};
+const t$7=globalThis,i$c=t=>t,s$7=t$7.trustedTypes,e$d=s$7?s$7.createPolicy("lit-html",{createHTML:t=>t}):void 0,h$4="$lit$",o$f=`lit$${Math.random().toFixed(9).slice(2)}$`,n$c="?"+o$f,r$c=`<${n$c}>`,l$6=document,c$5=()=>l$6.createComment(""),a$4=t=>null===t||"object"!=typeof t&&"function"!=typeof t,u$6=Array.isArray,d$2=t=>u$6(t)||"function"==typeof t?.[Symbol.iterator],f$3="[ \t\n\f\r]",v$2=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_$1=/-->/g,m$3=/>/g,p$4=RegExp(`>|${f$3}(?:([^\\s"'>=/]+)(${f$3}*=${f$3}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g$1=/'/g,$$1=/"/g,y$2=/^(?:script|style|textarea|title)$/i,x$1=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),b$2=x$1(1),w$1=x$1(2),E$1=Symbol.for("lit-noChange"),A$1=Symbol.for("lit-nothing"),C$1=new WeakMap,P$1=l$6.createTreeWalker(l$6,129);function V$1(t,i){if(!u$6(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$d?e$d.createHTML(i):i}const N$1=(t,i)=>{const s=t.length-1,e=[];let n,l=2===i?"<svg>":3===i?"<math>":"",c=v$2;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,f=0;for(;f<s.length&&(c.lastIndex=f,u=c.exec(s),null!==u);)f=c.lastIndex,c===v$2?"!--"===u[1]?c=_$1:void 0!==u[1]?c=m$3:void 0!==u[2]?(y$2.test(u[2])&&(n=RegExp("</"+u[2],"g")),c=p$4):void 0!==u[3]&&(c=p$4):c===p$4?">"===u[0]?(c=n??v$2,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?p$4:'"'===u[3]?$$1:g$1):c===$$1||c===g$1?c=p$4:c===_$1||c===m$3?c=v$2:(c=p$4,n=void 0);const x=c===p$4&&t[i+1].startsWith("/>")?" ":"";l+=c===v$2?s+r$c:d>=0?(e.push(a),s.slice(0,d)+h$4+s.slice(d)+o$f+x):s+o$f+(-2===d?i:x);}return [V$1(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),e]};let S$2 = class S{constructor({strings:t,_$litType$:i},e){let r;this.parts=[];let l=0,a=0;const u=t.length-1,d=this.parts,[f,v]=N$1(t,i);if(this.el=S.createElement(f,e),P$1.currentNode=this.el.content,2===i||3===i){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=P$1.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(h$4)){const i=v[a++],s=r.getAttribute(t).split(o$f),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:l,name:e[2],strings:s,ctor:"."===e[1]?I$1:"?"===e[1]?L$1:"@"===e[1]?z$1:H$1}),r.removeAttribute(t);}else t.startsWith(o$f)&&(d.push({type:6,index:l}),r.removeAttribute(t));if(y$2.test(r.tagName)){const t=r.textContent.split(o$f),i=t.length-1;if(i>0){r.textContent=s$7?s$7.emptyScript:"";for(let s=0;s<i;s++)r.append(t[s],c$5()),P$1.nextNode(),d.push({type:2,index:++l});r.append(t[i],c$5());}}}else if(8===r.nodeType)if(r.data===n$c)d.push({type:2,index:l});else {let t=-1;for(;-1!==(t=r.data.indexOf(o$f,t+1));)d.push({type:7,index:l}),t+=o$f.length-1;}l++;}}static createElement(t,i){const s=l$6.createElement("template");return s.innerHTML=t,s}};function M$2(t,i,s=t,e){if(i===E$1)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=a$4(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=M$2(t,h._$AS(t,i.values),h,e)),i}let R$1 = class R{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??l$6).importNode(i,true);P$1.currentNode=e;let h=P$1.nextNode(),o=0,n=0,r=s[0];for(;void 0!==r;){if(o===r.index){let i;2===r.type?i=new k$1(h,h.nextSibling,this,t):1===r.type?i=new r.ctor(h,r.name,r.strings,this,t):6===r.type&&(i=new Z$1(h,this,t)),this._$AV.push(i),r=s[++n];}o!==r?.index&&(h=P$1.nextNode(),o++);}return P$1.currentNode=l$6,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}};let k$1 = class k{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=A$1,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=M$2(this,t,i),a$4(t)?t===A$1||null==t||""===t?(this._$AH!==A$1&&this._$AR(),this._$AH=A$1):t!==this._$AH&&t!==E$1&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):d$2(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==A$1&&a$4(this._$AH)?this._$AA.nextSibling.data=t:this.T(l$6.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=S$2.createElement(V$1(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new R$1(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=C$1.get(t.strings);return void 0===i&&C$1.set(t.strings,i=new S$2(t)),i}k(t){u$6(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new k(this.O(c$5()),this.O(c$5()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,s){for(this._$AP?.(false,true,s);t!==this._$AB;){const s=i$c(t).nextSibling;i$c(t).remove(),t=s;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}};let H$1 = class H{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=A$1,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A$1;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=M$2(this,t,i,0),o=!a$4(t)||t!==this._$AH&&t!==E$1,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=M$2(this,e[s+n],i,n),r===E$1&&(r=this._$AH[n]),o||=!a$4(r)||r!==this._$AH[n],r===A$1?t=A$1:t!==A$1&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===A$1?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}};let I$1 = class I extends H$1{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A$1?void 0:t;}};let L$1 = class L extends H$1{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==A$1);}};let z$1 = class z extends H$1{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=M$2(this,t,i,0)??A$1)===E$1)return;const s=this._$AH,e=t===A$1&&s!==A$1||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==A$1&&(s===A$1||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}};let Z$1 = class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){M$2(this,t);}};const B$1=t$7.litHtmlPolyfillSupport;B$1?.(S$2,k$1),(t$7.litHtmlVersions??=[]).push("3.3.3");const D$1=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new k$1(i.insertBefore(c$5(),t),t,void 0,s??{});}return h._$AI(t),h};
 
 /**
  * @license
@@ -103,19 +103,26 @@ const t$6=globalThis,i$c=t=>t,s$7=t$6.trustedTypes,e$d=s$7?s$7.createPolicy("lit
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$5=t=>(e,o)=>{ void 0!==o?o.addInitializer(()=>{customElements.define(t,e);}):customElements.define(t,e);};
+const t$6=t=>(e,o)=>{ void 0!==o?o.addInitializer(()=>{customElements.define(t,e);}):customElements.define(t,e);};
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const o$d={attribute:true,type:String,converter:u$7,reflect:false,hasChanged:f$4},r$a=(t=o$d,e,r)=>{const{kind:n,metadata:i}=r;let s=globalThis.litPropertyMetadata.get(i);if(void 0===s&&globalThis.litPropertyMetadata.set(i,s=new Map),"setter"===n&&((t=Object.create(t)).wrapped=true),s.set(r.name,t),"accessor"===n){const{name:o}=r;return {set(r){const n=e.get.call(this);e.set.call(this,r),this.requestUpdate(o,n,t,true,r);},init(e){return void 0!==e&&this.C(o,void 0,t,e),e}}}if("setter"===n){const{name:o}=r;return function(r){const n=this[o];e.call(this,r),this.requestUpdate(o,n,t,true,r);}}throw Error("Unsupported decorator location: "+n)};function n$b(t){return (e,o)=>"object"==typeof o?r$a(t,e,o):((t,e,o)=>{const r=e.hasOwnProperty(o);return e.constructor.createProperty(o,t),r?Object.getOwnPropertyDescriptor(e,o):void 0})(t,e,o)}
+ */const o$d={attribute:true,type:String,converter:u$7,reflect:false,hasChanged:f$4},r$b=(t=o$d,e,r)=>{const{kind:n,metadata:i}=r;let s=globalThis.litPropertyMetadata.get(i);if(void 0===s&&globalThis.litPropertyMetadata.set(i,s=new Map),"setter"===n&&((t=Object.create(t)).wrapped=true),s.set(r.name,t),"accessor"===n){const{name:o}=r;return {set(r){const n=e.get.call(this);e.set.call(this,r),this.requestUpdate(o,n,t,true,r);},init(e){return void 0!==e&&this.C(o,void 0,t,e),e}}}if("setter"===n){const{name:o}=r;return function(r){const n=this[o];e.call(this,r),this.requestUpdate(o,n,t,true,r);}}throw Error("Unsupported decorator location: "+n)};function n$b(t){return (e,o)=>"object"==typeof o?r$b(t,e,o):((t,e,o)=>{const r=e.hasOwnProperty(o);return e.constructor.createProperty(o,t),r?Object.getOwnPropertyDescriptor(e,o):void 0})(t,e,o)}
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function r$9(r){return n$b({...r,state:true,attribute:false})}
+ */function r$a(r){return n$b({...r,state:true,attribute:false})}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+function t$5(t){return (n,o)=>{const c="function"==typeof n?n:n[o];Object.assign(c,t);}}
 
 /**
  * @license
@@ -135,7 +142,7 @@ const e$c=(e,t,c)=>(c.configurable=true,c.enumerable=true,Reflect.decorate&&"obj
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-let e$a;function r$8(r){return (n,o)=>e$c(n,o,{get(){return (this.renderRoot??(e$a??=document.createDocumentFragment())).querySelectorAll(r)}})}
+let e$a;function r$9(r){return (n,o)=>e$c(n,o,{get(){return (this.renderRoot??(e$a??=document.createDocumentFragment())).querySelectorAll(r)}})}
 
 /**
  * @license
@@ -348,6 +355,12 @@ const LOCALE_STATUS_EVENT = 'lit-localize-status';
  * Untagged template strings with expressions aren't supported by lit-localize
  * because they don't allow for values to be captured at runtime.
  */
+const _str = (strings, ...values) => ({
+    strTag: true,
+    strings,
+    values,
+});
+const str = _str;
 const isStrTagged$1 = (val) => typeof val !== 'string' && 'strTag' in val;
 /**
  * Render the result of a `str` tagged template to a string. Note we don't need
@@ -786,14 +799,72 @@ const setLocale$1 = (newLocale) => {
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const a$3=Symbol.for(""),o$b=t=>{if(t?.r===a$3)return t?._$litStatic$},s$5=t=>({_$litStatic$:t,r:a$3}),i$a=(t,...r)=>({_$litStatic$:r.reduce((r,e,a)=>r+(t=>{if(void 0!==t._$litStatic$)return t._$litStatic$;throw Error(`Value passed to 'literal' function must be a 'literal' result: ${t}. Use 'unsafeStatic' to pass non-literal values, but\n            take care to ensure page security.`)})(e)+t[a+1],t[0]),r:a$3}),l$4=new Map,n$9=t=>(r,...e)=>{const a=e.length;let s,i;const n=[],u=[];let c,$=0,f=false;for(;$<a;){for(c=r[$];$<a&&void 0!==(i=e[$],s=o$b(i));)c+=s+r[++$],f=true;$!==a&&u.push(i),n.push(c),$++;}if($===a&&n.push(r[a]),f){const t=n.join("$$lit$$");void 0===(r=l$4.get(t))&&(n.raw=n,l$4.set(t,r=n)),e=u;}return t(r,...e)},u$5=n$9(b$2);
+const a$3=Symbol.for(""),o$b=t=>{if(t?.r===a$3)return t?._$litStatic$},s$5=t=>({_$litStatic$:t,r:a$3}),i$a=(t,...r)=>({_$litStatic$:r.reduce((r,e,a)=>r+(t=>{if(void 0!==t._$litStatic$)return t._$litStatic$;throw Error(`Value passed to 'literal' function must be a 'literal' result: ${t}. Use 'unsafeStatic' to pass non-literal values, but\n            take care to ensure page security.`)})(e)+t[a+1],t[0]),r:a$3}),l$5=new Map,n$9=t=>(r,...e)=>{const a=e.length;let s,i;const n=[],u=[];let c,$=0,f=false;for(;$<a;){for(c=r[$];$<a&&void 0!==(i=e[$],s=o$b(i));)c+=s+r[++$],f=true;$!==a&&u.push(i),n.push(c),$++;}if($===a&&n.push(r[a]),f){const t=n.join("$$lit$$");void 0===(r=l$5.get(t))&&(n.raw=n,l$5.set(t,r=n)),e=u;}return t(r,...e)},u$5=n$9(b$2);
+
+const oscdMd3Mappings = i$e `
+  :host {
+    --md-sys-color-error: var(--oscd-theme-error, #dc322f);
+    --md-sys-color-error-container: var(--oscd-theme-base2, #eee8d5);
+    --md-sys-color-inverse-on-surface: var(--oscd-theme-base3, #fdf6e3);
+    --md-sys-color-inverse-surface: var(--oscd-theme-base03, #002b36);
+    --md-sys-color-on-error: var(--oscd-theme-base3, #fdf6e3);
+    --md-sys-color-on-error-container: var(--oscd-theme-base00, #657b83);
+    --md-sys-color-on-primary: var(--oscd-theme-base3, #fdf6e3);
+    --md-sys-color-on-primary-container: var(--oscd-theme-base00, #657b83);
+    --md-sys-color-on-secondary: var(--oscd-theme-base3, #fdf6e3);
+    --md-sys-color-on-secondary-container: var(--oscd-theme-base00, #657b83);
+    --md-sys-color-on-surface: var(--oscd-theme-base00, #657b83);
+    --md-sys-color-on-surface-variant: var(--oscd-theme-base0, #839496);
+    --md-sys-color-on-tertiary-container: var(--oscd-theme-base00, #657b83);
+    --md-sys-color-outline: var(--oscd-theme-base01, #586e75);
+    --md-sys-color-outline-variant: var(--oscd-theme-base1, #93a1a1);
+    --md-sys-color-primary: var(--oscd-theme-primary, #2aa198);
+    --md-sys-color-primary-container: var(--oscd-theme-base2, #eee8d5);
+    --md-sys-color-scrim: #000;
+    --md-sys-color-secondary: var(--oscd-theme-secondary, #6c71c4);
+    --md-sys-color-secondary-container: var(--oscd-theme-base2, #eee8d5);
+    --md-sys-color-shadow: #000;
+    --md-sys-color-surface: var(--oscd-theme-base3, #fdf6e3);
+    --md-sys-color-surface-container: var(--oscd-theme-base2, #eee8d5);
+    --md-sys-color-surface-container-high: var(--oscd-theme-base2, #eee8d5);
+    --md-sys-color-surface-container-highest: var(--oscd-theme-base2, #eee8d5);
+    --md-sys-color-surface-container-low: var(--oscd-theme-base3, #fdf6e3);
+    --md-sys-color-tertiary: var(--oscd-theme-secondary, #6c71c4);
+    --md-sys-color-tertiary-container: var(--oscd-theme-base2, #eee8d5);
+  }
+`;
+i$e `
+  :host {
+    --oscd-ace-editor-syntax-keyword-color: var(
+      --oscd-theme-secondary,
+      #0b335b
+    );
+    --oscd-ace-editor-syntax-string-color: var(--oscd-theme-base00, #46505d);
+    --oscd-ace-editor-syntax-tag-color: var(--oscd-theme-secondary, #0b335b);
+    --oscd-ace-editor-syntax-attribute-name-color: var(
+      --oscd-theme-primary,
+      #2485e5
+    );
+    --oscd-ace-editor-syntax-comment-color: var(--oscd-theme-base01, #3d4651);
+    --oscd-ace-editor-syntax-number-color: var(--oscd-theme-base00, #46505d);
+    --oscd-ace-editor-syntax-invalid-color: var(--oscd-theme-error, #dc322f);
+    --oscd-ace-editor-syntax-storage-color: var(--oscd-theme-primary, #2485e5);
+    --oscd-ace-editor-syntax-operator-color: var(--oscd-theme-base01, #3d4651);
+    --oscd-ace-editor-syntax-parameter-color: var(
+      --oscd-theme-warning,
+      #b58900
+    );
+    --oscd-ace-editor-syntax-regex-color: var(--oscd-theme-error, #dc322f);
+    --oscd-ace-editor-step-color: var(--oscd-theme-warning, #b58900);
+  }
+`;
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$4={ATTRIBUTE:1},e$9=t=>(...e)=>({_$litDirective$:t,values:e});let i$9 = class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};
+const t$4={ATTRIBUTE:1,PROPERTY:3,BOOLEAN_ATTRIBUTE:4},e$9=t=>(...e)=>({_$litDirective$:t,values:e});let i$9 = class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};
 
 /**
  * @license
@@ -1385,10 +1456,10 @@ __decorate$1([
     n$b({ type: Boolean, reflect: true })
 ], Ripple$2.prototype, "disabled", void 0);
 __decorate$1([
-    r$9()
+    r$a()
 ], Ripple$2.prototype, "hovered", void 0);
 __decorate$1([
-    r$9()
+    r$a()
 ], Ripple$2.prototype, "pressed", void 0);
 __decorate$1([
     e$b('.surface')
@@ -1400,19 +1471,19 @@ __decorate$1([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./ripple/internal/ripple-styles.css.
-const styles$14 = i$e `:host{display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20)) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-ripple-hover-opacity, 0.08)}.pressed::after{opacity:var(--md-ripple-pressed-opacity, 0.12);transition-duration:105ms}
+const styles$1a = i$e `:host{display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20)) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-ripple-hover-opacity, 0.08)}.pressed::after{opacity:var(--md-ripple-pressed-opacity, 0.12);transition-duration:105ms}
 `;
 
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
  */
 /**
+ * @tagname oscd-ripple
  * @summary Ripples, also known as state layers, are visual indicators used to
  * communicate the status of a component or interactive element.
  *
- * @description A state layer is a semi-transparent covering on an element that
  * indicates its state. State layers provide a systematic approach to
  * visualizing states by using opacity. A layer can be applied to an entire
  * element or in a circular shape and only one state layer can be applied at a
@@ -1421,9 +1492,9 @@ const styles$14 = i$e `:host{display:flex;margin:auto;pointer-events:none}:host(
  * @final
  * @suppress {visibility}
  */
-let MdRipple$1 = class MdRipple extends Ripple$2 {
+let OscdRipple$1 = class OscdRipple extends Ripple$2 {
 };
-MdRipple$1.styles = [styles$14];
+OscdRipple$1.styles = [styles$1a];
 
 /**
  * @license
@@ -1525,23 +1596,24 @@ const HANDLED_BY_FOCUS_RING$2 = Symbol('handledByFocusRing');
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./focus/internal/focus-ring-styles.css.
-const styles$13 = i$e `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}
+const styles$19 = i$e `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}
 `;
 
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
  */
 /**
+ * @tagname oscd-focus-ring
  * TODO(b/267336424): add docs
  *
  * @final
  * @suppress {visibility}
  */
-let MdFocusRing$1 = class MdFocusRing extends FocusRing$2 {
+let OscdFocusRing$1 = class OscdFocusRing extends FocusRing$2 {
 };
-MdFocusRing$1.styles = [styles$13];
+OscdFocusRing$1.styles = [styles$19];
 
 /**
  * @license
@@ -1549,7 +1621,7 @@ MdFocusRing$1.styles = [styles$13];
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./iconbutton/internal/filled-styles.css.
-const styles$12 = i$e `:host{--_container-color: var(--md-filled-icon-button-container-color, var(--md-sys-color-primary, #6750a4));--_container-height: var(--md-filled-icon-button-container-height, 40px);--_container-width: var(--md-filled-icon-button-container-width, 40px);--_disabled-container-color: var(--md-filled-icon-button-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-container-opacity: var(--md-filled-icon-button-disabled-container-opacity, 0.12);--_disabled-icon-color: var(--md-filled-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-filled-icon-button-disabled-icon-opacity, 0.38);--_focus-icon-color: var(--md-filled-icon-button-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-icon-color: var(--md-filled-icon-button-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-color: var(--md-filled-icon-button-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-opacity: var(--md-filled-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-filled-icon-button-icon-color, var(--md-sys-color-on-primary, #fff));--_icon-size: var(--md-filled-icon-button-icon-size, 24px);--_pressed-icon-color: var(--md-filled-icon-button-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-color: var(--md-filled-icon-button-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-opacity: var(--md-filled-icon-button-pressed-state-layer-opacity, 0.12);--_selected-container-color: var(--md-filled-icon-button-selected-container-color, var(--md-sys-color-primary, #6750a4));--_toggle-selected-focus-icon-color: var(--md-filled-icon-button-toggle-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-icon-color: var(--md-filled-icon-button-toggle-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-state-layer-color: var(--md-filled-icon-button-toggle-selected-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-icon-color: var(--md-filled-icon-button-toggle-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-icon-color: var(--md-filled-icon-button-toggle-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-state-layer-color: var(--md-filled-icon-button-toggle-selected-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_unselected-container-color: var(--md-filled-icon-button-unselected-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_toggle-focus-icon-color: var(--md-filled-icon-button-toggle-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-icon-color: var(--md-filled-icon-button-toggle-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-state-layer-color: var(--md-filled-icon-button-toggle-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_toggle-icon-color: var(--md-filled-icon-button-toggle-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-icon-color: var(--md-filled-icon-button-toggle-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-state-layer-color: var(--md-filled-icon-button-toggle-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_container-shape-start-start: var(--md-filled-icon-button-container-shape-start-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-start-end: var(--md-filled-icon-button-container-shape-start-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-end: var(--md-filled-icon-button-container-shape-end-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-start: var(--md-filled-icon-button-container-shape-end-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)))}.icon-button{color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.icon-button:hover{color:var(--_hover-icon-color)}.icon-button:focus{color:var(--_focus-icon-color)}.icon-button:active{color:var(--_pressed-icon-color)}.icon-button:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}.icon-button::before{background-color:var(--_container-color);border-radius:inherit;content:"";inset:0;position:absolute;z-index:-1}.icon-button:is(:disabled,[aria-disabled=true])::before{background-color:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}.icon-button:is(:disabled,[aria-disabled=true]) .icon{opacity:var(--_disabled-icon-opacity)}.toggle-filled{--md-ripple-hover-color: var(--_toggle-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-pressed-state-layer-color)}.toggle-filled:not(:disabled,[aria-disabled=true]){color:var(--_toggle-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-hover-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-focus-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-pressed-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true])::before{background-color:var(--_unselected-container-color)}.selected{--md-ripple-hover-color: var(--_toggle-selected-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-selected-pressed-state-layer-color)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_toggle-selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-selected-pressed-icon-color)}.selected:not(:disabled,[aria-disabled=true])::before{background-color:var(--_selected-container-color)}
+const styles$18 = i$e `:host{--_container-color: var(--md-filled-icon-button-container-color, var(--md-sys-color-primary, #6750a4));--_container-height: var(--md-filled-icon-button-container-height, 40px);--_container-width: var(--md-filled-icon-button-container-width, 40px);--_disabled-container-color: var(--md-filled-icon-button-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-container-opacity: var(--md-filled-icon-button-disabled-container-opacity, 0.12);--_disabled-icon-color: var(--md-filled-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-filled-icon-button-disabled-icon-opacity, 0.38);--_focus-icon-color: var(--md-filled-icon-button-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-icon-color: var(--md-filled-icon-button-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-color: var(--md-filled-icon-button-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-opacity: var(--md-filled-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-filled-icon-button-icon-color, var(--md-sys-color-on-primary, #fff));--_icon-size: var(--md-filled-icon-button-icon-size, 24px);--_pressed-icon-color: var(--md-filled-icon-button-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-color: var(--md-filled-icon-button-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-opacity: var(--md-filled-icon-button-pressed-state-layer-opacity, 0.12);--_selected-container-color: var(--md-filled-icon-button-selected-container-color, var(--md-sys-color-primary, #6750a4));--_toggle-selected-focus-icon-color: var(--md-filled-icon-button-toggle-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-icon-color: var(--md-filled-icon-button-toggle-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-state-layer-color: var(--md-filled-icon-button-toggle-selected-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-icon-color: var(--md-filled-icon-button-toggle-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-icon-color: var(--md-filled-icon-button-toggle-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-state-layer-color: var(--md-filled-icon-button-toggle-selected-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_unselected-container-color: var(--md-filled-icon-button-unselected-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_toggle-focus-icon-color: var(--md-filled-icon-button-toggle-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-icon-color: var(--md-filled-icon-button-toggle-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-state-layer-color: var(--md-filled-icon-button-toggle-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_toggle-icon-color: var(--md-filled-icon-button-toggle-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-icon-color: var(--md-filled-icon-button-toggle-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-state-layer-color: var(--md-filled-icon-button-toggle-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_container-shape-start-start: var(--md-filled-icon-button-container-shape-start-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-start-end: var(--md-filled-icon-button-container-shape-start-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-end: var(--md-filled-icon-button-container-shape-end-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-start: var(--md-filled-icon-button-container-shape-end-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)))}.icon-button{color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.icon-button:hover{color:var(--_hover-icon-color)}.icon-button:focus{color:var(--_focus-icon-color)}.icon-button:active{color:var(--_pressed-icon-color)}.icon-button:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}.icon-button::before{background-color:var(--_container-color);border-radius:inherit;content:"";inset:0;position:absolute;z-index:-1}.icon-button:is(:disabled,[aria-disabled=true])::before{background-color:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}.icon-button:is(:disabled,[aria-disabled=true]) .icon{opacity:var(--_disabled-icon-opacity)}.toggle-filled{--md-ripple-hover-color: var(--_toggle-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-pressed-state-layer-color)}.toggle-filled:not(:disabled,[aria-disabled=true]){color:var(--_toggle-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-hover-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-focus-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-pressed-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true])::before{background-color:var(--_unselected-container-color)}.selected{--md-ripple-hover-color: var(--_toggle-selected-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-selected-pressed-state-layer-color)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_toggle-selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-selected-pressed-icon-color)}.selected:not(:disabled,[aria-disabled=true])::before{background-color:var(--_selected-container-color)}
 `;
 
 /**
@@ -2463,7 +2535,7 @@ __decorate$1([
     n$b({ type: Boolean, reflect: true })
 ], IconButton$2.prototype, "selected", void 0);
 __decorate$1([
-    r$9()
+    r$a()
 ], IconButton$2.prototype, "flipIcon", void 0);
 
 /**
@@ -2472,7 +2544,7 @@ __decorate$1([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./iconbutton/internal/shared-styles.css.
-const styles$11 = i$e `:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);height:var(--_container-height);width:var(--_container-width);justify-content:center}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) max(0px,(48px - var(--_container-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){pointer-events:none}.icon-button{place-items:center;background:none;border:none;box-sizing:border-box;cursor:pointer;display:flex;place-content:center;outline:none;padding:0;position:relative;text-decoration:none;user-select:none;z-index:0;flex:1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.icon ::slotted(*){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size);font-weight:inherit}md-ripple{z-index:-1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.flip-icon .icon{transform:scaleX(-1)}.icon{display:inline-flex}.link{display:grid;height:100%;outline:none;place-items:center;position:absolute;width:100%}.touch{position:absolute;height:max(48px,100%);width:max(48px,100%)}:host([touch-target=none]) .touch{display:none}@media(forced-colors: active){:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1}}
+const styles$17 = i$e `:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);height:var(--_container-height);width:var(--_container-width);justify-content:center}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) max(0px,(48px - var(--_container-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){pointer-events:none}.icon-button{place-items:center;background:none;border:none;box-sizing:border-box;cursor:pointer;display:flex;place-content:center;outline:none;padding:0;position:relative;text-decoration:none;user-select:none;z-index:0;flex:1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.icon ::slotted(*){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size);font-weight:inherit}md-ripple{z-index:-1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.flip-icon .icon{transform:scaleX(-1)}.icon{display:inline-flex}.link{display:grid;height:100%;outline:none;place-items:center;position:absolute;width:100%}.touch{position:absolute;height:max(48px,100%);width:max(48px,100%)}:host([touch-target=none]) .touch{display:none}@media(forced-colors: active){:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1}}
 `;
 
 /**
@@ -2482,7 +2554,7 @@ const styles$11 = i$e `:host{display:inline-flex;outline:none;-webkit-tap-highli
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -2513,10 +2585,1127 @@ class OscdFilledIconButton extends ScopedElementsMixin$2(IconButton$2) {
     }
 }
 OscdFilledIconButton.scopedElements = {
-    'md-ripple': MdRipple$1,
-    'md-focus-ring': MdFocusRing$1,
+    'md-ripple': OscdRipple$1,
+    'md-focus-ring': OscdFocusRing$1,
 };
-OscdFilledIconButton.styles = [styles$11, styles$12];
+OscdFilledIconButton.styles = [styles$17, styles$18];
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A component for elevation.
+ */
+let Elevation$2 = class Elevation extends i$b {
+    connectedCallback() {
+        super.connectedCallback();
+        // Needed for VoiceOver, which will create a "group" if the element is a
+        // sibling to other content.
+        this.setAttribute('aria-hidden', 'true');
+    }
+    render() {
+        return b$2 `<span class="shadow"></span>`;
+    }
+};
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./elevation/internal/elevation-styles.css.
+const styles$16 = i$e `:host,.shadow,.shadow::before,.shadow::after{border-radius:inherit;inset:0;position:absolute;transition-duration:inherit;transition-property:inherit;transition-timing-function:inherit}:host{display:flex;pointer-events:none;transition-property:box-shadow,opacity}.shadow::before,.shadow::after{content:"";transition-property:box-shadow,opacity;--_level: var(--md-elevation-level, 0);--_shadow-color: var(--md-elevation-shadow-color, var(--md-sys-color-shadow, #000))}.shadow::before{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 3,1) + 2*clamp(0,var(--_level) - 4,1))) calc(1px*(2*clamp(0,var(--_level),1) + clamp(0,var(--_level) - 2,1) + clamp(0,var(--_level) - 4,1))) 0px var(--_shadow-color);opacity:.3}.shadow::after{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 1,1) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(3*clamp(0,var(--_level),2) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(clamp(0,var(--_level),4) + 2*clamp(0,var(--_level) - 4,1))) var(--_shadow-color);opacity:.15}
+`;
+
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
+ */
+/**
+ * @tagname oscd-elevation
+ * The `<oscd-elevation>` custom element with default styles.
+ *
+ * Elevation is the relative distance between two surfaces along the z-axis.
+ *
+ * @final
+ * @suppress {visibility}
+ */
+let OscdElevation$1 = class OscdElevation extends Elevation$2 {
+};
+OscdElevation$1.styles = [styles$16];
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @tag oscd-app-bar
+ * @class OscdAppBar
+ * @extends ScopedElementsMixin(LitElement)
+ * @summary A component that renders an app bar.
+ *
+ * The app bar is a top-level navigation component that displays information and actions relating to the current screen.
+ * It can contain a title, navigation icons, and action icons.
+ * The app bar is typically used in conjunction with a navigation drawer or bottom navigation.
+ *
+ * The main row follows the MD3 small top-app-bar defaults. Set `scrolled` when
+ * the consumer determines that the page has scrolled. The sub-bar keeps its
+ * primary-colored appearance in either state.
+ *
+ * @slot alignStart - Slot for action icons at the start of the app bar.
+ * @slot alignMiddle - Slot for the headline content.
+ * @slot alignEnd - Slot for action icons at the end of the app bar.
+ * @slot Default - Slot for additional content which will appear immediately under the main app bar.
+ *
+ * @cssprop [--oscd-app-bar-container-color=var(--md-sys-color-surface, #fef7ff)] - Main-row container color at rest.
+ * @cssprop [--oscd-app-bar-container-height=64px] - Main-row height.
+ * @cssprop [--oscd-app-bar-container-small-height=64px] - Main-row height at viewport widths up to 599px.
+ * @cssprop [--oscd-app-bar-container-elevation=0] - Main-row elevation at rest.
+ * @cssprop [--oscd-app-bar-container-shadow-color=var(--md-sys-color-shadow, #000)] - Main-row shadow color.
+ * @cssprop [--oscd-app-bar-headline-color=var(--md-sys-color-on-surface, #1d1b20)] - Headline color.
+ * @cssprop [--oscd-app-bar-headline-font=var(--md-sys-typescale-title-large-font, var(--md-ref-typeface-brand, Roboto))] - Headline font family.
+ * @cssprop [--oscd-app-bar-headline-size=var(--md-sys-typescale-title-large-size, 1.375rem)] - Headline font size.
+ * @cssprop [--oscd-app-bar-headline-line-height=var(--md-sys-typescale-title-large-line-height, 1.75rem)] - Headline line height.
+ * @cssprop [--oscd-app-bar-headline-weight=var(--md-sys-typescale-title-large-weight, 400)] - Headline font weight.
+ * @cssprop [--oscd-app-bar-leading-icon-color=var(--md-sys-color-on-surface, #1d1b20)] - Leading icon color.
+ * @cssprop [--oscd-app-bar-trailing-icon-color=var(--md-sys-color-on-surface-variant, #49454f)] - Trailing icon color.
+ * @cssprop [--oscd-app-bar-on-scroll-container-color=var(--md-sys-color-surface-container, #f3edf7)] - Main-row container color when `scrolled` is true.
+ * @cssprop [--oscd-app-bar-on-scroll-container-elevation=2] - Main-row elevation when `scrolled` is true.
+ */
+class OscdAppBar extends ScopedElementsMixin$2(i$b) {
+    constructor() {
+        super(...arguments);
+        this.scrolled = false;
+    }
+    static get scopedElements() {
+        return {
+            'oscd-elevation': OscdElevation$1,
+        };
+    }
+    // eslint-disable-next-line class-methods-use-this
+    render() {
+        return b$2 `
+      <header>
+        <div>
+          <div class="main-header">
+            <slot name="alignStart"></slot>
+            <span class="spacer"></span>
+            <slot name="alignMiddle"></slot>
+            <span class="spacer"></span>
+            <slot name="alignEnd"></slot>
+          </div>
+          <div class="sub-header">
+            <slot></slot>
+          </div>
+        </div>
+        <oscd-elevation part="elevation"></oscd-elevation>
+      </header>
+    `;
+    }
+}
+OscdAppBar.styles = i$e `
+    header {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      position: sticky;
+      top: 0;
+      z-index: 4;
+    }
+
+    .main-header {
+      padding: 0 12px;
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      height: var(--oscd-app-bar-container-height, 64px);
+      color: var(--md-sys-color-on-surface, #1d1b20);
+      background-color: var(
+        --oscd-app-bar-container-color,
+        var(--md-sys-color-surface, #fef7ff)
+      );
+    }
+
+    @media (max-width: 599px) {
+      .main-header {
+        height: var(--oscd-app-bar-container-small-height, 64px);
+      }
+    }
+
+    :host([scrolled]) .main-header {
+      background-color: var(
+        --oscd-app-bar-on-scroll-container-color,
+        var(--md-sys-color-surface-container, #f3edf7)
+      );
+    }
+
+    oscd-elevation {
+      --md-elevation-level: var(--oscd-app-bar-container-elevation, 0);
+      --md-elevation-shadow-color: var(
+        --oscd-app-bar-container-shadow-color,
+        var(--md-sys-color-shadow, #000)
+      );
+    }
+
+    :host([scrolled]) oscd-elevation {
+      --md-elevation-level: var(
+        --oscd-app-bar-on-scroll-container-elevation,
+        2
+      );
+    }
+
+    ::slotted([slot='title']),
+    ::slotted([slot='alignMiddle']) {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 16px;
+      color: var(
+        --oscd-app-bar-headline-color,
+        var(--md-sys-color-on-surface, #1d1b20)
+      );
+      font-family: var(
+        --oscd-app-bar-headline-font,
+        var(
+          --md-sys-typescale-title-large-font,
+          var(--md-ref-typeface-brand, Roboto)
+        )
+      );
+      font-size: var(
+        --oscd-app-bar-headline-size,
+        var(--md-sys-typescale-title-large-size, 1.375rem)
+      );
+      font-weight: var(
+        --oscd-app-bar-headline-weight,
+        var(--md-sys-typescale-title-large-weight, 400)
+      );
+      line-height: var(
+        --oscd-app-bar-headline-line-height,
+        var(--md-sys-typescale-title-large-line-height, 1.75rem)
+      );
+    }
+
+    ::slotted([slot='alignStart']) {
+      --md-icon-button-icon-color: var(
+        --oscd-app-bar-leading-icon-color,
+        var(--md-sys-color-on-surface, #1d1b20)
+      );
+    }
+
+    ::slotted([slot='alignEnd']) {
+      --md-icon-button-icon-color: var(
+        --oscd-app-bar-trailing-icon-color,
+        var(--md-sys-color-on-surface-variant, #49454f)
+      );
+    }
+
+    .sub-header {
+      display: flex;
+      width: 100%;
+      color: var(--md-sys-color-on-primary, #fff);
+      background-color: var(--md-sys-color-primary, #6750a4);
+    }
+
+    .spacer {
+      flex: 1;
+    }
+  `;
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], OscdAppBar.prototype, "scrolled", void 0);
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A divider component.
+ */
+let Divider$2 = class Divider extends i$b {
+    constructor() {
+        super(...arguments);
+        /**
+         * Indents the divider with equal padding on both sides.
+         */
+        this.inset = false;
+        /**
+         * Indents the divider with padding on the leading side.
+         */
+        this.insetStart = false;
+        /**
+         * Indents the divider with padding on the trailing side.
+         */
+        this.insetEnd = false;
+    }
+};
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], Divider$2.prototype, "inset", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true, attribute: 'inset-start' })
+], Divider$2.prototype, "insetStart", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true, attribute: 'inset-end' })
+], Divider$2.prototype, "insetEnd", void 0);
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./divider/internal/divider-styles.css.
+const styles$15 = i$e `:host{box-sizing:border-box;color:var(--md-divider-color, var(--md-sys-color-outline-variant, #cac4d0));display:flex;height:var(--md-divider-thickness, 1px);width:100%}:host([inset]),:host([inset-start]){padding-inline-start:16px}:host([inset]),:host([inset-end]){padding-inline-end:16px}:host::before{background:currentColor;content:"";height:100%;width:100%}@media(forced-colors: active){:host::before{background:CanvasText}}
+`;
+
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
+ */
+/**
+ * @tagname oscd-divider
+ * @summary A divider is a thin line that groups content in lists and
+ * containers.
+ *
+ * list items or define tappable regions in an accordion.
+ *
+ * @final
+ * @suppress {visibility}
+ */
+let OscdDivider$1 = class OscdDivider extends Divider$2 {
+};
+OscdDivider$1.styles = [styles$15];
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * An icon element.
+ */
+let Icon$4 = class Icon extends i$b {
+    render() {
+        return b$2 `<slot></slot>`;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        const ariaHidden = this.getAttribute('aria-hidden');
+        if (ariaHidden === 'false') {
+            // Allow the user to set `aria-hidden="false"` to create an icon that is
+            // announced by screenreaders.
+            this.removeAttribute('aria-hidden');
+            return;
+        }
+        // Needed for VoiceOver, which will create a "group" if the element is a
+        // sibling to other content.
+        this.setAttribute('aria-hidden', 'true');
+    }
+};
+
+const elementIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M9,7H15V9H11V11H15V13H11V15H15V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const attributeIcon$1 = w$1 `<svg viewBox="0 0 24 24">
+<path fill="currentColor" d="M11,7H13A2,2 0 0,1 15,9V17H13V13H11V17H9V9A2,2 0 0,1 11,7M11,9V11H13V9H11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z" />
+</svg>`;
+const contentIcon$1 = w$1 `<svg viewBox="0 0 24 24">
+<path fill="currentColor" d="M11,7H13A2,2 0 0,1 15,9V10H13V9H11V15H13V14H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+
+const editIcon$1 = w$1 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 25 25"
+>
+  <path
+    d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"
+    stroke="currentColor"
+    fill="transparent"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+</svg>`;
+const pathsSVG$1 = {
+    action: w$1 `<path d="M0 0h24v24H0z" fill="none"></path><path d="M13 3c-4.97 0-9
+  4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7
+  7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0
+  9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" fill="currentColor"></path>`,
+    dAIcon: w$1 `<path fill="currentColor" d="m4.2 0c-2.31 0-4.2 1.89-4.2 4.2v11.6c0 2.31 1.89 4.2 4.2 4.2h18.1c2.31 0 4.2-1.89 4.2-4.2v-11.6c0-2.31-1.89-4.2-4.2-4.2zm0 1.89h18.1c1.29 0 2.3 1.01 2.3 2.3v11.6c0 1.29-1.01 2.31-2.3 2.31h-18.1c-1.29 0-2.3-1.01-2.3-2.31v-11.6c0-1.29 1.01-2.3 2.3-2.3z"/><path stroke="none" fill="currentColor" d="m12.5 9.94q0 1.55-0.509 2.71-0.503 1.15-1.43 1.76-0.923 0.611-2.12 0.611h-3.37v-10h3.02q2.11 0 3.26 1.28 1.15 1.27 1.15 3.65zm-1.76 0q0-1.61-0.698-2.46-0.698-0.852-1.99-0.852h-1.24v6.77h1.48q1.12 0 1.79-0.931 0.663-0.931 0.663-2.53z"/><path stroke="none" fill="currentColor" d="m19.7 15-0.74-2.56h-3.18l-0.74 2.56h-1.75l3.04-10h2.06l3.03 10zm-1.13-4.13-0.823-2.88-0.379-1.46q-0.0947 0.412-0.178 0.739-0.0829 0.327-1.02 3.59z"/>`,
+    dOIcon: w$1 `<path fill="none" stroke="currentColor" stroke-width="1.89" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path stroke="none" fill="currentColor" d="m12.1 9.94q0 1.55-0.509 2.71-0.503 1.15-1.43 1.76-0.923 0.611-2.12 0.611h-3.37v-10h3.02q2.11 0 3.26 1.28 1.15 1.27 1.15 3.65zm-1.76 0q0-1.61-0.698-2.46-0.698-0.852-1.99-0.852h-1.24v6.77h1.48q1.12 0 1.79-0.931 0.663-0.931 0.663-2.53z"/><path stroke="none" fill="currentColor" d="m21.6 9.97q0 1.56-0.515 2.75-0.515 1.19-1.47 1.82-0.959 0.625-2.24 0.625-1.97 0-3.08-1.39-1.11-1.39-1.11-3.81 0-2.41 1.11-3.76t3.1-1.35 3.1 1.36q1.12 1.36 1.12 3.74zm-1.78 0q0-1.62-0.639-2.54-0.639-0.923-1.79-0.923-1.17 0-1.81 0.916-0.639 0.909-0.639 2.54 0 1.65 0.651 2.6 0.657 0.945 1.79 0.945 1.17 0 1.81-0.923 0.639-0.923 0.639-2.62z"/>`,
+    enumIcon: w$1 `<path fill="none" stroke="currentColor" stroke-width="1.89" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path d="m5.37 15v-10h6.56v1.62h-4.81v2.51h4.45v1.62h-4.45v2.64h5.06v1.62z"/><path d="m18.5 15-3.63-7.71q0.107 1.12 0.107 1.8v5.9h-1.55v-10h1.99l3.69 7.77q-0.107-1.07-0.107-1.95v-5.82h1.55v10z"/>`,
+    info: w$1 `<path d="M0 0h24v24H0z" fill="none"></path><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"></path>`,
+    'scl-warning': w$1 `<path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"></path>`,
+    error: w$1 `<path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM19 14.9L14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z" fill="currentColor"></path><path d="M11 7h2v7h-2z" fill="currentColor"></path><circle cx="12" cy="16" r="1" fill="currentColor"></circle>`,
+    gooseIcon: w$1 `<path fill="currentColor" d="M11,7H15V9H11V15H13V11H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    lNIcon: w$1 `<path stroke="currentColor" stroke-width="1.89" fill="none" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path fill="currentColor" d="m5.71 15v-10h1.75v8.39h4.47v1.62z"/><path fill="currentColor" d="m18.2 15-3.63-7.71q0.107 1.12 0.107 1.8v5.9h-1.55v-10h1.99l3.69 7.77q-0.107-1.07-0.107-1.95v-5.82h1.55v10z"/>`,
+    logIcon: w$1 `<path fill="currentColor" d="M9,7H11V15H15V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    reportIcon: w$1 `<path fill="currentColor" d="M9,7H13A2,2 0 0,1 15,9V11C15,11.84 14.5,12.55 13.76,12.85L15,17H13L11.8,13H11V17H9V7M11,9V11H13V9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    dataSetIcon: w$1 `<path fill="currentColor" d="M9,7H12.5A3.5,3.5 0 0,1 16,10.5V13.5A3.5,3.5 0 0,1 12.5,17H9V7M11,9V15H12.5A1.5,1.5 0 0,0 14,13.5V10.5A1.5,1.5 0 0,0 12.5,9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    smvIcon: w$1 `<path fill="currentColor" d="M11,7H15V9H11V11H13A2,2 0 0,1 15,13V15A2,2 0 0,1 13,17H9V15H13V13H11A2,2 0 0,1 9,11V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    reset: w$1 ``,
+};
+const gooseIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG$1['gooseIcon']}</svg>`;
+const reportIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG$1['reportIcon']}</svg>`;
+const smvIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG$1['smvIcon']}</svg>`;
+const dataSetIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG$1['dataSetIcon']}</svg>`;
+const logIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG$1['logIcon']}</svg>`;
+const inputIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z" />
+</svg>`;
+const clientIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M21,14V4H3V14H21M21,2A2,2 0 0,1 23,4V16A2,2 0 0,1 21,18H14L16,21V22H8V21L10,18H3C1.89,18 1,17.1 1,16V4C1,2.89 1.89,2 3,2H21M4,5H15V10H4V5M16,5H20V7H16V5M20,8V13H16V8H20M4,11H9V13H4V11M10,11H15V13H10V11Z" />
+</svg>`;
+const disconnect$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M4,1C2.89,1 2,1.89 2,3V7C2,8.11 2.89,9 4,9H1V11H13V9H10C11.11,9 12,8.11 12,7V3C12,1.89 11.11,1 10,1H4M4,3H10V7H4V3M14,13C12.89,13 12,13.89 12,15V19C12,20.11 12.89,21 14,21H11V23H23V21H20C21.11,21 22,20.11 22,19V15C22,13.89 21.11,13 20,13H14M3.88,13.46L2.46,14.88L4.59,17L2.46,19.12L3.88,20.54L6,18.41L8.12,20.54L9.54,19.12L7.41,17L9.54,14.88L8.12,13.46L6,15.59L3.88,13.46M14,15H20V19H14V15Z" />
+</svg>`;
+const networkConfigIcon$1 = w$1 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  slot="icon"
+  width="25px"
+  height="25px"
+  style="margin-bottom:0px;"
+>
+  <rect
+    width="8"
+    height="8"
+    x="8.5"
+    y="2"
+    rx="1"
+    ry="1"
+    fill="transparent"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <rect
+    width="8"
+    height="8"
+    x="2.5"
+    y="15"
+    rx="1"
+    ry="1"
+    fill="transparent"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <rect
+    width="8"
+    height="8"
+    x="15"
+    y="15"
+    rx="1"
+    ry="1"
+    fill="transparent"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+
+  <line
+    x1="2"
+    y1="12.5"
+    x2="23"
+    y2="12.5"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-width="1.5"
+  />
+  <line
+    x1="12.5"
+    y1="10"
+    x2="12.5"
+    y2="12.5"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <line
+    x1="6.5"
+    y1="12.5"
+    x2="6.5"
+    y2="15"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+  <line
+    x1="19"
+    y1="12.5"
+    x2="19"
+    y2="15"
+    stroke="currentColor"
+    stroke-width="1.5"
+  />
+</svg>`;
+const zeroLineIcon$1 = w$1 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  slot="icon"
+  viewBox="0 0 25 25"
+>
+  <path
+    d="M 2 9 L 12.5 2 L 23 9 L 21 9 L 21 21 L 4 21 L 4 9 Z"
+    fill="transparent"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M 11 7 L 17.5 7 L 13.5 11 L 16.5 11 L 10 19 L 11.5 13 L 8.5 13 Z "
+    fill="currentColor"
+  />
+</svg>`;
+const voltageLevelIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: currentColor;
+        opacity: 0;
+      }
+    </style>
+  </defs>
+  <path
+    class="cls-1"
+    d="M11.13,20.06L3.63,6.93c-.27-.48-.11-1.09.37-1.36h0c.48-.27,1.09-.11,1.36.37l6.64,11.61,6.64-11.61c.27-.48.88-.65,1.36-.37h0c.48.27.65.88.37,1.36l-7.5,13.13c-.38.67-1.35.67-1.74,0Z"
+  />
+  <rect class="cls-2" width="24" height="24" />
+</svg>`;
+const bayIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path
+    class="cls-1"
+    d="M7.75,8c0-.41-.34-.75-.75-.75s-.75.34-.75.75v1.5h-1.25c0,.84.52,1.55,1.25,1.85v8.65h1.5v-8.65c.73-.3,1.25-1.01,1.25-1.85h-1.25v-1.5Z"
+  />
+  <path
+    class="cls-1"
+    d="M12.75,8c0-.41-.34-.75-.75-.75s-.75.34-.75.75v1.5h-1.25c0,.84.52,1.55,1.25,1.85v8.65h1.5v-8.65c.73-.3,1.25-1.01,1.25-1.85h-1.25v-1.5Z"
+  />
+  <path
+    class="cls-1"
+    d="M17.75,8c0-.41-.34-.75-.75-.75s-.75.34-.75.75v1.5h-1.25c0,.84.52,1.55,1.25,1.85v8.65h1.5v-8.65c.73-.3,1.25-1.01,1.25-1.85h-1.25v-1.5Z"
+  />
+  <path
+    class="cls-1"
+    d="M20,4H4c-1.1,0-2,.9-2,2v4c0,1.1.9,2,2,2v-6h16v6c1.1,0,2-.9,2-2v-4c0-1.1-.9-2-2-2Z"
+  />
+</svg>`;
+const disconnectorIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        opacity: 0;
+      }
+    </style>
+  </defs>
+  <g>
+    <path
+      class="cls-1"
+      d="M12.71,15.29l-6.79-6.79c-.39-.39-1.02-.39-1.41,0-.39.39-.39,1.02,0,1.41l6.5,6.5v4.59c0,.55.45,1,1,1s1-.45,1-1v-5c0-.13-.03-.26-.08-.38-.05-.12-.12-.23-.22-.33Z"
+    />
+    <path
+      class="cls-1"
+      d="M14,6h-1v-3c0-.55-.45-1-1-1s-1,.45-1,1v3h-1c-.55,0-1,.45-1,1s.45,1,1,1h4c.55,0,1-.45,1-1s-.45-1-1-1Z"
+    />
+  </g>
+  <rect class="cls-2" width="24" height="24" />
+</svg>`;
+const circuitBreakerIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        opacity: 0;
+      }
+    </style>
+  </defs>
+  <g>
+    <path
+      class="cls-1"
+      d="M12.71,15.29l-6.79-6.79c-.39-.39-1.02-.39-1.41,0-.39.39-.39,1.02,0,1.41l6.5,6.5v4.59c0,.55.45,1,1,1s1-.45,1-1v-5c0-.13-.03-.26-.08-.38-.05-.12-.12-.23-.22-.33Z"
+    />
+    <path
+      class="cls-1"
+      d="M13.41,7l1.29-1.29c.39-.39.39-1.02,0-1.41s-1.02-.39-1.41,0l-1.29,1.29-1.29-1.29c-.39-.39-1.02-.39-1.41,0s-.39,1.02,0,1.41l1.29,1.29-1.29,1.29c-.39.39-.39,1.02,0,1.41.2.2.45.29.71.29s.51-.1.71-.29l1.29-1.29,1.29,1.29c.2.2.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.02,0-1.41l-1.29-1.29Z"
+    />
+  </g>
+  <rect class="cls-2" width="24" height="24" />
+</svg>`;
+const currentTransformerIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        opacity: 0;
+      }
+    </style>
+  </defs>
+  <path
+    class="cls-1"
+    d="M19,12c0-3.53-2.61-6.43-6-6.92v-2.08c0-.55-.45-1-1-1s-1,.45-1,1v2.08c-3.39.49-6,3.39-6,6.92s2.61,6.43,6,6.92v2.08c0,.55.45,1,1,1s1-.45,1-1v-2.08c3.39-.49,6-3.39,6-6.92ZM7,12c0-2.42,1.72-4.44,4-4.9v9.8c-2.28-.46-4-2.48-4-4.9ZM13,16.9V7.1c2.28.46,4,2.48,4,4.9s-1.72,4.44-4,4.9Z"
+  />
+  <rect class="cls-2" width="24" height="24" />
+</svg>`;
+const voltageTransformerIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        opacity: 0;
+      }
+    </style>
+  </defs>
+  <path
+    class="cls-1"
+    d="M17,10c0-2.42-1.72-4.44-4-4.9v-2.1s0-1-1-1-1,1-1,1v2.1c-2.28.46-4,2.48-4,4.9,0,.71.15,1.39.42,2-.27.61-.42,1.29-.42,2,0,2.42,1.72,4.44,4,4.9v1.1h-1c-.55,0-1,.45-1,1s.45,1,1,1h4c.55,0,1-.45,1-1s-.45-1-1-1h-1v-1.1c2.28-.46,4-2.48,4-4.9,0-.71-.15-1.39-.42-2,.27-.61.42-1.29.42-2ZM12,7c1.66,0,3,1.34,3,3,0,0,0,.01,0,.02-.84-.63-1.87-1.02-3-1.02s-2.16.39-3,1.02c0,0,0-.01,0-.02,0-1.66,1.34-3,3-3ZM14.22,12c-.55.61-1.34,1-2.22,1s-1.67-.39-2.22-1c.55-.61,1.34-1,2.22-1s1.67.39,2.22,1ZM12,17c-1.66,0-3-1.34-3-3,0,0,0-.01,0-.02.84.63,1.87,1.02,3,1.02s2.16-.39,3-1.02c0,0,0,.01,0,.02,0,1.66-1.34,3-3,3Z"
+  />
+  <rect class="cls-2" width="24" height="24" />
+</svg>`;
+const earthSwitchIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+
+      .cls-1,
+      .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        opacity: 0;
+      }
+    </style>
+  </defs>
+  <g>
+    <path
+      class="cls-1"
+      d="M13,20h-2c-.55,0-1,.45-1,1s.45,1,1,1h2c.55,0,1-.45,1-1s-.45-1-1-1Z"
+    />
+    <path
+      class="cls-1"
+      d="M15,16h-2v-5c0-.13-.03-.26-.08-.38-.05-.12-.12-.23-.22-.33L5.91,3.5c-.39-.39-1.02-.39-1.41,0-.39.39-.39,1.02,0,1.41l6.5,6.5v4.59h-2c-.55,0-1,.45-1,1s.45,1,1,1h6c.55,0,1-.45,1-1s-.45-1-1-1Z"
+    />
+    <path
+      class="cls-1"
+      d="M10,4h4c.55,0,1-.45,1-1s-.45-1-1-1h-4c-.55,0-1,.45-1,1s.45,1,1,1Z"
+    />
+  </g>
+  <rect class="cls-2" width="24" height="24" />
+</svg>`;
+const generalConductingEquipmentIcon$1 = w$1 `<svg
+  id="Laag_1"
+  data-name="Laag 1"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path
+    class="cls-1"
+    d="M20.41,3.59c-.78-.78-2.05-.78-2.83,0-.59.59-.73,1.47-.43,2.19l-1.49,1.49c-1.02-.79-2.29-1.27-3.67-1.27-3.31,0-6,2.69-6,6,0,1.38.48,2.66,1.27,3.67l-1.49,1.49c-.73-.31-1.6-.17-2.19.43-.78.78-.78,2.05,0,2.83.78.78,2.05.78,2.83,0,.59-.59.73-1.47.43-2.19l1.49-1.49c1.02.79,2.29,1.27,3.67,1.27,3.31,0,6-2.69,6-6,0-1.38-.48-2.66-1.27-3.67l1.49-1.49c.73.31,1.6.17,2.19-.43.78-.78.78-2.05,0-2.83ZM12,16c-2.21,0-4-1.79-4-4s1.79-4,4-4,4,1.79,4,4-1.79,4-4,4Z"
+  />
+</svg>`;
+const connectivityNodeIcon$1 = w$1 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <circle
+    stroke="currentColor"
+    fill="currentColor"
+    stroke-width="1"
+    cx="12.5"
+    cy="12.5"
+    r="5"
+  />
+</svg>`;
+const powerTransformerTwoWindingIcon$1 = w$1 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 25 25"
+>
+  <line
+    x1="12.5"
+    y1="2"
+    x2="12.5"
+    y2="5"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <circle
+    cx="12.5"
+    cy="10"
+    r="5"
+    stroke="currentColor"
+    fill="transparent"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <circle
+    cx="12.5"
+    cy="15"
+    r="5"
+    stroke="currentColor"
+    fill="transparent"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <line
+    x1="12.5"
+    y1="20"
+    x2="12.5"
+    y2="23"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+</svg>`;
+const openSCDIcon$1 = w$1 ` <svg
+  xmlns="http://www.w3.org/2000/svg"
+  style="width:100px;height:100px"
+  viewBox="0 0 25 25"
+>
+  <path
+    d="M 2 9 L 12.5 2 L 23 9 L 21 9 L 21 21 L 4 21 L 4 9 Z"
+    fill="#eee8d5"
+    stroke="#6c71c4"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M 11 7 L 17.5 7 L 13.5 11 L 16.5 11 L 10 19 L 11.5 13 L 8.5 13 Z "
+    fill="#2aa198"
+  />
+</svg>`;
+const sizableSmvIcon$1 = w$1 `
+  <svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M11,7H15V9H11V11H13A2,2 0 0,1 15,13V15A2,2 0 0,1 13,17H9V15H13V13H11A2,2 0 0,1 9,11V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+  </svg>`;
+const sizableGooseIcon$1 = w$1 `<svg viewBox="0 0 24 24">
+<path fill="currentColor" d="M11,7H15V9H11V15H13V11H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const substationIcon$1 = w$1 `<svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<defs>
+  <style>
+    .cls-1 {
+      fill: currentColor;
+    }
+
+    .cls-1, .cls-2 {
+      stroke-width: 0px;
+    }
+
+    .cls-2 {
+      fill: currentColor;
+      opacity: 0;
+    }
+  </style>
+</defs>
+<g>
+  <path class="cls-1" d="M19.3,7.94l-6-5.14c-.75-.64-1.85-.65-2.6,0l-6,5.14c-.44.38-.7.93-.7,1.52v9.54c0,1.1.9,2,2,2h12c1.1,0,2-.9,2-2v-9.54c0-.58-.25-1.14-.7-1.52ZM18,19H6v-9.54l6-5.14,6,5.14v9.54Z"/>
+  <path class="cls-1" d="M11.57,7.74l-3,5c-.09.15-.09.35,0,.5.09.16.26.25.44.25h2v3.5c0,.22.15.42.37.48.04.01.09.02.13.02.17,0,.34-.09.43-.24l3-5c.09-.15.09-.35,0-.5-.09-.16-.26-.25-.44-.25h-2v-3.5c0-.22-.15-.42-.37-.48-.22-.06-.45.03-.56.22Z"/>
+</g>
+<rect class="cls-2" y="0" width="24" height="24"/>
+</svg>`;
+const lineIcon$1 = w$1 `<svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<defs>
+  <style>
+    .cls-1 {
+      fill: currentColor;
+    }
+
+    .cls-1, .cls-2 {
+      stroke-width: 0px;
+    }
+
+    .cls-2 {
+      fill: currentColor;
+      opacity: 0;
+    }
+  </style>
+</defs>
+<path class="cls-1" d="M14.39,11.93l-1.39.58v-1.84l2.15-.89c.51-.21.75-.8.54-1.31-.21-.51-.8-.75-1.31-.54l-1.39.58V3c0-.55-.45-1-1-1s-1,.45-1,1v6.33l-2.15.89c-.51.21-.75.8-.54,1.31.21.51.8.75,1.31.54l1.39-.58v1.84l-2.15.89c-.51.21-.75.8-.54,1.31.21.51.8.75,1.31.54l1.39-.58v5.5c0,.55.45,1,1,1s1-.45,1-1v-6.33l2.15-.89c.51-.21.75-.8.54-1.31-.21-.51-.8-.75-1.31-.54Z"/>
+<rect class="cls-2" width="24" height="24"/>
+</svg>`;
+const processIcon$1 = w$1 `<svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<defs>
+  <style>
+    .cls-1 {
+      fill: currentColor;
+    }
+
+    .cls-1, .cls-2 {
+      stroke-width: 0px;
+    }
+
+    .cls-2 {
+      fill: currentColor;
+      opacity: 0;
+    }
+  </style>
+</defs>
+<path class="cls-1" d="M18.71,15.29c-.39-.39-1.02-.39-1.41,0s-.39,1.02,0,1.41l.29.29h-5.59c0-1.1-.9-2-2-2h-2c-1.01,0-1.84.76-1.97,1.74-.61-.34-1.03-.99-1.03-1.74,0-1.1.9-2,2-2h5c0,1.1.9,2,2,2h2c1.1,0,2-.9,2-2v-.14c1.72-.45,3-2,3-3.86,0-2.21-1.79-4-4-4h-5c0-1.1-.9-2-2-2h-2c-1.1,0-2,.9-2,2h-2c-.55,0-1,.45-1,1s.45,1,1,1h2c0,1.1.9,2,2,2h2c1.1,0,2-.9,2-2h5c1.1,0,2,.9,2,2,0,.75-.42,1.39-1.03,1.74-.13-.98-.96-1.74-1.97-1.74h-2c-1.1,0-2,.9-2,2h-5c-2.21,0-4,1.79-4,4,0,1.86,1.28,3.41,3,3.86v.14c0,1.1.9,2,2,2h2c1.1,0,2-.9,2-2h5.59l-.29.29c-.39.39-.39,1.02,0,1.41.2.2.45.29.71.29s.51-.1.71-.29l2-2c.39-.39.39-1.02,0-1.41l-2-2ZM8,7v-2h2v2s-2,0-2,0ZM14,11h2v2s-2,0-2,0v-2ZM8,19v-2h2v2s-2,0-2,0Z"/>
+<rect class="cls-2" y="0" width="24" height="24"/>
+</svg>`;
+const transformerWindingIcon$1 = w$1 `<svg id="Laag_1" data-name="Laag 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<defs>
+  <style>
+    .cls-1 {
+      fill: currentColor;
+    }
+
+    .cls-1, .cls-2 {
+      stroke-width: 0px;
+    }
+
+    .cls-2 {
+      fill: currentColor;
+      opacity: 0;
+    }
+  </style>
+</defs>
+<g>
+  <path class="cls-1" d="M19,20h-2c-1.21,0-2.18-1.09-1.97-2.34.16-.98,1.09-1.66,2.08-1.66h-.11c.55,0,1-.45,1-1s-.42-.96-.95-.99c.04,0,.08-.01.12-.01h-.17c-1.21,0-2.18-1.09-1.97-2.34.16-.98,1.09-1.66,2.08-1.66h-.11c.55,0,1-.45,1-1s-.42-.96-.95-.99c.04,0,.08-.01.12-.01h-.17c-1.21,0-2.18-1.09-1.97-2.34.16-.98,1.09-1.66,2.08-1.66h1.89c.55,0,1-.45,1-1s-.45-1-1-1h-1.83c-2.09,0-3.95,1.53-4.15,3.61-.13,1.37.44,2.59,1.38,3.41-.76.64-1.28,1.55-1.38,2.59-.13,1.37.44,2.59,1.38,3.41-.76.64-1.28,1.55-1.38,2.59-.23,2.39,1.64,4.39,3.98,4.39h2c.55,0,1-.45,1-1s-.45-1-1-1Z"/>
+  <path class="cls-1" d="M10.98,6.39c.23-2.39-1.64-4.39-3.98-4.39h-2c-.55,0-1,.45-1,1s.45,1,1,1h2c1.21,0,2.18,1.09,1.97,2.34-.16.98-1.09,1.66-2.08,1.66h.11c-.55,0-1,.45-1,1s.42.96.95.99c-.04,0-.08.01-.12.01h.17c1.21,0,2.18,1.09,1.97,2.34-.16.98-1.09,1.66-2.08,1.66h.11c-.55,0-1,.45-1,1,0,.28.11.53.29.71.17.17.4.27.65.28h0s.03.01.05.01c1.21,0,2.18,1.09,1.97,2.34-.16.98-1.09,1.66-2.08,1.66h-1.89c-.55,0-1,.45-1,1s.45,1,1,1h1.83c2.09,0,3.95-1.53,4.15-3.61.13-1.37-.44-2.59-1.38-3.41.76-.64,1.28-1.55,1.38-2.59.13-1.37-.44-2.59-1.38-3.41.76-.64,1.28-1.55,1.38-2.59Z"/>
+  <path class="cls-1" d="M6.83,16h.17s-.03,0-.05-.01c-.04,0-.08.01-.12.01Z"/>
+</g>
+<rect class="cls-2" width="24" height="24"/>
+</svg>`;
+
+const accessPointIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M4.93,4.93C3.12,6.74 2,9.24 2,12C2,14.76 3.12,17.26 4.93,19.07L6.34,17.66C4.89,16.22 4,14.22 4,12C4,9.79 4.89,7.78 6.34,6.34L4.93,4.93M19.07,4.93L17.66,6.34C19.11,7.78 20,9.79 20,12C20,14.22 19.11,16.22 17.66,17.66L19.07,19.07C20.88,17.26 22,14.76 22,12C22,9.24 20.88,6.74 19.07,4.93M7.76,7.76C6.67,8.85 6,10.35 6,12C6,13.65 6.67,15.15 7.76,16.24L9.17,14.83C8.45,14.11 8,13.11 8,12C8,10.89 8.45,9.89 9.17,9.17L7.76,7.76M16.24,7.76L14.83,9.17C15.55,9.89 16,10.89 16,12C16,13.11 15.55,14.11 14.83,14.83L16.24,16.24C17.33,15.15 18,13.65 18,12C18,10.35 17.33,8.85 16.24,7.76M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z" />
+</svg>`;
+const serverIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M4,1H20A1,1 0 0,1 21,2V6A1,1 0 0,1 20,7H4A1,1 0 0,1 3,6V2A1,1 0 0,1 4,1M4,9H20A1,1 0 0,1 21,10V14A1,1 0 0,1 20,15H4A1,1 0 0,1 3,14V10A1,1 0 0,1 4,9M4,17H20A1,1 0 0,1 21,18V22A1,1 0 0,1 20,23H4A1,1 0 0,1 3,22V18A1,1 0 0,1 4,17M9,5H10V3H9V5M9,13H10V11H9V13M9,21H10V19H9V21M5,3V5H7V3H5M5,11V13H7V11H5M5,19V21H7V19H5Z" />
+</svg>`;
+const logicalDeviceIcon$1 = w$1 `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M13,13H18V15H13M13,9H18V11H13M6.91,7.41L11.5,12L6.91,16.6L5.5,15.18L8.68,12L5.5,8.82M5,3C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3H5Z" />
+</svg>`;
+
+const systemLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H11V15H15V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const automationLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M11,7H13A2,2 0 0,1 15,9V17H13V13H11V17H9V9A2,2 0 0,1 11,7M11,9V11H13V9H11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z" />
+</svg>`;
+const controlLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M11,7H13A2,2 0 0,1 15,9V10H13V9H11V15H13V14H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const functionalLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H15V9H11V11H14V13H11V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const generalLogicalNode$1 = w$1 `<svg  viewBox="0 0 24 24">
+    <path fill="currentColor" d="M11,7H15V9H11V15H13V11H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const interfacingLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M14,7V9H13V15H14V17H10V15H11V9H10V7H14M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const nonElectricalLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+<path fill="currentColor" d="M9,7H11V10.33L13,7H15L12,12L15,17H13L11,13.67V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const measurementLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H15A2,2 0 0,1 17,9V17H15V9H13V16H11V9H9V17H7V9A2,2 0 0,1 9,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const protectionLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H13A2,2 0 0,1 15,9V11A2,2 0 0,1 13,13H11V17H9V7M11,9V11H13V9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const qualityLogicalNode$1 = w$1 `<svg  viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13A2,2 0 0,1 15,9V15A2,2 0 0,1 13,17V19H11V17A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M11,9V15H13V9H11Z" />
+</svg>`;
+const protectionRelatedLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H13A2,2 0 0,1 15,9V11C15,11.84 14.5,12.55 13.76,12.85L15,17H13L11.8,13H11V17H9V7M11,9V11H13V9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const supervisionLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M11,7H15V9H11V11H13A2,2 0 0,1 15,13V15A2,2 0 0,1 13,17H9V15H13V13H11A2,2 0 0,1 9,11V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const transformerLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H15V9H13V17H11V9H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const switchgearLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H11L12,9.5L13,7H15L13,12L15,17H13L12,14.5L11,17H9L11,12L9,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const powerTransformerLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H11L12,10L13,7H15L13,13V17H11V13L9,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+const furtherPowerSystemEquipmentLogicalNode$1 = w$1 `<svg viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9,7H15V9L11,15H15V17H9V15L13,9H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />
+</svg>`;
+
+/**
+ * @license
+ * Copyright 2026 OMICRON electronics GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ */
+function pathToSvg$1(type) {
+    return w$1 `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24"
+    viewBox="0 0 26.5 24"
+    width="24"
+  >
+    ${pathsSVG$1[type]}
+  </svg> `;
+}
+const SCL_ICONS$1 = {
+    elementIcon: elementIcon$1,
+    attributeIcon: attributeIcon$1,
+    contentIcon: contentIcon$1,
+    editIcon: editIcon$1,
+    gooseIcon: gooseIcon$1,
+    reportIcon: reportIcon$1,
+    smvIcon: smvIcon$1,
+    dataSetIcon: dataSetIcon$1,
+    logIcon: logIcon$1,
+    inputIcon: inputIcon$1,
+    clientIcon: clientIcon$1,
+    disconnect: disconnect$1,
+    networkConfigIcon: networkConfigIcon$1,
+    zeroLineIcon: zeroLineIcon$1,
+    voltageLevelIcon: voltageLevelIcon$1,
+    bayIcon: bayIcon$1,
+    disconnectorIcon: disconnectorIcon$1,
+    circuitBreakerIcon: circuitBreakerIcon$1,
+    currentTransformerIcon: currentTransformerIcon$1,
+    voltageTransformerIcon: voltageTransformerIcon$1,
+    earthSwitchIcon: earthSwitchIcon$1,
+    generalConductingEquipmentIcon: generalConductingEquipmentIcon$1,
+    connectivityNodeIcon: connectivityNodeIcon$1,
+    powerTransformerTwoWindingIcon: powerTransformerTwoWindingIcon$1,
+    openSCDIcon: openSCDIcon$1,
+    sizableSmvIcon: sizableSmvIcon$1,
+    sizableGooseIcon: sizableGooseIcon$1,
+    substationIcon: substationIcon$1,
+    lineIcon: lineIcon$1,
+    processIcon: processIcon$1,
+    transformerWindingIcon: transformerWindingIcon$1,
+    accessPointIcon: accessPointIcon$1,
+    serverIcon: serverIcon$1,
+    logicalDeviceIcon: logicalDeviceIcon$1,
+    systemLogicalNode: systemLogicalNode$1,
+    automationLogicalNode: automationLogicalNode$1,
+    controlLogicalNode: controlLogicalNode$1,
+    functionalLogicalNode: functionalLogicalNode$1,
+    generalLogicalNode: generalLogicalNode$1,
+    interfacingLogicalNode: interfacingLogicalNode$1,
+    nonElectricalLogicalNode: nonElectricalLogicalNode$1,
+    measurementLogicalNode: measurementLogicalNode$1,
+    protectionLogicalNode: protectionLogicalNode$1,
+    qualityLogicalNode: qualityLogicalNode$1,
+    protectionRelatedLogicalNode: protectionRelatedLogicalNode$1,
+    supervisionLogicalNode: supervisionLogicalNode$1,
+    transformerLogicalNode: transformerLogicalNode$1,
+    switchgearLogicalNode: switchgearLogicalNode$1,
+    powerTransformerLogicalNode: powerTransformerLogicalNode$1,
+    furtherPowerSystemEquipmentLogicalNode: furtherPowerSystemEquipmentLogicalNode$1,
+    ...Object.keys(pathsSVG$1).reduce((acc, key) => {
+        acc[key] = pathToSvg$1(key);
+        return acc;
+    }, {}),
+};
+({
+    DAType: pathToSvg$1('dAIcon'),
+    DOType: pathToSvg$1('dOIcon'),
+    EnumType: pathToSvg$1('enumIcon'),
+    LNodeType: pathToSvg$1('lNIcon'),
+});
+
+/**
+ * @license
+ * Copyright 2026 OMICRON electronics GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Internal Icon base class that extends the Material Design Icon with
+ * automatic SCL icon resolution.
+ *
+ * When the text content of the element matches a key in {@link SCL_ICONS},
+ * the corresponding SVG is rendered instead of the default Material Symbols
+ * font ligature. If no match is found the element falls through to the
+ * standard `<slot></slot>` rendering from the Material base class so that
+ * Material Symbols font ligatures continue to work as before.
+ */
+let Icon$3 = class Icon extends Icon$4 {
+    constructor() {
+        super(...arguments);
+        this._sclName = '';
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this._updateSclName();
+        this._observer = new MutationObserver(() => {
+            this._updateSclName();
+        });
+        this._observer.observe(this, {
+            characterData: true,
+            subtree: true,
+            childList: true,
+        });
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this._observer?.disconnect();
+        this._observer = undefined;
+    }
+    _updateSclName() {
+        const name = (this.textContent ?? '').trim();
+        if (name !== this._sclName) {
+            this._sclName = name;
+            this.requestUpdate();
+        }
+    }
+    render() {
+        const sclSvg = SCL_ICONS$1[this._sclName];
+        if (sclSvg) {
+            return b$2 `${sclSvg}`;
+        }
+        return super.render();
+    }
+};
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./icon/internal/icon-styles.css.
+const styles$14 = i$e `:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
+`;
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @license
+ * Copyright 2026 OMICRON electronics GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Icon component that renders SCL domain icons by name or falls back to
+ * Material Symbols font ligatures.
+ *
+ * @example
+ * ```html
+ * <!-- SCL icon by name -->
+ * <oscd-icon>gooseIcon</oscd-icon>
+ *
+ * <!-- Material Symbols ligature (unchanged) -->
+ * <oscd-icon>edit</oscd-icon>
+ * ```
+ *
+ * @tagname oscd-icon
+ * @final
+ * @suppress {visibility}
+ */
+let OscdIcon$1 = class OscdIcon extends Icon$3 {
+};
+/** @nocollapse */
+OscdIcon$1.styles = [
+    styles$14,
+    i$e `
+      :host > svg {
+        /* Legacy SVG templates include inline 24px dimensions. */
+        width: 100% !important;
+        height: 100% !important;
+        fill: currentColor;
+      }
+    `,
+];
 
 function isAttributesV2$1(attributes) {
     if (typeof attributes !== 'object' || attributes === null) {
@@ -2843,6 +4032,53 @@ function pluginTag(uri) {
     return pluginTags.get(uri);
 }
 /**
+ * Helper fn to filter root plugins and grouped plugins, whilst preserving the structure.
+ */
+function filterPlugins(pluginItems, predicate) {
+    return pluginItems
+        .map(item => isPluginGroup(item)
+        ? {
+            ...item,
+            plugins: item.plugins.filter(predicate),
+        }
+        : item)
+        .filter(item => 
+    //remove empty groups or plugins which don't match the predicate
+    isPluginGroup(item) ? item.plugins.length > 0 : predicate(item));
+}
+/**
+ * Returns a flattened array of all plugin entries from a given PluginSet, including those nested within PluginGroups.
+ */
+function flattenPluginEntries(pluginSet) {
+    return pluginSet.flatMap(item => isPluginGroup(item) ? item.plugins : [item]);
+}
+/**
+ * Filters plugins by a search term, matching (case-insensitively) against the
+ * leaf plugin names only - group names are intentionally not matched. When a
+ * `locale` is given, the plugin's localized label (`translations[locale]`) is
+ * also matched, so users can search by the label they see. The group structure
+ * is preserved and empty groups are dropped. An empty or whitespace-only term
+ * returns the plugins unchanged.
+ */
+function filterBySearchTerm(editors, searchTerm, locale) {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) {
+        return editors;
+    }
+    return filterPlugins(editors, (plugin) => {
+        const localizedName = locale ? plugin.translations?.[locale] : undefined;
+        return (plugin.name.toLowerCase().includes(term) ||
+            !!localizedName?.toLowerCase().includes(term));
+    });
+}
+/**
+ * Flattens plugins (including those nested within groups) and returns the leaf
+ * entries whose tagName is included in the given pinnedIds.
+ */
+function filterByPinned(editors, pinnedIds) {
+    return flattenPluginEntries(editors).filter(plugin => pinnedIds.includes(plugin.tagName));
+}
+/**
  * Generates a Web Component class that displays an error message when a plugin fails to load.
  * This is used to provide feedback to the Distro developer when a plugin cannot be loaded due to an error.
  * @param plugin - The plugin object that failed to load.
@@ -2864,27 +4100,34 @@ function generateErrorWcClass(plugin) {
   }`;
     return new Function(classString)();
 }
+function isPluginGroup(item) {
+    return (typeof item === 'object' &&
+        item !== null &&
+        'plugins' in item &&
+        Array.isArray(item.plugins));
+}
 /**
- * Checks if the given object is a valid Plugin.
- * @param plugin - The object to check.
- * @returns true if the object is a Plugin, false otherwise.
+ * Checks whether the given object carries a `tagName`, i.e. names an element
+ * the shell does not have to load itself.
+ * @param item - The object to check.
+ * @returns true if the object is a TaggedPlugin, false otherwise.
  */
-function isPlugin(plugin) {
-    return (typeof plugin === 'object' &&
-        plugin !== null &&
-        'tagName' in plugin &&
-        typeof plugin.tagName === 'string');
+function isTaggedPlugin(item) {
+    return (typeof item === 'object' &&
+        item !== null &&
+        'tagName' in item &&
+        typeof item.tagName === 'string');
 }
 /**
  * Checks if the given object is a SourcedPlugin.
- * @param plugin - The object to check.
+ * @param item - The object to check.
  * @returns true if the object is a SourcedPlugin, false otherwise.
  */
-function isSourcedPlugin(plugin) {
-    return (typeof plugin === 'object' &&
-        plugin !== null &&
-        'src' in plugin &&
-        typeof plugin.src === 'string');
+function isSourcedPlugin(item) {
+    return (typeof item === 'object' &&
+        item !== null &&
+        'src' in item &&
+        typeof item.src === 'string');
 }
 /**
  * Validates a Plugin object, checking for required fields and types.
@@ -2894,7 +4137,7 @@ function isSourcedPlugin(plugin) {
  */
 function validatePlugin(plugin) {
     const missingFields = [];
-    if (!isPlugin(plugin)) {
+    if (!isTaggedPlugin(plugin)) {
         missingFields.push('tagName');
     }
     const _plugin = plugin;
@@ -2914,21 +4157,19 @@ function validatePlugin(plugin) {
     }
     return _plugin;
 }
-/**
- * Goes through all the plugins in the PluginSet and loads any sourced plugins, replacing the src field with a tagName.
- * If a plugin does not have a tagName, it will be generated based on its src.
- * All plugins returned are validated for required fields.
- * If a sourced plugin fails to load (bad src), it will be replaced with an Error Web Component.
- * @param plugins - Array of plugins to convert.
- * @returns Array of plugins with tagName included.
- */
 function loadSourcedPlugins(plugins, registry) {
     return plugins
-        .map(plugin => {
-        if (isPlugin(plugin)) {
-            return validatePlugin(plugin);
+        .map((plugin) => {
+        if (isPluginGroup(plugin)) {
+            return {
+                ...plugin,
+                plugins: loadSourcedPlugins(plugin.plugins, registry),
+            };
         }
         if (!isSourcedPlugin(plugin)) {
+            if (isTaggedPlugin(plugin)) {
+                return validatePlugin(plugin);
+            }
             console.error(`[Invalid Plugin] Requires a tagName or src - skipping. ${JSON.stringify(plugin)}`);
             return undefined;
         }
@@ -2946,13 +4187,13 @@ function loadSourcedPlugins(plugins, registry) {
         }
         const url = new URL(src, window.location.href).toString();
         import(/* @vite-ignore */ url)
-            .then(mod => {
+            .then((mod) => {
             // Because this is async, we need to check (again) if the element is already defined.
             if (!registry?.get(hashedTagName)) {
                 registry.define(hashedTagName, mod.default);
             }
         })
-            .catch(err => {
+            .catch((err) => {
             // Log this as a warning because we load an Error WC in place of the plugin.
             console.warn(`[Invalid Plugin] Failed to load plugin ${plugin.name} <${hashedTagName}/> from ${url}`, err);
             const ErrWc = generateErrorWcClass(plugin);
@@ -2981,8 +4222,8 @@ const { getLocale, setLocale } = window.localization ??
     configureLocalization({
         sourceLocale,
         targetLocales,
-        loadLocale: _locale => {
-            return import(new URL(new URL('assets/de-383iqZPt.js', import.meta.url).href).href);
+        loadLocale: (_locale) => {
+            return import(new URL(new URL('assets/de-sPDLLFv4.js', import.meta.url).href).href);
         },
     });
 /*
@@ -3001,7 +4242,7 @@ if (!window.localization) {
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./iconbutton/internal/standard-styles.css.
-const styles$10 = i$e `:host{--_disabled-icon-color: var(--md-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-icon-button-disabled-icon-opacity, 0.38);--_icon-size: var(--md-icon-button-icon-size, 24px);--_selected-focus-icon-color: var(--md-icon-button-selected-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-icon-button-selected-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-color: var(--md-icon-button-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-icon-button-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-icon-button-selected-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-icon-button-selected-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-color: var(--md-icon-button-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-opacity: var(--md-icon-button-selected-pressed-state-layer-opacity, 0.12);--_state-layer-height: var(--md-icon-button-state-layer-height, 40px);--_state-layer-shape: var(--md-icon-button-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));--_state-layer-width: var(--md-icon-button-state-layer-width, 40px);--_focus-icon-color: var(--md-icon-button-focus-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-icon-color: var(--md-icon-button-hover-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-icon-button-hover-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-opacity: var(--md-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-icon-button-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-icon-button-pressed-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-color: var(--md-icon-button-pressed-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-opacity: var(--md-icon-button-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: 0;--_container-shape-start-end: 0;--_container-shape-end-end: 0;--_container-shape-end-start: 0;--_container-height: 0;--_container-width: 0;height:var(--_state-layer-height);width:var(--_state-layer-width)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_state-layer-height))/2) max(0px,(48px - var(--_state-layer-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_state-layer-shape);--md-focus-ring-shape-start-end: var(--_state-layer-shape);--md-focus-ring-shape-end-end: var(--_state-layer-shape);--md-focus-ring-shape-end-start: var(--_state-layer-shape)}.standard{background-color:rgba(0,0,0,0);color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.standard:hover{color:var(--_hover-icon-color)}.standard:focus{color:var(--_focus-icon-color)}.standard:active{color:var(--_pressed-icon-color)}.standard:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}md-ripple{border-radius:var(--_state-layer-shape)}.standard:is(:disabled,[aria-disabled=true]){opacity:var(--_disabled-icon-opacity)}.selected{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_selected-pressed-icon-color)}
+const styles$13 = i$e `:host{--_disabled-icon-color: var(--md-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-icon-button-disabled-icon-opacity, 0.38);--_icon-size: var(--md-icon-button-icon-size, 24px);--_selected-focus-icon-color: var(--md-icon-button-selected-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-icon-button-selected-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-color: var(--md-icon-button-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-icon-button-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-icon-button-selected-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-icon-button-selected-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-color: var(--md-icon-button-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-opacity: var(--md-icon-button-selected-pressed-state-layer-opacity, 0.12);--_state-layer-height: var(--md-icon-button-state-layer-height, 40px);--_state-layer-shape: var(--md-icon-button-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));--_state-layer-width: var(--md-icon-button-state-layer-width, 40px);--_focus-icon-color: var(--md-icon-button-focus-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-icon-color: var(--md-icon-button-hover-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-icon-button-hover-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-opacity: var(--md-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-icon-button-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-icon-button-pressed-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-color: var(--md-icon-button-pressed-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-opacity: var(--md-icon-button-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: 0;--_container-shape-start-end: 0;--_container-shape-end-end: 0;--_container-shape-end-start: 0;--_container-height: 0;--_container-width: 0;height:var(--_state-layer-height);width:var(--_state-layer-width)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_state-layer-height))/2) max(0px,(48px - var(--_state-layer-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_state-layer-shape);--md-focus-ring-shape-start-end: var(--_state-layer-shape);--md-focus-ring-shape-end-end: var(--_state-layer-shape);--md-focus-ring-shape-end-start: var(--_state-layer-shape)}.standard{background-color:rgba(0,0,0,0);color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.standard:hover{color:var(--_hover-icon-color)}.standard:focus{color:var(--_focus-icon-color)}.standard:active{color:var(--_pressed-icon-color)}.standard:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}md-ripple{border-radius:var(--_state-layer-shape)}.standard:is(:disabled,[aria-disabled=true]){opacity:var(--_disabled-icon-opacity)}.selected{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_selected-pressed-icon-color)}
 `;
 
 /**
@@ -3011,7 +4252,7 @@ const styles$10 = i$e `:host{--_disabled-icon-color: var(--md-icon-button-disabl
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -3041,45 +4282,93 @@ let OscdIconButton$1 = class OscdIconButton extends ScopedElementsMixin$2(IconBu
     }
 };
 OscdIconButton$1.scopedElements = {
-    'md-ripple': MdRipple$1,
-    'md-focus-ring': MdFocusRing$1,
+    'md-ripple': OscdRipple$1,
+    'md-focus-ring': OscdFocusRing$1,
 };
-OscdIconButton$1.styles = [styles$11, styles$10];
+OscdIconButton$1.styles = [styles$17, styles$13];
 
 /**
  * @license
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * An icon element.
+ * An item layout component.
  */
-let Icon$3 = class Icon extends i$b {
-    render() {
-        return b$2 `<slot></slot>`;
+let Item$2 = class Item extends i$b {
+    constructor() {
+        super(...arguments);
+        /**
+         * Only needed for SSR.
+         *
+         * Add this attribute when an item has two lines to avoid a Flash Of Unstyled
+         * Content. This attribute is not needed for single line items or items with
+         * three or more lines.
+         */
+        this.multiline = false;
     }
-    connectedCallback() {
-        super.connectedCallback();
-        const ariaHidden = this.getAttribute('aria-hidden');
-        if (ariaHidden === 'false') {
-            // Allow the user to set `aria-hidden="false"` to create an icon that is
-            // announced by screenreaders.
-            this.removeAttribute('aria-hidden');
-            return;
+    render() {
+        return b$2 `
+      <slot name="container"></slot>
+      <slot class="non-text" name="start"></slot>
+      <div class="text">
+        <slot name="overline" @slotchange=${this.handleTextSlotChange}></slot>
+        <slot
+          class="default-slot"
+          @slotchange=${this.handleTextSlotChange}></slot>
+        <slot name="headline" @slotchange=${this.handleTextSlotChange}></slot>
+        <slot
+          name="supporting-text"
+          @slotchange=${this.handleTextSlotChange}></slot>
+      </div>
+      <slot class="non-text" name="trailing-supporting-text"></slot>
+      <slot class="non-text" name="end"></slot>
+    `;
+    }
+    handleTextSlotChange() {
+        // Check if there's more than one text slot with content. If so, the item is
+        // multiline, which has a different min-height than single line items.
+        let isMultiline = false;
+        let slotsWithContent = 0;
+        for (const slot of this.textSlots) {
+            if (slotHasContent$2(slot)) {
+                slotsWithContent += 1;
+            }
+            if (slotsWithContent > 1) {
+                isMultiline = true;
+                break;
+            }
         }
-        // Needed for VoiceOver, which will create a "group" if the element is a
-        // sibling to other content.
-        this.setAttribute('aria-hidden', 'true');
+        this.multiline = isMultiline;
     }
 };
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], Item$2.prototype, "multiline", void 0);
+__decorate$1([
+    r$9('.text slot')
+], Item$2.prototype, "textSlots", void 0);
+function slotHasContent$2(slot) {
+    for (const node of slot.assignedNodes({ flatten: true })) {
+        // Assume there's content if there's an element slotted in
+        const isElement = node.nodeType === Node.ELEMENT_NODE;
+        // If there's only text nodes for the default slot, check if there's
+        // non-whitespace.
+        const isTextWithContent = node.nodeType === Node.TEXT_NODE && node.textContent?.match(/\S/);
+        if (isElement || isTextWithContent) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * @license
  * Copyright 2024 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-// Generated stylesheet for ./icon/internal/icon-styles.css.
-const styles$$ = i$e `:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
+// Generated stylesheet for ./labs/item/internal/item-styles.css.
+const styles$12 = i$e `:host{color:var(--md-sys-color-on-surface, #1d1b20);font-family:var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-large-size, 1rem);font-weight:var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-large-line-height, 1.5rem);align-items:center;box-sizing:border-box;display:flex;gap:16px;min-height:56px;overflow:hidden;padding:12px 16px;position:relative;text-overflow:ellipsis}:host([multiline]){min-height:72px}[name=overline]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-medium-size, 0.875rem);font-weight:var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-medium-line-height, 1.25rem)}[name=trailing-supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=container]::slotted(*){inset:0;position:absolute}.default-slot{display:inline}.default-slot,.text ::slotted(*){overflow:hidden;text-overflow:ellipsis}.text{display:flex;flex:1;flex-direction:column;overflow:hidden}
 `;
 
 /*
@@ -3088,14 +4377,68 @@ const styles$$ = i$e `:host{font-size:var(--md-icon-size, 24px);width:var(--md-i
  * To prevent this file from being overwritten, remove this comment entirely.
  */
 /**
- * @tagname oscd-icon
+ * @tagname oscd-item
+ * An item layout component that can be used inside list items to give them
+ * their customizable structure.
+ *
+ * `<oscd-item>` does not have any functionality, which must be added by the
+ * component using it.
+ *
+ * All text will wrap unless `white-space: nowrap` is set on the item or any of
+ * its children.
+ *
+ * Slots available:
+ * - `<default>`: The headline, or custom content.
+ * - `headline`: The first line.
+ * - `supporting-text`: Supporting text lines underneath the headline.
+ * - `trailing-supporting-text`: A small text snippet at the end of the item.
+ * - `start`: Any leading content, such as icons, avatars, or checkboxes.
+ * - `end`: Any trailing content, such as icons and buttons.
+ * - `container`: Background container content, intended for adding additional
+ *     styles, such as ripples or focus rings.
+ *
+ * @example
+ * ```html
+ * <oscd-item>Single line</oscd-item>
+ *
+ * <oscd-item>
+ *   <div class="custom-content">...</div>
+ * </oscd-item>
+ *
+ * <!-- Classic 1 to 3+ line list items -->
+ * <oscd-item>
+ *   <md-icon slot="start">image</md-icon>
+ *   <div slot="overline">Overline</div>
+ *   <div slot="headline">Headline</div>
+ *   <div="supporting-text">Supporting text</div>
+ *   <div="trailing-supporting-text">Trailing</div>
+ *   <md-icon slot="end">image</md-icon>
+ * </oscd-item>
+ * ```
+ *
+ * When wrapping `<oscd-item>`, forward the available slots to use the same slot
+ * structure for the wrapping component (this is what `<md-list-item>` does).
+ *
+ * @example
+ * ```html
+ * <oscd-item>
+ *   <slot></slot>
+ *   <slot name="overline" slot="overline"></slot>
+ *   <slot name="headline" slot="headline"></slot>
+ *   <slot name="supporting-text" slot="supporting-text"></slot>
+ *   <slot name="trailing-supporting-text"
+ *       slot="trailing-supporting-text"></slot>
+ *   <slot name="start" slot="start"></slot>
+ *   <slot name="end" slot="end"></slot>
+ * </oscd-item>
+ * ```
+ *
  * @final
  * @suppress {visibility}
  */
-let OscdIcon$1 = class OscdIcon extends Icon$3 {
+let OscdItem$1 = class OscdItem extends Item$2 {
 };
-/** @nocollapse */
-OscdIcon$1.styles = [styles$$];
+OscdItem$1.styles = [styles$12];
 
 /**
  * @license
@@ -3137,6 +4480,24 @@ function activateLastItem$2(items, isActivatable = (isItemNotDisabled$2)) {
         lastItem.focus();
     }
     return lastItem;
+}
+/**
+ * Deactivates the currently active item of a given array of items.
+ *
+ * @param items {Array<ListItem>} The items from which to deactivate the
+ *     active item.
+ * @param isActivatable Function to determine if an item can be  activated.
+ *     Defaults to non-disabled items.
+ * @return A record of the deleselcted activated item including the item and
+ *     the index of the item or `null` if none are deactivated.
+ * @nocollapse
+ */
+function deactivateActiveItem(items, isActivatable = (isItemNotDisabled$2)) {
+    const activeItem = getActiveItem$2(items, isActivatable);
+    if (activeItem) {
+        activeItem.item.tabIndex = -1;
+    }
+    return activeItem;
 }
 /**
  * Retrieves the first activated item of a given array of items.
@@ -3281,6 +4642,13 @@ function activatePreviousItem$2(items, activeItemRecord, isActivatable = (isItem
     }
 }
 /**
+ * Creates an event that requests the parent md-list to deactivate all other
+ * items.
+ */
+function createDeactivateItemsEvent() {
+    return new Event('deactivate-items', { bubbles: true, composed: true });
+}
+/**
  * Creates an event that requests the menu to set `tabindex=0` on the item and
  * focus it. We use this pattern because List keeps track of what element is
  * active in the List by maintaining tabindex. We do not want list items
@@ -3301,445 +4669,6 @@ function createRequestActivationEvent$2() {
 function isItemNotDisabled$2(item) {
     return !item.disabled;
 }
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// TODO: move this file to List and make List use this
-/**
- * Default keys that trigger navigation.
- */
-// tslint:disable:enforce-name-casing Following Enum style
-const NavigableKeys$2 = {
-    ArrowDown: 'ArrowDown',
-    ArrowLeft: 'ArrowLeft',
-    ArrowUp: 'ArrowUp',
-    ArrowRight: 'ArrowRight',
-    Home: 'Home',
-    End: 'End',
-};
-/**
- * A controller that handles list keyboard navigation and item management.
- */
-let ListController$2 = class ListController {
-    constructor(config) {
-        /**
-         * Handles keyboard navigation. Should be bound to the node that will act as
-         * the List.
-         */
-        this.handleKeydown = (event) => {
-            const key = event.key;
-            if (event.defaultPrevented || !this.isNavigableKey(key)) {
-                return;
-            }
-            // do not use this.items directly in upcoming calculations so we don't
-            // re-query the DOM unnecessarily
-            const items = this.items;
-            if (!items.length) {
-                return;
-            }
-            const activeItemRecord = getActiveItem$2(items, this.isActivatable);
-            event.preventDefault();
-            const isRtl = this.isRtl();
-            const inlinePrevious = isRtl
-                ? NavigableKeys$2.ArrowRight
-                : NavigableKeys$2.ArrowLeft;
-            const inlineNext = isRtl
-                ? NavigableKeys$2.ArrowLeft
-                : NavigableKeys$2.ArrowRight;
-            let nextActiveItem = null;
-            switch (key) {
-                // Activate the next item
-                case NavigableKeys$2.ArrowDown:
-                case inlineNext:
-                    nextActiveItem = activateNextItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
-                    break;
-                // Activate the previous item
-                case NavigableKeys$2.ArrowUp:
-                case inlinePrevious:
-                    nextActiveItem = activatePreviousItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
-                    break;
-                // Activate the first item
-                case NavigableKeys$2.Home:
-                    nextActiveItem = activateFirstItem$2(items, this.isActivatable);
-                    break;
-                // Activate the last item
-                case NavigableKeys$2.End:
-                    nextActiveItem = activateLastItem$2(items, this.isActivatable);
-                    break;
-            }
-            if (nextActiveItem &&
-                activeItemRecord &&
-                activeItemRecord.item !== nextActiveItem) {
-                // If a new item was activated, remove the tabindex of the previous
-                // activated item.
-                activeItemRecord.item.tabIndex = -1;
-            }
-        };
-        /**
-         * Listener to be bound to the `deactivate-items` item event.
-         */
-        this.onDeactivateItems = () => {
-            const items = this.items;
-            for (const item of items) {
-                this.deactivateItem(item);
-            }
-        };
-        /**
-         * Listener to be bound to the `request-activation` item event..
-         */
-        this.onRequestActivation = (event) => {
-            this.onDeactivateItems();
-            const target = event.target;
-            this.activateItem(target);
-            target.focus();
-        };
-        /**
-         * Listener to be bound to the `slotchange` event for the slot that renders
-         * the items.
-         */
-        this.onSlotchange = () => {
-            const items = this.items;
-            // Whether we have encountered an item that has been activated
-            let encounteredActivated = false;
-            for (const item of items) {
-                const isActivated = !item.disabled && item.tabIndex > -1;
-                if (isActivated && !encounteredActivated) {
-                    encounteredActivated = true;
-                    item.tabIndex = 0;
-                    continue;
-                }
-                // Deactivate the rest including disabled
-                item.tabIndex = -1;
-            }
-            if (encounteredActivated) {
-                return;
-            }
-            const firstActivatableItem = getFirstActivatableItem$2(items, this.isActivatable);
-            if (!firstActivatableItem) {
-                return;
-            }
-            firstActivatableItem.tabIndex = 0;
-        };
-        const { isItem, getPossibleItems, isRtl, deactivateItem, activateItem, isNavigableKey, isActivatable, wrapNavigation, } = config;
-        this.isItem = isItem;
-        this.getPossibleItems = getPossibleItems;
-        this.isRtl = isRtl;
-        this.deactivateItem = deactivateItem;
-        this.activateItem = activateItem;
-        this.isNavigableKey = isNavigableKey;
-        this.isActivatable = isActivatable;
-        this.wrapNavigation = wrapNavigation ?? (() => true);
-    }
-    /**
-     * The items being managed by the list. Additionally, attempts to see if the
-     * object has a sub-item in the `.item` property.
-     */
-    get items() {
-        const maybeItems = this.getPossibleItems();
-        const items = [];
-        for (const itemOrParent of maybeItems) {
-            const isItem = this.isItem(itemOrParent);
-            // if the item is a list item, add it to the list of items
-            if (isItem) {
-                items.push(itemOrParent);
-                continue;
-            }
-            // If the item exposes an `item` property check if it is a list item.
-            const subItem = itemOrParent.item;
-            if (subItem && this.isItem(subItem)) {
-                items.push(subItem);
-            }
-        }
-        return items;
-    }
-    /**
-     * Activates the next item in the list. If at the end of the list, the first
-     * item will be activated.
-     *
-     * @return The activated list item or `null` if there are no items.
-     */
-    activateNextItem() {
-        const items = this.items;
-        const activeItemRecord = getActiveItem$2(items, this.isActivatable);
-        if (activeItemRecord) {
-            activeItemRecord.item.tabIndex = -1;
-        }
-        return activateNextItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
-    }
-    /**
-     * Activates the previous item in the list. If at the start of the list, the
-     * last item will be activated.
-     *
-     * @return The activated list item or `null` if there are no items.
-     */
-    activatePreviousItem() {
-        const items = this.items;
-        const activeItemRecord = getActiveItem$2(items, this.isActivatable);
-        if (activeItemRecord) {
-            activeItemRecord.item.tabIndex = -1;
-        }
-        return activatePreviousItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
-    }
-};
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-const NAVIGABLE_KEY_SET$2 = new Set(Object.values(NavigableKeys$2));
-// tslint:disable-next-line:enforce-comments-on-exported-symbols
-let List$2 = class List extends i$b {
-    /** @export */
-    get items() {
-        return this.listController.items;
-    }
-    constructor() {
-        super();
-        this.listController = new ListController$2({
-            isItem: (item) => item.hasAttribute('md-list-item'),
-            getPossibleItems: () => this.slotItems,
-            isRtl: () => getComputedStyle(this).direction === 'rtl',
-            deactivateItem: (item) => {
-                item.tabIndex = -1;
-            },
-            activateItem: (item) => {
-                item.tabIndex = 0;
-            },
-            isNavigableKey: (key) => NAVIGABLE_KEY_SET$2.has(key),
-            isActivatable: (item) => !item.disabled && item.type !== 'text',
-        });
-        this.internals = 
-        // Cast needed for closure
-        this.attachInternals();
-        {
-            this.internals.role = 'list';
-            this.addEventListener('keydown', this.listController.handleKeydown);
-        }
-    }
-    render() {
-        return b$2 `
-      <slot
-        @deactivate-items=${this.listController.onDeactivateItems}
-        @request-activation=${this.listController.onRequestActivation}
-        @slotchange=${this.listController.onSlotchange}>
-      </slot>
-    `;
-    }
-    /**
-     * Activates the next item in the list. If at the end of the list, the first
-     * item will be activated.
-     *
-     * @return The activated list item or `null` if there are no items.
-     */
-    activateNextItem() {
-        return this.listController.activateNextItem();
-    }
-    /**
-     * Activates the previous item in the list. If at the start of the list, the
-     * last item will be activated.
-     *
-     * @return The activated list item or `null` if there are no items.
-     */
-    activatePreviousItem() {
-        return this.listController.activatePreviousItem();
-    }
-};
-__decorate$1([
-    o$c({ flatten: true })
-], List$2.prototype, "slotItems", void 0);
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./list/internal/list-styles.css.
-const styles$_ = i$e `:host{background:var(--md-list-container-color, var(--md-sys-color-surface, #fef7ff));color:unset;display:flex;flex-direction:column;outline:none;padding:8px 0;position:relative}
-`;
-
-/*
- * GENERATED SOURCE FILE. DO NOT MODIFY.
- * Modifications will be overwritten.
- * To prevent this file from being overwritten, remove this comment entirely.
- */
-/**
- * @tagname oscd-list
- * @summary Lists are continuous, vertical indexes of text or images.
- *
- * Lists consist of one or more list items, and can contain actions represented
- * by icons and text. List items come in three sizes: one-line, two-line, and
- * three-line.
- *
- * __Takeaways:__
- *
- * - Lists should be sorted in logical ways that make content easy to scan, such
- *   as alphabetical, numerical, chronological, or by user preference.
- * - Lists present content in a way that makes it easy to identify a specific
- *   item in a collection and act on it.
- * - Lists should present icons, text, and actions in a consistent format.
- *
- * @final
- * @suppress {visibility}
- */
-let OscdList$1 = class OscdList extends List$2 {
-};
-OscdList$1.styles = [styles$_];
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * An item layout component.
- */
-let Item$2 = class Item extends i$b {
-    constructor() {
-        super(...arguments);
-        /**
-         * Only needed for SSR.
-         *
-         * Add this attribute when an item has two lines to avoid a Flash Of Unstyled
-         * Content. This attribute is not needed for single line items or items with
-         * three or more lines.
-         */
-        this.multiline = false;
-    }
-    render() {
-        return b$2 `
-      <slot name="container"></slot>
-      <slot class="non-text" name="start"></slot>
-      <div class="text">
-        <slot name="overline" @slotchange=${this.handleTextSlotChange}></slot>
-        <slot
-          class="default-slot"
-          @slotchange=${this.handleTextSlotChange}></slot>
-        <slot name="headline" @slotchange=${this.handleTextSlotChange}></slot>
-        <slot
-          name="supporting-text"
-          @slotchange=${this.handleTextSlotChange}></slot>
-      </div>
-      <slot class="non-text" name="trailing-supporting-text"></slot>
-      <slot class="non-text" name="end"></slot>
-    `;
-    }
-    handleTextSlotChange() {
-        // Check if there's more than one text slot with content. If so, the item is
-        // multiline, which has a different min-height than single line items.
-        let isMultiline = false;
-        let slotsWithContent = 0;
-        for (const slot of this.textSlots) {
-            if (slotHasContent$2(slot)) {
-                slotsWithContent += 1;
-            }
-            if (slotsWithContent > 1) {
-                isMultiline = true;
-                break;
-            }
-        }
-        this.multiline = isMultiline;
-    }
-};
-__decorate$1([
-    n$b({ type: Boolean, reflect: true })
-], Item$2.prototype, "multiline", void 0);
-__decorate$1([
-    r$8('.text slot')
-], Item$2.prototype, "textSlots", void 0);
-function slotHasContent$2(slot) {
-    for (const node of slot.assignedNodes({ flatten: true })) {
-        // Assume there's content if there's an element slotted in
-        const isElement = node.nodeType === Node.ELEMENT_NODE;
-        // If there's only text nodes for the default slot, check if there's
-        // non-whitespace.
-        const isTextWithContent = node.nodeType === Node.TEXT_NODE && node.textContent?.match(/\S/);
-        if (isElement || isTextWithContent) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./labs/item/internal/item-styles.css.
-const styles$Z = i$e `:host{color:var(--md-sys-color-on-surface, #1d1b20);font-family:var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-large-size, 1rem);font-weight:var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-large-line-height, 1.5rem);align-items:center;box-sizing:border-box;display:flex;gap:16px;min-height:56px;overflow:hidden;padding:12px 16px;position:relative;text-overflow:ellipsis}:host([multiline]){min-height:72px}[name=overline]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-medium-size, 0.875rem);font-weight:var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-medium-line-height, 1.25rem)}[name=trailing-supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=container]::slotted(*){inset:0;position:absolute}.default-slot{display:inline}.default-slot,.text ::slotted(*){overflow:hidden;text-overflow:ellipsis}.text{display:flex;flex:1;flex-direction:column;overflow:hidden}
-`;
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * An item layout component that can be used inside list items to give them
- * their customizable structure.
- *
- * `<md-item>` does not have any functionality, which must be added by the
- * component using it.
- *
- * All text will wrap unless `white-space: nowrap` is set on the item or any of
- * its children.
- *
- * Slots available:
- * - `<default>`: The headline, or custom content.
- * - `headline`: The first line.
- * - `supporting-text`: Supporting text lines underneath the headline.
- * - `trailing-supporting-text`: A small text snippet at the end of the item.
- * - `start`: Any leading content, such as icons, avatars, or checkboxes.
- * - `end`: Any trailing content, such as icons and buttons.
- * - `container`: Background container content, intended for adding additional
- *     styles, such as ripples or focus rings.
- *
- * @example
- * ```html
- * <md-item>Single line</md-item>
- *
- * <md-item>
- *   <div class="custom-content">...</div>
- * </md-item>
- *
- * <!-- Classic 1 to 3+ line list items -->
- * <md-item>
- *   <md-icon slot="start">image</md-icon>
- *   <div slot="overline">Overline</div>
- *   <div slot="headline">Headline</div>
- *   <div="supporting-text">Supporting text</div>
- *   <div="trailing-supporting-text">Trailing</div>
- *   <md-icon slot="end">image</md-icon>
- * </md-item>
- * ```
- *
- * When wrapping `<md-item>`, forward the available slots to use the same slot
- * structure for the wrapping component (this is what `<md-list-item>` does).
- *
- * @example
- * ```html
- * <md-item>
- *   <slot></slot>
- *   <slot name="overline" slot="overline"></slot>
- *   <slot name="headline" slot="headline"></slot>
- *   <slot name="supporting-text" slot="supporting-text"></slot>
- *   <slot name="trailing-supporting-text"
- *       slot="trailing-supporting-text"></slot>
- *   <slot name="start" slot="start"></slot>
- *   <slot name="end" slot="end"></slot>
- * </md-item>
- * ```
- *
- * @final
- * @suppress {visibility}
- */
-let MdItem$1 = class MdItem extends Item$2 {
-};
-MdItem$1.styles = [styles$Z];
 
 // Separate variable needed for closure.
 const listItemBaseClass$2 = mixinDelegatesAria$2(i$b);
@@ -3937,7 +4866,7 @@ __decorate$1([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./list/internal/listitem/list-item-styles.css.
-const styles$Y = i$e `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,0);--md-ripple-hover-color: var(--md-list-item-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-list-item-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-list-item-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-list-item-pressed-state-layer-opacity, 0.12)}:host(:is([type=button]:not([disabled]),[type=link])){cursor:pointer}md-focus-ring{z-index:1;--md-focus-ring-shape: 8px}a,button,li{background:none;border:none;cursor:inherit;padding:0;margin:0;text-align:unset;text-decoration:none}.list-item{border-radius:inherit;display:flex;flex:1;max-width:inherit;min-width:inherit;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);width:100%}.list-item.interactive{cursor:pointer}.list-item.disabled{opacity:var(--md-list-item-disabled-opacity, 0.3);pointer-events:none}[slot=container]{pointer-events:none}md-ripple{border-radius:inherit}md-item{border-radius:inherit;flex:1;height:100%;color:var(--md-list-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20));font-family:var(--md-list-item-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));line-height:var(--md-list-item-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));font-weight:var(--md-list-item-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));min-height:var(--md-list-item-one-line-container-height, 56px);padding-top:var(--md-list-item-top-space, 12px);padding-bottom:var(--md-list-item-bottom-space, 12px);padding-inline-start:var(--md-list-item-leading-space, 16px);padding-inline-end:var(--md-list-item-trailing-space, 16px)}md-item[multiline]{min-height:var(--md-list-item-two-line-container-height, 72px)}[slot=supporting-text]{color:var(--md-list-item-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-list-item-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-list-item-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));font-weight:var(--md-list-item-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)))}[slot=trailing-supporting-text]{color:var(--md-list-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-list-item-trailing-supporting-text-font, var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-trailing-supporting-text-size, var(--md-sys-typescale-label-small-size, 0.6875rem));line-height:var(--md-list-item-trailing-supporting-text-line-height, var(--md-sys-typescale-label-small-line-height, 1rem));font-weight:var(--md-list-item-trailing-supporting-text-weight, var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500)))}:is([slot=start],[slot=end])::slotted(*){fill:currentColor}[slot=start]{color:var(--md-list-item-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}[slot=end]{color:var(--md-list-item-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}@media(forced-colors: active){.disabled slot{color:GrayText}.list-item.disabled{color:GrayText;opacity:1}}
+const styles$11 = i$e `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,0);--md-ripple-hover-color: var(--md-list-item-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-list-item-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-list-item-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-list-item-pressed-state-layer-opacity, 0.12)}:host(:is([type=button]:not([disabled]),[type=link])){cursor:pointer}md-focus-ring{z-index:1;--md-focus-ring-shape: 8px}a,button,li{background:none;border:none;cursor:inherit;padding:0;margin:0;text-align:unset;text-decoration:none}.list-item{border-radius:inherit;display:flex;flex:1;max-width:inherit;min-width:inherit;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);width:100%}.list-item.interactive{cursor:pointer}.list-item.disabled{opacity:var(--md-list-item-disabled-opacity, 0.3);pointer-events:none}[slot=container]{pointer-events:none}md-ripple{border-radius:inherit}md-item{border-radius:inherit;flex:1;height:100%;color:var(--md-list-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20));font-family:var(--md-list-item-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));line-height:var(--md-list-item-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));font-weight:var(--md-list-item-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));min-height:var(--md-list-item-one-line-container-height, 56px);padding-top:var(--md-list-item-top-space, 12px);padding-bottom:var(--md-list-item-bottom-space, 12px);padding-inline-start:var(--md-list-item-leading-space, 16px);padding-inline-end:var(--md-list-item-trailing-space, 16px)}md-item[multiline]{min-height:var(--md-list-item-two-line-container-height, 72px)}[slot=supporting-text]{color:var(--md-list-item-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-list-item-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-list-item-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));font-weight:var(--md-list-item-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)))}[slot=trailing-supporting-text]{color:var(--md-list-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-list-item-trailing-supporting-text-font, var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-trailing-supporting-text-size, var(--md-sys-typescale-label-small-size, 0.6875rem));line-height:var(--md-list-item-trailing-supporting-text-line-height, var(--md-sys-typescale-label-small-line-height, 1rem));font-weight:var(--md-list-item-trailing-supporting-text-weight, var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500)))}:is([slot=start],[slot=end])::slotted(*){fill:currentColor}[slot=start]{color:var(--md-list-item-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}[slot=end]{color:var(--md-list-item-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}@media(forced-colors: active){.disabled slot{color:GrayText}.list-item.disabled{color:GrayText;opacity:1}}
 `;
 
 /**
@@ -3947,7 +4876,7 @@ const styles$Y = i$e `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -3991,219 +4920,200 @@ const styles$Y = i$e `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,
 let OscdListItem$1 = class OscdListItem extends ScopedElementsMixin$2(ListItemEl$2) {
 };
 OscdListItem$1.scopedElements = {
-    'md-ripple': MdRipple$1,
-    'md-item': MdItem$1,
-    'md-focus-ring': MdFocusRing$1,
+    'md-ripple': OscdRipple$1,
+    'md-item': OscdItem$1,
+    'md-focus-ring': OscdFocusRing$1,
 };
-OscdListItem$1.styles = [styles$Y];
-
-let EditorPluginsPanel = class EditorPluginsPanel extends ScopedElementsMixin$2(i$b) {
-    constructor() {
-        super(...arguments);
-        this.editors = [];
-        this.editorIndex = 0;
-    }
-    // eslint-disable-next-line class-methods-use-this
-    get expanded() {
-        const expandedStr = localStorage.getItem('editorsPanel.expanded');
-        return expandedStr === 'false' ? false : true;
-    }
-    // eslint-disable-next-line class-methods-use-this
-    set expanded(expanded) {
-        localStorage.setItem('editorsPanel.expanded', String(expanded));
-    }
-    render() {
-        return b$2 `
-      <oscd-list class="editors-list" role="tablist">
-        ${this.editors.map((editor, index) => b$2 `<oscd-list-item
-              class=${e$8({ active: this.editorIndex === index })}
-              type="button"
-              @click=${() => {
-            this.dispatchEvent(new CustomEvent('editor-select', {
-                detail: { editor, index },
-                bubbles: true,
-                composed: true,
-            }));
-        }}
-            >
-              <oscd-icon slot="start">${editor.icon}</oscd-icon>
-              ${this.expanded
-            ? b$2 `<span
-                    >${editor.translations?.[this.locale] ||
-                editor.name}</span
-                  >`
-            : A$1}
-            </oscd-list-item>`)}
-      </oscd-list>
-      <div class="footer">
-        <oscd-icon-button
-          class="toggle-button"
-          @click=${() => {
-            this.expanded = !this.expanded;
-        }}
-        >
-          <oscd-icon
-            >${this.expanded
-            ? 'left_panel_close'
-            : 'left_panel_open'}</oscd-icon
-          ></oscd-icon-button
-        >
-      </div>
-    `;
-    }
-};
-EditorPluginsPanel.scopedElements = {
-    'oscd-icon-button': OscdIconButton$1,
-    'oscd-icon': OscdIcon$1,
-    'oscd-list': OscdList$1,
-    'oscd-list-item': OscdListItem$1,
-};
-EditorPluginsPanel.styles = i$e `
-    :host {
-      width: var(--editor-plugins-panel-width);
-      height: calc(100% - var(--editor-plugins-panel-padding-top));
-      display: grid;
-      grid-template-rows: 1fr auto;
-      min-height: 0;
-      padding-top: var(--editor-plugins-panel-padding-top);
-      transition: width 0.1s ease-in-out;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .editors-list {
-      min-height: 0;
-      --md-list-item-leading-space: var(
-        --editor-plugins-panel-item-leading-space
-      );
-      --md-list-item-trailing-space: var(
-        --editor-plugins-panel-item-trailing-space
-      );
-      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
-      --md-list-container-color: rgba(0, 0, 0, 0);
-      --md-list-item-label-text-color: var(
-        --editor-plugins-panel-item-text-color
-      );
-      --md-list-item-leading-icon-color: var(
-        --editor-plugins-panel-item-icon-color
-      );
-    }
-
-    .editors-list .active {
-      background-color: var(--editor-plugins-panel-item-active-bg);
-    }
-
-    .editors-list oscd-list-item span {
-      /* prevents jitter when collapsing */
-      white-space: nowrap;
-    }
-
-    .footer {
-      /* setting this to display:none until re-design is fixed and its safe to remove */
-      display: none;
-      /* justify-self: center;
-      justify-content: center;
-      padding-block: 22px; */
-    }
-
-    .toggle-button {
-      --md-icon-color: var(--editor-plugins-panel-item-icon-color);
-      --md-icon-button-icon-size: var(--editor-plugins-panel-item-icon-size);
-      --md-icon-button-hover-state-layer-color: var(
-        --editor-plugins-panel-item-icon-color
-      );
-      --md-icon-button-hover-state-layer-opacity: 0.08;
-      --md-icon-button-icon-color: var(--editor-plugins-panel-item-icon-color);
-      --md-icon-button-hover-icon-color: var(
-        --editor-plugins-panel-item-icon-color
-      );
-      --md-icon-button-focus-icon-color: var(
-        --editor-plugins-panel-item-icon-color
-      );
-      --md-icon-button-pressed-icon-color: var(
-        --editor-plugins-panel-item-icon-color
-      );
-      --md-icon-button-state-layer-height: 48px;
-      --md-icon-button-state-layer-width: 48px;
-    }
-
-    :host([expanded]) {
-      width: var(--editor-plugins-panel-width);
-    }
-
-    /* :host([expanded]) .footer {
-      justify-self: flex-end;
-      justify-content: flex-end;
-      padding-inline: 22px;
-    } */
-  `;
-__decorate$1([
-    n$b({ type: Array })
-], EditorPluginsPanel.prototype, "editors", void 0);
-__decorate$1([
-    n$b({ type: Number })
-], EditorPluginsPanel.prototype, "editorIndex", void 0);
-__decorate$1([
-    n$b({ type: String })
-], EditorPluginsPanel.prototype, "locale", void 0);
-__decorate$1([
-    n$b({ type: Boolean, reflect: true })
-], EditorPluginsPanel.prototype, "expanded", null);
-EditorPluginsPanel = __decorate$1([
-    localized()
-], EditorPluginsPanel);
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * A component for elevation.
- */
-let Elevation$2 = class Elevation extends i$b {
-    connectedCallback() {
-        super.connectedCallback();
-        // Needed for VoiceOver, which will create a "group" if the element is a
-        // sibling to other content.
-        this.setAttribute('aria-hidden', 'true');
-    }
-    render() {
-        return b$2 `<span class="shadow"></span>`;
-    }
-};
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./elevation/internal/elevation-styles.css.
-const styles$X = i$e `:host,.shadow,.shadow::before,.shadow::after{border-radius:inherit;inset:0;position:absolute;transition-duration:inherit;transition-property:inherit;transition-timing-function:inherit}:host{display:flex;pointer-events:none;transition-property:box-shadow,opacity}.shadow::before,.shadow::after{content:"";transition-property:box-shadow,opacity;--_level: var(--md-elevation-level, 0);--_shadow-color: var(--md-elevation-shadow-color, var(--md-sys-color-shadow, #000))}.shadow::before{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 3,1) + 2*clamp(0,var(--_level) - 4,1))) calc(1px*(2*clamp(0,var(--_level),1) + clamp(0,var(--_level) - 2,1) + clamp(0,var(--_level) - 4,1))) 0px var(--_shadow-color);opacity:.3}.shadow::after{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 1,1) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(3*clamp(0,var(--_level),2) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(clamp(0,var(--_level),4) + 2*clamp(0,var(--_level) - 4,1))) var(--_shadow-color);opacity:.15}
-`;
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * The `<md-elevation>` custom element with default styles.
- *
- * Elevation is the relative distance between two surfaces along the z-axis.
- *
- * @final
- * @suppress {visibility}
- */
-let MdElevation$1 = class MdElevation extends Elevation$2 {
-};
-MdElevation$1.styles = [styles$X];
+OscdListItem$1.styles = [styles$11];
 
 /**
  * @license
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */const n$8="important",i$8=" !"+n$8,o$a=e$9(class extends i$9{constructor(t){if(super(t),t.type!==t$4.ATTRIBUTE||"style"!==t.name||t.strings?.length>2)throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).reduce((e,r)=>{const s=t[r];return null==s?e:e+`${r=r.includes("-")?r:r.replace(/(?:^(webkit|moz|ms|o)|)(?=[A-Z])/g,"-$&").toLowerCase()}:${s};`},"")}update(e,[r]){const{style:s}=e.element;if(void 0===this.ft)return this.ft=new Set(Object.keys(r)),this.render(r);for(const t of this.ft)null==r[t]&&(this.ft.delete(t),t.includes("-")?s.removeProperty(t):s[t]=null);for(const t in r){const e=r[t];if(null!=e){this.ft.add(t);const r="string"==typeof e&&e.endsWith(i$8);t.includes("-")||r?s.setProperty(t,r?e.slice(0,-11):e,r?n$8:""):s[t]=e;}}return E$1}});
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// TODO: move this file to List and make List use this
+/**
+ * Default keys that trigger navigation.
+ */
+// tslint:disable:enforce-name-casing Following Enum style
+const NavigableKeys$2 = {
+    ArrowDown: 'ArrowDown',
+    ArrowLeft: 'ArrowLeft',
+    ArrowUp: 'ArrowUp',
+    ArrowRight: 'ArrowRight',
+    Home: 'Home',
+    End: 'End',
+};
+/**
+ * A controller that handles list keyboard navigation and item management.
+ */
+let ListController$2 = class ListController {
+    constructor(config) {
+        /**
+         * Handles keyboard navigation. Should be bound to the node that will act as
+         * the List.
+         */
+        this.handleKeydown = (event) => {
+            const key = event.key;
+            if (event.defaultPrevented || !this.isNavigableKey(key)) {
+                return;
+            }
+            // do not use this.items directly in upcoming calculations so we don't
+            // re-query the DOM unnecessarily
+            const items = this.items;
+            if (!items.length) {
+                return;
+            }
+            const activeItemRecord = getActiveItem$2(items, this.isActivatable);
+            event.preventDefault();
+            const isRtl = this.isRtl();
+            const inlinePrevious = isRtl
+                ? NavigableKeys$2.ArrowRight
+                : NavigableKeys$2.ArrowLeft;
+            const inlineNext = isRtl
+                ? NavigableKeys$2.ArrowLeft
+                : NavigableKeys$2.ArrowRight;
+            let nextActiveItem = null;
+            switch (key) {
+                // Activate the next item
+                case NavigableKeys$2.ArrowDown:
+                case inlineNext:
+                    nextActiveItem = activateNextItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
+                    break;
+                // Activate the previous item
+                case NavigableKeys$2.ArrowUp:
+                case inlinePrevious:
+                    nextActiveItem = activatePreviousItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
+                    break;
+                // Activate the first item
+                case NavigableKeys$2.Home:
+                    nextActiveItem = activateFirstItem$2(items, this.isActivatable);
+                    break;
+                // Activate the last item
+                case NavigableKeys$2.End:
+                    nextActiveItem = activateLastItem$2(items, this.isActivatable);
+                    break;
+            }
+            if (nextActiveItem &&
+                activeItemRecord &&
+                activeItemRecord.item !== nextActiveItem) {
+                // If a new item was activated, remove the tabindex of the previous
+                // activated item.
+                activeItemRecord.item.tabIndex = -1;
+            }
+        };
+        /**
+         * Listener to be bound to the `deactivate-items` item event.
+         */
+        this.onDeactivateItems = () => {
+            const items = this.items;
+            for (const item of items) {
+                this.deactivateItem(item);
+            }
+        };
+        /**
+         * Listener to be bound to the `request-activation` item event..
+         */
+        this.onRequestActivation = (event) => {
+            this.onDeactivateItems();
+            const target = event.target;
+            this.activateItem(target);
+            target.focus();
+        };
+        /**
+         * Listener to be bound to the `slotchange` event for the slot that renders
+         * the items.
+         */
+        this.onSlotchange = () => {
+            const items = this.items;
+            // Whether we have encountered an item that has been activated
+            let encounteredActivated = false;
+            for (const item of items) {
+                const isActivated = !item.disabled && item.tabIndex > -1;
+                if (isActivated && !encounteredActivated) {
+                    encounteredActivated = true;
+                    item.tabIndex = 0;
+                    continue;
+                }
+                // Deactivate the rest including disabled
+                item.tabIndex = -1;
+            }
+            if (encounteredActivated) {
+                return;
+            }
+            const firstActivatableItem = getFirstActivatableItem$2(items, this.isActivatable);
+            if (!firstActivatableItem) {
+                return;
+            }
+            firstActivatableItem.tabIndex = 0;
+        };
+        const { isItem, getPossibleItems, isRtl, deactivateItem, activateItem, isNavigableKey, isActivatable, wrapNavigation, } = config;
+        this.isItem = isItem;
+        this.getPossibleItems = getPossibleItems;
+        this.isRtl = isRtl;
+        this.deactivateItem = deactivateItem;
+        this.activateItem = activateItem;
+        this.isNavigableKey = isNavigableKey;
+        this.isActivatable = isActivatable;
+        this.wrapNavigation = wrapNavigation ?? (() => true);
+    }
+    /**
+     * The items being managed by the list. Additionally, attempts to see if the
+     * object has a sub-item in the `.item` property.
+     */
+    get items() {
+        const maybeItems = this.getPossibleItems();
+        const items = [];
+        for (const itemOrParent of maybeItems) {
+            const isItem = this.isItem(itemOrParent);
+            // if the item is a list item, add it to the list of items
+            if (isItem) {
+                items.push(itemOrParent);
+                continue;
+            }
+            // If the item exposes an `item` property check if it is a list item.
+            const subItem = itemOrParent.item;
+            if (subItem && this.isItem(subItem)) {
+                items.push(subItem);
+            }
+        }
+        return items;
+    }
+    /**
+     * Activates the next item in the list. If at the end of the list, the first
+     * item will be activated.
+     *
+     * @return The activated list item or `null` if there are no items.
+     */
+    activateNextItem() {
+        const items = this.items;
+        const activeItemRecord = getActiveItem$2(items, this.isActivatable);
+        if (activeItemRecord) {
+            activeItemRecord.item.tabIndex = -1;
+        }
+        return activateNextItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
+    }
+    /**
+     * Activates the previous item in the list. If at the start of the list, the
+     * last item will be activated.
+     *
+     * @return The activated list item or `null` if there are no items.
+     */
+    activatePreviousItem() {
+        const items = this.items;
+        const activeItemRecord = getActiveItem$2(items, this.isActivatable);
+        if (activeItemRecord) {
+            activeItemRecord.item.tabIndex = -1;
+        }
+        return activatePreviousItem$2(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
+    }
+};
 
 /**
  * @license
@@ -4224,6 +5134,27 @@ function createCloseMenuEvent$2(initiator, reason) {
  * Creates a default close menu event used by md-menu.
  */
 const createDefaultCloseMenuEvent$2 = (createCloseMenuEvent$2);
+/**
+ * Creates an event that requests the given item be selected.
+ */
+function createDeactivateTypeaheadEvent() {
+    return new Event('deactivate-typeahead', { bubbles: true, composed: true });
+}
+/**
+ * Creates an event that requests the typeahead functionality of containing menu
+ * be activated.
+ */
+function createActivateTypeaheadEvent() {
+    return new Event('activate-typeahead', { bubbles: true, composed: true });
+}
+/**
+ * Keys that are used to navigate menus.
+ */
+// tslint:disable-next-line:enforce-name-casing We are mimicking enum style
+const NavigableKey = {
+    RIGHT: 'ArrowRight',
+    LEFT: 'ArrowLeft',
+};
 /**
  * Keys that are used for selection in menus.
  */
@@ -4305,7 +5236,9 @@ const FocusState$2 = {
 // tslint:disable-next-line:enforce-name-casing We are mimicking enum style
 const Corner$2 = {
     END_START: 'end-start',
-    START_START: 'start-start'};
+    START_START: 'start-start',
+    START_END: 'start-end',
+};
 /**
  * Given a surface, an anchor, corners, and some options, this surface will
  * calculate the position of a surface to align the two given corners and keep
@@ -5841,7 +6774,7 @@ __decorate$1([
     o$c({ flatten: true })
 ], Menu$2.prototype, "slotItems", void 0);
 __decorate$1([
-    r$9()
+    r$a()
 ], Menu$2.prototype, "typeaheadActive", void 0);
 
 /**
@@ -5850,7 +6783,7 @@ __decorate$1([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./menu/internal/menu-styles.css.
-const styles$W = i$e `:host{--md-elevation-level: var(--md-menu-container-elevation, 2);--md-elevation-shadow-color: var(--md-menu-container-shadow-color, var(--md-sys-color-shadow, #000));min-width:112px;color:unset;display:contents}md-focus-ring{--md-focus-ring-shape: var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px))}.menu{border-radius:var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px));display:none;inset:auto;border:none;padding:0px;overflow:visible;background-color:rgba(0,0,0,0);color:inherit;opacity:0;z-index:20;position:absolute;user-select:none;max-height:inherit;height:inherit;min-width:inherit;max-width:inherit;scrollbar-width:inherit}.menu::backdrop{display:none}.fixed{position:fixed}.items{display:block;list-style-type:none;margin:0;outline:none;box-sizing:border-box;background-color:var(--md-menu-container-color, var(--md-sys-color-surface-container, #f3edf7));height:inherit;max-height:inherit;overflow:auto;min-width:inherit;max-width:inherit;border-radius:inherit;scrollbar-width:inherit}.item-padding{padding-block:var(--md-menu-top-space, 8px) var(--md-menu-bottom-space, 8px)}.has-overflow:not([popover]) .items{overflow:visible}.has-overflow.animating .items,.animating .items{overflow:hidden}.has-overflow.animating .items{pointer-events:none}.animating ::slotted(.md-menu-hidden){opacity:0}slot{display:block;height:inherit;max-height:inherit}::slotted(:is(md-divider,[role=separator])){margin:8px 0}@media(forced-colors: active){.menu{border-style:solid;border-color:CanvasText;border-width:1px}}
+const styles$10 = i$e `:host{--md-elevation-level: var(--md-menu-container-elevation, 2);--md-elevation-shadow-color: var(--md-menu-container-shadow-color, var(--md-sys-color-shadow, #000));min-width:112px;color:unset;display:contents}md-focus-ring{--md-focus-ring-shape: var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px))}.menu{border-radius:var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px));display:none;inset:auto;border:none;padding:0px;overflow:visible;background-color:rgba(0,0,0,0);color:inherit;opacity:0;z-index:20;position:absolute;user-select:none;max-height:inherit;height:inherit;min-width:inherit;max-width:inherit;scrollbar-width:inherit}.menu::backdrop{display:none}.fixed{position:fixed}.items{display:block;list-style-type:none;margin:0;outline:none;box-sizing:border-box;background-color:var(--md-menu-container-color, var(--md-sys-color-surface-container, #f3edf7));height:inherit;max-height:inherit;overflow:auto;min-width:inherit;max-width:inherit;border-radius:inherit;scrollbar-width:inherit}.item-padding{padding-block:var(--md-menu-top-space, 8px) var(--md-menu-bottom-space, 8px)}.has-overflow:not([popover]) .items{overflow:visible}.has-overflow.animating .items,.animating .items{overflow:hidden}.has-overflow.animating .items{pointer-events:none}.animating ::slotted(.md-menu-hidden){opacity:0}slot{display:block;height:inherit;max-height:inherit}::slotted(:is(md-divider,[role=separator])){margin:8px 0}@media(forced-colors: active){.menu{border-style:solid;border-color:CanvasText;border-width:1px}}
 `;
 
 /**
@@ -5860,12 +6793,12 @@ const styles$W = i$e `:host{--md-elevation-level: var(--md-menu-container-elevat
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 let InternalMenu$1 = class InternalMenu extends Menu$2 {
 };
-InternalMenu$1.styles = [styles$W];
+InternalMenu$1.styles = [styles$10];
 /**
  * @tagname oscd-menu
  * @summary Menus display a list of choices on a temporary surface.
@@ -5918,10 +6851,10 @@ InternalMenu$1.styles = [styles$W];
 let OscdMenu$1 = class OscdMenu extends ScopedElementsMixin$2(InternalMenu$1) {
 };
 OscdMenu$1.scopedElements = {
-    'md-focus-ring': MdFocusRing$1,
-    'md-elevation': MdElevation$1,
+    'md-focus-ring': OscdFocusRing$1,
+    'md-elevation': OscdElevation$1,
 };
-OscdMenu$1.styles = [styles$W];
+OscdMenu$1.styles = [styles$10];
 
 /**
  * @license
@@ -6267,7 +7200,7 @@ __decorate$1([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./menu/internal/menuitem/menu-item-styles.css.
-const styles$V = i$e `:host{display:flex;--md-ripple-hover-color: var(--md-menu-item-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-menu-item-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-menu-item-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-menu-item-pressed-state-layer-opacity, 0.12)}:host([disabled]){opacity:var(--md-menu-item-disabled-opacity, 0.3);pointer-events:none}md-focus-ring{z-index:1;--md-focus-ring-shape: 8px}a,button,li{background:none;border:none;padding:0;margin:0;text-align:unset;text-decoration:none}.list-item{border-radius:inherit;display:flex;flex:1;max-width:inherit;min-width:inherit;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.list-item:not(.disabled){cursor:pointer}[slot=container]{pointer-events:none}md-ripple{border-radius:inherit}md-item{border-radius:inherit;flex:1;color:var(--md-menu-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20));font-family:var(--md-menu-item-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));line-height:var(--md-menu-item-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));font-weight:var(--md-menu-item-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));min-height:var(--md-menu-item-one-line-container-height, 56px);padding-top:var(--md-menu-item-top-space, 12px);padding-bottom:var(--md-menu-item-bottom-space, 12px);padding-inline-start:var(--md-menu-item-leading-space, 16px);padding-inline-end:var(--md-menu-item-trailing-space, 16px)}md-item[multiline]{min-height:var(--md-menu-item-two-line-container-height, 72px)}[slot=supporting-text]{color:var(--md-menu-item-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-menu-item-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-menu-item-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));font-weight:var(--md-menu-item-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)))}[slot=trailing-supporting-text]{color:var(--md-menu-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-menu-item-trailing-supporting-text-font, var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-trailing-supporting-text-size, var(--md-sys-typescale-label-small-size, 0.6875rem));line-height:var(--md-menu-item-trailing-supporting-text-line-height, var(--md-sys-typescale-label-small-line-height, 1rem));font-weight:var(--md-menu-item-trailing-supporting-text-weight, var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500)))}:is([slot=start],[slot=end])::slotted(*){fill:currentColor}[slot=start]{color:var(--md-menu-item-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}[slot=end]{color:var(--md-menu-item-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}.list-item{background-color:var(--md-menu-item-container-color, transparent)}.list-item.selected{background-color:var(--md-menu-item-selected-container-color, var(--md-sys-color-secondary-container, #e8def8))}.selected:not(.disabled) ::slotted(*){color:var(--md-menu-item-selected-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b))}@media(forced-colors: active){:host([disabled]),:host([disabled]) slot{color:GrayText;opacity:1}.list-item{position:relative}.list-item.selected::before{content:"";position:absolute;inset:0;box-sizing:border-box;border-radius:inherit;pointer-events:none;border:3px double CanvasText}}
+const styles$$ = i$e `:host{display:flex;--md-ripple-hover-color: var(--md-menu-item-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-menu-item-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-menu-item-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-menu-item-pressed-state-layer-opacity, 0.12)}:host([disabled]){opacity:var(--md-menu-item-disabled-opacity, 0.3);pointer-events:none}md-focus-ring{z-index:1;--md-focus-ring-shape: 8px}a,button,li{background:none;border:none;padding:0;margin:0;text-align:unset;text-decoration:none}.list-item{border-radius:inherit;display:flex;flex:1;max-width:inherit;min-width:inherit;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.list-item:not(.disabled){cursor:pointer}[slot=container]{pointer-events:none}md-ripple{border-radius:inherit}md-item{border-radius:inherit;flex:1;color:var(--md-menu-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20));font-family:var(--md-menu-item-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));line-height:var(--md-menu-item-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));font-weight:var(--md-menu-item-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));min-height:var(--md-menu-item-one-line-container-height, 56px);padding-top:var(--md-menu-item-top-space, 12px);padding-bottom:var(--md-menu-item-bottom-space, 12px);padding-inline-start:var(--md-menu-item-leading-space, 16px);padding-inline-end:var(--md-menu-item-trailing-space, 16px)}md-item[multiline]{min-height:var(--md-menu-item-two-line-container-height, 72px)}[slot=supporting-text]{color:var(--md-menu-item-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-menu-item-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-menu-item-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));font-weight:var(--md-menu-item-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)))}[slot=trailing-supporting-text]{color:var(--md-menu-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-menu-item-trailing-supporting-text-font, var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-menu-item-trailing-supporting-text-size, var(--md-sys-typescale-label-small-size, 0.6875rem));line-height:var(--md-menu-item-trailing-supporting-text-line-height, var(--md-sys-typescale-label-small-line-height, 1rem));font-weight:var(--md-menu-item-trailing-supporting-text-weight, var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500)))}:is([slot=start],[slot=end])::slotted(*){fill:currentColor}[slot=start]{color:var(--md-menu-item-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}[slot=end]{color:var(--md-menu-item-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}.list-item{background-color:var(--md-menu-item-container-color, transparent)}.list-item.selected{background-color:var(--md-menu-item-selected-container-color, var(--md-sys-color-secondary-container, #e8def8))}.selected:not(.disabled) ::slotted(*){color:var(--md-menu-item-selected-label-text-color, var(--md-sys-color-on-secondary-container, #1d192b))}@media(forced-colors: active){:host([disabled]),:host([disabled]) slot{color:GrayText;opacity:1}.list-item{position:relative}.list-item.selected::before{content:"";position:absolute;inset:0;box-sizing:border-box;border-radius:inherit;pointer-events:none;border:3px double CanvasText}}
 `;
 
 /**
@@ -6277,7 +7210,7 @@ const styles$V = i$e `:host{display:flex;--md-ripple-hover-color: var(--md-menu-
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -6298,158 +7231,11 @@ const styles$V = i$e `:host{display:flex;--md-ripple-hover-color: var(--md-menu-
 let OscdMenuItem$1 = class OscdMenuItem extends ScopedElementsMixin$2(MenuItemEl$2) {
 };
 OscdMenuItem$1.scopedElements = {
-    'md-ripple': MdRipple$1,
-    'md-item': MdItem$1,
-    'md-focus-ring': MdFocusRing$1,
+    'md-ripple': OscdRipple$1,
+    'md-item': OscdItem$1,
+    'md-focus-ring': OscdFocusRing$1,
 };
-OscdMenuItem$1.styles = [styles$V];
-
-let PluginsMenu = class PluginsMenu extends ScopedElementsMixin$2(i$b) {
-    constructor() {
-        super(...arguments);
-        /* Properties */
-        this.editableDocs = [];
-        this.menuPlugins = [];
-        this.open = () => {
-            this.menu.show();
-        };
-    }
-    renderMenuItem(plugin, disabled) {
-        return b$2 `
-      <oscd-menu-item
-        .disabled=${disabled}
-        @click=${() => {
-            this.dispatchEvent(new CustomEvent('menu-plugin-select', {
-                detail: { plugin },
-                bubbles: true,
-                composed: true,
-            }));
-            this.menu.close();
-        }}
-      >
-        <oscd-icon slot="start">${plugin.icon}</oscd-icon>
-        <div slot="headline">
-          ${plugin.translations?.[this.locale] || plugin.name}
-        </div>
-      </oscd-menu-item>
-    `;
-    }
-    render() {
-        return b$2 `
-      ${this.appIcon ? b$2 `<img src=${this.appIcon} alt="logo" />` : A$1}
-      <h1 class="app-title">${this.appTitle}</h1>
-      <oscd-filled-icon-button
-        id="menu-button"
-        aria-label="${msg$1('Menu')}"
-        @click=${async () => {
-            if (this.menu.open) {
-                this.menu.close();
-            }
-            else {
-                this.menu.show();
-            }
-        }}
-        ><oscd-icon>arrow_drop_down_circle</oscd-icon></oscd-filled-icon-button
-      >
-      <oscd-menu
-        quick
-        anchor="menu-button"
-        menuCorner="START_END"
-        anchorCorner="START_END"
-      >
-        ${this.menuPlugins.map(plugin => this.renderMenuItem(plugin, !!(plugin.requireDoc && (this.editableDocs ?? []).length === 0)))}
-      </oscd-menu>
-    `;
-    }
-};
-PluginsMenu.scopedElements = {
-    'oscd-filled-icon-button': OscdFilledIconButton,
-    'oscd-icon': OscdIcon$1,
-    'oscd-menu': OscdMenu$1,
-    'oscd-menu-item': OscdMenuItem$1,
-};
-PluginsMenu.styles = i$e `
-    :host {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    img {
-      height: var(--app-bar-app-icon-height);
-      width: var(--app-bar-app-icon-width);
-    }
-
-    :host h1.app-title {
-      font-family: var(--app-bar-title-text-font-family);
-      font-size: var(--app-bar-title-text-font-size);
-      font-style: var(--app-bar-title-text-font-style);
-      font-weight: var(--app-bar-title-text-font-weight);
-      line-height: var(--app-bar-title-text-line-height);
-      letter-spacing: var(--app-bar-title-text-letter-spacing);
-      color: var(--app-bar-title-text-color);
-      display: inline;
-    }
-
-    oscd-filled-icon-button {
-      --md-sys-color-on-primary: var(--plugins-menu-button-color);
-      --md-filled-icon-button-icon-color: var(--plugins-menu-button-color);
-      --md-filled-icon-button-icon-size: var(--plugins-menu-button-size);
-    }
-
-    oscd-menu {
-      min-width: var(--plugins-menu-min-width);
-      padding: var(--plugins-menu-padding);
-      --md-menu-container-color: var(--plugins-menu-container-color);
-    }
-
-    oscd-menu-item {
-      width: 100%;
-      --md-menu-item-label-text-color: var(--plugins-menu-item-label-color);
-      --md-menu-item-leading-icon-color: var(
-        --plugins-menu-item-leading-icon-color
-      );
-      --md-menu-item-selected-container-color: var(
-        --plugins-menu-item-selected-container-color
-      );
-      --md-menu-item-selected-label-text-color: var(
-        --plugins-menu-item-selected-label-color
-      );
-    }
-  `;
-__decorate$1([
-    n$b({ type: Array })
-], PluginsMenu.prototype, "editableDocs", void 0);
-__decorate$1([
-    n$b({ type: Array })
-], PluginsMenu.prototype, "menuPlugins", void 0);
-__decorate$1([
-    n$b({ type: String })
-], PluginsMenu.prototype, "appIcon", void 0);
-__decorate$1([
-    n$b({ type: String })
-], PluginsMenu.prototype, "appTitle", void 0);
-__decorate$1([
-    n$b({ type: String, reflect: true })
-], PluginsMenu.prototype, "locale", void 0);
-__decorate$1([
-    n$b({ type: String, reflect: true })
-], PluginsMenu.prototype, "open", void 0);
-__decorate$1([
-    e$b('oscd-menu')
-], PluginsMenu.prototype, "menu", void 0);
-PluginsMenu = __decorate$1([
-    localized()
-], PluginsMenu);
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./button/internal/shared-styles.css.
-const styles$U = i$e `:host{border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end);box-sizing:border-box;cursor:pointer;display:inline-flex;gap:8px;min-height:var(--_container-height);outline:none;padding-block:calc((var(--_container-height) - max(var(--_label-text-line-height),var(--_icon-size)))/2);padding-inline-start:var(--_leading-space);padding-inline-end:var(--_trailing-space);place-content:center;place-items:center;position:relative;font-family:var(--_label-text-font);font-size:var(--_label-text-size);line-height:var(--_label-text-line-height);font-weight:var(--_label-text-weight);text-overflow:ellipsis;text-wrap:nowrap;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);vertical-align:top;--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){cursor:default;pointer-events:none}.button{border-radius:inherit;cursor:inherit;display:inline-flex;align-items:center;justify-content:center;border:none;outline:none;-webkit-appearance:none;vertical-align:middle;background:rgba(0,0,0,0);text-decoration:none;min-width:calc(64px - var(--_leading-space) - var(--_trailing-space));width:100%;z-index:0;height:100%;font:inherit;color:var(--_label-text-color);padding:0;gap:inherit;text-transform:inherit}.button::-moz-focus-inner{padding:0;border:0}:host(:hover) .button{color:var(--_hover-label-text-color)}:host(:focus-within) .button{color:var(--_focus-label-text-color)}:host(:active) .button{color:var(--_pressed-label-text-color)}.background{background:var(--_container-color);border-radius:inherit;inset:0;position:absolute}.label{overflow:hidden}:is(.button,.label,.label slot),.label ::slotted(*){text-overflow:inherit}:host(:is([disabled],[soft-disabled])) .label{color:var(--_disabled-label-text-color);opacity:var(--_disabled-label-text-opacity)}:host(:is([disabled],[soft-disabled])) .background{background:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}@media(forced-colors: active){.background{border:1px solid CanvasText}:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1;--_disabled-container-opacity: 1;--_disabled-label-text-color: GrayText;--_disabled-label-text-opacity: 1}}:host([has-icon]:not([trailing-icon])){padding-inline-start:var(--_with-leading-icon-leading-space);padding-inline-end:var(--_with-leading-icon-trailing-space)}:host([has-icon][trailing-icon]){padding-inline-start:var(--_with-trailing-icon-leading-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}::slotted([slot=icon]){display:inline-flex;position:relative;writing-mode:horizontal-tb;fill:currentColor;flex-shrink:0;color:var(--_icon-color);font-size:var(--_icon-size);inline-size:var(--_icon-size);block-size:var(--_icon-size)}:host(:hover) ::slotted([slot=icon]){color:var(--_hover-icon-color)}:host(:focus-within) ::slotted([slot=icon]){color:var(--_focus-icon-color)}:host(:active) ::slotted([slot=icon]){color:var(--_pressed-icon-color)}:host(:is([disabled],[soft-disabled])) ::slotted([slot=icon]){color:var(--_disabled-icon-color);opacity:var(--_disabled-icon-opacity)}.touch{position:absolute;top:50%;height:48px;left:0;right:0;transform:translateY(-50%)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) 0}:host([touch-target=none]) .touch{display:none}
-`;
+OscdMenuItem$1.styles = [styles$$];
 
 /**
  * @license
@@ -6546,6 +7332,5116 @@ async function squelchEventsForMicrotask$2() {
     await null;
     isSquelchingEvents$2 = false;
 }
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * Re-dispatches an event from the provided element.
+ *
+ * This function is useful for forwarding non-composed events, such as `change`
+ * events.
+ *
+ * @example
+ * class MyInput extends LitElement {
+ *   render() {
+ *     return html`<input @change=${this.redispatchEvent}>`;
+ *   }
+ *
+ *   protected redispatchEvent(event: Event) {
+ *     redispatchEvent(this, event);
+ *   }
+ * }
+ *
+ * @param element The element to dispatch the event from.
+ * @param event The event to re-dispatch.
+ * @return Whether or not the event was dispatched (if cancelable).
+ */
+function redispatchEvent$2(element, event) {
+    // For bubbling events in SSR light DOM (or composed), stop their propagation
+    // and dispatch the copy.
+    if (event.bubbles && (!element.shadowRoot || event.composed)) {
+        event.stopPropagation();
+    }
+    const copy = Reflect.construct(event.constructor, [event.type, event]);
+    const dispatched = element.dispatchEvent(copy);
+    if (!dispatched) {
+        event.preventDefault();
+    }
+    return dispatched;
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A symbol property used to create a constraint validation `Validator`.
+ * Required for all `mixinConstraintValidation()` elements.
+ */
+const createValidator$2 = Symbol('createValidator');
+/**
+ * A symbol property used to return an anchor for constraint validation popups.
+ * Required for all `mixinConstraintValidation()` elements.
+ */
+const getValidityAnchor$2 = Symbol('getValidityAnchor');
+// Private symbol members, used to avoid name clashing.
+const privateValidator$2 = Symbol('privateValidator');
+const privateSyncValidity$2 = Symbol('privateSyncValidity');
+const privateCustomValidationMessage$2 = Symbol('privateCustomValidationMessage');
+/**
+ * Mixes in constraint validation APIs for an element.
+ *
+ * See https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation
+ * for more details.
+ *
+ * Implementations must provide a validator to cache and compute its validity,
+ * along with a shadow root element to anchor validation popups to.
+ *
+ * @example
+ * ```ts
+ * const baseClass = mixinConstraintValidation(
+ *   mixinFormAssociated(mixinElementInternals(LitElement))
+ * );
+ *
+ * class MyCheckbox extends baseClass {
+ *   \@property({type: Boolean}) checked = false;
+ *   \@property({type: Boolean}) required = false;
+ *
+ *   [createValidator]() {
+ *     return new CheckboxValidator(() => this);
+ *   }
+ *
+ *   [getValidityAnchor]() {
+ *     return this.renderRoot.querySelector('.root');
+ *   }
+ * }
+ * ```
+ *
+ * @param base The class to mix functionality into.
+ * @return The provided class with `ConstraintValidation` mixed in.
+ */
+function mixinConstraintValidation$2(base) {
+    var _a;
+    class ConstraintValidationElement extends base {
+        constructor() {
+            super(...arguments);
+            /**
+             * Needed for Safari, see https://bugs.webkit.org/show_bug.cgi?id=261432
+             * Replace with this[internals].validity.customError when resolved.
+             */
+            this[_a] = '';
+        }
+        get validity() {
+            this[privateSyncValidity$2]();
+            return this[internals$2].validity;
+        }
+        get validationMessage() {
+            this[privateSyncValidity$2]();
+            return this[internals$2].validationMessage;
+        }
+        get willValidate() {
+            this[privateSyncValidity$2]();
+            return this[internals$2].willValidate;
+        }
+        checkValidity() {
+            this[privateSyncValidity$2]();
+            return this[internals$2].checkValidity();
+        }
+        reportValidity() {
+            this[privateSyncValidity$2]();
+            return this[internals$2].reportValidity();
+        }
+        setCustomValidity(error) {
+            this[privateCustomValidationMessage$2] = error;
+            this[privateSyncValidity$2]();
+        }
+        requestUpdate(name, oldValue, options) {
+            super.requestUpdate(name, oldValue, options);
+            this[privateSyncValidity$2]();
+        }
+        firstUpdated(changed) {
+            super.firstUpdated(changed);
+            // Sync the validity again when the element first renders, since the
+            // validity anchor is now available.
+            //
+            // Elements that `delegatesFocus: true` to an `<input>` will throw an
+            // error in Chrome and Safari when a form tries to submit or call
+            // `form.reportValidity()`:
+            // "An invalid form control with name='' is not focusable"
+            //
+            // The validity anchor MUST be provided in `internals.setValidity()` and
+            // MUST be the `<input>` element rendered.
+            //
+            // See https://lit.dev/playground/#gist=6c26e418e0010f7a5aac15005cde8bde
+            // for a reproduction.
+            this[privateSyncValidity$2]();
+        }
+        [(_a = privateCustomValidationMessage$2, privateSyncValidity$2)]() {
+            if (!this[privateValidator$2]) {
+                this[privateValidator$2] = this[createValidator$2]();
+            }
+            const { validity, validationMessage: nonCustomValidationMessage } = this[privateValidator$2].getValidity();
+            const customError = !!this[privateCustomValidationMessage$2];
+            const validationMessage = this[privateCustomValidationMessage$2] || nonCustomValidationMessage;
+            this[internals$2].setValidity({ ...validity, customError }, validationMessage, this[getValidityAnchor$2]() ?? undefined);
+        }
+        [createValidator$2]() {
+            throw new Error('Implement [createValidator]');
+        }
+        [getValidityAnchor$2]() {
+            throw new Error('Implement [getValidityAnchor]');
+        }
+    }
+    return ConstraintValidationElement;
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A class that computes and caches `ValidityStateFlags` for a component with
+ * a given `State` interface.
+ *
+ * Cached performance before computing validity is important since constraint
+ * validation must be checked frequently and synchronously when properties
+ * change.
+ *
+ * @template State The expected interface of properties relevant to constraint
+ *     validation.
+ */
+let Validator$2 = class Validator {
+    /**
+     * Creates a new validator.
+     *
+     * @param getCurrentState A callback that returns the current state of
+     *     constraint validation-related properties.
+     */
+    constructor(getCurrentState) {
+        this.getCurrentState = getCurrentState;
+        /**
+         * The current validity state and message. This is cached and returns if
+         * constraint validation state does not change.
+         */
+        this.currentValidity = {
+            validity: {},
+            validationMessage: '',
+        };
+    }
+    /**
+     * Returns the current `ValidityStateFlags` and validation message for the
+     * validator.
+     *
+     * If the constraint validation state has not changed, this will return a
+     * cached result. This is important since `getValidity()` can be called
+     * frequently in response to synchronous property changes.
+     *
+     * @return The current validity and validation message.
+     */
+    getValidity() {
+        const state = this.getCurrentState();
+        const hasStateChanged = !this.prevState || !this.equals(this.prevState, state);
+        if (!hasStateChanged) {
+            return this.currentValidity;
+        }
+        const { validity, validationMessage } = this.computeValidity(state);
+        this.prevState = this.copy(state);
+        this.currentValidity = {
+            validationMessage,
+            validity: {
+                // Change any `ValidityState` instances into `ValidityStateFlags` since
+                // `ValidityState` cannot be easily `{...spread}`.
+                badInput: validity.badInput,
+                customError: validity.customError,
+                patternMismatch: validity.patternMismatch,
+                rangeOverflow: validity.rangeOverflow,
+                rangeUnderflow: validity.rangeUnderflow,
+                stepMismatch: validity.stepMismatch,
+                tooLong: validity.tooLong,
+                tooShort: validity.tooShort,
+                typeMismatch: validity.typeMismatch,
+                valueMissing: validity.valueMissing,
+            },
+        };
+        return this.currentValidity;
+    }
+};
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A validator that provides constraint validation that emulates
+ * `<input type="checkbox">` validation.
+ */
+let CheckboxValidator$2 = class CheckboxValidator extends Validator$2 {
+    computeValidity(state) {
+        if (!this.checkboxControl) {
+            // Lazily create the platform input
+            this.checkboxControl = document.createElement('input');
+            this.checkboxControl.type = 'checkbox';
+        }
+        this.checkboxControl.checked = state.checked;
+        this.checkboxControl.required = state.required;
+        return {
+            validity: this.checkboxControl.validity,
+            validationMessage: this.checkboxControl.validationMessage,
+        };
+    }
+    equals(prev, next) {
+        return prev.checked === next.checked && prev.required === next.required;
+    }
+    copy({ checked, required }) {
+        return { checked, required };
+    }
+};
+
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Separate variable needed for closure.
+const checkboxBaseClass$2 = mixinDelegatesAria$2(mixinConstraintValidation$2(mixinFormAssociated$2(mixinElementInternals$2(i$b))));
+/**
+ * A checkbox component.
+ *
+ *
+ * @fires change {Event} The native `change` event on
+ * [`<input>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)
+ * --bubbles
+ * @fires input {InputEvent} The native `input` event on
+ * [`<input>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event)
+ * --bubbles --composed
+ */
+let Checkbox$2 = class Checkbox extends checkboxBaseClass$2 {
+    constructor() {
+        super();
+        /**
+         * Whether or not the checkbox is selected.
+         */
+        this.checked = false;
+        /**
+         * Whether or not the checkbox is indeterminate.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#indeterminate_state_checkboxes
+         */
+        this.indeterminate = false;
+        /**
+         * When true, require the checkbox to be selected when participating in
+         * form submission.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#validation
+         */
+        this.required = false;
+        /**
+         * The value of the checkbox that is submitted with a form when selected.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#value
+         */
+        this.value = 'on';
+        this.prevChecked = false;
+        this.prevDisabled = false;
+        this.prevIndeterminate = false;
+        {
+            this.addEventListener('click', (event) => {
+                if (!isActivationClick$2(event) || !this.input) {
+                    return;
+                }
+                this.focus();
+                dispatchActivationClick$2(this.input);
+            });
+        }
+    }
+    update(changed) {
+        if (changed.has('checked') ||
+            changed.has('disabled') ||
+            changed.has('indeterminate')) {
+            this.prevChecked = changed.get('checked') ?? this.checked;
+            this.prevDisabled = changed.get('disabled') ?? this.disabled;
+            this.prevIndeterminate =
+                changed.get('indeterminate') ?? this.indeterminate;
+        }
+        super.update(changed);
+    }
+    render() {
+        const prevNone = !this.prevChecked && !this.prevIndeterminate;
+        const prevChecked = this.prevChecked && !this.prevIndeterminate;
+        const prevIndeterminate = this.prevIndeterminate;
+        const isChecked = this.checked && !this.indeterminate;
+        const isIndeterminate = this.indeterminate;
+        const containerClasses = e$8({
+            'disabled': this.disabled,
+            'selected': isChecked || isIndeterminate,
+            'unselected': !isChecked && !isIndeterminate,
+            'checked': isChecked,
+            'indeterminate': isIndeterminate,
+            'prev-unselected': prevNone,
+            'prev-checked': prevChecked,
+            'prev-indeterminate': prevIndeterminate,
+            'prev-disabled': this.prevDisabled,
+        });
+        // Needed for closure conformance
+        const { ariaLabel, ariaInvalid } = this;
+        // Note: <input> needs to be rendered before the <svg> for
+        // form.reportValidity() to work in Chrome.
+        return b$2 `
+      <div class="container ${containerClasses}">
+        <input
+          type="checkbox"
+          id="input"
+          aria-checked=${isIndeterminate ? 'mixed' : A$1}
+          aria-label=${ariaLabel || A$1}
+          aria-invalid=${ariaInvalid || A$1}
+          ?disabled=${this.disabled}
+          ?required=${this.required}
+          .indeterminate=${this.indeterminate}
+          .checked=${this.checked}
+          @input=${this.handleInput}
+          @change=${this.handleChange} />
+
+        <div class="outline"></div>
+        <div class="background"></div>
+        <md-focus-ring part="focus-ring" for="input"></md-focus-ring>
+        <md-ripple for="input" ?disabled=${this.disabled}></md-ripple>
+        <svg class="icon" viewBox="0 0 18 18" aria-hidden="true">
+          <rect class="mark short" />
+          <rect class="mark long" />
+        </svg>
+      </div>
+    `;
+    }
+    handleInput(event) {
+        const target = event.target;
+        this.checked = target.checked;
+        this.indeterminate = target.indeterminate;
+        // <input> 'input' event bubbles and is composed, don't re-dispatch it.
+    }
+    handleChange(event) {
+        // <input> 'change' event is not composed, re-dispatch it.
+        redispatchEvent$2(this, event);
+    }
+    [getFormValue$2]() {
+        if (!this.checked || this.indeterminate) {
+            return null;
+        }
+        return this.value;
+    }
+    [getFormState$2]() {
+        return String(this.checked);
+    }
+    formResetCallback() {
+        // The checked property does not reflect, so the original attribute set by
+        // the user is used to determine the default value.
+        this.checked = this.hasAttribute('checked');
+    }
+    formStateRestoreCallback(state) {
+        this.checked = state === 'true';
+    }
+    [createValidator$2]() {
+        return new CheckboxValidator$2(() => this);
+    }
+    [getValidityAnchor$2]() {
+        return this.input;
+    }
+};
+/** @nocollapse */
+Checkbox$2.shadowRootOptions = {
+    ...i$b.shadowRootOptions,
+    delegatesFocus: true,
+};
+__decorate$1([
+    n$b({ type: Boolean })
+], Checkbox$2.prototype, "checked", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Checkbox$2.prototype, "indeterminate", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Checkbox$2.prototype, "required", void 0);
+__decorate$1([
+    n$b()
+], Checkbox$2.prototype, "value", void 0);
+__decorate$1([
+    r$a()
+], Checkbox$2.prototype, "prevChecked", void 0);
+__decorate$1([
+    r$a()
+], Checkbox$2.prototype, "prevDisabled", void 0);
+__decorate$1([
+    r$a()
+], Checkbox$2.prototype, "prevIndeterminate", void 0);
+__decorate$1([
+    e$b('input')
+], Checkbox$2.prototype, "input", void 0);
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./checkbox/internal/checkbox-styles.css.
+const styles$_ = i$e `:host{border-start-start-radius:var(--md-checkbox-container-shape-start-start, var(--md-checkbox-container-shape, 2px));border-start-end-radius:var(--md-checkbox-container-shape-start-end, var(--md-checkbox-container-shape, 2px));border-end-end-radius:var(--md-checkbox-container-shape-end-end, var(--md-checkbox-container-shape, 2px));border-end-start-radius:var(--md-checkbox-container-shape-end-start, var(--md-checkbox-container-shape, 2px));display:inline-flex;height:var(--md-checkbox-container-size, 18px);position:relative;vertical-align:top;width:var(--md-checkbox-container-size, 18px);-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--md-checkbox-container-size, 18px))/2)}md-focus-ring{height:44px;inset:unset;width:44px}input{appearance:none;height:48px;margin:0;opacity:0;outline:none;position:absolute;width:48px;z-index:1;cursor:inherit}:host([touch-target=none]) input{height:100%;width:100%}.container{border-radius:inherit;display:flex;height:100%;place-content:center;place-items:center;position:relative;width:100%}.outline,.background,.icon{inset:0;position:absolute}.outline,.background{border-radius:inherit}.outline{border-color:var(--md-checkbox-outline-color, var(--md-sys-color-on-surface-variant, #49454f));border-style:solid;border-width:var(--md-checkbox-outline-width, 2px);box-sizing:border-box}.background{background-color:var(--md-checkbox-selected-container-color, var(--md-sys-color-primary, #6750a4))}.background,.icon{opacity:0;transition-duration:150ms,50ms;transition-property:transform,opacity;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15),linear;transform:scale(0.6)}:where(.selected) :is(.background,.icon){opacity:1;transition-duration:350ms,50ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1),linear;transform:scale(1)}md-ripple{border-radius:var(--md-checkbox-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));height:var(--md-checkbox-state-layer-size, 40px);inset:unset;width:var(--md-checkbox-state-layer-size, 40px);--md-ripple-hover-color: var(--md-checkbox-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-checkbox-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-checkbox-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--md-ripple-pressed-opacity: var(--md-checkbox-pressed-state-layer-opacity, 0.12)}.selected md-ripple{--md-ripple-hover-color: var(--md-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--md-ripple-hover-opacity: var(--md-checkbox-selected-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-checkbox-selected-pressed-state-layer-opacity, 0.12)}.icon{fill:var(--md-checkbox-selected-icon-color, var(--md-sys-color-on-primary, #fff));height:var(--md-checkbox-icon-size, 18px);width:var(--md-checkbox-icon-size, 18px)}.mark.short{height:2px;transition-property:transform,height;width:2px}.mark.long{height:2px;transition-property:transform,width;width:10px}.mark{animation-duration:150ms;animation-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15);transition-duration:150ms;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15)}.selected .mark{animation-duration:350ms;animation-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1);transition-duration:350ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1)}.checked .mark,.prev-checked.unselected .mark{transform:scaleY(-1) translate(7px, -14px) rotate(45deg)}.checked .mark.short,.prev-checked.unselected .mark.short{height:5.6568542495px}.checked .mark.long,.prev-checked.unselected .mark.long{width:11.313708499px}.indeterminate .mark,.prev-indeterminate.unselected .mark{transform:scaleY(-1) translate(4px, -10px) rotate(0deg)}.prev-unselected .mark{transition-property:none}.prev-unselected.checked .mark.long{animation-name:prev-unselected-to-checked}@keyframes prev-unselected-to-checked{from{width:0}}:where(:hover) .outline{border-color:var(--md-checkbox-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));border-width:var(--md-checkbox-hover-outline-width, 2px)}:where(:hover) .background{background:var(--md-checkbox-selected-hover-container-color, var(--md-sys-color-primary, #6750a4))}:where(:hover) .icon{fill:var(--md-checkbox-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff))}:where(:focus-within) .outline{border-color:var(--md-checkbox-focus-outline-color, var(--md-sys-color-on-surface, #1d1b20));border-width:var(--md-checkbox-focus-outline-width, 2px)}:where(:focus-within) .background{background:var(--md-checkbox-selected-focus-container-color, var(--md-sys-color-primary, #6750a4))}:where(:focus-within) .icon{fill:var(--md-checkbox-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff))}:where(:active) .outline{border-color:var(--md-checkbox-pressed-outline-color, var(--md-sys-color-on-surface, #1d1b20));border-width:var(--md-checkbox-pressed-outline-width, 2px)}:where(:active) .background{background:var(--md-checkbox-selected-pressed-container-color, var(--md-sys-color-primary, #6750a4))}:where(:active) .icon{fill:var(--md-checkbox-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff))}:where(.disabled,.prev-disabled) :is(.background,.icon,.mark){animation-duration:0s;transition-duration:0s}:where(.disabled) .outline{border-color:var(--md-checkbox-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));border-width:var(--md-checkbox-disabled-outline-width, 2px);opacity:var(--md-checkbox-disabled-container-opacity, 0.38)}:where(.selected.disabled) .outline{visibility:hidden}:where(.selected.disabled) .background{background:var(--md-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-checkbox-selected-disabled-container-opacity, 0.38)}:where(.disabled) .icon{fill:var(--md-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface, #fef7ff))}@media(forced-colors: active){.background{background-color:CanvasText}.selected.disabled .background{background-color:GrayText;opacity:1}.outline{border-color:CanvasText}.disabled .outline{border-color:GrayText;opacity:1}.icon{fill:Canvas}}
+`;
+
+/**
+ * @license
+ * Copyright 2018 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @license
+ * Copyright 2026 OMICRON electronics GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @tagname oscd-checkbox
+ * @summary Checkboxes allow users to select one or more items from a set.
+ * Checkboxes can turn an option on or off.
+ *
+ * Use checkboxes to:
+ * - Select one or more options from a list
+ * - Present a list containing sub-selections
+ * - Turn an item on or off in a desktop environment
+ *
+ * @final
+ * @suppress {visibility}
+ */
+let OscdCheckbox$1 = class OscdCheckbox extends ScopedElementsMixin$2(Checkbox$2) {
+};
+OscdCheckbox$1.scopedElements = {
+    'md-ripple': OscdRipple$1,
+    'md-focus-ring': OscdFocusRing$1,
+};
+OscdCheckbox$1.styles = [styles$_];
+
+/**
+ * Internal base class for `oscd-tree-item`.
+ *
+ * ## Leading icon alignment
+ *
+ * A leading icon (the `start` slot) is rendered inside a fixed-width leading
+ * column whose size defaults to the tree's `--oscd-tree-indent-step`. This is
+ * deliberate: it makes a leading icon occupy **exactly one indent step**, so an
+ * icon-less descendant — which the tree indents by one step per level — lands
+ * its text precisely under its iconed ancestor's text, at any depth, with no
+ * per-row tuning. Rows without a leading icon collapse the column to zero and
+ * rely on the tree's indentation instead.
+ *
+ * Because the leading column and the indent step are fused, a single knob
+ * (`--oscd-tree-indent-step`) controls both per-level indentation and the
+ * leading icon column, and the two can never drift out of alignment. Set it
+ * large enough to comfortably hold the icon (e.g. `40px`); the visual gap
+ * between the icon and the text is the leftover space, `step - icon size`.
+ *
+ * @slot start - Optional leading content such as an icon.
+ * @slot headline - Primary row text.
+ * @slot supporting-text - Secondary row text.
+ * @slot end - Optional trailing content such as status or actions.
+ */
+class TreeItem extends i$b {
+    constructor() {
+        super(...arguments);
+        /**
+         * Whether the row content should render selected styling.
+         */
+        this.selected = false;
+        /**
+         * Whether the row content represents the active tree row.
+         */
+        this.active = false;
+        /**
+         * Whether the row content should render disabled styling.
+         */
+        this.disabled = false;
+        /**
+         * Whether the `start` slot currently holds a leading icon. Drives the
+         * fixed-width leading column so icon-less rows collapse it to zero.
+         */
+        this.hasLeadingContent = false;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        // Set the initial state synchronously from light-DOM children so the
+        // first render already has the correct leading-column width — the
+        // `slotchange` event only fires post-render and races the first paint,
+        // letting an unclipped icon spill into `.text` for one frame.
+        this.hasLeadingContent = this.querySelector('[slot="start"]') !== null;
+    }
+    handleStartSlotChange(event) {
+        // Keeps state correct if `start`'s content changes after connect (e.g. a
+        // reused row whose `renderItem` conditionally adds/removes an icon).
+        this.hasLeadingContent =
+            event.target.assignedElements({ flatten: true })
+                .length > 0;
+    }
+    render() {
+        return b$2 `<div part="content" class="content">
+      <span
+        part="leading"
+        class="leading ${this.hasLeadingContent ? 'has-leading' : ''}"
+      >
+        <slot name="start" @slotchange=${this.handleStartSlotChange}></slot>
+      </span>
+      <span part="text" class="text">
+        <span part="headline" class="headline"
+          ><slot name="headline"></slot
+        ></span>
+        <span part="supporting-text" class="supporting-text"
+          ><slot name="supporting-text"></slot
+        ></span>
+      </span>
+      <slot name="end"></slot>
+    </div>`;
+    }
+}
+TreeItem.styles = i$e `
+    :host {
+      box-sizing: border-box;
+      display: block;
+      min-width: 0;
+      color: inherit;
+    }
+
+    :host([disabled]) {
+      opacity: var(--md-list-item-disabled-opacity, 0.3);
+    }
+
+    :host([selected]) .headline {
+      /*
+       * Falls back to currentColor (like the resting ".headline" rule below)
+       * rather than a fixed on-surface ink, so the label tracks whatever
+       * "color" the containing row already resolved to for its selected
+       * state (e.g. Tree.js's selected/active row rules), instead of
+       * silently overriding it with an unrelated fixed color.
+       */
+      color: var(
+        --oscd-tree-item-selected-headline-color,
+        var(--md-list-item-label-text-color, currentColor)
+      );
+      font-weight: var(
+        --oscd-tree-item-selected-headline-weight,
+        var(--md-sys-typescale-body-large-weight-prominent, 500)
+      );
+    }
+
+    /*
+     * Like the selected headline rule above, falls back to currentColor so
+     * the supporting text also tracks the row's selected-state color instead
+     * of staying pinned to the resting on-surface-variant grey (which has
+     * poor contrast once the row's background switches to a selected color).
+     */
+    :host([selected]) .supporting-text {
+      color: var(
+        --oscd-tree-item-selected-supporting-text-color,
+        var(--md-list-item-supporting-text-color, currentColor)
+      );
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      min-width: 0;
+      min-height: var(--md-list-item-one-line-container-height, 56px);
+      width: 100%;
+    }
+
+    /*
+     * Leading icon column. A leading icon occupies exactly one indent step so
+     * that icon-less descendants (indented one step per level by the tree)
+     * align their text under an iconed ancestor's text at any depth. Rows
+     * without a leading icon collapse this column to zero and rely on the
+     * tree's indentation instead. Override --oscd-tree-item-leading-size only
+     * if you must decouple it from --oscd-tree-indent-step; keeping them equal
+     * is what preserves the alignment.
+     */
+    .leading {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 0 0 auto;
+      inline-size: 0;
+    }
+
+    .leading.has-leading {
+      inline-size: var(
+        --oscd-tree-item-leading-size,
+        var(--oscd-tree-indent-step, 24px)
+      );
+    }
+
+    .text {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .headline,
+    .supporting-text {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .headline {
+      color: var(--md-list-item-label-text-color, currentColor);
+      font-family: var(--md-list-item-label-text-font, inherit);
+      font-size: var(--md-list-item-label-text-size, 1rem);
+      font-weight: var(--md-list-item-label-text-weight, 400);
+      line-height: var(--md-list-item-label-text-line-height, 1.5rem);
+    }
+
+    .supporting-text {
+      color: var(
+        --md-list-item-supporting-text-color,
+        var(--md-sys-color-on-surface-variant, #49454f)
+      );
+      font-family: var(--md-list-item-supporting-text-font, inherit);
+      font-size: var(--md-list-item-supporting-text-size, 0.875rem);
+      font-weight: var(--md-list-item-supporting-text-weight, 400);
+      line-height: var(--md-list-item-supporting-text-line-height, 1.25rem);
+    }
+
+    ::slotted([slot='start']),
+    ::slotted([slot='end']) {
+      flex: 0 0 auto;
+    }
+
+    ::slotted([slot='start']) {
+      color: var(
+        --md-list-item-leading-icon-color,
+        var(--md-sys-color-on-surface-variant, #49454f)
+      );
+    }
+
+    ::slotted([slot='end']) {
+      margin-inline-start: var(--oscd-tree-item-gap, 16px);
+      color: var(
+        --md-list-item-trailing-icon-color,
+        var(--md-sys-color-on-surface-variant, #49454f)
+      );
+    }
+  `;
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TreeItem.prototype, "selected", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TreeItem.prototype, "active", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TreeItem.prototype, "disabled", void 0);
+__decorate$1([
+    r$a()
+], TreeItem.prototype, "hasLeadingContent", void 0);
+
+/**
+ * Default content component for rows rendered inside `oscd-tree`.
+ *
+ * `oscd-tree-item` is intended to be returned from an `oscd-tree` `renderItem`
+ * callback. It renders the caller-visible row content only. The parent
+ * `oscd-tree` owns the tree row frame, indentation, expand/collapse affordance,
+ * selection affordance, keyboard handling, and ARIA attributes.
+ *
+ * Use the `headline` slot for the primary label, `supporting-text` for
+ * secondary/path text, `start` for an optional leading icon, and `end` for
+ * optional trailing status or actions.
+ *
+ * ## Leading icon alignment
+ *
+ * When only some rows carry a leading icon (e.g. top-level rows have icons but
+ * their children do not), you usually want the icon-less children's text to sit
+ * directly under their iconed parent's text. This works automatically: a
+ * leading icon occupies exactly one indent step, so an icon-less child —
+ * indented one step by the tree — aligns its text with the parent's, at any
+ * depth, with no per-row configuration.
+ *
+ * The leading icon column and the per-level indentation are both driven by the
+ * single `--oscd-tree-indent-step` custom property (default `24px`), so they can
+ * never drift out of alignment. Set it large enough to comfortably hold your
+ * icon — e.g. `--oscd-tree-indent-step: 40px` — which also widens the gap
+ * between the icon and the text (the gap is `step - icon size`). The rarely
+ * needed `--oscd-tree-item-leading-size` can decouple just the column width, but
+ * keeping it equal to the indent step is what preserves the alignment.
+ *
+ * Text and icon styling uses the embedded `--md-list-item-*` tokens directly.
+ *
+ * @example
+ * ```ts
+ * const renderItem = ({ node, selected, active, disabled }) => html`
+ *   <oscd-tree-item
+ *     ?selected=${selected}
+ *     ?active=${active}
+ *     ?disabled=${disabled}
+ *   >
+ *     <oscd-icon slot="start">lan</oscd-icon>
+ *     <span slot="headline">${node.label}</span>
+ *     <span slot="supporting-text">${node.path}</span>
+ *     ${selected ? html`<oscd-icon slot="end">check</oscd-icon>` : ''}
+ *   </oscd-tree-item>
+ * `;
+ * ```
+ *
+ * @slot start - Optional leading content such as an icon.
+ * @slot headline - Primary row text.
+ * @slot supporting-text - Secondary row text.
+ * @slot end - Optional trailing content such as status or actions.
+ *
+ * @tagname oscd-tree-item
+ */
+class OscdTreeItem extends TreeItem {
+}
+
+const fallbackRenderItem = ({ node, id, selected, active, disabled, }) => b$2 `<oscd-tree-item
+    ?selected=${selected}
+    ?active=${active}
+    ?disabled=${disabled}
+  >
+    <span slot="headline">${'label' in node ? String(node.label) : id}</span>
+  </oscd-tree-item>`;
+const idSeparator = '/';
+function childState(node) {
+    if (node.children === undefined) {
+        return 'unknown';
+    }
+    return node.children.length > 0 ? 'branch' : 'leaf';
+}
+/**
+ * Internal base class for `oscd-tree`.
+ */
+class Tree extends ScopedElementsMixin$2(i$b) {
+    constructor() {
+        super(...arguments);
+        /**
+         * Structured tree data to render.
+         */
+        this.data = [];
+        /**
+         * Selected node identifiers.
+         *
+         * This state is controlled by the caller and may be persisted outside the
+         * tree, but it must be scoped to the data set/context that produced the IDs.
+         * Reset or re-key persisted selected IDs when `data` changes to a different
+         * logical tree, otherwise unrelated nodes with matching IDs may appear
+         * selected.
+         */
+        this.selectedIds = [];
+        /**
+         * Expanded node identifiers.
+         *
+         * This state is controlled by the caller and may be persisted outside the
+         * tree, but it must be scoped to the data set/context that produced the IDs.
+         * Reset or re-key persisted expanded IDs when `data` changes to a different
+         * logical tree, otherwise unrelated nodes with matching IDs may appear
+         * expanded.
+         */
+        this.expandedIds = [];
+        /**
+         * Selection behavior.
+         */
+        this.selectionMode = 'none';
+        /**
+         * Icon shown on the expand/collapse toggle when a branch is collapsed.
+         *
+         * Any icon name understood by `oscd-icon` (a Material Symbol name or a
+         * registered SCL icon) may be used. Defaults to `chevron_right`.
+         */
+        this.collapseIcon = 'chevron_right';
+        /**
+         * Icon shown on the expand/collapse toggle when a branch is expanded.
+         *
+         * Any icon name understood by `oscd-icon` (a Material Symbol name or a
+         * registered SCL icon) may be used. Defaults to `expand_more`.
+         */
+        this.expandIcon = 'expand_more';
+        /**
+         * Placement of the expand/collapse toggle within each row.
+         *
+         * `'leading'` (default) renders the toggle before the row content.
+         * `'trailing'` renders it after the content, right-aligned so the toggles
+         * line up on the trailing edge regardless of nesting depth. Keyboard
+         * expansion (`ArrowRight`/`ArrowLeft`) is unaffected by this option.
+         */
+        this.togglePosition = 'leading';
+        /** Currently active keyboard row. Controlled by the caller when needed. */
+        this.activeId = null;
+        /**
+         * Whether focusing the active row should scroll it into the nearest
+         * scrollable ancestor when it is outside the visible area.
+         */
+        this.scrollActiveIntoView = true;
+        this.handleTreeKeyDown = (event) => {
+            if (event.target !== this) {
+                return;
+            }
+            const rows = this.navigableRows();
+            const rowIndex = rows.findIndex(row => row.id === this.activeId);
+            switch (event.key) {
+                case 'ArrowDown':
+                    event.preventDefault();
+                    this.navigateNext(rows, rowIndex);
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();
+                    this.navigatePrevious(rows, rowIndex);
+                    break;
+                case 'Home':
+                    event.preventDefault();
+                    this.activeId = this.getFirstNodeId();
+                    break;
+                case 'End':
+                    event.preventDefault();
+                    this.activeId = this.getLastNodeId();
+                    break;
+                case 'Enter': {
+                    const activeRow = rows[rowIndex];
+                    if (activeRow) {
+                        event.preventDefault();
+                        this.toggleSelection(activeRow);
+                    }
+                    break;
+                }
+            }
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.tabIndex = 0;
+        this.addEventListener('keydown', this.handleTreeKeyDown);
+    }
+    disconnectedCallback() {
+        this.removeEventListener('keydown', this.handleTreeKeyDown);
+        super.disconnectedCallback();
+    }
+    willUpdate(changedProperties) {
+        if (!changedProperties.has('activeId') || this.activeId === null) {
+            return;
+        }
+        const isNavigable = this.navigableRows().some(row => row.id === this.activeId);
+        if (!isNavigable) {
+            console.warn(`Ignoring invalid oscd-tree activeId: ${this.activeId}`);
+            this.activeId = changedProperties.get('activeId') ?? null;
+        }
+    }
+    /** Returns the first visible, enabled row ID, or null when none exists. */
+    getFirstNodeId() {
+        return this.navigableRows()[0]?.id ?? null;
+    }
+    /** Returns the last visible, enabled row ID, or null when none exists. */
+    getLastNodeId() {
+        const rows = this.navigableRows();
+        return rows[rows.length - 1]?.id ?? null;
+    }
+    /**
+     * Expands a node by ID.
+     */
+    expand(id) {
+        if (!this.expandedIds.includes(id)) {
+            this.setExpandedIds([...this.expandedIds, id]);
+        }
+    }
+    /**
+     * Collapses a node by ID.
+     */
+    collapse(id) {
+        if (this.expandedIds.includes(id)) {
+            this.setExpandedIds(this.expandedIds.filter(expandedId => expandedId !== id));
+        }
+    }
+    /**
+     * Toggles a node expansion state by ID.
+     */
+    toggle(id) {
+        const row = this.visibleRows().find(candidate => candidate.id === id);
+        if (!row) {
+            return;
+        }
+        this.toggleExpansion(row);
+    }
+    rowId(node, indexPath) {
+        return (node.id ??
+            this.getNodeId?.(node, indexPath) ??
+            indexPath.join(idSeparator));
+    }
+    visibleRows() {
+        const expandedIds = new Set(this.expandedIds);
+        const rows = [];
+        const walk = (nodes, level, parentIds, indexPath) => {
+            if (!nodes) {
+                return;
+            }
+            const ariaSetSize = nodes.length;
+            nodes.forEach((node, index) => {
+                const childIndexPath = [...indexPath, index];
+                const id = this.rowId(node, childIndexPath);
+                rows.push({
+                    node,
+                    id,
+                    htmlId: `tree-row-${rows.length}`,
+                    level,
+                    parentIds,
+                    ariaPositionInSet: index + 1,
+                    ariaSetSize,
+                });
+                if (expandedIds.has(id) && node.children) {
+                    walk(node.children, level + 1, [...parentIds, id], childIndexPath);
+                }
+            });
+        };
+        walk(this.data, 1, [], []);
+        return rows;
+    }
+    navigableRows() {
+        return this.visibleRows().filter(row => !this.isRowDisabled(row));
+    }
+    renderContext(row) {
+        const selected = this.selectedIds.includes(row.id);
+        return {
+            node: row.node,
+            id: row.id,
+            level: row.level,
+            expanded: this.expandedIds.includes(row.id),
+            selected,
+            active: this.activeId === row.id,
+            childrenState: childState(row.node),
+            selectable: this.selectionMode !== 'none' && this.isRowSelectable(row),
+            disabled: this.isRowDisabled(row),
+        };
+    }
+    accessibleLabel(row) {
+        if (this.getNodeLabel) {
+            return this.getNodeLabel(row.node, row.id);
+        }
+        if ('label' in row.node && row.node.label !== undefined) {
+            return String(row.node.label);
+        }
+        return row.id;
+    }
+    isRowSelectable(row) {
+        return this.isSelectable ? this.isSelectable(row.node) : true;
+    }
+    isRowDisabled(row) {
+        return this.isDisabled ? this.isDisabled(row.node) : false;
+    }
+    setExpandedIds(expandedIds) {
+        this.expandedIds = expandedIds;
+        this.dispatchEvent(new CustomEvent('expanded-ids-changed', {
+            detail: { expandedIds },
+        }));
+    }
+    setSelectedIds(selectedIds, targetNode) {
+        const previousSelectedIds = this.selectedIds;
+        this.selectedIds = selectedIds;
+        this.dispatchEvent(new CustomEvent('selected-ids-changed', {
+            detail: {
+                selectedIds,
+                previousSelectedIds,
+                targetNode,
+            },
+        }));
+    }
+    fireNodeEvent(name, row, options) {
+        const event = new CustomEvent(name, {
+            bubbles: true,
+            cancelable: options?.cancelable ?? false,
+            detail: {
+                node: row.node,
+                id: row.id,
+            },
+        });
+        return this.dispatchEvent(event);
+    }
+    toggleExpansion(row) {
+        if (this.isRowDisabled(row) || childState(row.node) === 'leaf') {
+            return;
+        }
+        const expanded = this.expandedIds.includes(row.id);
+        if (expanded) {
+            this.setExpandedIds(this.expandedIds.filter(expandedId => expandedId !== row.id));
+            this.fireNodeEvent('node-collapse', row);
+            this.fireNodeEvent('node-toggle', row);
+            return;
+        }
+        if (!this.fireNodeEvent('node-expand', row, { cancelable: true })) {
+            return;
+        }
+        this.setExpandedIds([...this.expandedIds, row.id]);
+        this.fireNodeEvent('node-toggle', row);
+    }
+    toggleSelection(row) {
+        if (this.selectionMode === 'none' ||
+            this.isRowDisabled(row) ||
+            !this.isRowSelectable(row)) {
+            return;
+        }
+        if (this.selectionMode === 'single') {
+            this.setSelectedIds([row.id], row.node);
+            return;
+        }
+        const selected = this.selectedIds.includes(row.id);
+        this.setSelectedIds(selected
+            ? this.selectedIds.filter(selectedId => selectedId !== row.id)
+            : [...this.selectedIds, row.id], row.node);
+    }
+    activateRow(row) {
+        this.activeId = row.id;
+        this.fireNodeEvent('node-click', row);
+    }
+    handleRowClick(row, event) {
+        if (this.isRowDisabled(row)) {
+            event.preventDefault();
+            return;
+        }
+        this.activateRow(row);
+        if (childState(row.node) !== 'leaf') {
+            this.toggleExpansion(row);
+            return;
+        }
+        this.toggleSelection(row);
+    }
+    handleToggleClick(row, event) {
+        event.stopPropagation();
+        this.activeId = row.id;
+        this.toggleExpansion(row);
+    }
+    handleKeyDown(row, event) {
+        event.stopPropagation();
+        const rows = this.navigableRows();
+        const rowIndex = rows.findIndex(candidate => candidate.id === row.id);
+        switch (event.key) {
+            case 'ArrowDown':
+                event.preventDefault();
+                this.navigateNext(rows, rowIndex);
+                break;
+            case 'ArrowUp':
+                event.preventDefault();
+                this.navigatePrevious(rows, rowIndex);
+                break;
+            case 'Home':
+                event.preventDefault();
+                this.activeId = this.getFirstNodeId();
+                break;
+            case 'End':
+                event.preventDefault();
+                this.activeId = this.getLastNodeId();
+                break;
+            case 'ArrowRight':
+                event.preventDefault();
+                this.stepIn(row, rows, rowIndex);
+                break;
+            case 'ArrowLeft':
+                event.preventDefault();
+                this.stepOut(row);
+                break;
+            case 'Enter':
+                event.preventDefault();
+                this.activeId = row.id;
+                this.toggleSelection(row);
+                break;
+            case ' ':
+                event.preventDefault();
+                this.toggleSelection(row);
+                break;
+        }
+    }
+    navigateNext(rows, rowIndex) {
+        const nextRow = rows[rowIndex < 0 ? 0 : rowIndex + 1];
+        if (!nextRow) {
+            this.dispatchEvent(new CustomEvent('navigation-boundary', {
+                detail: { direction: 'last' },
+            }));
+            return;
+        }
+        this.activeId = nextRow.id;
+        this.dispatchEvent(new CustomEvent('active-changed', {
+            detail: { activeId: nextRow.id },
+        }));
+    }
+    navigatePrevious(rows, rowIndex) {
+        const previousRow = rows[rowIndex < 0 ? rows.length - 1 : rowIndex - 1];
+        if (!previousRow) {
+            this.dispatchEvent(new CustomEvent('navigation-boundary', {
+                detail: { direction: 'first' },
+            }));
+            return;
+        }
+        this.activeId = previousRow.id;
+        this.dispatchEvent(new CustomEvent('active-changed', {
+            detail: { activeId: previousRow.id },
+        }));
+    }
+    stepIn(row, rows, rowIndex) {
+        const state = childState(row.node);
+        if (state === 'leaf') {
+            return;
+        }
+        if (!this.expandedIds.includes(row.id)) {
+            this.toggleExpansion(row);
+            return;
+        }
+        const nextRow = rows[rowIndex + 1];
+        if (nextRow?.parentIds[nextRow.parentIds.length - 1] === row.id) {
+            this.activeId = nextRow.id;
+        }
+    }
+    stepOut(row) {
+        if (this.expandedIds.includes(row.id)) {
+            this.toggleExpansion(row);
+            return;
+        }
+        const parentId = row.parentIds[row.parentIds.length - 1];
+        if (parentId) {
+            this.activeId = parentId;
+        }
+    }
+    renderSelection(row) {
+        if (this.selectionMode !== 'multiple' || !this.isRowSelectable(row)) {
+            return A$1;
+        }
+        const selected = this.selectedIds.includes(row.id);
+        return b$2 `<span
+      part="selection"
+      class="selection"
+      aria-hidden="true"
+      data-selected=${selected ? 'true' : 'false'}
+      ><oscd-checkbox
+        tabindex="-1"
+        ?checked=${selected}
+        ?disabled=${this.isRowDisabled(row)}
+      ></oscd-checkbox
+    ></span>`;
+    }
+    renderToggle(row, context) {
+        const expandable = context.childrenState !== 'leaf';
+        const expanded = context.expanded;
+        if (!expandable && this.renderLeafAccessory) {
+            const accessory = this.renderLeafAccessory(context);
+            if (accessory !== A$1 && accessory != null && accessory !== false) {
+                return b$2 `<div
+          part="accessory"
+          class="accessory"
+          @click=${(event) => event.stopPropagation()}
+          @keydown=${(event) => this.handleAccessoryKeydown(event)}
+        >
+          ${accessory}
+        </div>`;
+            }
+        }
+        return b$2 `<button
+      part="toggle"
+      class="toggle ${expandable ? '' : 'leaf-toggle'}"
+      ?disabled=${!expandable || context.disabled}
+      aria-label=${expanded ? 'Collapse' : 'Expand'}
+      tabindex="-1"
+      @click=${(event) => this.handleToggleClick(row, event)}
+    >
+      ${expandable
+            ? b$2 `<oscd-icon
+              >${expanded ? this.expandIcon : this.collapseIcon}</oscd-icon
+            >`
+            : A$1}
+    </button>`;
+    }
+    // Keep Enter/Space activations of a leaf accessory (e.g. a pin button) from
+    // bubbling to the row's keyboard handler; arrow keys still bubble so tree
+    // navigation continues to work while an accessory is focused.
+    // eslint-disable-next-line class-methods-use-this
+    handleAccessoryKeydown(event) {
+        if (event.key === 'Enter' ||
+            event.key === ' ' ||
+            event.key === 'Spacebar') {
+            event.stopPropagation();
+        }
+    }
+    renderRow(row) {
+        const context = this.renderContext(row);
+        const state = context.childrenState;
+        const selected = context.selected;
+        const disabled = context.disabled;
+        const active = context.active;
+        return b$2 `<div
+      id=${row.htmlId}
+      part="row"
+      class="row"
+      role="treeitem"
+      tabindex=${active ? '0' : '-1'}
+      aria-level=${row.level}
+      aria-posinset=${row.ariaPositionInSet}
+      aria-setsize=${row.ariaSetSize}
+      aria-label=${this.accessibleLabel(row)}
+      aria-expanded=${state === 'leaf' ? A$1 : context.expanded}
+      aria-selected=${context.selectable ? selected : A$1}
+      aria-disabled=${disabled ? 'true' : A$1}
+      data-active=${active ? 'true' : 'false'}
+      data-selected=${selected ? 'true' : 'false'}
+      data-selection-mode=${this.selectionMode}
+      data-disabled=${disabled ? 'true' : 'false'}
+      style=${`--_level: ${row.level};`}
+      @click=${(event) => this.handleRowClick(row, event)}
+      @keydown=${(event) => this.handleKeyDown(row, event)}
+    >
+      <oscd-ripple for=${row.htmlId} ?disabled=${disabled}></oscd-ripple>
+      <oscd-focus-ring for=${row.htmlId} inward></oscd-focus-ring>
+      <span part="indent" class="indent" aria-hidden="true"></span>
+      ${this.togglePosition === 'leading'
+            ? this.renderToggle(row, context)
+            : A$1}
+      ${this.renderSelection(row)}
+      <span part="content" class="content"
+        >${(this.renderItem ?? fallbackRenderItem)(context)}</span
+      >
+      ${this.togglePosition === 'trailing'
+            ? this.renderToggle(row, context)
+            : A$1}
+    </div>`;
+    }
+    updated() {
+        const focusedAccessory = this.renderRoot instanceof ShadowRoot
+            ? this.renderRoot.activeElement?.closest('.accessory')
+            : null;
+        if (focusedAccessory) {
+            return;
+        }
+        const activeRow = this.renderRoot.querySelector('.row[data-active="true"]');
+        if (activeRow && this.matches(':focus-within')) {
+            activeRow.focus();
+            if (this.scrollActiveIntoView) {
+                activeRow.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            }
+        }
+    }
+    render() {
+        const rows = this.visibleRows();
+        return b$2 `<div part="tree" class="tree" role="tree">
+      ${rows.map(row => this.renderRow(row))}
+    </div>`;
+    }
+}
+Tree.scopedElements = {
+    'oscd-checkbox': OscdCheckbox$1,
+    'oscd-focus-ring': OscdFocusRing$1,
+    'oscd-icon': OscdIcon$1,
+    'oscd-ripple': OscdRipple$1,
+    'oscd-tree-item': OscdTreeItem,
+};
+Tree.styles = i$e `
+    :host {
+      display: block;
+      /*
+       * Allow the tree to shrink below its content's intrinsic (max-content)
+       * width when placed in a flex or grid container. Without this, a single
+       * long row label leaks its max-content width up the layout chain and
+       * sizes every row to it, pushing trailing toggles/accessories out of a
+       * width-constrained parent and defeating the per-row ellipsis. Keeping
+       * this on the host makes the tree a well-behaved flex/grid child by
+       * default for every consumer.
+       */
+      min-width: 0;
+      outline: none;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      color: var(--oscd-tree-color, var(--md-sys-color-on-surface, #1d1b20));
+      font-family: var(
+        --oscd-tree-font-family,
+        var(--md-sys-typescale-body-large-font, Roboto)
+      );
+      gap: var(--oscd-tree-row-gap, 0);
+    }
+
+    .row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      min-width: 0;
+      min-height: var(--oscd-tree-row-height, 44px);
+      border-radius: var(
+        --oscd-tree-row-shape,
+        var(--md-sys-shape-corner-small, 4px)
+      );
+      color: inherit;
+      cursor: default;
+      outline: none;
+      padding-inline-start: var(--oscd-tree-row-padding-start, 16px);
+      padding-inline-end: var(--oscd-tree-row-padding-end, 8px);
+      user-select: none;
+    }
+
+    :host(:focus-within) .row[data-active='true'] {
+      outline: var(--oscd-tree-row-active-border-width, 1px) solid
+        var(--oscd-tree-row-active-border-color, currentColor);
+      outline-offset: -1px;
+      color: var(--oscd-tree-row-active-text-color, inherit);
+    }
+
+    oscd-ripple,
+    oscd-focus-ring {
+      border-radius: var(
+        --oscd-tree-row-shape,
+        var(--md-sys-shape-corner-small, 4px)
+      );
+    }
+
+    oscd-focus-ring {
+      z-index: 1;
+      --md-focus-ring-shape: var(
+        --oscd-tree-row-shape,
+        var(--md-sys-shape-corner-small, 4px)
+      );
+    }
+
+    .row[data-disabled='true'] {
+      cursor: default;
+    }
+
+    .row[data-selection-mode='single'][data-selected='true'] {
+      color: var(
+        --oscd-tree-row-selected-text-color,
+        var(--md-sys-color-on-primary, #fff)
+      );
+      background: var(
+        --oscd-tree-row-selected-color,
+        var(--md-sys-color-primary, #6750a4)
+      );
+    }
+
+    .row[data-selection-mode='single'][data-selected='true']:hover:not(
+        [data-disabled='true']
+      ) {
+      background: var(
+        --oscd-tree-row-selected-hover-color,
+        var(
+          --oscd-tree-row-selected-color,
+          var(--md-sys-color-primary, #6750a4)
+        )
+      );
+    }
+
+    /*
+     * When a selected row is also the keyboard-active row while the tree has
+     * focus, the ":host(:focus-within) .row[data-active='true']" rule above
+     * has higher specificity than the selected-row rule and would otherwise
+     * win the cascade for "color", overriding the selected text color with
+     * "inherit" while leaving the selected background untouched. Restate the
+     * selected text color here, at higher specificity than both rules, so a
+     * focused+selected row keeps its selected-background/selected-foreground
+     * pairing while still showing the active outline.
+     */
+    :host(:focus-within)
+      .row[data-selection-mode='single'][data-selected='true'][data-active='true'] {
+      color: var(
+        --oscd-tree-row-selected-text-color,
+        var(--md-sys-color-on-primary, #fff)
+      );
+    }
+
+    .indent {
+      flex: 0 0
+        calc(max(0, var(--_level) - 1) * var(--oscd-tree-indent-step, 24px));
+      inline-size: calc(
+        max(0, var(--_level) - 1) * var(--oscd-tree-indent-step, 24px)
+      );
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 var(--oscd-tree-toggle-size, 32px);
+      inline-size: var(--oscd-tree-toggle-size, 32px);
+      block-size: var(--oscd-tree-toggle-size, 32px);
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .leaf-toggle {
+      flex-basis: var(
+        --oscd-tree-leaf-toggle-size,
+        var(--oscd-tree-toggle-size, 32px)
+      );
+      inline-size: var(
+        --oscd-tree-leaf-toggle-size,
+        var(--oscd-tree-toggle-size, 32px)
+      );
+    }
+
+    .toggle:disabled {
+      cursor: default;
+      opacity: 0;
+    }
+
+    :host([toggle-position='trailing']) .toggle {
+      margin-inline-start: var(--oscd-tree-trailing-toggle-gap, 4px);
+    }
+
+    :host([toggle-position='trailing']) .leaf-toggle {
+      margin-inline-start: var(
+        --oscd-tree-leaf-toggle-gap,
+        var(--oscd-tree-trailing-toggle-gap, 4px)
+      );
+    }
+
+    .accessory {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 var(--oscd-tree-toggle-size, 32px);
+      inline-size: var(--oscd-tree-toggle-size, 32px);
+      block-size: var(--oscd-tree-toggle-size, 32px);
+      /*
+       * Accessory visibility at rest. Defaults to fully opaque so accessories
+       * are always shown; consumers can set --oscd-tree-accessory-rest-opacity
+       * to 0 for a reveal-on-interaction pattern. Row hover and keyboard focus
+       * within the accessory always force it fully visible so it stays
+       * discoverable and keyboard-accessible.
+       */
+      opacity: var(--oscd-tree-accessory-rest-opacity, 1);
+      transition: opacity 0.1s ease-in-out;
+    }
+
+    .row:hover .accessory,
+    .accessory:focus-within {
+      opacity: 1;
+    }
+
+    :host([toggle-position='trailing']) .accessory {
+      margin-inline-start: var(--oscd-tree-trailing-toggle-gap, 4px);
+    }
+
+    .accessory button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: var(--oscd-tree-toggle-size, 32px);
+      block-size: var(--oscd-tree-toggle-size, 32px);
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      color: inherit;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .selection {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 var(--oscd-tree-selection-size, 48px);
+      inline-size: var(--oscd-tree-selection-size, 48px);
+      pointer-events: none;
+    }
+
+    .selection oscd-checkbox {
+      pointer-events: none;
+      --md-focus-ring-width: 0;
+      --md-ripple-hover-opacity: 0;
+      --md-ripple-pressed-opacity: 0;
+    }
+
+    .content {
+      display: block;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  `;
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "data", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "selectedIds", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "expandedIds", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "renderItem", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "renderLeafAccessory", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "getNodeId", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "getNodeLabel", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "isSelectable", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "isDisabled", void 0);
+__decorate$1([
+    n$b()
+], Tree.prototype, "selectionMode", void 0);
+__decorate$1([
+    n$b({ attribute: 'collapse-icon' })
+], Tree.prototype, "collapseIcon", void 0);
+__decorate$1([
+    n$b({ attribute: 'expand-icon' })
+], Tree.prototype, "expandIcon", void 0);
+__decorate$1([
+    n$b({ reflect: true, attribute: 'toggle-position' })
+], Tree.prototype, "togglePosition", void 0);
+__decorate$1([
+    n$b({ attribute: false })
+], Tree.prototype, "activeId", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'scroll-active-into-view' })
+], Tree.prototype, "scrollActiveIntoView", void 0);
+
+/**
+ * Displays hierarchical data as an accessible, keyboard-navigable tree.
+ *
+ * `oscd-tree` is data-driven: callers provide nested node data through `data`,
+ * and the tree manages expansion, selection, active-row navigation, row
+ * indentation, and ARIA attributes. Row content stays flexible through the
+ * `renderItem` callback.
+ *
+ * The tree owns the row frame. This includes indentation, expand/collapse
+ * affordances, selection affordances, keyboard handling, focus handling, and
+ * accessibility attributes. `renderItem` only supplies the content rendered
+ * inside each row frame.
+ *
+ * The expand/collapse toggle is customizable: `collapseIcon` and `expandIcon`
+ * override the icon names (defaults `chevron_right` / `expand_more`), and
+ * `togglePosition` places the toggle either `'leading'` (default) or
+ * `'trailing'`, in which case toggles line up on the row's trailing edge
+ * regardless of nesting depth. Keyboard expansion is unaffected by the toggle
+ * position.
+ *
+ * Leaf rows have no toggle. `renderLeafAccessory` can render an interactive
+ * accessory (such as a pin/unpin button) into a leaf row's toggle column so it
+ * aligns with the chevrons of expandable rows. The tree isolates pointer and
+ * `Enter`/`Space` interaction on the accessory so activating it does not select
+ * the row; a returned focusable element adds one tab stop per row.
+ *
+ * A leading icon (the `start` slot of `oscd-tree-item`) occupies exactly one
+ * indent step, so when only some rows have icons (e.g. iconed parents with
+ * icon-less children) the children's text aligns automatically under the
+ * parent's text at any depth. The single `--oscd-tree-indent-step` property
+ * (default `24px`) drives both indentation and the leading icon column; set it
+ * large enough to hold your icon (e.g. `40px`) when using leading icons. See
+ * {@link OscdTreeItem} for details.
+ *
+ * Row ripple and focus styling uses the embedded `--md-ripple-*` and
+ * `--md-focus-ring-*` tokens directly.
+ *
+ * Every node may provide a stable `id`. If no ID is supplied, the tree uses
+ * `getNodeId` when provided, then falls back to an index-path ID such as
+ * `0/1/2`. Index-path IDs are convenient for static demos but are not stable
+ * when nodes are inserted, removed, sorted, filtered, or lazily loaded, and
+ * should not be persisted.
+ *
+ * `selectedIds` and `expandedIds` are controlled state. They can be persisted
+ * by the caller, but persisted IDs must be scoped to the data set/context that
+ * produced them. Reset or re-key those arrays when `data` changes to a
+ * different logical tree, otherwise unrelated nodes with matching IDs may
+ * appear selected or expanded.
+ *
+ * `children` has three meanings:
+ *
+ * - `children === undefined`: children are unknown or not loaded yet.
+ * - `children === []`: children are known and the node is a leaf.
+ * - `children.length > 0`: children are known and the node is a branch.
+ *
+ * Expansion of nodes with unknown children can be intercepted with the
+ * cancelable `node-expand` event.
+ *
+ * @example
+ * ```ts
+ * type Node = TreeNode & {
+ *   label: string;
+ *   children?: Node[];
+ * };
+ *
+ * const data: Node[] = [
+ *   {
+ *     id: 'ied:PUB_A',
+ *     label: 'PUB_A',
+ *     children: [{ id: 'ln:TCTR1', label: 'TCTR1', children: [] }],
+ *   },
+ * ];
+ *
+ * html`
+ *   <oscd-tree
+ *     .data=${data}
+ *     .expandedIds=${['ied:PUB_A']}
+ *     .renderItem=${({ node }) => html`
+ *       <oscd-tree-item>
+ *         <span slot="headline">${node.label}</span>
+ *       </oscd-tree-item>
+ *     `}
+ *   ></oscd-tree>
+ * `;
+ * ```
+ *
+ * @fires selected-ids-changed - Fired when user interaction changes selected IDs.
+ * @fires expanded-ids-changed - Fired when expansion state changes.
+ * @fires node-click - Fired when a row is clicked.
+ * @fires node-expand - Cancelable event fired before a row expands.
+ * @fires node-collapse - Fired after a row collapses.
+ * @fires node-toggle - Fired after a row expansion state toggles.
+ *
+ * @tagname oscd-tree
+ */
+class OscdTree extends Tree {
+}
+
+function hasLocalStorage() {
+    try {
+        return typeof window !== 'undefined' && !!window.localStorage;
+    }
+    catch {
+        return false;
+    }
+}
+function resolveKey(host, propKey, namespace) {
+    const hostId = host.id;
+    if (!hostId) {
+        return undefined;
+    }
+    return namespace
+        ? `${namespace}:${hostId}:${propKey}`
+        : `${hostId}:${propKey}`;
+}
+const localstorageEntries = Symbol('localstorage:entries');
+const localstorageLifecycleWrapped = Symbol('localstorage:lifecycleWrapped');
+function installLifecycleWrappers(target) {
+    if (target[localstorageLifecycleWrapped]) {
+        return;
+    }
+    target[localstorageLifecycleWrapped] = true;
+    const connected = target['connectedCallback'];
+    target['connectedCallback'] = function connectedCallback() {
+        connected?.call(this);
+        const entries = target[localstorageEntries];
+        entries?.forEach(entry => entry.hydrateIfNeeded(this));
+    };
+    const requestUpdate = target['requestUpdate'];
+    target['requestUpdate'] = function requestUpdateCallback(name, oldValue, options) {
+        const result = requestUpdate?.call(this, name, oldValue, options);
+        if (name === undefined) {
+            return result;
+        }
+        const entries = target[localstorageEntries];
+        entries
+            ?.filter(entry => entry.propName === name)
+            .forEach(entry => entry.persistIfPossible(this));
+        return result;
+    };
+}
+function localstorage(opts = {}) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (target, propName) => {
+        const propKey = String(propName);
+        const hydratedSymbol = Symbol(`${propKey}:hydrated`);
+        const disabledSymbol = Symbol(`${propKey}:disabled`);
+        const warnedMissingIdSymbol = Symbol(`${propKey}:warnedMissingId`);
+        const warnMissingId = (host) => {
+            if (host[warnedMissingIdSymbol]) {
+                return;
+            }
+            console.warn(`[localstorage] ${propKey} requires a static host id for persistence. Dynamic IDs are not supported.`);
+            host[warnedMissingIdSymbol] = true;
+        };
+        const hydrateIfNeeded = (host) => {
+            if (host[hydratedSymbol] || host[disabledSymbol]) {
+                return;
+            }
+            if (!hasLocalStorage()) {
+                if ('default' in opts) {
+                    host[propName] = opts.default;
+                }
+                host[hydratedSymbol] = true;
+                return;
+            }
+            const storageKey = resolveKey(host, propKey, opts.namespace);
+            if (!storageKey) {
+                if (!host.isConnected) {
+                    return;
+                }
+                warnMissingId(host);
+                host[disabledSymbol] = true;
+                return;
+            }
+            const raw = localStorage.getItem(storageKey);
+            if (raw != null) {
+                try {
+                    host[propName] = opts.deserializer
+                        ? opts.deserializer(raw)
+                        : JSON.parse(raw);
+                }
+                catch {
+                    if ('default' in opts) {
+                        host[propName] = opts.default;
+                    }
+                }
+            }
+            else if ('default' in opts) {
+                host[propName] = opts.default;
+            }
+            host[hydratedSymbol] = true;
+        };
+        const persistIfPossible = (host) => {
+            if (host[disabledSymbol]) {
+                return;
+            }
+            const storageKey = resolveKey(host, propKey, opts.namespace);
+            if (!storageKey || !hasLocalStorage()) {
+                if (!storageKey) {
+                    if (!host.isConnected) {
+                        return;
+                    }
+                    warnMissingId(host);
+                    host[disabledSymbol] = true;
+                }
+                return;
+            }
+            try {
+                const raw = opts.serializer
+                    ? opts.serializer(host[propName])
+                    : JSON.stringify(host[propName]);
+                localStorage.setItem(storageKey, raw);
+            }
+            catch {
+                // ignore quota/serialization errors
+            }
+        };
+        installLifecycleWrappers(target);
+        if (!target[localstorageEntries]) {
+            target[localstorageEntries] = [];
+        }
+        target[localstorageEntries].push({
+            propName,
+            propKey,
+            hydratedSymbol,
+            disabledSymbol,
+            warnedMissingIdSymbol,
+            hydrateIfNeeded,
+            persistIfPossible,
+        });
+    };
+}
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const r$8=o=>void 0===o.strings,m$2={},p$3=(o,t=m$2)=>o._$AH=t;
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const l$4=e$9(class extends i$9{constructor(r){if(super(r),r.type!==t$4.PROPERTY&&r.type!==t$4.ATTRIBUTE&&r.type!==t$4.BOOLEAN_ATTRIBUTE)throw Error("The `live` directive is not allowed on child or event bindings");if(!r$8(r))throw Error("`live` bindings can only contain a single expression")}render(r){return r}update(i,[t]){if(t===E$1||t===A$1)return t;const o=i.element,l=i.name;if(i.type===t$4.PROPERTY){if(t===o[l])return E$1}else if(i.type===t$4.BOOLEAN_ATTRIBUTE){if(!!t===o.hasAttribute(l))return E$1}else if(i.type===t$4.ATTRIBUTE&&o.getAttribute(l)===t+"")return E$1;return p$3(i),t}});
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+const stringConverter$2 = {
+    fromAttribute(value) {
+        return value ?? '';
+    },
+    toAttribute(value) {
+        return value || null;
+    },
+};
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A symbol property used for a callback when validity has been reported.
+ */
+const onReportValidity$2 = Symbol('onReportValidity');
+// Private symbol members, used to avoid name clashing.
+const privateCleanupFormListeners$2 = Symbol('privateCleanupFormListeners');
+const privateDoNotReportInvalid$2 = Symbol('privateDoNotReportInvalid');
+const privateIsSelfReportingValidity$2 = Symbol('privateIsSelfReportingValidity');
+const privateCallOnReportValidity$2 = Symbol('privateCallOnReportValidity');
+/**
+ * Mixes in a callback for constraint validation when validity should be
+ * styled and reported to the user.
+ *
+ * This is commonly used in text-field-like controls that display error styles
+ * and error messages.
+ *
+ * @example
+ * ```ts
+ * const baseClass = mixinOnReportValidity(
+ *   mixinConstraintValidation(
+ *     mixinFormAssociated(mixinElementInternals(LitElement)),
+ *   ),
+ * );
+ *
+ * class MyField extends baseClass {
+ *   \@property({type: Boolean}) error = false;
+ *   \@property() errorMessage = '';
+ *
+ *   [onReportValidity](invalidEvent: Event | null) {
+ *     this.error = !!invalidEvent;
+ *     this.errorMessage = this.validationMessage;
+ *
+ *     // Optionally prevent platform popup from displaying
+ *     invalidEvent?.preventDefault();
+ *   }
+ * }
+ * ```
+ *
+ * @param base The class to mix functionality into.
+ * @return The provided class with `OnReportValidity` mixed in.
+ */
+function mixinOnReportValidity$2(base) {
+    var _a, _b, _c;
+    class OnReportValidityElement extends base {
+        // Mixins must have a constructor with `...args: any[]`
+        // tslint:disable-next-line:no-any
+        constructor(...args) {
+            super(...args);
+            /**
+             * Used to clean up event listeners when a new form is associated.
+             */
+            this[_a] = new AbortController();
+            /**
+             * Used to determine if an invalid event should report validity. Invalid
+             * events from `checkValidity()` do not trigger reporting.
+             */
+            this[_b] = false;
+            /**
+             * Used to determine if the control is reporting validity from itself, or
+             * if a `<form>` is causing the validity report. Forms have different
+             * control focusing behavior.
+             */
+            this[_c] = false;
+            this.addEventListener('invalid', (invalidEvent) => {
+                // Listen for invalid events dispatched by a `<form>` when it tries to
+                // submit and the element is invalid. We ignore events dispatched when
+                // calling `checkValidity()` as well as untrusted events, since the
+                // `reportValidity()` and `<form>`-dispatched events are always
+                // trusted.
+                if (this[privateDoNotReportInvalid$2] || !invalidEvent.isTrusted) {
+                    return;
+                }
+                this.addEventListener('invalid', () => {
+                    // A normal bubbling phase event listener. By adding it here, we
+                    // ensure it's the last event listener that is called during the
+                    // bubbling phase.
+                    this[privateCallOnReportValidity$2](invalidEvent);
+                }, { once: true });
+            }, {
+                // Listen during the capture phase, which will happen before the
+                // bubbling phase. That way, we can add a final event listener that
+                // will run after other event listeners, and we can check if it was
+                // default prevented. This works because invalid does not bubble.
+                capture: true,
+            });
+        }
+        checkValidity() {
+            this[privateDoNotReportInvalid$2] = true;
+            const valid = super.checkValidity();
+            this[privateDoNotReportInvalid$2] = false;
+            return valid;
+        }
+        reportValidity() {
+            this[privateIsSelfReportingValidity$2] = true;
+            const valid = super.reportValidity();
+            // Constructor's invalid listener will handle reporting invalid events.
+            if (valid) {
+                this[privateCallOnReportValidity$2](null);
+            }
+            this[privateIsSelfReportingValidity$2] = false;
+            return valid;
+        }
+        [(_a = privateCleanupFormListeners$2, _b = privateDoNotReportInvalid$2, _c = privateIsSelfReportingValidity$2, privateCallOnReportValidity$2)](invalidEvent) {
+            // Since invalid events do not bubble to parent listeners, and because
+            // our invalid listeners are added lazily after other listeners, we can
+            // reliably read `defaultPrevented` synchronously without worrying
+            // about waiting for another listener that could cancel it.
+            const wasCanceled = invalidEvent?.defaultPrevented;
+            if (wasCanceled) {
+                return;
+            }
+            this[onReportValidity$2](invalidEvent);
+            // If an implementation calls invalidEvent.preventDefault() to stop the
+            // platform popup from displaying, focusing is also prevented, so we need
+            // to manually focus.
+            const implementationCanceledFocus = !wasCanceled && invalidEvent?.defaultPrevented;
+            if (!implementationCanceledFocus) {
+                return;
+            }
+            // The control should be focused when:
+            // - `control.reportValidity()` is called (self-reporting).
+            // - a form is reporting validity for its controls and this is the first
+            //   invalid control.
+            if (this[privateIsSelfReportingValidity$2] ||
+                isFirstInvalidControlInForm$2(this[internals$2].form, this)) {
+                this.focus();
+            }
+        }
+        [onReportValidity$2](invalidEvent) {
+            throw new Error('Implement [onReportValidity]');
+        }
+        formAssociatedCallback(form) {
+            // can't use super.formAssociatedCallback?.() due to closure
+            if (super.formAssociatedCallback) {
+                super.formAssociatedCallback(form);
+            }
+            // Clean up previous form listeners.
+            this[privateCleanupFormListeners$2].abort();
+            if (!form) {
+                return;
+            }
+            this[privateCleanupFormListeners$2] = new AbortController();
+            // Add a listener that fires when the form runs constraint validation and
+            // the control is valid, so that it may remove its error styles.
+            //
+            // This happens on `form.reportValidity()` and `form.requestSubmit()`
+            // (both when the submit fails and passes).
+            addFormReportValidListener$2(this, form, () => {
+                this[privateCallOnReportValidity$2](null);
+            }, this[privateCleanupFormListeners$2].signal);
+        }
+    }
+    return OnReportValidityElement;
+}
+/**
+ * Add a listener that fires when a form runs constraint validation on a control
+ * and it is valid. This is needed to clear previously invalid styles.
+ *
+ * @param control The control of the form to listen for valid events.
+ * @param form The control's form that can run constraint validation.
+ * @param onControlValid A listener that is called when the form runs constraint
+ *     validation and the control is valid.
+ * @param cleanup A cleanup signal to remove the listener.
+ */
+function addFormReportValidListener$2(control, form, onControlValid, cleanup) {
+    const validateHooks = getFormValidateHooks$2(form);
+    // When a form validates its controls, check if an invalid event is dispatched
+    // on the control. If it is not, then inform the control to report its valid
+    // state.
+    let controlFiredInvalid = false;
+    let cleanupInvalidListener;
+    let isNextSubmitFromHook = false;
+    validateHooks.addEventListener('before', () => {
+        isNextSubmitFromHook = true;
+        cleanupInvalidListener = new AbortController();
+        controlFiredInvalid = false;
+        control.addEventListener('invalid', () => {
+            controlFiredInvalid = true;
+        }, {
+            signal: cleanupInvalidListener.signal,
+        });
+    }, { signal: cleanup });
+    validateHooks.addEventListener('after', () => {
+        isNextSubmitFromHook = false;
+        cleanupInvalidListener?.abort();
+        if (controlFiredInvalid) {
+            return;
+        }
+        onControlValid();
+    }, { signal: cleanup });
+    // The above hooks handle imperatively submitting the form, but not
+    // declaratively submitting the form. This happens when:
+    // 1. A non-custom element `<button type="submit">` is clicked.
+    // 2. Enter is pressed on a non-custom element text editable `<input>`.
+    form.addEventListener('submit', () => {
+        // This submit was from `form.requestSubmit()`, which already calls the
+        // listener.
+        if (isNextSubmitFromHook) {
+            return;
+        }
+        onControlValid();
+    }, {
+        signal: cleanup,
+    });
+    // Note: it is a known limitation that we cannot detect if a form tries to
+    // submit declaratively, but fails to do so because an unrelated sibling
+    // control failed its constraint validation.
+    //
+    // Since we cannot detect when that happens, a previously invalid control may
+    // not clear its error styling when it becomes valid again.
+    //
+    // To work around this, call `form.reportValidity()` when submitting a form
+    // declaratively. This can be down on the `<button type="submit">`'s click or
+    // the text editable `<input>`'s 'Enter' keydown.
+}
+const FORM_VALIDATE_HOOKS$2 = new WeakMap();
+/**
+ * Get a hooks `EventTarget` that dispatches 'before' and 'after' events that
+ * fire before a form runs constraint validation and immediately after it
+ * finishes running constraint validation on its controls.
+ *
+ * This happens during `form.reportValidity()` and `form.requestSubmit()`.
+ *
+ * @param form The form to get or set up hooks for.
+ * @return A hooks `EventTarget` to add listeners to.
+ */
+function getFormValidateHooks$2(form) {
+    if (!FORM_VALIDATE_HOOKS$2.has(form)) {
+        // Patch form methods to add event listener hooks. These are needed to react
+        // to form behaviors that do not dispatch events, such as a form asking its
+        // controls to report their validity.
+        //
+        // We should only patch the methods once, since multiple controls and other
+        // forces may want to patch this method. We cannot reliably clean it up if
+        // there are multiple patched and re-patched methods referring holding
+        // references to each other.
+        //
+        // Instead, we never clean up the patch but add and clean up event listeners
+        // added to the hooks after the patch.
+        const hooks = new EventTarget();
+        FORM_VALIDATE_HOOKS$2.set(form, hooks);
+        // Add hooks to support notifying before and after a form has run constraint
+        // validation on its controls.
+        // Note: `form.submit()` does not run constraint validation per spec.
+        for (const methodName of ['reportValidity', 'requestSubmit']) {
+            const superMethod = form[methodName];
+            form[methodName] = function () {
+                hooks.dispatchEvent(new Event('before'));
+                const result = Reflect.apply(superMethod, this, arguments);
+                hooks.dispatchEvent(new Event('after'));
+                return result;
+            };
+        }
+    }
+    return FORM_VALIDATE_HOOKS$2.get(form);
+}
+/**
+ * Checks if a control is the first invalid control in a form.
+ *
+ * @param form The control's form. When `null`, the control doesn't have a form
+ *     and the method returns true.
+ * @param control The control to check.
+ * @return True if there is no form or if the control is the form's first
+ *     invalid control.
+ */
+function isFirstInvalidControlInForm$2(form, control) {
+    if (!form) {
+        return true;
+    }
+    let firstInvalidControl;
+    for (const element of form.elements) {
+        if (element.matches(':invalid')) {
+            firstInvalidControl = element;
+            break;
+        }
+    }
+    return firstInvalidControl === control;
+}
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A validator that provides constraint validation that emulates `<input>` and
+ * `<textarea>` validation.
+ */
+let TextFieldValidator$2 = class TextFieldValidator extends Validator$2 {
+    computeValidity({ state, renderedControl }) {
+        let inputOrTextArea = renderedControl;
+        if (isInputState$2(state) && !inputOrTextArea) {
+            // Get cached <input> or create it.
+            inputOrTextArea = this.inputControl || document.createElement('input');
+            // Cache the <input> to re-use it next time.
+            this.inputControl = inputOrTextArea;
+        }
+        else if (!inputOrTextArea) {
+            // Get cached <textarea> or create it.
+            inputOrTextArea =
+                this.textAreaControl || document.createElement('textarea');
+            // Cache the <textarea> to re-use it next time.
+            this.textAreaControl = inputOrTextArea;
+        }
+        // Set this variable so we can check it for input-specific properties.
+        const input = isInputState$2(state)
+            ? inputOrTextArea
+            : null;
+        // Set input's "type" first, since this can change the other properties
+        if (input) {
+            input.type = state.type;
+        }
+        if (inputOrTextArea.value !== state.value) {
+            // Only programmatically set the value if there's a difference. When using
+            // the rendered control, the value will always be up to date. Setting the
+            // property (even if it's the same string) will reset the internal <input>
+            // dirty flag, making minlength and maxlength validation reset.
+            inputOrTextArea.value = state.value;
+        }
+        inputOrTextArea.required = state.required;
+        // The following IDLAttribute properties will always hydrate an attribute,
+        // even if set to a the default value ('' or -1). The presence of the
+        // attribute triggers constraint validation, so we must remove the attribute
+        // when empty.
+        if (input) {
+            const inputState = state;
+            if (inputState.pattern) {
+                input.pattern = inputState.pattern;
+            }
+            else {
+                input.removeAttribute('pattern');
+            }
+            if (inputState.min) {
+                input.min = inputState.min;
+            }
+            else {
+                input.removeAttribute('min');
+            }
+            if (inputState.max) {
+                input.max = inputState.max;
+            }
+            else {
+                input.removeAttribute('max');
+            }
+            if (inputState.step) {
+                input.step = inputState.step;
+            }
+            else {
+                input.removeAttribute('step');
+            }
+        }
+        // Use -1 to represent no minlength and maxlength, which is what the
+        // platform input returns. However, it will throw an error if you try to
+        // manually set it to -1.
+        //
+        // While the type is `number`, it may actually be `null` at runtime.
+        // `null > -1` is true since `null` coerces to `0`, so we default null and
+        // undefined to -1.
+        //
+        // We set attributes instead of properties since setting a property may
+        // throw an out of bounds error in relation to the other property.
+        // Attributes will not throw errors while the state is updating.
+        if ((state.minLength ?? -1) > -1) {
+            inputOrTextArea.setAttribute('minlength', String(state.minLength));
+        }
+        else {
+            inputOrTextArea.removeAttribute('minlength');
+        }
+        if ((state.maxLength ?? -1) > -1) {
+            inputOrTextArea.setAttribute('maxlength', String(state.maxLength));
+        }
+        else {
+            inputOrTextArea.removeAttribute('maxlength');
+        }
+        return {
+            validity: inputOrTextArea.validity,
+            validationMessage: inputOrTextArea.validationMessage,
+        };
+    }
+    equals({ state: prev }, { state: next }) {
+        // Check shared input and textarea properties
+        const inputOrTextAreaEqual = prev.type === next.type &&
+            prev.value === next.value &&
+            prev.required === next.required &&
+            prev.minLength === next.minLength &&
+            prev.maxLength === next.maxLength;
+        if (!isInputState$2(prev) || !isInputState$2(next)) {
+            // Both are textareas, all relevant properties are equal.
+            return inputOrTextAreaEqual;
+        }
+        // Check additional input-specific properties.
+        return (inputOrTextAreaEqual &&
+            prev.pattern === next.pattern &&
+            prev.min === next.min &&
+            prev.max === next.max &&
+            prev.step === next.step);
+    }
+    copy({ state }) {
+        // Don't hold a reference to the rendered control when copying since we
+        // don't use it when checking if the state changed.
+        return {
+            state: isInputState$2(state)
+                ? this.copyInput(state)
+                : this.copyTextArea(state),
+            renderedControl: null,
+        };
+    }
+    copyInput(state) {
+        const { type, pattern, min, max, step } = state;
+        return {
+            ...this.copySharedState(state),
+            type,
+            pattern,
+            min,
+            max,
+            step,
+        };
+    }
+    copyTextArea(state) {
+        return {
+            ...this.copySharedState(state),
+            type: state.type,
+        };
+    }
+    copySharedState({ value, required, minLength, maxLength, }) {
+        return { value, required, minLength, maxLength };
+    }
+};
+function isInputState$2(state) {
+    return state.type !== 'textarea';
+}
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Separate variable needed for closure.
+const textFieldBaseClass$2 = mixinDelegatesAria$2(mixinOnReportValidity$2(mixinConstraintValidation$2(mixinFormAssociated$2(mixinElementInternals$2(i$b)))));
+/**
+ * A text field component.
+ *
+ * @fires select {Event} The native `select` event on
+ * [`<input>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select_event)
+ * --bubbles
+ * @fires change {Event} The native `change` event on
+ * [`<input>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)
+ * --bubbles
+ * @fires input {InputEvent} The native `input` event on
+ * [`<input>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event)
+ * --bubbles --composed
+ */
+let TextField$2 = class TextField extends textFieldBaseClass$2 {
+    constructor() {
+        super(...arguments);
+        /**
+         * Gets or sets whether or not the text field is in a visually invalid state.
+         *
+         * This error state overrides the error state controlled by
+         * `reportValidity()`.
+         */
+        this.error = false;
+        /**
+         * The error message that replaces supporting text when `error` is true. If
+         * `errorText` is an empty string, then the supporting text will continue to
+         * show.
+         *
+         * This error message overrides the error message displayed by
+         * `reportValidity()`.
+         */
+        this.errorText = '';
+        /**
+         * The floating Material label of the textfield component. It informs the user
+         * about what information is requested for a text field. It is aligned with
+         * the input text, is always visible, and it floats when focused or when text
+         * is entered into the textfield. This label also sets accessibilty labels,
+         * but the accessible label is overriden by `aria-label`.
+         *
+         * Learn more about floating labels from the Material Design guidelines:
+         * https://m3.material.io/components/text-fields/guidelines
+         */
+        this.label = '';
+        /**
+         * Disables the asterisk on the floating label, when the text field is
+         * required.
+         */
+        this.noAsterisk = false;
+        /**
+         * Indicates that the user must specify a value for the input before the
+         * owning form can be submitted and will render an error state when
+         * `reportValidity()` is invoked when value is empty. Additionally the
+         * floating label will render an asterisk `"*"` when true.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required
+         */
+        this.required = false;
+        /**
+         * The current value of the text field. It is always a string.
+         */
+        this.value = '';
+        /**
+         * An optional prefix to display before the input value.
+         */
+        this.prefixText = '';
+        /**
+         * An optional suffix to display after the input value.
+         */
+        this.suffixText = '';
+        /**
+         * Whether or not the text field has a leading icon. Used for SSR.
+         */
+        this.hasLeadingIcon = false;
+        /**
+         * Whether or not the text field has a trailing icon. Used for SSR.
+         */
+        this.hasTrailingIcon = false;
+        /**
+         * Conveys additional information below the text field, such as how it should
+         * be used.
+         */
+        this.supportingText = '';
+        /**
+         * Override the input text CSS `direction`. Useful for RTL languages that use
+         * LTR notation for fractions.
+         */
+        this.textDirection = '';
+        /**
+         * The number of rows to display for a `type="textarea"` text field.
+         * Defaults to 2.
+         */
+        this.rows = 2;
+        /**
+         * The number of cols to display for a `type="textarea"` text field.
+         * Defaults to 20.
+         */
+        this.cols = 20;
+        // <input> properties
+        this.inputMode = '';
+        /**
+         * Defines the greatest value in the range of permitted values.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#max
+         */
+        this.max = '';
+        /**
+         * The maximum number of characters a user can enter into the text field. Set
+         * to -1 for none.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength
+         */
+        this.maxLength = -1;
+        /**
+         * Defines the most negative value in the range of permitted values.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#min
+         */
+        this.min = '';
+        /**
+         * The minimum number of characters a user can enter into the text field. Set
+         * to -1 for none.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#minlength
+         */
+        this.minLength = -1;
+        /**
+         * When true, hide the spinner for `type="number"` text fields.
+         */
+        this.noSpinner = false;
+        /**
+         * A regular expression that the text field's value must match to pass
+         * constraint validation.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#pattern
+         */
+        this.pattern = '';
+        /**
+         * Defines the text displayed in the textfield when it has no value. Provides
+         * a brief hint to the user as to the expected type of data that should be
+         * entered into the control. Unlike `label`, the placeholder is not visible
+         * and does not float when the textfield has a value.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/placeholder
+         */
+        this.placeholder = '';
+        /**
+         * Indicates whether or not a user should be able to edit the text field's
+         * value.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly
+         */
+        this.readOnly = false;
+        /**
+         * Indicates that input accepts multiple email addresses.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#multiple
+         */
+        this.multiple = false;
+        /**
+         * Returns or sets the element's step attribute, which works with min and max
+         * to limit the increments at which a numeric or date-time value can be set.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#step
+         */
+        this.step = '';
+        /**
+         * The `<input>` type to use, defaults to "text". The type greatly changes how
+         * the text field behaves.
+         *
+         * Text fields support a limited number of `<input>` types:
+         *
+         * - text
+         * - textarea
+         * - email
+         * - number
+         * - password
+         * - search
+         * - tel
+         * - url
+         *
+         * See
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types
+         * for more details on each input type.
+         */
+        this.type = 'text';
+        /**
+         * Describes what, if any, type of autocomplete functionality the input
+         * should provide.
+         *
+         * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+         */
+        this.autocomplete = '';
+        /**
+         * Returns true when the text field has been interacted with. Native
+         * validation errors only display in response to user interactions.
+         */
+        this.dirty = false;
+        this.focused = false;
+        /**
+         * Whether or not a native error has been reported via `reportValidity()`.
+         */
+        this.nativeError = false;
+        /**
+         * The validation message displayed from a native error via
+         * `reportValidity()`.
+         */
+        this.nativeErrorText = '';
+    }
+    /**
+     * Gets or sets the direction in which selection occurred.
+     */
+    get selectionDirection() {
+        return this.getInputOrTextarea().selectionDirection;
+    }
+    set selectionDirection(value) {
+        this.getInputOrTextarea().selectionDirection = value;
+    }
+    /**
+     * Gets or sets the end position or offset of a text selection.
+     */
+    get selectionEnd() {
+        return this.getInputOrTextarea().selectionEnd;
+    }
+    set selectionEnd(value) {
+        this.getInputOrTextarea().selectionEnd = value;
+    }
+    /**
+     * Gets or sets the starting position or offset of a text selection.
+     */
+    get selectionStart() {
+        return this.getInputOrTextarea().selectionStart;
+    }
+    set selectionStart(value) {
+        this.getInputOrTextarea().selectionStart = value;
+    }
+    /**
+     * The text field's value as a number.
+     */
+    get valueAsNumber() {
+        const input = this.getInput();
+        if (!input) {
+            return NaN;
+        }
+        return input.valueAsNumber;
+    }
+    set valueAsNumber(value) {
+        const input = this.getInput();
+        if (!input) {
+            return;
+        }
+        input.valueAsNumber = value;
+        this.value = input.value;
+    }
+    /**
+     * The text field's value as a Date.
+     */
+    get valueAsDate() {
+        const input = this.getInput();
+        if (!input) {
+            return null;
+        }
+        return input.valueAsDate;
+    }
+    set valueAsDate(value) {
+        const input = this.getInput();
+        if (!input) {
+            return;
+        }
+        input.valueAsDate = value;
+        this.value = input.value;
+    }
+    get hasError() {
+        return this.error || this.nativeError;
+    }
+    /**
+     * Selects all the text in the text field.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select
+     */
+    select() {
+        this.getInputOrTextarea().select();
+    }
+    setRangeText(...args) {
+        // Calling setRangeText with 1 vs 3-4 arguments has different behavior.
+        // Use spread syntax and type casting to ensure correct usage.
+        this.getInputOrTextarea().setRangeText(...args);
+        this.value = this.getInputOrTextarea().value;
+    }
+    /**
+     * Sets the start and end positions of a selection in the text field.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange
+     *
+     * @param start The offset into the text field for the start of the selection.
+     * @param end The offset into the text field for the end of the selection.
+     * @param direction The direction in which the selection is performed.
+     */
+    setSelectionRange(start, end, direction) {
+        this.getInputOrTextarea().setSelectionRange(start, end, direction);
+    }
+    /**
+     * Shows the browser picker for an input element of type "date", "time", etc.
+     *
+     * For a full list of supported types, see:
+     * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/showPicker#browser_compatibility
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/showPicker
+     */
+    showPicker() {
+        const input = this.getInput();
+        if (!input) {
+            return;
+        }
+        input.showPicker();
+    }
+    /**
+     * Decrements the value of a numeric type text field by `step` or `n` `step`
+     * number of times.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/stepDown
+     *
+     * @param stepDecrement The number of steps to decrement, defaults to 1.
+     */
+    stepDown(stepDecrement) {
+        const input = this.getInput();
+        if (!input) {
+            return;
+        }
+        input.stepDown(stepDecrement);
+        this.value = input.value;
+    }
+    /**
+     * Increments the value of a numeric type text field by `step` or `n` `step`
+     * number of times.
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/stepUp
+     *
+     * @param stepIncrement The number of steps to increment, defaults to 1.
+     */
+    stepUp(stepIncrement) {
+        const input = this.getInput();
+        if (!input) {
+            return;
+        }
+        input.stepUp(stepIncrement);
+        this.value = input.value;
+    }
+    /**
+     * Reset the text field to its default value.
+     */
+    reset() {
+        this.dirty = false;
+        this.value = this.getAttribute('value') ?? '';
+        this.nativeError = false;
+        this.nativeErrorText = '';
+    }
+    attributeChangedCallback(attribute, newValue, oldValue) {
+        if (attribute === 'value' && this.dirty) {
+            // After user input, changing the value attribute no longer updates the
+            // text field's value (until reset). This matches native <input> behavior.
+            return;
+        }
+        super.attributeChangedCallback(attribute, newValue, oldValue);
+    }
+    render() {
+        const classes = {
+            'disabled': this.disabled,
+            'error': !this.disabled && this.hasError,
+            'textarea': this.type === 'textarea',
+            'no-spinner': this.noSpinner,
+        };
+        return b$2 `
+      <span class="text-field ${e$8(classes)}">
+        ${this.renderField()}
+      </span>
+    `;
+    }
+    updated(changedProperties) {
+        // Keep changedProperties arg so that subclasses may call it
+        // If a property such as `type` changes and causes the internal <input>
+        // value to change without dispatching an event, re-sync it.
+        const value = this.getInputOrTextarea().value;
+        if (this.value !== value) {
+            // Note this is typically inefficient in updated() since it schedules
+            // another update. However, it is needed for the <input> to fully render
+            // before checking its value.
+            this.value = value;
+        }
+    }
+    renderField() {
+        return u$5 `<${this.fieldTag}
+      class="field"
+      count=${this.value.length}
+      ?disabled=${this.disabled}
+      ?error=${this.hasError}
+      error-text=${this.getErrorText()}
+      ?focused=${this.focused}
+      ?has-end=${this.hasTrailingIcon}
+      ?has-start=${this.hasLeadingIcon}
+      label=${this.label}
+      ?no-asterisk=${this.noAsterisk}
+      max=${this.maxLength}
+      ?populated=${!!this.value}
+      ?required=${this.required}
+      ?resizable=${this.type === 'textarea'}
+      supporting-text=${this.supportingText}
+    >
+      ${this.renderLeadingIcon()}
+      ${this.renderInputOrTextarea()}
+      ${this.renderTrailingIcon()}
+      <div id="description" slot="aria-describedby"></div>
+      <slot name="container" slot="container"></slot>
+    </${this.fieldTag}>`;
+    }
+    renderLeadingIcon() {
+        return b$2 `
+      <span class="icon leading" slot="start">
+        <slot name="leading-icon" @slotchange=${this.handleIconChange}></slot>
+      </span>
+    `;
+    }
+    renderTrailingIcon() {
+        return b$2 `
+      <span class="icon trailing" slot="end">
+        <slot name="trailing-icon" @slotchange=${this.handleIconChange}></slot>
+      </span>
+    `;
+    }
+    renderInputOrTextarea() {
+        const style = { 'direction': this.textDirection };
+        const ariaLabel = this.ariaLabel || this.label || A$1;
+        // lit-anaylzer `autocomplete` types are too strict
+        // tslint:disable-next-line:no-any
+        const autocomplete = this.autocomplete;
+        // These properties may be set to null if the attribute is removed, and
+        // `null > -1` is incorrectly `true`.
+        const hasMaxLength = (this.maxLength ?? -1) > -1;
+        const hasMinLength = (this.minLength ?? -1) > -1;
+        if (this.type === 'textarea') {
+            return b$2 `
+        <textarea
+          class="input"
+          style=${o$a(style)}
+          aria-describedby="description"
+          aria-invalid=${this.hasError}
+          aria-label=${ariaLabel}
+          autocomplete=${autocomplete || A$1}
+          name=${this.name || A$1}
+          ?disabled=${this.disabled}
+          maxlength=${hasMaxLength ? this.maxLength : A$1}
+          minlength=${hasMinLength ? this.minLength : A$1}
+          placeholder=${this.placeholder || A$1}
+          ?readonly=${this.readOnly}
+          ?required=${this.required}
+          rows=${this.rows}
+          cols=${this.cols}
+          .value=${l$4(this.value)}
+          @change=${this.redispatchEvent}
+          @focus=${this.handleFocusChange}
+          @blur=${this.handleFocusChange}
+          @input=${this.handleInput}
+          @select=${this.redispatchEvent}></textarea>
+      `;
+        }
+        const prefix = this.renderPrefix();
+        const suffix = this.renderSuffix();
+        // TODO(b/243805848): remove `as unknown as number` and `as any` once lit
+        // analyzer is fixed
+        // tslint:disable-next-line:no-any
+        const inputMode = this.inputMode;
+        return b$2 `
+      <div class="input-wrapper">
+        ${prefix}
+        <input
+          class="input"
+          style=${o$a(style)}
+          aria-describedby="description"
+          aria-invalid=${this.hasError}
+          aria-label=${ariaLabel}
+          autocomplete=${autocomplete || A$1}
+          name=${this.name || A$1}
+          ?disabled=${this.disabled}
+          inputmode=${inputMode || A$1}
+          max=${(this.max || A$1)}
+          maxlength=${hasMaxLength ? this.maxLength : A$1}
+          min=${(this.min || A$1)}
+          minlength=${hasMinLength ? this.minLength : A$1}
+          pattern=${this.pattern || A$1}
+          placeholder=${this.placeholder || A$1}
+          ?readonly=${this.readOnly}
+          ?required=${this.required}
+          ?multiple=${this.multiple}
+          step=${(this.step || A$1)}
+          type=${this.type}
+          .value=${l$4(this.value)}
+          @change=${this.redispatchEvent}
+          @focus=${this.handleFocusChange}
+          @blur=${this.handleFocusChange}
+          @input=${this.handleInput}
+          @select=${this.redispatchEvent} />
+        ${suffix}
+      </div>
+    `;
+    }
+    renderPrefix() {
+        return this.renderAffix(this.prefixText, /* isSuffix */ false);
+    }
+    renderSuffix() {
+        return this.renderAffix(this.suffixText, /* isSuffix */ true);
+    }
+    renderAffix(text, isSuffix) {
+        if (!text) {
+            return A$1;
+        }
+        const classes = {
+            'suffix': isSuffix,
+            'prefix': !isSuffix,
+        };
+        return b$2 `<span class="${e$8(classes)}">${text}</span>`;
+    }
+    getErrorText() {
+        return this.error ? this.errorText : this.nativeErrorText;
+    }
+    handleFocusChange() {
+        // When calling focus() or reportValidity() during change, it's possible
+        // for blur to be called after the new focus event. Rather than set
+        // `this.focused` to true/false on focus/blur, we always set it to whether
+        // or not the input itself is focused.
+        this.focused = this.inputOrTextarea?.matches(':focus') ?? false;
+    }
+    handleInput(event) {
+        this.dirty = true;
+        this.value = event.target.value;
+    }
+    redispatchEvent(event) {
+        redispatchEvent$2(this, event);
+    }
+    getInputOrTextarea() {
+        if (!this.inputOrTextarea) {
+            // If the input is not yet defined, synchronously render.
+            // e.g.
+            // const textField = document.createElement('md-outlined-text-field');
+            // document.body.appendChild(textField);
+            // textField.focus(); // synchronously render
+            this.connectedCallback();
+            this.scheduleUpdate();
+        }
+        if (this.isUpdatePending) {
+            // If there are pending updates, synchronously perform them. This ensures
+            // that constraint validation properties (like `required`) are synced
+            // before interacting with input APIs that depend on them.
+            this.scheduleUpdate();
+        }
+        return this.inputOrTextarea;
+    }
+    getInput() {
+        if (this.type === 'textarea') {
+            return null;
+        }
+        return this.getInputOrTextarea();
+    }
+    handleIconChange() {
+        this.hasLeadingIcon = this.leadingIcons.length > 0;
+        this.hasTrailingIcon = this.trailingIcons.length > 0;
+    }
+    [getFormValue$2]() {
+        return this.value;
+    }
+    formResetCallback() {
+        this.reset();
+    }
+    formStateRestoreCallback(state) {
+        this.value = state;
+    }
+    focus() {
+        // Required for the case that the user slots a focusable element into the
+        // leading icon slot such as an iconbutton due to how delegatesFocus works.
+        this.getInputOrTextarea().focus();
+    }
+    [createValidator$2]() {
+        return new TextFieldValidator$2(() => ({
+            state: this,
+            renderedControl: this.inputOrTextarea,
+        }));
+    }
+    [getValidityAnchor$2]() {
+        return this.inputOrTextarea;
+    }
+    [onReportValidity$2](invalidEvent) {
+        // Prevent default pop-up behavior.
+        invalidEvent?.preventDefault();
+        const prevMessage = this.getErrorText();
+        this.nativeError = !!invalidEvent;
+        this.nativeErrorText = this.validationMessage;
+        if (prevMessage === this.getErrorText()) {
+            this.field?.reannounceError();
+        }
+    }
+};
+/** @nocollapse */
+TextField$2.shadowRootOptions = {
+    ...i$b.shadowRootOptions,
+    delegatesFocus: true,
+};
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TextField$2.prototype, "error", void 0);
+__decorate$1([
+    n$b({ attribute: 'error-text' })
+], TextField$2.prototype, "errorText", void 0);
+__decorate$1([
+    n$b()
+], TextField$2.prototype, "label", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'no-asterisk' })
+], TextField$2.prototype, "noAsterisk", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TextField$2.prototype, "required", void 0);
+__decorate$1([
+    n$b()
+], TextField$2.prototype, "value", void 0);
+__decorate$1([
+    n$b({ attribute: 'prefix-text' })
+], TextField$2.prototype, "prefixText", void 0);
+__decorate$1([
+    n$b({ attribute: 'suffix-text' })
+], TextField$2.prototype, "suffixText", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'has-leading-icon' })
+], TextField$2.prototype, "hasLeadingIcon", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'has-trailing-icon' })
+], TextField$2.prototype, "hasTrailingIcon", void 0);
+__decorate$1([
+    n$b({ attribute: 'supporting-text' })
+], TextField$2.prototype, "supportingText", void 0);
+__decorate$1([
+    n$b({ attribute: 'text-direction' })
+], TextField$2.prototype, "textDirection", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], TextField$2.prototype, "rows", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], TextField$2.prototype, "cols", void 0);
+__decorate$1([
+    n$b({ reflect: true })
+], TextField$2.prototype, "inputMode", void 0);
+__decorate$1([
+    n$b()
+], TextField$2.prototype, "max", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], TextField$2.prototype, "maxLength", void 0);
+__decorate$1([
+    n$b()
+], TextField$2.prototype, "min", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], TextField$2.prototype, "minLength", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'no-spinner' })
+], TextField$2.prototype, "noSpinner", void 0);
+__decorate$1([
+    n$b()
+], TextField$2.prototype, "pattern", void 0);
+__decorate$1([
+    n$b({ reflect: true, converter: stringConverter$2 })
+], TextField$2.prototype, "placeholder", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TextField$2.prototype, "readOnly", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true })
+], TextField$2.prototype, "multiple", void 0);
+__decorate$1([
+    n$b()
+], TextField$2.prototype, "step", void 0);
+__decorate$1([
+    n$b({ reflect: true })
+], TextField$2.prototype, "type", void 0);
+__decorate$1([
+    n$b({ reflect: true })
+], TextField$2.prototype, "autocomplete", void 0);
+__decorate$1([
+    r$a()
+], TextField$2.prototype, "dirty", void 0);
+__decorate$1([
+    r$a()
+], TextField$2.prototype, "focused", void 0);
+__decorate$1([
+    r$a()
+], TextField$2.prototype, "nativeError", void 0);
+__decorate$1([
+    r$a()
+], TextField$2.prototype, "nativeErrorText", void 0);
+__decorate$1([
+    e$b('.input')
+], TextField$2.prototype, "inputOrTextarea", void 0);
+__decorate$1([
+    e$b('.field')
+], TextField$2.prototype, "field", void 0);
+__decorate$1([
+    o$c({ slot: 'leading-icon' })
+], TextField$2.prototype, "leadingIcons", void 0);
+__decorate$1([
+    o$c({ slot: 'trailing-icon' })
+], TextField$2.prototype, "trailingIcons", void 0);
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * An outlined text field component
+ */
+let OutlinedTextField$1 = class OutlinedTextField extends TextField$2 {
+    constructor() {
+        super(...arguments);
+        this.fieldTag = i$a `md-outlined-field`;
+    }
+};
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./textfield/internal/outlined-styles.css.
+const styles$Z = i$e `:host{--_caret-color: var(--md-outlined-text-field-caret-color, var(--md-sys-color-primary, #6750a4));--_disabled-input-text-color: var(--md-outlined-text-field-disabled-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-input-text-opacity: var(--md-outlined-text-field-disabled-input-text-opacity, 0.38);--_disabled-label-text-color: var(--md-outlined-text-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-outlined-text-field-disabled-label-text-opacity, 0.38);--_disabled-leading-icon-color: var(--md-outlined-text-field-disabled-leading-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-icon-opacity: var(--md-outlined-text-field-disabled-leading-icon-opacity, 0.38);--_disabled-outline-color: var(--md-outlined-text-field-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-outlined-text-field-disabled-outline-opacity, 0.12);--_disabled-outline-width: var(--md-outlined-text-field-disabled-outline-width, 1px);--_disabled-supporting-text-color: var(--md-outlined-text-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-outlined-text-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-icon-color: var(--md-outlined-text-field-disabled-trailing-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-icon-opacity: var(--md-outlined-text-field-disabled-trailing-icon-opacity, 0.38);--_error-focus-caret-color: var(--md-outlined-text-field-error-focus-caret-color, var(--md-sys-color-error, #b3261e));--_error-focus-input-text-color: var(--md-outlined-text-field-error-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-outlined-text-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-icon-color: var(--md-outlined-text-field-error-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-outline-color: var(--md-outlined-text-field-error-focus-outline-color, var(--md-sys-color-error, #b3261e));--_error-focus-supporting-text-color: var(--md-outlined-text-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-icon-color: var(--md-outlined-text-field-error-focus-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_error-hover-input-text-color: var(--md-outlined-text-field-error-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-outlined-text-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-icon-color: var(--md-outlined-text-field-error-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-outline-color: var(--md-outlined-text-field-error-hover-outline-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-supporting-text-color: var(--md-outlined-text-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-icon-color: var(--md-outlined-text-field-error-hover-trailing-icon-color, var(--md-sys-color-on-error-container, #410e0b));--_error-input-text-color: var(--md-outlined-text-field-error-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_error-label-text-color: var(--md-outlined-text-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-icon-color: var(--md-outlined-text-field-error-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-outline-color: var(--md-outlined-text-field-error-outline-color, var(--md-sys-color-error, #b3261e));--_error-supporting-text-color: var(--md-outlined-text-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-icon-color: var(--md-outlined-text-field-error-trailing-icon-color, var(--md-sys-color-error, #b3261e));--_focus-input-text-color: var(--md-outlined-text-field-focus-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-outlined-text-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-icon-color: var(--md-outlined-text-field-focus-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-outlined-text-field-focus-outline-color, var(--md-sys-color-primary, #6750a4));--_focus-outline-width: var(--md-outlined-text-field-focus-outline-width, 3px);--_focus-supporting-text-color: var(--md-outlined-text-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-icon-color: var(--md-outlined-text-field-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-input-text-color: var(--md-outlined-text-field-hover-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-outlined-text-field-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-leading-icon-color: var(--md-outlined-text-field-hover-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-outline-color: var(--md-outlined-text-field-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-outlined-text-field-hover-outline-width, 1px);--_hover-supporting-text-color: var(--md-outlined-text-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-icon-color: var(--md-outlined-text-field-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-color: var(--md-outlined-text-field-input-text-color, var(--md-sys-color-on-surface, #1d1b20));--_input-text-font: var(--md-outlined-text-field-input-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_input-text-line-height: var(--md-outlined-text-field-input-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_input-text-placeholder-color: var(--md-outlined-text-field-input-text-placeholder-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-prefix-color: var(--md-outlined-text-field-input-text-prefix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-size: var(--md-outlined-text-field-input-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_input-text-suffix-color: var(--md-outlined-text-field-input-text-suffix-color, var(--md-sys-color-on-surface-variant, #49454f));--_input-text-weight: var(--md-outlined-text-field-input-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_label-text-color: var(--md-outlined-text-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-outlined-text-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-outlined-text-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-populated-line-height: var(--md-outlined-text-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-outlined-text-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-outlined-text-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-outlined-text-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-icon-color: var(--md-outlined-text-field-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-icon-size: var(--md-outlined-text-field-leading-icon-size, 24px);--_outline-color: var(--md-outlined-text-field-outline-color, var(--md-sys-color-outline, #79747e));--_outline-width: var(--md-outlined-text-field-outline-width, 1px);--_supporting-text-color: var(--md-outlined-text-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-outlined-text-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-line-height: var(--md-outlined-text-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-outlined-text-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-weight: var(--md-outlined-text-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_trailing-icon-color: var(--md-outlined-text-field-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-icon-size: var(--md-outlined-text-field-trailing-icon-size, 24px);--_container-shape-start-start: var(--md-outlined-text-field-container-shape-start-start, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-outlined-text-field-container-shape-start-end, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-outlined-text-field-container-shape-end-end, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-start: var(--md-outlined-text-field-container-shape-end-start, var(--md-outlined-text-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_icon-input-space: var(--md-outlined-text-field-icon-input-space, 16px);--_leading-space: var(--md-outlined-text-field-leading-space, 16px);--_trailing-space: var(--md-outlined-text-field-trailing-space, 16px);--_top-space: var(--md-outlined-text-field-top-space, 16px);--_bottom-space: var(--md-outlined-text-field-bottom-space, 16px);--_input-text-prefix-trailing-space: var(--md-outlined-text-field-input-text-prefix-trailing-space, 2px);--_input-text-suffix-leading-space: var(--md-outlined-text-field-input-text-suffix-leading-space, 2px);--_focus-caret-color: var(--md-outlined-text-field-focus-caret-color, var(--md-sys-color-primary, #6750a4));--_with-leading-icon-leading-space: var(--md-outlined-text-field-with-leading-icon-leading-space, 12px);--_with-trailing-icon-trailing-space: var(--md-outlined-text-field-with-trailing-icon-trailing-space, 12px);--md-outlined-field-bottom-space: var(--_bottom-space);--md-outlined-field-container-shape-end-end: var(--_container-shape-end-end);--md-outlined-field-container-shape-end-start: var(--_container-shape-end-start);--md-outlined-field-container-shape-start-end: var(--_container-shape-start-end);--md-outlined-field-container-shape-start-start: var(--_container-shape-start-start);--md-outlined-field-content-color: var(--_input-text-color);--md-outlined-field-content-font: var(--_input-text-font);--md-outlined-field-content-line-height: var(--_input-text-line-height);--md-outlined-field-content-size: var(--_input-text-size);--md-outlined-field-content-space: var(--_icon-input-space);--md-outlined-field-content-weight: var(--_input-text-weight);--md-outlined-field-disabled-content-color: var(--_disabled-input-text-color);--md-outlined-field-disabled-content-opacity: var(--_disabled-input-text-opacity);--md-outlined-field-disabled-label-text-color: var(--_disabled-label-text-color);--md-outlined-field-disabled-label-text-opacity: var(--_disabled-label-text-opacity);--md-outlined-field-disabled-leading-content-color: var(--_disabled-leading-icon-color);--md-outlined-field-disabled-leading-content-opacity: var(--_disabled-leading-icon-opacity);--md-outlined-field-disabled-outline-color: var(--_disabled-outline-color);--md-outlined-field-disabled-outline-opacity: var(--_disabled-outline-opacity);--md-outlined-field-disabled-outline-width: var(--_disabled-outline-width);--md-outlined-field-disabled-supporting-text-color: var(--_disabled-supporting-text-color);--md-outlined-field-disabled-supporting-text-opacity: var(--_disabled-supporting-text-opacity);--md-outlined-field-disabled-trailing-content-color: var(--_disabled-trailing-icon-color);--md-outlined-field-disabled-trailing-content-opacity: var(--_disabled-trailing-icon-opacity);--md-outlined-field-error-content-color: var(--_error-input-text-color);--md-outlined-field-error-focus-content-color: var(--_error-focus-input-text-color);--md-outlined-field-error-focus-label-text-color: var(--_error-focus-label-text-color);--md-outlined-field-error-focus-leading-content-color: var(--_error-focus-leading-icon-color);--md-outlined-field-error-focus-outline-color: var(--_error-focus-outline-color);--md-outlined-field-error-focus-supporting-text-color: var(--_error-focus-supporting-text-color);--md-outlined-field-error-focus-trailing-content-color: var(--_error-focus-trailing-icon-color);--md-outlined-field-error-hover-content-color: var(--_error-hover-input-text-color);--md-outlined-field-error-hover-label-text-color: var(--_error-hover-label-text-color);--md-outlined-field-error-hover-leading-content-color: var(--_error-hover-leading-icon-color);--md-outlined-field-error-hover-outline-color: var(--_error-hover-outline-color);--md-outlined-field-error-hover-supporting-text-color: var(--_error-hover-supporting-text-color);--md-outlined-field-error-hover-trailing-content-color: var(--_error-hover-trailing-icon-color);--md-outlined-field-error-label-text-color: var(--_error-label-text-color);--md-outlined-field-error-leading-content-color: var(--_error-leading-icon-color);--md-outlined-field-error-outline-color: var(--_error-outline-color);--md-outlined-field-error-supporting-text-color: var(--_error-supporting-text-color);--md-outlined-field-error-trailing-content-color: var(--_error-trailing-icon-color);--md-outlined-field-focus-content-color: var(--_focus-input-text-color);--md-outlined-field-focus-label-text-color: var(--_focus-label-text-color);--md-outlined-field-focus-leading-content-color: var(--_focus-leading-icon-color);--md-outlined-field-focus-outline-color: var(--_focus-outline-color);--md-outlined-field-focus-outline-width: var(--_focus-outline-width);--md-outlined-field-focus-supporting-text-color: var(--_focus-supporting-text-color);--md-outlined-field-focus-trailing-content-color: var(--_focus-trailing-icon-color);--md-outlined-field-hover-content-color: var(--_hover-input-text-color);--md-outlined-field-hover-label-text-color: var(--_hover-label-text-color);--md-outlined-field-hover-leading-content-color: var(--_hover-leading-icon-color);--md-outlined-field-hover-outline-color: var(--_hover-outline-color);--md-outlined-field-hover-outline-width: var(--_hover-outline-width);--md-outlined-field-hover-supporting-text-color: var(--_hover-supporting-text-color);--md-outlined-field-hover-trailing-content-color: var(--_hover-trailing-icon-color);--md-outlined-field-label-text-color: var(--_label-text-color);--md-outlined-field-label-text-font: var(--_label-text-font);--md-outlined-field-label-text-line-height: var(--_label-text-line-height);--md-outlined-field-label-text-populated-line-height: var(--_label-text-populated-line-height);--md-outlined-field-label-text-populated-size: var(--_label-text-populated-size);--md-outlined-field-label-text-size: var(--_label-text-size);--md-outlined-field-label-text-weight: var(--_label-text-weight);--md-outlined-field-leading-content-color: var(--_leading-icon-color);--md-outlined-field-leading-space: var(--_leading-space);--md-outlined-field-outline-color: var(--_outline-color);--md-outlined-field-outline-width: var(--_outline-width);--md-outlined-field-supporting-text-color: var(--_supporting-text-color);--md-outlined-field-supporting-text-font: var(--_supporting-text-font);--md-outlined-field-supporting-text-line-height: var(--_supporting-text-line-height);--md-outlined-field-supporting-text-size: var(--_supporting-text-size);--md-outlined-field-supporting-text-weight: var(--_supporting-text-weight);--md-outlined-field-top-space: var(--_top-space);--md-outlined-field-trailing-content-color: var(--_trailing-icon-color);--md-outlined-field-trailing-space: var(--_trailing-space);--md-outlined-field-with-leading-content-leading-space: var(--_with-leading-icon-leading-space);--md-outlined-field-with-trailing-content-trailing-space: var(--_with-trailing-icon-trailing-space)}
+`;
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./textfield/internal/shared-styles.css.
+const styles$Y = i$e `:host{display:inline-flex;outline:none;resize:both;text-align:start;-webkit-tap-highlight-color:rgba(0,0,0,0)}.text-field,.field{width:100%}.text-field{display:inline-flex}.field{cursor:text}.disabled .field{cursor:default}.text-field,.textarea .field{resize:inherit}slot[name=container]{border-radius:inherit}.icon{color:currentColor;display:flex;align-items:center;justify-content:center;fill:currentColor;position:relative}.icon ::slotted(*){display:flex;position:absolute}[has-start] .icon.leading{font-size:var(--_leading-icon-size);height:var(--_leading-icon-size);width:var(--_leading-icon-size)}[has-end] .icon.trailing{font-size:var(--_trailing-icon-size);height:var(--_trailing-icon-size);width:var(--_trailing-icon-size)}.input-wrapper{display:flex}.input-wrapper>*{all:inherit;padding:0}.input{caret-color:var(--_caret-color);overflow-x:hidden;text-align:inherit}.input::placeholder{color:currentColor;opacity:1}.input::-webkit-calendar-picker-indicator{display:none}.input::-webkit-search-decoration,.input::-webkit-search-cancel-button{display:none}@media(forced-colors: active){.input{background:none}}.no-spinner .input::-webkit-inner-spin-button,.no-spinner .input::-webkit-outer-spin-button{display:none}.no-spinner .input[type=number]{-moz-appearance:textfield}:focus-within .input{caret-color:var(--_focus-caret-color)}.error:focus-within .input{caret-color:var(--_error-focus-caret-color)}.text-field:not(.disabled) .prefix{color:var(--_input-text-prefix-color)}.text-field:not(.disabled) .suffix{color:var(--_input-text-suffix-color)}.text-field:not(.disabled) .input::placeholder{color:var(--_input-text-placeholder-color)}.prefix,.suffix{text-wrap:nowrap;width:min-content}.prefix{padding-inline-end:var(--_input-text-prefix-trailing-space)}.suffix{padding-inline-start:var(--_input-text-suffix-leading-space)}
+`;
+
+function renderDefaultLeadingIcon() {
+    return b$2 `<oscd-icon slot="leading-icon">search</oscd-icon>`;
+}
+class OutlinedSearchField extends OutlinedTextField$1 {
+    constructor() {
+        super();
+        this.clearLabel = 'Clear search';
+        this.addEventListener('focus', this.handleFocus.bind(this));
+        this.addEventListener('blur', this.handleBlur.bind(this));
+    }
+    handleFocus() {
+        this.placeholder = '';
+    }
+    handleBlur() {
+        this.placeholder = 'Search';
+    }
+    willUpdate(changedProperties) {
+        super.willUpdate(changedProperties);
+        // The search icon is always present, either as consumer content or as the
+        // default rendered by renderLeadingIcon().
+        this.hasLeadingIcon = true;
+        this.hasTrailingIcon =
+            this.hasCustomSlot('trailing-icon') || Boolean(this.value);
+    }
+    clear() {
+        this.value = '';
+        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+        this.focus();
+    }
+    renderDefaultClearFieldIconButton() {
+        if (!this.value) {
+            return b$2 ``;
+        }
+        return b$2 `<oscd-icon-button
+      class="default-clear-button"
+      slot="trailing-icon"
+      aria-label=${this.clearLabel}
+      @click=${() => this.clear()}
+      ><oscd-icon>close</oscd-icon></oscd-icon-button
+    >`;
+    }
+    renderTrailingIcon() {
+        return b$2 `
+      <span class="icon trailing" slot="end">
+        <slot name="trailing-icon"></slot>
+        ${this.hasCustomSlot('trailing-icon')
+            ? A$1
+            : this.renderDefaultClearFieldIconButton()}
+      </span>
+    `;
+    }
+    renderLeadingIcon() {
+        return b$2 `
+      <span class="icon leading" slot="start">
+        <slot name="leading-icon"></slot>
+        ${this.hasCustomSlot('leading-icon')
+            ? A$1
+            : renderDefaultLeadingIcon()}
+      </span>
+    `;
+    }
+    hasCustomSlot(slotName) {
+        return this.querySelector(`[slot="${slotName}"]`) !== null;
+    }
+}
+OutlinedSearchField.styles = [
+    styles$Y,
+    styles$Z,
+    i$e `
+      :host {
+        --md-outlined-text-field-input-text-placeholder-color: var(
+          --oscd-search-field-placeholder-color,
+          color-mix(
+            in srgb,
+            var(
+                --md-outlined-text-field-input-text-color,
+                var(--md-sys-color-on-surface, #1d1b20)
+              )
+              50%,
+            transparent
+          )
+        );
+      }
+    `,
+];
+__decorate$1([
+    n$b({ type: String })
+], OutlinedSearchField.prototype, "clearLabel", void 0);
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * A field component.
+ */
+let Field$2 = class Field extends i$b {
+    constructor() {
+        super(...arguments);
+        this.disabled = false;
+        this.error = false;
+        this.focused = false;
+        this.label = '';
+        this.noAsterisk = false;
+        this.populated = false;
+        this.required = false;
+        this.resizable = false;
+        this.supportingText = '';
+        this.errorText = '';
+        this.count = -1;
+        this.max = -1;
+        /**
+         * Whether or not the field has leading content.
+         */
+        this.hasStart = false;
+        /**
+         * Whether or not the field has trailing content.
+         */
+        this.hasEnd = false;
+        this.isAnimating = false;
+        /**
+         * When set to true, the error text's `role="alert"` will be removed, then
+         * re-added after an animation frame. This will re-announce an error message
+         * to screen readers.
+         */
+        this.refreshErrorAlert = false;
+        this.disableTransitions = false;
+    }
+    get counterText() {
+        // Count and max are typed as number, but can be set to null when Lit removes
+        // their attributes. These getters coerce back to a number for calculations.
+        const countAsNumber = this.count ?? -1;
+        const maxAsNumber = this.max ?? -1;
+        // Counter does not show if count is negative, or max is negative or 0.
+        if (countAsNumber < 0 || maxAsNumber <= 0) {
+            return '';
+        }
+        return `${countAsNumber} / ${maxAsNumber}`;
+    }
+    get supportingOrErrorText() {
+        return this.error && this.errorText ? this.errorText : this.supportingText;
+    }
+    /**
+     * Re-announces the field's error supporting text to screen readers.
+     *
+     * Error text announces to screen readers anytime it is visible and changes.
+     * Use the method to re-announce the message when the text has not changed,
+     * but announcement is still needed (such as for `reportValidity()`).
+     */
+    reannounceError() {
+        this.refreshErrorAlert = true;
+    }
+    update(props) {
+        // Client-side property updates
+        const isDisabledChanging = props.has('disabled') && props.get('disabled') !== undefined;
+        if (isDisabledChanging) {
+            this.disableTransitions = true;
+        }
+        // When disabling, remove focus styles if focused.
+        if (this.disabled && this.focused) {
+            props.set('focused', true);
+            this.focused = false;
+        }
+        // Animate if focused or populated change.
+        this.animateLabelIfNeeded({
+            wasFocused: props.get('focused'),
+            wasPopulated: props.get('populated'),
+        });
+        super.update(props);
+    }
+    render() {
+        const floatingLabel = this.renderLabel(/*isFloating*/ true);
+        const restingLabel = this.renderLabel(/*isFloating*/ false);
+        const outline = this.renderOutline?.(floatingLabel);
+        const classes = {
+            'disabled': this.disabled,
+            'disable-transitions': this.disableTransitions,
+            'error': this.error && !this.disabled,
+            'focused': this.focused,
+            'with-start': this.hasStart,
+            'with-end': this.hasEnd,
+            'populated': this.populated,
+            'resizable': this.resizable,
+            'required': this.required,
+            'no-label': !this.label,
+        };
+        return b$2 `
+      <div class="field ${e$8(classes)}">
+        <div class="container-overflow">
+          ${this.renderBackground?.()}
+          <slot name="container"></slot>
+          ${this.renderStateLayer?.()} ${this.renderIndicator?.()} ${outline}
+          <div class="container">
+            <div class="start">
+              <slot name="start"></slot>
+            </div>
+            <div class="middle">
+              <div class="label-wrapper">
+                ${restingLabel} ${outline ? A$1 : floatingLabel}
+              </div>
+              <div class="content">
+                <slot></slot>
+              </div>
+            </div>
+            <div class="end">
+              <slot name="end"></slot>
+            </div>
+          </div>
+        </div>
+        ${this.renderSupportingText()}
+      </div>
+    `;
+    }
+    updated(changed) {
+        if (changed.has('supportingText') ||
+            changed.has('errorText') ||
+            changed.has('count') ||
+            changed.has('max')) {
+            this.updateSlottedAriaDescribedBy();
+        }
+        if (this.refreshErrorAlert) {
+            // The past render cycle removed the role="alert" from the error message.
+            // Re-add it after an animation frame to re-announce the error.
+            requestAnimationFrame(() => {
+                this.refreshErrorAlert = false;
+            });
+        }
+        if (this.disableTransitions) {
+            requestAnimationFrame(() => {
+                this.disableTransitions = false;
+            });
+        }
+    }
+    renderSupportingText() {
+        const { supportingOrErrorText, counterText } = this;
+        if (!supportingOrErrorText && !counterText) {
+            return A$1;
+        }
+        // Always render the supporting text span so that our `space-around`
+        // container puts the counter at the end.
+        const start = b$2 `<span>${supportingOrErrorText}</span>`;
+        // Conditionally render counter so we don't render the extra `gap`.
+        // TODO(b/244473435): add aria-label and announcements
+        const end = counterText
+            ? b$2 `<span class="counter">${counterText}</span>`
+            : A$1;
+        // Announce if there is an error and error text visible.
+        // If refreshErrorAlert is true, do not announce. This will remove the
+        // role="alert" attribute. Another render cycle will happen after an
+        // animation frame to re-add the role.
+        const shouldErrorAnnounce = this.error && this.errorText && !this.refreshErrorAlert;
+        const role = shouldErrorAnnounce ? 'alert' : A$1;
+        return b$2 `
+      <div class="supporting-text" role=${role}>${start}${end}</div>
+      <slot
+        name="aria-describedby"
+        @slotchange=${this.updateSlottedAriaDescribedBy}></slot>
+    `;
+    }
+    updateSlottedAriaDescribedBy() {
+        for (const element of this.slottedAriaDescribedBy) {
+            D$1(b$2 `${this.supportingOrErrorText} ${this.counterText}`, element);
+            element.setAttribute('hidden', '');
+        }
+    }
+    renderLabel(isFloating) {
+        if (!this.label) {
+            return A$1;
+        }
+        let visible;
+        if (isFloating) {
+            // Floating label is visible when focused/populated or when animating.
+            visible = this.focused || this.populated || this.isAnimating;
+        }
+        else {
+            // Resting label is visible when unfocused. It is never visible while
+            // animating.
+            visible = !this.focused && !this.populated && !this.isAnimating;
+        }
+        const classes = {
+            'hidden': !visible,
+            'floating': isFloating,
+            'resting': !isFloating,
+        };
+        // Add '*' if a label is present and the field is required
+        const labelText = `${this.label}${this.required && !this.noAsterisk ? '*' : ''}`;
+        return b$2 `
+      <span class="label ${e$8(classes)}" aria-hidden=${!visible}
+        >${labelText}</span
+      >
+    `;
+    }
+    animateLabelIfNeeded({ wasFocused, wasPopulated, }) {
+        if (!this.label) {
+            return;
+        }
+        wasFocused ??= this.focused;
+        wasPopulated ??= this.populated;
+        const wasFloating = wasFocused || wasPopulated;
+        const shouldBeFloating = this.focused || this.populated;
+        if (wasFloating === shouldBeFloating) {
+            return;
+        }
+        const keyframes = this.getLabelKeyframes();
+        if (!keyframes.length) {
+            return;
+        }
+        this.isAnimating = true;
+        this.labelAnimation?.cancel();
+        // Only one label is visible at a time for clearer text rendering.
+        // The floating label is visible and used during animation. At the end of
+        // the animation, it will either remain visible (if floating) or hide and
+        // the resting label will be shown.
+        //
+        // We don't use forward filling because if the dimensions of the text field
+        // change (leading icon removed, density changes, etc), then the animation
+        // will be inaccurate.
+        //
+        // Re-calculating the animation each time will prevent any visual glitches
+        // from appearing.
+        // TODO(b/241113345): use animation tokens
+        this.labelAnimation = this.floatingLabelEl?.animate(keyframes, {
+            duration: 150,
+            easing: EASING$2.STANDARD,
+        });
+        this.labelAnimation?.addEventListener('finish', () => {
+            // At the end of the animation, update the visible label.
+            this.isAnimating = false;
+        });
+    }
+    getLabelKeyframes() {
+        const { floatingLabelEl, restingLabelEl } = this;
+        if (!floatingLabelEl || !restingLabelEl) {
+            return [];
+        }
+        const { x: floatingX, y: floatingY, height: floatingHeight, } = floatingLabelEl.getBoundingClientRect();
+        const { x: restingX, y: restingY, height: restingHeight, } = restingLabelEl.getBoundingClientRect();
+        const floatingScrollWidth = floatingLabelEl.scrollWidth;
+        const restingScrollWidth = restingLabelEl.scrollWidth;
+        // If either label has no dimensions (e.g., display: none), skip animation
+        if (floatingScrollWidth === 0 || restingScrollWidth === 0) {
+            return [];
+        }
+        // Scale by width ratio instead of font size since letter-spacing will scale
+        // incorrectly. Using the width we can better approximate the adjusted
+        // scale and compensate for tracking and overflow.
+        // (use scrollWidth instead of width to account for clipped labels)
+        const scale = restingScrollWidth / floatingScrollWidth;
+        const xDelta = restingX - floatingX;
+        // The line-height of the resting and floating label are different. When
+        // we move the floating label down to the resting label's position, it won't
+        // exactly match because of this. We need to adjust by half of what the
+        // final scaled floating label's height will be.
+        const yDelta = restingY -
+            floatingY +
+            Math.round((restingHeight - floatingHeight * scale) / 2);
+        // Create the two transforms: floating to resting (using the calculations
+        // above), and resting to floating (re-setting the transform to initial
+        // values).
+        const restTransform = `translateX(${xDelta}px) translateY(${yDelta}px) scale(${scale})`;
+        const floatTransform = `translateX(0) translateY(0) scale(1)`;
+        // Constrain the floating labels width to a scaled percentage of the
+        // resting label's width. This will prevent long clipped labels from
+        // overflowing the container.
+        const restingClientWidth = restingLabelEl.clientWidth;
+        const isRestingClipped = restingScrollWidth > restingClientWidth;
+        const width = isRestingClipped ? `${restingClientWidth / scale}px` : '';
+        if (this.focused || this.populated) {
+            return [
+                { transform: restTransform, width },
+                { transform: floatTransform, width },
+            ];
+        }
+        return [
+            { transform: floatTransform, width },
+            { transform: restTransform, width },
+        ];
+    }
+    getSurfacePositionClientRect() {
+        return this.containerEl.getBoundingClientRect();
+    }
+};
+__decorate$1([
+    n$b({ type: Boolean })
+], Field$2.prototype, "disabled", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Field$2.prototype, "error", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Field$2.prototype, "focused", void 0);
+__decorate$1([
+    n$b()
+], Field$2.prototype, "label", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'no-asterisk' })
+], Field$2.prototype, "noAsterisk", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Field$2.prototype, "populated", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Field$2.prototype, "required", void 0);
+__decorate$1([
+    n$b({ type: Boolean })
+], Field$2.prototype, "resizable", void 0);
+__decorate$1([
+    n$b({ attribute: 'supporting-text' })
+], Field$2.prototype, "supportingText", void 0);
+__decorate$1([
+    n$b({ attribute: 'error-text' })
+], Field$2.prototype, "errorText", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], Field$2.prototype, "count", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], Field$2.prototype, "max", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'has-start' })
+], Field$2.prototype, "hasStart", void 0);
+__decorate$1([
+    n$b({ type: Boolean, attribute: 'has-end' })
+], Field$2.prototype, "hasEnd", void 0);
+__decorate$1([
+    o$c({ slot: 'aria-describedby' })
+], Field$2.prototype, "slottedAriaDescribedBy", void 0);
+__decorate$1([
+    r$a()
+], Field$2.prototype, "isAnimating", void 0);
+__decorate$1([
+    r$a()
+], Field$2.prototype, "refreshErrorAlert", void 0);
+__decorate$1([
+    r$a()
+], Field$2.prototype, "disableTransitions", void 0);
+__decorate$1([
+    e$b('.label.floating')
+], Field$2.prototype, "floatingLabelEl", void 0);
+__decorate$1([
+    e$b('.label.resting')
+], Field$2.prototype, "restingLabelEl", void 0);
+__decorate$1([
+    e$b('.container')
+], Field$2.prototype, "containerEl", void 0);
+
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * An outlined field component.
+ */
+let OutlinedField$2 = class OutlinedField extends Field$2 {
+    renderOutline(floatingLabel) {
+        return b$2 `
+      <div class="outline">
+        <div class="outline-start"></div>
+        <div class="outline-notch">
+          <div class="outline-panel-inactive"></div>
+          <div class="outline-panel-active"></div>
+          <div class="outline-label">${floatingLabel}</div>
+        </div>
+        <div class="outline-end"></div>
+      </div>
+    `;
+    }
+};
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./field/internal/outlined-styles.css.
+const styles$X = i$e `@layer styles{:host{--_bottom-space: var(--md-outlined-field-bottom-space, 16px);--_content-color: var(--md-outlined-field-content-color, var(--md-sys-color-on-surface, #1d1b20));--_content-font: var(--md-outlined-field-content-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_content-line-height: var(--md-outlined-field-content-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_content-size: var(--md-outlined-field-content-size, var(--md-sys-typescale-body-large-size, 1rem));--_content-space: var(--md-outlined-field-content-space, 16px);--_content-weight: var(--md-outlined-field-content-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_disabled-content-color: var(--md-outlined-field-disabled-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-content-opacity: var(--md-outlined-field-disabled-content-opacity, 0.38);--_disabled-label-text-color: var(--md-outlined-field-disabled-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-label-text-opacity: var(--md-outlined-field-disabled-label-text-opacity, 0.38);--_disabled-leading-content-color: var(--md-outlined-field-disabled-leading-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-leading-content-opacity: var(--md-outlined-field-disabled-leading-content-opacity, 0.38);--_disabled-outline-color: var(--md-outlined-field-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-opacity: var(--md-outlined-field-disabled-outline-opacity, 0.12);--_disabled-outline-width: var(--md-outlined-field-disabled-outline-width, 1px);--_disabled-supporting-text-color: var(--md-outlined-field-disabled-supporting-text-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-supporting-text-opacity: var(--md-outlined-field-disabled-supporting-text-opacity, 0.38);--_disabled-trailing-content-color: var(--md-outlined-field-disabled-trailing-content-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-trailing-content-opacity: var(--md-outlined-field-disabled-trailing-content-opacity, 0.38);--_error-content-color: var(--md-outlined-field-error-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-content-color: var(--md-outlined-field-error-focus-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-focus-label-text-color: var(--md-outlined-field-error-focus-label-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-leading-content-color: var(--md-outlined-field-error-focus-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-focus-outline-color: var(--md-outlined-field-error-focus-outline-color, var(--md-sys-color-error, #b3261e));--_error-focus-supporting-text-color: var(--md-outlined-field-error-focus-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-focus-trailing-content-color: var(--md-outlined-field-error-focus-trailing-content-color, var(--md-sys-color-error, #b3261e));--_error-hover-content-color: var(--md-outlined-field-error-hover-content-color, var(--md-sys-color-on-surface, #1d1b20));--_error-hover-label-text-color: var(--md-outlined-field-error-hover-label-text-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-leading-content-color: var(--md-outlined-field-error-hover-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-hover-outline-color: var(--md-outlined-field-error-hover-outline-color, var(--md-sys-color-on-error-container, #410e0b));--_error-hover-supporting-text-color: var(--md-outlined-field-error-hover-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-hover-trailing-content-color: var(--md-outlined-field-error-hover-trailing-content-color, var(--md-sys-color-on-error-container, #410e0b));--_error-label-text-color: var(--md-outlined-field-error-label-text-color, var(--md-sys-color-error, #b3261e));--_error-leading-content-color: var(--md-outlined-field-error-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_error-outline-color: var(--md-outlined-field-error-outline-color, var(--md-sys-color-error, #b3261e));--_error-supporting-text-color: var(--md-outlined-field-error-supporting-text-color, var(--md-sys-color-error, #b3261e));--_error-trailing-content-color: var(--md-outlined-field-error-trailing-content-color, var(--md-sys-color-error, #b3261e));--_focus-content-color: var(--md-outlined-field-focus-content-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-label-text-color: var(--md-outlined-field-focus-label-text-color, var(--md-sys-color-primary, #6750a4));--_focus-leading-content-color: var(--md-outlined-field-focus-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-outline-color: var(--md-outlined-field-focus-outline-color, var(--md-sys-color-primary, #6750a4));--_focus-outline-width: var(--md-outlined-field-focus-outline-width, 3px);--_focus-supporting-text-color: var(--md-outlined-field-focus-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_focus-trailing-content-color: var(--md-outlined-field-focus-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-content-color: var(--md-outlined-field-hover-content-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-label-text-color: var(--md-outlined-field-hover-label-text-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-leading-content-color: var(--md-outlined-field-hover-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-outline-color: var(--md-outlined-field-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-outlined-field-hover-outline-width, 1px);--_hover-supporting-text-color: var(--md-outlined-field-hover-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-trailing-content-color: var(--md-outlined-field-hover-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-color: var(--md-outlined-field-label-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_label-text-font: var(--md-outlined-field-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));--_label-text-line-height: var(--md-outlined-field-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));--_label-text-padding-bottom: var(--md-outlined-field-label-text-padding-bottom, 8px);--_label-text-populated-line-height: var(--md-outlined-field-label-text-populated-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_label-text-populated-size: var(--md-outlined-field-label-text-populated-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_label-text-size: var(--md-outlined-field-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));--_label-text-weight: var(--md-outlined-field-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));--_leading-content-color: var(--md-outlined-field-leading-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_leading-space: var(--md-outlined-field-leading-space, 16px);--_outline-color: var(--md-outlined-field-outline-color, var(--md-sys-color-outline, #79747e));--_outline-label-padding: var(--md-outlined-field-outline-label-padding, 4px);--_outline-width: var(--md-outlined-field-outline-width, 1px);--_supporting-text-color: var(--md-outlined-field-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));--_supporting-text-font: var(--md-outlined-field-supporting-text-font, var(--md-sys-typescale-body-small-font, var(--md-ref-typeface-plain, Roboto)));--_supporting-text-leading-space: var(--md-outlined-field-supporting-text-leading-space, 16px);--_supporting-text-line-height: var(--md-outlined-field-supporting-text-line-height, var(--md-sys-typescale-body-small-line-height, 1rem));--_supporting-text-size: var(--md-outlined-field-supporting-text-size, var(--md-sys-typescale-body-small-size, 0.75rem));--_supporting-text-top-space: var(--md-outlined-field-supporting-text-top-space, 4px);--_supporting-text-trailing-space: var(--md-outlined-field-supporting-text-trailing-space, 16px);--_supporting-text-weight: var(--md-outlined-field-supporting-text-weight, var(--md-sys-typescale-body-small-weight, var(--md-ref-typeface-weight-regular, 400)));--_top-space: var(--md-outlined-field-top-space, 16px);--_trailing-content-color: var(--md-outlined-field-trailing-content-color, var(--md-sys-color-on-surface-variant, #49454f));--_trailing-space: var(--md-outlined-field-trailing-space, 16px);--_with-leading-content-leading-space: var(--md-outlined-field-with-leading-content-leading-space, 12px);--_with-trailing-content-trailing-space: var(--md-outlined-field-with-trailing-content-trailing-space, 12px);--_container-shape-start-start: var(--md-outlined-field-container-shape-start-start, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-start-end: var(--md-outlined-field-container-shape-start-end, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-end: var(--md-outlined-field-container-shape-end-end, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)));--_container-shape-end-start: var(--md-outlined-field-container-shape-end-start, var(--md-outlined-field-container-shape, var(--md-sys-shape-corner-extra-small, 4px)))}.outline{border-color:var(--_outline-color);border-radius:inherit;display:flex;pointer-events:none;height:100%;position:absolute;width:100%;z-index:1}.outline-start::before,.outline-start::after,.outline-panel-inactive::before,.outline-panel-inactive::after,.outline-panel-active::before,.outline-panel-active::after,.outline-end::before,.outline-end::after{border:inherit;content:"";inset:0;position:absolute}.outline-start,.outline-end{border:inherit;border-radius:inherit;box-sizing:border-box;position:relative}.outline-start::before,.outline-start::after,.outline-end::before,.outline-end::after{border-bottom-style:solid;border-top-style:solid}.outline-start::after,.outline-end::after{opacity:0;transition:opacity 150ms cubic-bezier(0.2, 0, 0, 1)}.focused .outline-start::after,.focused .outline-end::after{opacity:1}.outline-start::before,.outline-start::after{border-inline-start-style:solid;border-inline-end-style:none;border-start-start-radius:inherit;border-start-end-radius:0;border-end-start-radius:inherit;border-end-end-radius:0;margin-inline-end:var(--_outline-label-padding)}.outline-end{flex-grow:1;margin-inline-start:calc(-1*var(--_outline-label-padding))}.outline-end::before,.outline-end::after{border-inline-start-style:none;border-inline-end-style:solid;border-start-start-radius:0;border-start-end-radius:inherit;border-end-start-radius:0;border-end-end-radius:inherit}.outline-notch{align-items:flex-start;border:inherit;display:flex;margin-inline-start:calc(-1*var(--_outline-label-padding));margin-inline-end:var(--_outline-label-padding);max-width:calc(100% - var(--_leading-space) - var(--_trailing-space));padding:0 var(--_outline-label-padding);position:relative}.no-label .outline-notch{display:none}.outline-panel-inactive,.outline-panel-active{border:inherit;border-bottom-style:solid;inset:0;position:absolute}.outline-panel-inactive::before,.outline-panel-inactive::after,.outline-panel-active::before,.outline-panel-active::after{border-top-style:solid;border-bottom:none;bottom:auto;transform:scaleX(1);transition:transform 150ms cubic-bezier(0.2, 0, 0, 1)}.outline-panel-inactive::before,.outline-panel-active::before{right:50%;transform-origin:top left}.outline-panel-inactive::after,.outline-panel-active::after{left:50%;transform-origin:top right}.populated .outline-panel-inactive::before,.populated .outline-panel-inactive::after,.populated .outline-panel-active::before,.populated .outline-panel-active::after,.focused .outline-panel-inactive::before,.focused .outline-panel-inactive::after,.focused .outline-panel-active::before,.focused .outline-panel-active::after{transform:scaleX(0)}.outline-panel-active{opacity:0;transition:opacity 150ms cubic-bezier(0.2, 0, 0, 1)}.focused .outline-panel-active{opacity:1}.outline-label{display:flex;max-width:100%;transform:translateY(calc(-100% + var(--_label-text-padding-bottom)))}.outline-start,.field:not(.with-start) .content ::slotted(*){padding-inline-start:max(var(--_leading-space),max(var(--_container-shape-start-start),var(--_container-shape-end-start)) + var(--_outline-label-padding))}.field:not(.with-start) .label-wrapper{margin-inline-start:max(var(--_leading-space),max(var(--_container-shape-start-start),var(--_container-shape-end-start)) + var(--_outline-label-padding))}.field:not(.with-end) .content ::slotted(*){padding-inline-end:max(var(--_trailing-space),max(var(--_container-shape-start-end),var(--_container-shape-end-end)))}.field:not(.with-end) .label-wrapper{margin-inline-end:max(var(--_trailing-space),max(var(--_container-shape-start-end),var(--_container-shape-end-end)))}.outline-start::before,.outline-end::before,.outline-panel-inactive,.outline-panel-inactive::before,.outline-panel-inactive::after{border-width:var(--_outline-width)}:hover .outline{border-color:var(--_hover-outline-color);color:var(--_hover-outline-color)}:hover .outline-start::before,:hover .outline-end::before,:hover .outline-panel-inactive,:hover .outline-panel-inactive::before,:hover .outline-panel-inactive::after{border-width:var(--_hover-outline-width)}.focused .outline{border-color:var(--_focus-outline-color);color:var(--_focus-outline-color)}.outline-start::after,.outline-end::after,.outline-panel-active,.outline-panel-active::before,.outline-panel-active::after{border-width:var(--_focus-outline-width)}.disabled .outline{border-color:var(--_disabled-outline-color);color:var(--_disabled-outline-color)}.disabled .outline-start,.disabled .outline-end,.disabled .outline-panel-inactive{opacity:var(--_disabled-outline-opacity)}.disabled .outline-start::before,.disabled .outline-end::before,.disabled .outline-panel-inactive,.disabled .outline-panel-inactive::before,.disabled .outline-panel-inactive::after{border-width:var(--_disabled-outline-width)}.error .outline{border-color:var(--_error-outline-color);color:var(--_error-outline-color)}.error:hover .outline{border-color:var(--_error-hover-outline-color);color:var(--_error-hover-outline-color)}.error.focused .outline{border-color:var(--_error-focus-outline-color);color:var(--_error-focus-outline-color)}.resizable .container{bottom:var(--_focus-outline-width);inset-inline-end:var(--_focus-outline-width);clip-path:inset(var(--_focus-outline-width) 0 0 var(--_focus-outline-width))}.resizable .container>*{top:var(--_focus-outline-width);inset-inline-start:var(--_focus-outline-width)}.resizable .container:dir(rtl){clip-path:inset(var(--_focus-outline-width) var(--_focus-outline-width) 0 0)}}@layer hcm{@media(forced-colors: active){.disabled .outline{border-color:GrayText;color:GrayText}.disabled :is(.outline-start,.outline-end,.outline-panel-inactive){opacity:1}}}
+`;
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./field/internal/shared-styles.css.
+const styles$W = i$e `:host{display:inline-flex;resize:both}.field{display:flex;flex:1;flex-direction:column;writing-mode:horizontal-tb;max-width:100%}.container-overflow{border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-end-radius:var(--_container-shape-end-end);border-end-start-radius:var(--_container-shape-end-start);display:flex;height:100%;position:relative}.container{align-items:center;border-radius:inherit;display:flex;flex:1;max-height:100%;min-height:100%;min-width:min-content;position:relative}.field,.container-overflow{resize:inherit}.resizable:not(.disabled) .container{resize:inherit;overflow:hidden}.disabled{pointer-events:none}slot[name=container]{border-radius:inherit}slot[name=container]::slotted(*){border-radius:inherit;inset:0;pointer-events:none;position:absolute}@layer styles{.start,.middle,.end{display:flex;box-sizing:border-box;height:100%;position:relative}.start{color:var(--_leading-content-color)}.end{color:var(--_trailing-content-color)}.start,.end{align-items:center;justify-content:center}.with-start .start{margin-inline:var(--_with-leading-content-leading-space) var(--_content-space)}.with-end .end{margin-inline:var(--_content-space) var(--_with-trailing-content-trailing-space)}.middle{align-items:stretch;align-self:baseline;flex:1}.content{color:var(--_content-color);display:flex;flex:1;opacity:0;transition:opacity 83ms cubic-bezier(0.2, 0, 0, 1)}.no-label .content,.focused .content,.populated .content{opacity:1;transition-delay:67ms}:is(.disabled,.disable-transitions) .content{transition:none}.content ::slotted(*){all:unset;color:currentColor;font-family:var(--_content-font);font-size:var(--_content-size);line-height:var(--_content-line-height);font-weight:var(--_content-weight);width:100%;overflow-wrap:revert;white-space:revert}.content ::slotted(:not(textarea)){padding-top:var(--_top-space);padding-bottom:var(--_bottom-space)}.content ::slotted(textarea){margin-top:var(--_top-space);margin-bottom:var(--_bottom-space)}:hover .content{color:var(--_hover-content-color)}:hover .start{color:var(--_hover-leading-content-color)}:hover .end{color:var(--_hover-trailing-content-color)}.focused .content{color:var(--_focus-content-color)}.focused .start{color:var(--_focus-leading-content-color)}.focused .end{color:var(--_focus-trailing-content-color)}.disabled .content{color:var(--_disabled-content-color)}.disabled.no-label .content,.disabled.focused .content,.disabled.populated .content{opacity:var(--_disabled-content-opacity)}.disabled .start{color:var(--_disabled-leading-content-color);opacity:var(--_disabled-leading-content-opacity)}.disabled .end{color:var(--_disabled-trailing-content-color);opacity:var(--_disabled-trailing-content-opacity)}.error .content{color:var(--_error-content-color)}.error .start{color:var(--_error-leading-content-color)}.error .end{color:var(--_error-trailing-content-color)}.error:hover .content{color:var(--_error-hover-content-color)}.error:hover .start{color:var(--_error-hover-leading-content-color)}.error:hover .end{color:var(--_error-hover-trailing-content-color)}.error.focused .content{color:var(--_error-focus-content-color)}.error.focused .start{color:var(--_error-focus-leading-content-color)}.error.focused .end{color:var(--_error-focus-trailing-content-color)}}@layer hcm{@media(forced-colors: active){.disabled :is(.start,.content,.end){color:GrayText;opacity:1}}}@layer styles{.label{box-sizing:border-box;color:var(--_label-text-color);overflow:hidden;max-width:100%;text-overflow:ellipsis;white-space:nowrap;z-index:1;font-family:var(--_label-text-font);font-size:var(--_label-text-size);line-height:var(--_label-text-line-height);font-weight:var(--_label-text-weight);width:min-content}.label-wrapper{inset:0;pointer-events:none;position:absolute}.label.resting{position:absolute;top:var(--_top-space)}.label.floating{font-size:var(--_label-text-populated-size);line-height:var(--_label-text-populated-line-height);transform-origin:top left}.label.hidden{opacity:0}.no-label .label{display:none}.label-wrapper{inset:0;position:absolute;text-align:initial}:hover .label{color:var(--_hover-label-text-color)}.focused .label{color:var(--_focus-label-text-color)}.disabled .label{color:var(--_disabled-label-text-color)}.disabled .label:not(.hidden){opacity:var(--_disabled-label-text-opacity)}.error .label{color:var(--_error-label-text-color)}.error:hover .label{color:var(--_error-hover-label-text-color)}.error.focused .label{color:var(--_error-focus-label-text-color)}}@layer hcm{@media(forced-colors: active){.disabled .label:not(.hidden){color:GrayText;opacity:1}}}@layer styles{.supporting-text{color:var(--_supporting-text-color);display:flex;font-family:var(--_supporting-text-font);font-size:var(--_supporting-text-size);line-height:var(--_supporting-text-line-height);font-weight:var(--_supporting-text-weight);gap:16px;justify-content:space-between;padding-inline-start:var(--_supporting-text-leading-space);padding-inline-end:var(--_supporting-text-trailing-space);padding-top:var(--_supporting-text-top-space)}.supporting-text :nth-child(2){flex-shrink:0}:hover .supporting-text{color:var(--_hover-supporting-text-color)}.focus .supporting-text{color:var(--_focus-supporting-text-color)}.disabled .supporting-text{color:var(--_disabled-supporting-text-color);opacity:var(--_disabled-supporting-text-opacity)}.error .supporting-text{color:var(--_error-supporting-text-color)}.error:hover .supporting-text{color:var(--_error-hover-supporting-text-color)}.error.focus .supporting-text{color:var(--_error-focus-supporting-text-color)}}@layer hcm{@media(forced-colors: active){.disabled .supporting-text{color:GrayText;opacity:1}}}
+`;
+
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
+ */
+/**
+ * @tagname oscd-outlined-field
+ * TODO(b/228525797): add docs
+ * @final
+ * @suppress {visibility}
+ */
+let OscdOutlinedField$1 = class OscdOutlinedField extends OutlinedField$2 {
+};
+OscdOutlinedField$1.styles = [styles$W, styles$X];
+
+/**
+ * @tag oscd-outlined-search-field
+ * @summary An `oscd-outlined-text-field` specialized for search input.
+ *
+ * Behaves like a standard outlined text field, but comes by default with a
+ * leading search icon and a trailing "clear" button (shown once
+ * [[`value`]] is non-empty), a placeholder rendered at 50% opacity (relative
+ * to the input text color) that is hidden while the field has focus.
+ *
+ * The default leading/trailing icons can be overridden by slotting content
+ * into the `leading-icon`/`trailing-icon` slots, exactly as with
+ * `oscd-outlined-text-field`. The placeholder color can be overridden via
+ * `--oscd-search-field-placeholder-color`.
+ *
+ * Like the outlined text field it wraps, the container has no background by
+ * default. Container styling is available through the wrapped field's
+ * supported `--md-outlined-text-field-*` tokens.
+ * */
+class OscdOutlinedSearchField extends ScopedElementsMixin$2(OutlinedSearchField) {
+    constructor() {
+        super(...arguments);
+        this.fieldTag = i$a `oscd-outlined-field`;
+    }
+}
+OscdOutlinedSearchField.scopedElements = {
+    'oscd-outlined-field': OscdOutlinedField$1,
+    'oscd-icon': OscdIcon$1,
+    'oscd-icon-button': OscdIconButton$1,
+};
+
+const menuStyles = i$e `
+  oscd-menu-item {
+    margin-inline: var(--plugins-menu-padding);
+    border-radius: var(--md-menu-container-shape);
+  }
+
+  :is(oscd-menu-item, oscd-sub-menu) + :is(oscd-menu-item, oscd-sub-menu) {
+    margin-top: 6px;
+  }
+
+  .menu-heading {
+    padding: 6px calc(var(--plugins-menu-padding) + 8px);
+    font-family: var(--oscd-text-font, Roboto), sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    color: var(--editor-plugins-panel-flyout-header-text-color);
+  }
+
+  oscd-divider.menu-divider {
+    --md-divider-color: var(--plugins-menu-divider-color);
+    width: calc(100% - 2 * var(--plugins-menu-padding));
+    margin: 6px var(--plugins-menu-padding);
+  }
+`;
+
+const unpinnedIcon = b$2 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="28"
+  height="28"
+  viewBox="0 0 28 28"
+  fill="none"
+>
+  <path
+    d="M16.391 14.4188L16.8773 16.2406L16.2096 17.3947L13.3244 15.7253L11.3211 19.1876L10.4102 19.4307L10.1671 18.5198L12.1703 15.0576L9.28512 13.3882L9.95287 12.2341L11.7747 11.7478L14.1118 7.70854L13.5348 7.37467L14.2025 6.22059L19.9729 9.55934L19.3052 10.7134L18.7281 10.3795L16.391 14.4188ZM11.5974 13.1857L15.2328 15.2891L14.9531 14.2415L17.574 9.71179L15.2659 8.37629L12.645 12.906L11.5974 13.1857Z"
+    fill="currentColor"
+  />
+</svg>`;
+const pinnedIcon = b$2 `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="28"
+  height="28"
+  viewBox="0 0 28 28"
+  fill="none"
+>
+  <path
+    d="M16.4379 14.5274L16.9273 16.3484L16.2615 17.5036L13.3735 15.8391L11.3761 19.3047L10.4656 19.5494L10.2209 18.6389L12.2183 15.1733L9.33034 13.5088L9.99614 12.3536L11.8171 11.8642L14.1475 7.821L13.5699 7.4881L14.2357 6.3329L20.0117 9.66194L19.3459 10.8171L18.7683 10.4842L16.4379 14.5274Z"
+    fill="currentColor"
+  />
+</svg>`;
+function buildTreeNodes(plugins) {
+    function pluginEntryToTreeNode(pluginEntry) {
+        return {
+            ...pluginEntry,
+            id: pluginEntry.tagName,
+            children: [], //explicitly set children to an empty array for leaf nodes
+        };
+    }
+    return plugins.map((editor, index) => {
+        const isGroup = isPluginGroup(editor);
+        if (isGroup) {
+            const children = editor.plugins.map(pluginEntryToTreeNode);
+            return {
+                ...editor,
+                id: `group:${index}:${editor.name}`,
+                children,
+            };
+        }
+        return pluginEntryToTreeNode(editor);
+    });
+}
+function renderFlyoutPlaceholder() {
+    return b$2 `<oscd-menu-item disabled>
+    <div slot="headline">${msg$1('Items you pin will appear here')}</div>
+  </oscd-menu-item>`;
+}
+let EditorPluginsPanel = class EditorPluginsPanel extends ScopedElementsMixin$2(i$b) {
+    constructor() {
+        super(...arguments);
+        this.id = 'editor-plugins-panel';
+        this.editors = [];
+        /**
+         * Transient "search mode": the collapsed rail's search icon opens the full
+         * panel to let the user search, WITHOUT persisting the panel as expanded.
+         * It is reflected purely so `:host([search-mode])` can drive the open width.
+         * Exited on editor selection or Escape (see `exitSearchMode`).
+         */
+        this.searchMode = false;
+        this.editorTreeNodes = [];
+        this.pinnedTreeNodes = [
+            {
+                id: 'pinned',
+                name: 'Pinned',
+                icon: 'keep',
+                plugins: [],
+                children: [],
+            },
+        ];
+        this.searchValue = '';
+        this.focusedTree = null;
+        this.hasOverflow = false;
+        this.overflowObserver = new ResizeObserver(() => this.updateOverflow());
+        this.observedOverflowElements = new Set();
+        this.handleKeydown = (event) => {
+            const fromSearchField = event.currentTarget?.localName ===
+                'oscd-outlined-search-field' ||
+                event
+                    .composedPath()
+                    .some(target => target.localName === 'oscd-outlined-search-field');
+            if (event.key === 'Escape' && this.searchMode) {
+                event.stopPropagation();
+                this.exitSearchMode();
+                return;
+            }
+            if (fromSearchField &&
+                (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.startTreeNavigation(event.key === 'ArrowDown' ? 'down' : 'up');
+                return;
+            }
+            if (fromSearchField && event.key === 'Enter') {
+                event.preventDefault();
+                event.stopPropagation();
+                this.activateKeyboardTarget();
+            }
+        };
+    }
+    /** True when the panel is visually open (persisted expanded OR transient search). */
+    get isOpen() {
+        return this.expanded || this.searchMode;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener('keydown', this.handleKeydown);
+        this.requestUpdate();
+    }
+    disconnectedCallback() {
+        this.overflowObserver.disconnect();
+        this.observedOverflowElements.clear();
+        this.removeEventListener('keydown', this.handleKeydown);
+        super.disconnectedCallback();
+    }
+    willUpdate(changedProperties) {
+        if (changedProperties.has('editors') ||
+            changedProperties.has('searchValue') ||
+            changedProperties.has('locale')) {
+            const searchResults = filterBySearchTerm(this.editors, this.searchValue, this.locale);
+            this.editorTreeNodes = buildTreeNodes(searchResults);
+        }
+        if (changedProperties.has('editors') ||
+            changedProperties.has('pinnedPluginIds') ||
+            changedProperties.has('locale')) {
+            const pinnedPlugins = filterByPinned(this.editors, this.pinnedPluginIds);
+            const pinnedChildren = pinnedPlugins.length
+                ? buildTreeNodes(pinnedPlugins)
+                : [
+                    {
+                        kind: 'placeholder',
+                        name: msg$1('Items you pin will appear here'),
+                        id: 'pinned-placeholder',
+                        children: [],
+                    },
+                ];
+            this.pinnedTreeNodes = [
+                {
+                    id: 'pinned',
+                    name: msg$1('Pinned'),
+                    icon: 'keep',
+                    plugins: [],
+                    children: pinnedChildren,
+                },
+            ];
+        }
+    }
+    updated() {
+        if (!this.isConnected) {
+            return;
+        }
+        const scrollArea = this.shadowRoot?.querySelector('.tree-scroll, .rail');
+        const targets = new Set();
+        if (scrollArea !== null && scrollArea !== undefined) {
+            targets.add(scrollArea);
+            for (const child of scrollArea.children) {
+                targets.add(child);
+            }
+        }
+        for (const element of this.observedOverflowElements) {
+            if (!targets.has(element)) {
+                this.overflowObserver.unobserve(element);
+            }
+        }
+        for (const element of targets) {
+            if (!this.observedOverflowElements.has(element)) {
+                this.overflowObserver.observe(element);
+            }
+        }
+        this.observedOverflowElements = targets;
+        this.updateOverflow();
+    }
+    updateOverflow() {
+        const scrollArea = this.shadowRoot?.querySelector('.tree-scroll, .rail');
+        this.hasOverflow = scrollArea !== null && scrollArea !== undefined
+            && scrollArea.scrollHeight > scrollArea.clientHeight;
+    }
+    togglePin(id) {
+        if (this.pinnedPluginIds.includes(id)) {
+            this.pinnedPluginIds = this.pinnedPluginIds.filter(pinnedId => pinnedId !== id);
+        }
+        else {
+            this.pinnedPluginIds = [...this.pinnedPluginIds, id];
+            this.pinnedExpanded = ['pinned']; // Expand the pinned section when a new plugin is pinned
+        }
+    }
+    selectEditor(selectedIds) {
+        const [selectedId] = selectedIds;
+        if (!selectedId) {
+            return;
+        }
+        const editor = flattenPluginEntries(this.editors).find(editor => editor.tagName === selectedId);
+        if (!editor) {
+            return;
+        }
+        this.dispatchEditorSelect(editor);
+    }
+    /**
+     * Dispatches the `editor-select` event and leaves transient search mode, if
+     * active. Used by both the expanded trees and the collapsed rail flyouts.
+     */
+    dispatchEditorSelect(editor) {
+        this.dispatchEvent(new CustomEvent('editor-select', {
+            detail: { editor },
+            bubbles: true,
+            composed: true,
+        }));
+        if (this.searchMode) {
+            this.exitSearchMode();
+        }
+    }
+    /** Opens the panel transiently for searching (does not persist `expanded`). */
+    enterSearchMode() {
+        this.searchMode = true;
+        this.focusSearch(true);
+    }
+    /** Focuses the search field, optionally selecting its current query. */
+    focusSearch(selectQuery = false) {
+        const focusField = () => {
+            const searchField = this.shadowRoot?.querySelector('oscd-outlined-search-field');
+            searchField?.focus();
+            if (selectQuery) {
+                searchField?.select();
+            }
+        };
+        this.updateComplete.then(() => {
+            focusField();
+            requestAnimationFrame(() => requestAnimationFrame(focusField));
+        });
+    }
+    /** Returns the panel to the collapsed rail and clears the search query. */
+    exitSearchMode() {
+        this.searchMode = false;
+        this.searchValue = '';
+        this.focusedTree = null;
+    }
+    getTree(kind) {
+        return (this.shadowRoot?.querySelector(`oscd-tree.${kind}-tree`) ?? null);
+    }
+    focusTree(kind, activeId) {
+        const tree = this.getTree(kind);
+        if (!tree || !activeId) {
+            return false;
+        }
+        tree.activeId = activeId;
+        this.focusedTree = kind;
+        tree.focus();
+        return true;
+    }
+    startTreeNavigation(direction) {
+        const first = direction === 'down';
+        const pinnedTree = this.getTree('pinned');
+        if (this.searchValue.trim().length === 0 && pinnedTree) {
+            const activeId = this.focusTree('pinned', first ? pinnedTree.getFirstNodeId() : pinnedTree.getLastNodeId());
+            if (activeId) {
+                return;
+            }
+        }
+        const editorsTree = this.getTree('editors');
+        this.focusTree('editors', editorsTree
+            ? first
+                ? editorsTree.getFirstNodeId()
+                : editorsTree.getLastNodeId()
+            : null);
+    }
+    handleTreeActiveChanged(kind) {
+        this.focusedTree = kind;
+    }
+    handleTreeFocus(kind) {
+        this.focusedTree = kind;
+    }
+    // With selection disabled, the tree no longer activates rows on Enter/Space.
+    // Handle activation separately, before its row keydown handler consumes them.
+    handlePinnedKeydown(event) {
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
+        const tree = this.getTree('pinned');
+        if (!tree) {
+            return;
+        }
+        const accessoryTarget = event.composedPath().some(target => target instanceof Element && target.matches('.accessory'));
+        if (accessoryTarget) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        if (tree.activeId) {
+            const activeNode = tree.data.find(node => node.id === tree.activeId);
+            if (activeNode?.children?.length) {
+                tree.toggle(tree.activeId);
+            }
+            else {
+                this.selectEditor([tree.activeId]);
+            }
+        }
+    }
+    handleTreeSelection(kind, selectedIds) {
+        const tree = this.getTree(kind);
+        const selectedId = selectedIds[0];
+        const selectedNode = tree?.data.find(node => node.id === selectedId);
+        if (tree && selectedNode?.children?.length && selectedId) {
+            tree.toggle(selectedId);
+            return;
+        }
+        this.selectEditor(selectedIds);
+    }
+    handleTreeBoundary(kind, direction) {
+        if (kind === 'pinned' && direction === 'last') {
+            this.focusTree('editors', this.getTree('editors')?.getFirstNodeId() ?? null);
+        }
+        else if (kind === 'editors' &&
+            direction === 'first' &&
+            this.searchValue.trim().length === 0) {
+            this.focusTree('pinned', this.getTree('pinned')?.getLastNodeId() ?? null);
+        }
+    }
+    activateKeyboardTarget() {
+        if (!this.focusedTree) {
+            if (this.shadowRoot?.activeElement?.localName ===
+                'oscd-outlined-search-field' &&
+                flattenPluginEntries(filterBySearchTerm(this.editors, this.searchValue, this.locale)).length === 1) {
+                this.dispatchEditorSelect(flattenPluginEntries(filterBySearchTerm(this.editors, this.searchValue, this.locale))[0]);
+            }
+            return;
+        }
+    }
+    /** Toggles the persisted expanded/collapsed state via the footer control. */
+    toggleExpanded() {
+        if (this.isOpen) {
+            this.expanded = false;
+            this.exitSearchMode();
+        }
+        else {
+            this.expanded = true;
+        }
+    }
+    toggleFlyout(anchorId) {
+        const menu = this.shadowRoot?.querySelector(`oscd-menu[data-flyout="${anchorId}"]`);
+        if (!menu) {
+            return;
+        }
+        if (menu.open) {
+            menu.close();
+        }
+        else {
+            menu.show();
+        }
+    }
+    renderPluginItem({ node, level, disabled, active, }) {
+        const label = node.translations?.[this.locale] ?? node.name;
+        const isPlaceholder = 'kind' in node && node.kind === 'placeholder';
+        return b$2 `<oscd-tree-item
+      ?disabled=${disabled}
+      ?active=${active}
+      style=${isPlaceholder
+            ? '--md-list-item-disabled-opacity: 0.75'
+            : A$1}
+    >
+      ${level === 1 && !('kind' in node)
+            ? b$2 `<oscd-icon slot="start">${node.icon}</oscd-icon>`
+            : A$1}
+      <span slot="headline" title=${label}>${label}</span>
+    </oscd-tree-item>`;
+    }
+    renderLeafAccessory({ node, id }) {
+        if ('kind' in node && node.kind === 'placeholder') {
+            return A$1;
+        }
+        const pinned = this.pinnedPluginIds.includes(id);
+        return b$2 `<button
+      aria-label=${pinned
+            ? msg$1(str `Unpin ${node.name}`)
+            : msg$1(str `Pin ${node.name}`)}
+      aria-pressed=${pinned}
+      @click=${() => this.togglePin(id)}
+    >
+      <oscd-icon>${pinned ? pinnedIcon : unpinnedIcon}</oscd-icon>
+    </button>`;
+    }
+    renderExpanded() {
+        const editorExpandedIds = this.searchValue.length === 0
+            ? this.expandedIds
+            : this.editorTreeNodes.map(node => node.id);
+        const selectedTagName = this.selectedEditor?.tagName;
+        const selectedRoot = this.editorTreeNodes.find(node => node.id === selectedTagName ||
+            node.children?.some(child => child.id === selectedTagName));
+        const selectedRootId = selectedRoot?.id;
+        const selectedEditorIds = selectedRootId && selectedTagName
+            ? [
+                !editorExpandedIds.includes(selectedRootId)
+                    ? selectedRootId
+                    : selectedTagName,
+            ]
+            : [];
+        return b$2 `
+      <div class="tree-container">
+        <oscd-outlined-search-field
+          placeholder=${msg$1('Search')}
+          clearLabel=${msg$1('Clear search')}
+          .value=${this.searchValue}
+          @input=${(event) => {
+            this.searchValue = event.target.value;
+        }}
+        ></oscd-outlined-search-field>
+        <div class="tree-scroll">
+          ${this.searchValue.trim().length === 0
+            ? b$2 `<oscd-tree
+                  .data=${this.pinnedTreeNodes}
+                  .expandedIds=${this.pinnedExpanded}
+                  .selectionMode=${'none'}
+                  .isDisabled=${(node) => 'kind' in node && node.kind === 'placeholder'}
+                  class="pinned-tree"
+                  ?keyboard-active=${this.focusedTree === 'pinned'}
+                  @focusin=${() => this.handleTreeFocus('pinned')}
+                  .renderItem=${(context) => this.renderPluginItem(context)}
+                  .renderLeafAccessory=${(context) => this.renderLeafAccessory(context)}
+                  toggle-position="trailing"
+                  collapse-icon="arrow_drop_up"
+                  expand-icon="arrow_drop_down"
+                  @node-click=${(event) => this.selectEditor([event.detail.id])}
+                  @keydown=${this.handlePinnedKeydown}
+                  @expanded-ids-changed=${(event) => {
+                this.pinnedExpanded = event.detail.expandedIds;
+            }}
+                  @active-changed=${() => this.handleTreeActiveChanged('pinned')}
+                  @navigation-boundary=${(event) => this.handleTreeBoundary('pinned', event.detail.direction)}
+                ></oscd-tree>
+                <oscd-divider></oscd-divider>`
+            : A$1}
+          <oscd-tree
+            class="editors-tree"
+            ?keyboard-active=${this.focusedTree === 'editors'}
+            @focusin=${() => this.handleTreeFocus('editors')}
+            .data=${this.editorTreeNodes}
+            .expandedIds=${editorExpandedIds}
+            .selectionMode=${'single'}
+            .selectedIds=${selectedEditorIds}
+            .isDisabled=${(node) => 'kind' in node && node.kind === 'placeholder'}
+            .isSelectable=${(node) => !('kind' in node && node.kind === 'placeholder')}
+            .renderItem=${(context) => this.renderPluginItem(context)}
+            .renderLeafAccessory=${(context) => this.renderLeafAccessory(context)}
+            toggle-position="trailing"
+            collapse-icon="arrow_drop_down"
+            expand-icon="arrow_drop_up"
+            @selected-ids-changed=${(event) => this.handleTreeSelection('editors', event.detail.selectedIds)}
+            @expanded-ids-changed=${(event) => {
+            this.expandedIds = event.detail.expandedIds;
+        }}
+            @active-changed=${() => this.handleTreeActiveChanged('editors')}
+            @navigation-boundary=${(event) => this.handleTreeBoundary('editors', event.detail.direction)}
+          ></oscd-tree>
+        </div>
+      </div>
+    `;
+    }
+    renderRail() {
+        const pinnedPlugins = flattenPluginEntries(filterByPinned(this.editors, this.pinnedPluginIds));
+        return b$2 `
+      <div class="rail">
+        <oscd-icon-button
+          class="rail-item"
+          aria-label=${msg$1('Search')}
+          @click=${() => this.enterSearchMode()}
+        >
+          <oscd-icon>search</oscd-icon>
+        </oscd-icon-button>
+        ${this.renderRailGroup({ name: msg$1('Pinned'), icon: 'keep', plugins: pinnedPlugins }, 'pinned', true)}
+        <oscd-divider></oscd-divider>
+        ${this.editors.map((entry, index) => isPluginGroup(entry)
+            ? this.renderRailGroup(entry, `group-${index}`)
+            : this.renderRailLeaf(entry))}
+      </div>
+    `;
+    }
+    renderRailGroup(group, anchorId, showEmptyPlaceholder = false) {
+        const label = group.translations?.[this.locale] ?? group.name;
+        const active = group.plugins.some(plugin => plugin.tagName === this.selectedEditor?.tagName);
+        const anchor = `rail-${anchorId}`;
+        return b$2 `
+      <oscd-icon-button
+        id=${anchor}
+        class=${e$8({ 'rail-item': true, active })}
+        aria-haspopup="menu"
+        aria-label=${label}
+        @click=${() => this.toggleFlyout(anchorId)}
+      >
+        <oscd-icon>${group.icon}</oscd-icon>
+      </oscd-icon-button>
+      <oscd-menu
+        class="rail-flyout"
+        data-flyout=${anchorId}
+        anchor=${anchor}
+        anchor-corner="start-end"
+        menu-corner="start-start"
+        positioning="popover"
+        quick
+      >
+        <div class="menu-heading" role="presentation">${label}</div>
+        <oscd-divider class="menu-divider"></oscd-divider>
+        ${group.plugins.length > 0
+            ? group.plugins.map(plugin => this.renderFlyoutItem(plugin, anchorId !== 'pinned'))
+            : showEmptyPlaceholder
+                ? renderFlyoutPlaceholder()
+                : A$1}
+      </oscd-menu>
+    `;
+    }
+    renderRailLeaf(plugin) {
+        const label = plugin.translations?.[this.locale] ?? plugin.name;
+        const active = plugin.tagName === this.selectedEditor?.tagName;
+        return b$2 `
+      <oscd-icon-button
+        class=${e$8({ 'rail-item': true, active })}
+        aria-label=${label}
+        @click=${() => this.dispatchEditorSelect(plugin)}
+      >
+        <oscd-icon>${plugin.icon}</oscd-icon>
+      </oscd-icon-button>
+    `;
+    }
+    renderFlyoutItem(plugin, highlightSelection) {
+        const label = plugin.translations?.[this.locale] ?? plugin.name;
+        const selected = highlightSelection &&
+            plugin.tagName === this.selectedEditor?.tagName;
+        return b$2 `
+      <oscd-menu-item
+        .selected=${selected}
+        @click=${() => this.dispatchEditorSelect(plugin)}
+      >
+        <div slot="headline">${label}</div>
+      </oscd-menu-item>
+    `;
+    }
+    renderFooter() {
+        const open = this.isOpen;
+        const label = open ? msg$1('Collapse sidebar') : msg$1('Expand sidebar');
+        const icon = open ? 'left_panel_close' : 'left_panel_open';
+        return b$2 `
+      <div class="footer">
+        ${open
+            ? b$2 `<oscd-list-item
+              class="toggle-button"
+              type="button"
+              aria-label=${label}
+              @click=${() => this.toggleExpanded()}
+            >
+              <oscd-icon slot="start">${icon}</oscd-icon>
+              <span slot="headline">${label}</span>
+            </oscd-list-item>`
+            : b$2 `<oscd-icon-button
+              class="toggle-button"
+              aria-label=${label}
+              @click=${() => this.toggleExpanded()}
+            >
+              <oscd-icon>${icon}</oscd-icon>
+            </oscd-icon-button>`}
+      </div>
+    `;
+    }
+    render() {
+        return b$2 `
+      ${this.isOpen ? this.renderExpanded() : this.renderRail()}
+      <oscd-divider
+        class="footer-divider"
+        style=${this.hasOverflow ? 'visibility: visible' : 'visibility: hidden'}
+      ></oscd-divider>
+      ${this.renderFooter()}
+    `;
+    }
+};
+EditorPluginsPanel.scopedElements = {
+    'oscd-icon-button': OscdIconButton$1,
+    'oscd-icon': OscdIcon$1,
+    'oscd-list-item': OscdListItem$1,
+    'oscd-tree': OscdTree,
+    'oscd-tree-item': OscdTreeItem,
+    'oscd-outlined-search-field': OscdOutlinedSearchField,
+    'oscd-divider': OscdDivider$1,
+    'oscd-menu': OscdMenu$1,
+    'oscd-menu-item': OscdMenuItem$1,
+};
+EditorPluginsPanel.styles = [menuStyles, i$e `
+    :host {
+      /* Collapsed rail is the default width; the panel widens to its full width
+         when persistently expanded OR while in transient search mode. The shell
+         grid column follows this intrinsic width (grid-template-columns: auto). */
+      width: var(--editor-plugins-panel-collapsed-width);
+      height: calc(100% - var(--editor-plugins-panel-padding-top));
+      display: grid;
+      /* Row 1 (tree-container/rail) is the only scrollable region; the divider
+         and footer rows are sized to content so they stay pinned and always
+         visible below it, however tall the tree content grows. */
+      grid-template-rows: 1fr auto auto;
+      min-height: 0;
+      padding-top: var(--editor-plugins-panel-padding-top);
+      transition: width 0.1s ease-in-out;
+      /* Clip transient horizontal overflow while the width animates on
+         expand/collapse: the content swaps to its full width before the host
+         finishes resizing, and this stops that from forcing horizontal reflow /
+         scrollbar churn every animation frame. Steady-state label overrun is
+         handled by the tree row ellipsis, not by this. */
+      overflow-x: hidden;
+      /* The panel paints its own surface color; it must never depend on
+         page/body background showing through, or hosts that don't set a
+         background image get a blank panel. */
+      background-color: var(--editor-plugins-panel-background-color);
+    }
+
+    /* Set the panel's system colours once so resting text/icons and derived
+       state layers follow its configured foreground. Popout menus instead
+       inherit the shell's shared Material menu tokens.
+
+       NB: these are set on the content containers rather than :host on
+       purpose. A :host declaration would sit on the same element that
+       inherits --editor-plugins-panel-item-text-color, which is itself
+       derived from --md-sys-color-on-surface; declaring on the containers
+       keeps the source token a plain inherited value and so cannot form a
+       reference cycle. See "Layers are read upward" in THEMING.md. */
+    .rail,
+    .tree-container,
+    .footer {
+      --md-sys-color-on-surface: var(--editor-plugins-panel-item-text-color);
+      --md-sys-color-on-surface-variant: var(
+        --editor-plugins-panel-item-icon-color
+      );
+
+      --md-sys-color-surface: var(--editor-plugins-panel-background-color);
+    }
+
+    :host([expanded]),
+    :host([search-mode]) {
+      width: var(--editor-plugins-panel-width);
+    }
+
+    /* Base divider styling, overridden by the more specific rail/flyout/footer
+       dividers below where the Figma spec calls for different sizing. */
+    oscd-divider {
+      --md-divider-color: var(--editor-plugins-panel-divider-color);
+      /* No margin: .tree-container's 12px gap owns the spacing on both sides. */
+      margin-block: 0;
+    }
+
+    /* --- Expanded panel: search field + scrollable tree --- */
+
+    .tree-container {
+      margin-inline: 16px;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    oscd-outlined-search-field * {
+      --md-icon-button-state-layer-width: 32px;
+      --md-icon-button-state-layer-height: 32px;
+      --md-icon-button-state-layer-shape: 50%;
+    }
+
+    oscd-outlined-search-field {
+      background-color: color-mix(
+        in srgb,
+        var(
+            --md-outlined-text-field-input-text-color,
+            var(--md-sys-color-on-surface, #1d1b20)
+          )
+          20%,
+        transparent
+      );
+      border-radius: 5px;
+      --md-outlined-text-field-top-space: 6px;
+      --md-outlined-text-field-bottom-space: 6px;
+      --md-outlined-text-field-leading-space: 8px;
+      --md-outlined-text-field-trailing-space: 8px;
+      --md-outlined-text-field-with-leading-icon-leading-space: 10px;
+      --md-outlined-field-with-trailing-content-trailing-space: 8px;
+      --md-outlined-text-field-icon-input-space: 10px;
+      --md-icon-button-state-layer-width: 32px;
+      --md-icon-button-state-layer-height: 32px;
+      --md-icon-button-state-layer-shape: 50%;
+
+      --md-outlined-text-field-trailing-icon-size: 32px;
+
+      --md-icon-button-icon-size: 24px;
+
+      /* keep the outline light in every state */
+      --md-outlined-text-field-focus-outline-color: var(
+        --editor-plugins-panel-item-text-color
+      );
+      --md-outlined-text-field-hover-outline-color: var(
+        --editor-plugins-panel-item-text-color
+      );
+      --md-outlined-text-field-outline-color: var(
+        --editor-plugins-panel-item-text-color
+      );
+      /* hide the outline border entirely, in every state */
+      --md-outlined-text-field-outline-width: 0px;
+      --md-outlined-text-field-hover-outline-width: 0px;
+      --md-outlined-text-field-focus-outline-width: 0px;
+
+      /* caret follows the light text instead of the primary accent */
+      --md-outlined-text-field-caret-color: var(
+        --editor-plugins-panel-item-text-color
+      );
+      --md-outlined-text-field-focus-caret-color: var(
+        --editor-plugins-panel-item-text-color
+      );
+    }
+
+    .tree-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+      overflow-y: auto;
+
+      /* Recolour the scrollbar to sit on the panel's dark-blue surface instead
+         of the browser's default light-themed bar. Firefox reads
+         scrollbar-color; Chromium/Safari (and Firefox with the layout flag
+         off) read the ::-webkit-scrollbar-* pseudo-elements below. */
+      scrollbar-color: var(--editor-plugins-panel-divider-color) transparent;
+      scrollbar-width: thin;
+    }
+
+    .tree-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .tree-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .tree-scroll::-webkit-scrollbar-thumb {
+      background-color: var(--editor-plugins-panel-divider-color);
+      border-radius: 4px;
+    }
+
+    oscd-tree {
+      margin-inline: 0;
+      min-height: 0;
+      /* .tree-scroll is the sole flex item allowed to shrink/scroll; without
+         this, a too-short container shrinks each tree's box below its
+         rendered content instead of letting the scroll container overflow,
+         and the (unclipped) shadow-DOM rows bleed past the shrunk box into
+         whichever tree follows. */
+      flex-shrink: 0;
+      --oscd-tree-row-height: 36px;
+      --md-list-item-one-line-container-height: 36px;
+      --oscd-tree-row-gap: 4px;
+      --oscd-tree-row-padding-start: 8px;
+      --oscd-tree-row-padding-end: 8px;
+      --oscd-tree-indent-step: 36px;
+      --oscd-tree-row-shape: 5px;
+      --oscd-tree-toggle-icon-size: 28px;
+      --oscd-tree-trailing-toggle-gap: 8px;
+      /* Pin accessory hidden at rest, revealed on row hover / keyboard focus
+         (see Figma side-panel spec); its icon size inherits the 28px toggle. */
+      --oscd-tree-accessory-rest-opacity: 0;
+      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
+      /* oscd-tree-item colours its leading/trailing icon slots explicitly
+         (not via inherited 'color'), so — unlike the label — they don't
+         automatically pick up the selected-row text colour above. Tying them
+         to currentColor makes the icon track whatever colour the row itself
+         resolves to (resting on-surface ink, or the active/selected colour),
+         matching the label in both states. */
+      --md-list-item-leading-icon-color: currentColor;
+      --md-list-item-trailing-icon-color: currentColor;
+      --oscd-tree-row-selected-color: var(
+        --editor-plugins-panel-item-active-bg
+      );
+      --oscd-tree-row-selected-text-color: var(
+        --editor-plugins-panel-item-active-color
+      );
+      --oscd-tree-row-active-border-width: 0px;
+      /* The keyboard-active row highlight (outline + optional text override)
+         must stay visible whether that row is merely keyboard-highlighted at
+         rest (panel surface bg, on-surface ink text) or also selected
+         (--editor-plugins-panel-item-active-bg, active-color text). Using
+         currentColor/inherit ties the outline and text to whichever of those
+         two colours the row already resolves to, instead of hardcoding the
+         selected-row colour (which vanishes against the resting surface). */
+      --oscd-tree-row-active-border-color: currentColor;
+      --oscd-tree-row-active-text-color: inherit;
+      --md-focus-ring-color: currentColor;
+    }
+
+    oscd-tree.keyboard-active {
+      --oscd-tree-row-active-border-width: 1px;
+    }
+
+    oscd-tree.pinned-tree {
+      --oscd-tree-leaf-toggle-size: 0px;
+      --oscd-tree-leaf-toggle-gap: 0px;
+    }
+
+    /* --- Collapsed icon rail --- */
+
+    /* Collapsed icon rail: a flat column of 44px icon buttons (28px glyph + 8px
+       padding), inset 16px so the glyphs land at the same x (24px) as both the
+       search icon and the tree-item icons in the expanded panel. */
+    .rail {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-inline: 16px;
+      min-width: 0;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .rail-item {
+      --md-icon-button-icon-size: 28px;
+      --md-icon-button-state-layer-height: 44px;
+      --md-icon-button-state-layer-width: 44px;
+      border-radius: 5px;
+    }
+
+    /* Active group/editor: dark rounded square behind the glyph. */
+    .rail-item.active {
+      --md-sys-color-on-surface-variant: var(
+        --editor-plugins-panel-item-active-color
+      );
+      background: var(--editor-plugins-panel-item-active-bg);
+    }
+
+    .rail > oscd-divider {
+      /* 44px wide (aligned with the icon column), 12px clearance above and
+         below, per the Figma collapsed spec. */
+      width: 44px;
+      margin-block: 12px;
+      --md-divider-color: var(--editor-plugins-panel-divider-color);
+    }
+
+    .rail-flyout {
+      min-width: 200px;
+    }
+
+    /* --- Footer: collapse/expand toggle --- */
+
+    .footer-divider {
+      padding-inline: 16px;
+      margin-block: 12px 0;
+    }
+
+    .footer {
+      /* Persistent collapse/expand control, bottom-left in both modes. The 16px
+         inline inset matches the tree-container (so the expanded list-item spans
+         the same width as the rows) and the rail items; 16px below is the Figma
+         bottom margin. */
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-inline: 16px;
+      padding-block: 0 16px;
+    }
+
+    /* Expanded: an interactive list item so it reads as "one more row" — full
+       width with a full-width hover/ripple state layer, left-aligned, no
+       container fill at rest. 8px leading space lands the 28px glyph at x24,
+       exactly like the search field and tree rows above it. */
+    oscd-list-item.toggle-button {
+      width: 100%;
+      border-radius: 5px;
+      --md-list-item-leading-space: 8px;
+      --md-list-item-trailing-space: 8px;
+      --md-list-item-one-line-container-height: 40px;
+      --md-list-item-top-space: 8px;
+      --md-list-item-bottom-space: 8px;
+      --md-list-item-label-text-size: 16px;
+    }
+
+    oscd-list-item.toggle-button oscd-icon[slot='start'] {
+      /* Every icon in the side panel is 28px (matches the tree icons). */
+      --md-icon-size: 28px;
+    }
+
+    /* Collapsed rail: icon-only toggle, matching the rail items (44px target,
+       28px glyph, glyph lands at x24 like the other rail icons). */
+    oscd-icon-button.toggle-button {
+      --md-icon-button-icon-size: 28px;
+      --md-icon-button-state-layer-height: 44px;
+      --md-icon-button-state-layer-width: 44px;
+    }
+  `];
+__decorate$1([
+    n$b({ type: Array })
+], EditorPluginsPanel.prototype, "editors", void 0);
+__decorate$1([
+    n$b({ type: Number })
+], EditorPluginsPanel.prototype, "selectedEditor", void 0);
+__decorate$1([
+    n$b({ type: String })
+], EditorPluginsPanel.prototype, "locale", void 0);
+__decorate$1([
+    localstorage({ default: true }),
+    n$b({ type: Boolean, reflect: true })
+], EditorPluginsPanel.prototype, "expanded", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true, attribute: 'search-mode' })
+], EditorPluginsPanel.prototype, "searchMode", void 0);
+__decorate$1([
+    r$a()
+], EditorPluginsPanel.prototype, "searchValue", void 0);
+__decorate$1([
+    r$a()
+], EditorPluginsPanel.prototype, "focusedTree", void 0);
+__decorate$1([
+    localstorage({ default: [] }),
+    r$a()
+], EditorPluginsPanel.prototype, "expandedIds", void 0);
+__decorate$1([
+    localstorage({ default: [] }),
+    r$a()
+], EditorPluginsPanel.prototype, "pinnedPluginIds", void 0);
+__decorate$1([
+    localstorage({ default: [] }),
+    r$a()
+], EditorPluginsPanel.prototype, "pinnedExpanded", void 0);
+__decorate$1([
+    r$a()
+], EditorPluginsPanel.prototype, "hasOverflow", void 0);
+__decorate$1([
+    t$5({ capture: true })
+], EditorPluginsPanel.prototype, "handlePinnedKeydown", null);
+EditorPluginsPanel = __decorate$1([
+    localized()
+], EditorPluginsPanel);
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @fires deactivate-items {Event} Requests the parent menu to deselect other
+ * items when a submenu opens. --bubbles --composed
+ * @fires request-activation {Event} Requests the parent to make the slotted item
+ * focusable and focus the item. Used internally for menu keyboard navigation;
+ * most applications do not need to listen for this event. It is exposed for
+ * authors building their own menu-item replacements, or for advanced cases
+ * where you want to call `preventDefault`/`stopPropagation` on it to override
+ * default focus handling. --bubbles --composed
+ * @fires deactivate-typeahead {Event} Requests the parent menu to deactivate
+ * the typeahead functionality when a submenu opens. --bubbles --composed
+ * @fires activate-typeahead {Event} Requests the parent menu to activate the
+ * typeahead functionality when a submenu closes. --bubbles --composed
+ */
+class SubMenu extends i$b {
+    get item() {
+        return this.items[0] ?? null;
+    }
+    get menu() {
+        return this.menus[0] ?? null;
+    }
+    constructor() {
+        super();
+        /**
+         * The anchorCorner to set on the submenu.
+         */
+        this.anchorCorner = Corner$2.START_END;
+        /**
+         * The menuCorner to set on the submenu.
+         */
+        this.menuCorner = Corner$2.START_START;
+        /**
+         * The delay between mouseenter and submenu opening.
+         */
+        this.hoverOpenDelay = 400;
+        /**
+         * The delay between ponterleave and the submenu closing.
+         */
+        this.hoverCloseDelay = 400;
+        /**
+         * READONLY: self-identifies as a menu item and sets its identifying attribute
+         */
+        this.isSubMenu = true;
+        this.previousOpenTimeout = 0;
+        this.previousCloseTimeout = 0;
+        /**
+         * Starts the default 400ms countdown to open the submenu.
+         *
+         * NOTE: We explicitly use mouse events and not pointer events because
+         * pointer events apply to touch events. And if a user were to tap a
+         * sub-menu, it would fire the "pointerenter", "pointerleave", "click" events
+         * which would open the menu on click, and then set the timeout to close the
+         * menu due to pointerleave.
+         */
+        this.onMouseenter = () => {
+            clearTimeout(this.previousOpenTimeout);
+            clearTimeout(this.previousCloseTimeout);
+            if (this.menu?.open)
+                return;
+            // Open synchronously if delay is 0. (screenshot tests infra
+            // would never resolve otherwise)
+            if (!this.hoverOpenDelay) {
+                this.show();
+            }
+            else {
+                this.previousOpenTimeout = setTimeout(() => {
+                    this.show();
+                }, this.hoverOpenDelay);
+            }
+        };
+        /**
+         * Starts the default 400ms countdown to close the submenu.
+         *
+         * NOTE: We explicitly use mouse events and not pointer events because
+         * pointer events apply to touch events. And if a user were to tap a
+         * sub-menu, it would fire the "pointerenter", "pointerleave", "click" events
+         * which would open the menu on click, and then set the timeout to close the
+         * menu due to pointerleave.
+         */
+        this.onMouseleave = () => {
+            clearTimeout(this.previousCloseTimeout);
+            clearTimeout(this.previousOpenTimeout);
+            // Close synchronously if delay is 0. (screenshot tests infra
+            // would never resolve otherwise)
+            if (!this.hoverCloseDelay) {
+                this.close();
+            }
+            else {
+                this.previousCloseTimeout = setTimeout(() => {
+                    this.close();
+                }, this.hoverCloseDelay);
+            }
+        };
+        {
+            this.addEventListener('mouseenter', this.onMouseenter);
+            this.addEventListener('mouseleave', this.onMouseleave);
+        }
+    }
+    render() {
+        return b$2 `
+      <slot
+        name="item"
+        @click=${this.onClick}
+        @keydown=${this.onKeydown}
+        @slotchange=${this.onSlotchange}>
+      </slot>
+      <slot
+        name="menu"
+        @keydown=${this.onSubMenuKeydown}
+        @close-menu=${this.onCloseSubmenu}
+        @slotchange=${this.onSlotchange}>
+      </slot>
+    `;
+    }
+    firstUpdated() {
+        // slotchange is not fired if the contents have been SSRd
+        this.onSlotchange();
+    }
+    /**
+     * Shows the submenu.
+     */
+    async show() {
+        const menu = this.menu;
+        if (!menu || menu.open)
+            return;
+        // Ensures that we deselect items when the menu closes and reactivate
+        // typeahead when the menu closes, so that we do not have dirty state of
+        // `sub-menu > menu-item[selected]` when we reopen.
+        //
+        // This cannot happen in `close()` because the menu may close via other
+        // means Additionally, this cannot happen in onCloseSubmenu because
+        // `close-menu` may not be called via focusout of outside click and not
+        // triggered by an item
+        menu.addEventListener('closed', () => {
+            this.item.ariaExpanded = 'false';
+            this.dispatchEvent(createActivateTypeaheadEvent());
+            this.dispatchEvent(createDeactivateItemsEvent());
+            // aria-hidden required so ChromeVox doesn't announce the closed menu
+            menu.ariaHidden = 'true';
+        }, { once: true });
+        // Parent menu is `position: absolute` – this creates a new CSS relative
+        // positioning context (similar to doing `position: relative`), so the
+        // submenu's `<md-menu slot="submenu" positioning="document">` would be
+        // wrong even if we change `md-sub-menu` from `position: relative` to
+        // `position: static` because the submenu it would still be positioning
+        // itself relative to the parent menu.
+        if (menu.positioning === 'document') {
+            menu.positioning = 'absolute';
+        }
+        menu.quick = true;
+        // Submenus are in overflow when not fixed. Can remove once we have native
+        // popup support
+        menu.hasOverflow = true;
+        menu.anchorCorner = this.anchorCorner;
+        menu.menuCorner = this.menuCorner;
+        menu.anchorElement = this.item;
+        menu.defaultFocus = 'first-item';
+        // aria-hidden management required so ChromeVox doesn't announce the closed
+        // menu. Remove it here since we are about to show and focus it.
+        menu.removeAttribute('aria-hidden');
+        // This is required in the case where we have a leaf menu open and and the
+        // user hovers a parent menu's item which is not an md-sub-menu item.
+        // If this were set to true, then the menu would close and focus would be
+        // lost. That means the focusout event would have a `relatedTarget` of
+        // `null` since nothing in the menu would be focused anymore due to the
+        // leaf menu closing. restoring focus ensures that we keep focus in the
+        // submenu tree.
+        menu.skipRestoreFocus = false;
+        // Menu could already be opened because of mouse interaction
+        const menuAlreadyOpen = menu.open;
+        menu.show();
+        this.item.ariaExpanded = 'true';
+        this.item.ariaHasPopup = 'menu';
+        if (menu.id) {
+            this.item.setAttribute('aria-controls', menu.id);
+        }
+        // Deactivate other items. This can be the case if the user has tabbed
+        // around the menu and then mouses over an md-sub-menu.
+        this.dispatchEvent(createDeactivateItemsEvent());
+        this.dispatchEvent(createDeactivateTypeaheadEvent());
+        this.item.selected = true;
+        // This is the case of mouse hovering when already opened via keyboard or
+        // vice versa
+        if (!menuAlreadyOpen) {
+            let open = (value) => { };
+            const opened = new Promise((resolve) => {
+                open = resolve;
+            });
+            menu.addEventListener('opened', open, { once: true });
+            await opened;
+        }
+    }
+    /**
+     * Closes the submenu.
+     */
+    async close() {
+        const menu = this.menu;
+        if (!menu || !menu.open)
+            return;
+        this.dispatchEvent(createActivateTypeaheadEvent());
+        menu.quick = true;
+        menu.close();
+        this.dispatchEvent(createDeactivateItemsEvent());
+        let close = (value) => { };
+        const closed = new Promise((resolve) => {
+            close = resolve;
+        });
+        menu.addEventListener('closed', close, { once: true });
+        await closed;
+    }
+    onSlotchange() {
+        if (!this.item) {
+            return;
+        }
+        // TODO(b/301296618): clean up old aria values on change
+        this.item.ariaExpanded = 'false';
+        this.item.ariaHasPopup = 'menu';
+        if (this.menu?.id) {
+            this.item.setAttribute('aria-controls', this.menu.id);
+        }
+        this.item.keepOpen = true;
+        const menu = this.menu;
+        if (!menu)
+            return;
+        menu.isSubmenu = true;
+        // Required for ChromeVox to not linearly navigate to the menu while closed
+        menu.ariaHidden = 'true';
+    }
+    onClick() {
+        this.show();
+    }
+    /**
+     * On item keydown handles opening the submenu.
+     */
+    async onKeydown(event) {
+        const shouldOpenSubmenu = this.isSubmenuOpenKey(event.code);
+        if (event.defaultPrevented)
+            return;
+        const openedWithLR = shouldOpenSubmenu &&
+            (NavigableKey.LEFT === event.code || NavigableKey.RIGHT === event.code);
+        if (event.code === SelectionKey$2.SPACE || openedWithLR) {
+            // prevent space from scrolling and Left + Right from selecting previous /
+            // next items or opening / closing parent menus. Only open the submenu.
+            event.preventDefault();
+            if (openedWithLR) {
+                event.stopPropagation();
+            }
+        }
+        if (!shouldOpenSubmenu) {
+            return;
+        }
+        const submenu = this.menu;
+        if (!submenu)
+            return;
+        const submenuItems = submenu.items;
+        const firstActivatableItem = getFirstActivatableItem$2(submenuItems);
+        if (firstActivatableItem) {
+            await this.show();
+            firstActivatableItem.tabIndex = 0;
+            firstActivatableItem.focus();
+            return;
+        }
+    }
+    onCloseSubmenu(event) {
+        const { itemPath, reason } = event.detail;
+        itemPath.push(this.item);
+        this.dispatchEvent(createActivateTypeaheadEvent());
+        // Escape should only close one menu not all of the menus unlike space or
+        // click selection which should close all menus.
+        if (reason.kind === CloseReason$2.KEYDOWN &&
+            reason.key === KeydownCloseKey$2.ESCAPE) {
+            event.stopPropagation();
+            this.item.dispatchEvent(createRequestActivationEvent$2());
+            return;
+        }
+        this.dispatchEvent(createDeactivateItemsEvent());
+    }
+    async onSubMenuKeydown(event) {
+        if (event.defaultPrevented)
+            return;
+        const { close: shouldClose, keyCode } = this.isSubmenuCloseKey(event.code);
+        if (!shouldClose)
+            return;
+        // Communicate that it's handled so that we don't accidentally close every
+        // parent menu. Additionally, we want to isolate things like the typeahead
+        // keydowns from bubbling up to the parent menu and confounding things.
+        event.preventDefault();
+        if (keyCode === NavigableKey.LEFT || keyCode === NavigableKey.RIGHT) {
+            // Prevent this from bubbling to parents
+            event.stopPropagation();
+        }
+        await this.close();
+        deactivateActiveItem(this.menu.items);
+        this.item?.focus();
+        this.item.tabIndex = 0;
+        this.item.focus();
+    }
+    /**
+     * Determines whether the given KeyboardEvent code is one that should open
+     * the submenu. This is RTL-aware. By default, left, right, space, or enter.
+     *
+     * @param code The native KeyboardEvent code.
+     * @return Whether or not the key code should open the submenu.
+     */
+    isSubmenuOpenKey(code) {
+        const isRtl = getComputedStyle(this).direction === 'rtl';
+        const arrowEnterKey = isRtl ? NavigableKey.LEFT : NavigableKey.RIGHT;
+        switch (code) {
+            case arrowEnterKey:
+            case SelectionKey$2.SPACE:
+            case SelectionKey$2.ENTER:
+                return true;
+            default:
+                return false;
+        }
+    }
+    /**
+     * Determines whether the given KeyboardEvent code is one that should close
+     * the submenu. This is RTL-aware. By default right, left, or escape.
+     *
+     * @param code The native KeyboardEvent code.
+     * @return Whether or not the key code should close the submenu.
+     */
+    isSubmenuCloseKey(code) {
+        const isRtl = getComputedStyle(this).direction === 'rtl';
+        const arrowEnterKey = isRtl ? NavigableKey.RIGHT : NavigableKey.LEFT;
+        switch (code) {
+            case arrowEnterKey:
+            case KeydownCloseKey$2.ESCAPE:
+                return { close: true, keyCode: code };
+            default:
+                return { close: false };
+        }
+    }
+}
+__decorate$1([
+    n$b({ attribute: 'anchor-corner' })
+], SubMenu.prototype, "anchorCorner", void 0);
+__decorate$1([
+    n$b({ attribute: 'menu-corner' })
+], SubMenu.prototype, "menuCorner", void 0);
+__decorate$1([
+    n$b({ type: Number, attribute: 'hover-open-delay' })
+], SubMenu.prototype, "hoverOpenDelay", void 0);
+__decorate$1([
+    n$b({ type: Number, attribute: 'hover-close-delay' })
+], SubMenu.prototype, "hoverCloseDelay", void 0);
+__decorate$1([
+    n$b({ type: Boolean, reflect: true, attribute: 'md-sub-menu' })
+], SubMenu.prototype, "isSubMenu", void 0);
+__decorate$1([
+    o$c({ slot: 'item', flatten: true })
+], SubMenu.prototype, "items", void 0);
+__decorate$1([
+    o$c({ slot: 'menu', flatten: true })
+], SubMenu.prototype, "menus", void 0);
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./menu/internal/submenu/sub-menu-styles.css.
+const styles$V = i$e `:host{position:relative;display:flex;flex-direction:column}
+`;
+
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
+ */
+/**
+ * @tagname oscd-sub-menu
+ * @summary Menus display a list of choices on a temporary surface.
+ *
+ * Menu items are the selectable choices within the menu. Menu items must
+ * implement the `Menu` interface and also have the `md-menu`
+ * attribute. Additionally menu items are list items so they must also have the
+ * `md-list-item` attribute.
+ *
+ * Menu items can control a menu by selectively firing the `close-menu` and
+ * `deselect-items` events.
+ *
+ * This menu item will open a sub-menu that is slotted in the `submenu` slot.
+ * Additionally, the containing menu must either have `has-overflow` or
+ * `positioning=fixed` set to `true` in order to display the containing menu
+ * properly.
+ *
+ * @example
+ * ```html
+ * <div style="position:relative;">
+ *   <button
+ *       id="anchor"
+ *       @click=${() => this.menuRef.value.show()}>
+ *     Click to open menu
+ *   </button>
+ *   <!--
+ *     `has-overflow` is required when using a submenu which overflows the
+ *     menu's contents
+ *   -->
+ *   <md-menu anchor="anchor" has-overflow ${ref(menuRef)}>
+ *     <md-menu-item headline="This is a headline"></md-menu-item>
+ *     <oscd-sub-menu>
+ *       <md-menu-item
+ *           slot="item"
+ *           headline="this is a submenu item">
+ *       </md-menu-item>
+ *       <md-menu slot="menu">
+ *         <md-menu-item headline="This is an item inside a submenu">
+ *         </md-menu-item>
+ *       </md-menu>
+ *     </oscd-sub-menu>
+ *   </md-menu>
+ * </div>
+ * ```
+ *
+ * @final
+ * @suppress {visibility}
+ */
+class OscdSubMenu extends SubMenu {
+}
+OscdSubMenu.styles = [styles$V];
+
+let PluginsMenu = class PluginsMenu extends ScopedElementsMixin$2(i$b) {
+    constructor() {
+        super(...arguments);
+        /* Properties */
+        this.editableDocs = [];
+        this.menuPlugins = [];
+        this.open = () => {
+            this.menu.show();
+        };
+    }
+    renderMenuGroup(plugin, hasDoc) {
+        return b$2 `
+      <oscd-sub-menu>
+        <oscd-menu-item slot="item">
+          <oscd-icon slot="start">${plugin.icon}</oscd-icon>
+          <div slot="headline">
+            ${plugin.translations?.[this.locale] || plugin.name}
+          </div>
+          <oscd-icon slot="end">arrow_right</oscd-icon>
+        </oscd-menu-item>
+        <oscd-menu slot="menu">
+          ${plugin.plugins.map((plugin) => {
+            return this.renderMenuItem(plugin, hasDoc);
+        })}
+        </oscd-menu>
+      </oscd-sub-menu>
+    `;
+    }
+    renderMenuItem(plugin, hasDoc) {
+        return b$2 `
+      <oscd-menu-item
+        .disabled=${!!plugin.requireDoc && !hasDoc}
+        @click=${() => {
+            this.dispatchEvent(new CustomEvent('menu-plugin-select', {
+                detail: { plugin },
+                bubbles: true,
+                composed: true,
+            }));
+            this.menu.close();
+        }}
+      >
+        <oscd-icon slot="start">${plugin.icon}</oscd-icon>
+        <div slot="headline">
+          ${plugin.translations?.[this.locale] || plugin.name}
+        </div>
+      </oscd-menu-item>
+    `;
+    }
+    render() {
+        return b$2 `
+      ${this.appIcon ? b$2 `<img src=${this.appIcon} alt="logo" />` : A$1}
+      <h1 class="app-title">${this.appTitle}</h1>
+      <oscd-filled-icon-button
+        id="menu-button"
+        aria-label="${msg$1('Menu')}"
+        @click=${async () => {
+            if (this.menu.open) {
+                this.menu.close();
+            }
+            else {
+                this.menu.show();
+            }
+        }}
+        ><oscd-icon>arrow_drop_down</oscd-icon></oscd-filled-icon-button
+      >
+      <oscd-menu
+        has-overflow
+        quick
+        anchor="menu-button"
+        .xOffset=${16}
+        .yOffset=${18}
+        menuCorner="START_END"
+        anchorCorner="START_END"
+      >
+        ${this.menuPlugins.map((plugin) => {
+            const hasDoc = (this.editableDocs ?? []).length > 0;
+            if (isPluginGroup(plugin)) {
+                return this.renderMenuGroup(plugin, hasDoc);
+            }
+            return this.renderMenuItem(plugin, hasDoc);
+        })}
+      </oscd-menu>
+    `;
+    }
+};
+PluginsMenu.scopedElements = {
+    'oscd-filled-icon-button': OscdFilledIconButton,
+    'oscd-icon': OscdIcon$1,
+    'oscd-menu': OscdMenu$1,
+    'oscd-sub-menu': OscdSubMenu,
+    'oscd-menu-item': OscdMenuItem$1,
+};
+PluginsMenu.styles = [menuStyles, i$e `
+    :host {
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      height: var(--app-bar-app-icon-height);
+      width: var(--app-bar-app-icon-width);
+      /* Logical property so the spacing follows the writing direction. */
+      margin-inline-end: var(--app-bar-logo-gap);
+    }
+
+    :host h1.app-title {
+      font-family: var(--app-bar-title-text-font-family);
+      font-size: var(--app-bar-title-text-font-size);
+      font-style: var(--app-bar-title-text-font-style);
+      font-weight: var(--app-bar-title-text-font-weight);
+      line-height: var(--app-bar-title-text-line-height);
+      letter-spacing: var(--app-bar-title-text-letter-spacing);
+      color: var(--app-bar-title-text-color);
+      /* As a flex item the h1 is blockified, so its UA block margins would
+         otherwise apply; the app bar owns this element's spacing. */
+      margin-block: 0;
+      margin-inline: 0 var(--app-bar-title-menu-gap);
+      display: inline;
+    }
+
+    oscd-filled-icon-button {
+      /* Local colour scheme: icon colour and all derived state layers follow
+         from the system colour, so only the size needs setting explicitly. */
+      --md-sys-color-on-primary: var(--plugins-menu-button-color);
+      --md-filled-icon-button-icon-size: var(--plugins-menu-button-size);
+    }
+
+    oscd-menu {
+      min-width: var(--plugins-menu-min-width);
+    }
+  `];
+__decorate$1([
+    n$b({ type: Array })
+], PluginsMenu.prototype, "editableDocs", void 0);
+__decorate$1([
+    n$b({ type: Array })
+], PluginsMenu.prototype, "menuPlugins", void 0);
+__decorate$1([
+    n$b({ type: String })
+], PluginsMenu.prototype, "appIcon", void 0);
+__decorate$1([
+    n$b({ type: String })
+], PluginsMenu.prototype, "appTitle", void 0);
+__decorate$1([
+    n$b({ type: String, reflect: true })
+], PluginsMenu.prototype, "locale", void 0);
+__decorate$1([
+    n$b({ type: String, reflect: true })
+], PluginsMenu.prototype, "open", void 0);
+__decorate$1([
+    e$b('oscd-menu')
+], PluginsMenu.prototype, "menu", void 0);
+PluginsMenu = __decorate$1([
+    localized()
+], PluginsMenu);
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./button/internal/shared-styles.css.
+const styles$U = i$e `:host{border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end);box-sizing:border-box;cursor:pointer;display:inline-flex;gap:8px;min-height:var(--_container-height);outline:none;padding-block:calc((var(--_container-height) - max(var(--_label-text-line-height),var(--_icon-size)))/2);padding-inline-start:var(--_leading-space);padding-inline-end:var(--_trailing-space);place-content:center;place-items:center;position:relative;font-family:var(--_label-text-font);font-size:var(--_label-text-size);line-height:var(--_label-text-line-height);font-weight:var(--_label-text-weight);text-overflow:ellipsis;text-wrap:nowrap;user-select:none;-webkit-tap-highlight-color:rgba(0,0,0,0);vertical-align:top;--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){cursor:default;pointer-events:none}.button{border-radius:inherit;cursor:inherit;display:inline-flex;align-items:center;justify-content:center;border:none;outline:none;-webkit-appearance:none;vertical-align:middle;background:rgba(0,0,0,0);text-decoration:none;min-width:calc(64px - var(--_leading-space) - var(--_trailing-space));width:100%;z-index:0;height:100%;font:inherit;color:var(--_label-text-color);padding:0;gap:inherit;text-transform:inherit}.button::-moz-focus-inner{padding:0;border:0}:host(:hover) .button{color:var(--_hover-label-text-color)}:host(:focus-within) .button{color:var(--_focus-label-text-color)}:host(:active) .button{color:var(--_pressed-label-text-color)}.background{background:var(--_container-color);border-radius:inherit;inset:0;position:absolute}.label{overflow:hidden}:is(.button,.label,.label slot),.label ::slotted(*){text-overflow:inherit}:host(:is([disabled],[soft-disabled])) .label{color:var(--_disabled-label-text-color);opacity:var(--_disabled-label-text-opacity)}:host(:is([disabled],[soft-disabled])) .background{background:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}@media(forced-colors: active){.background{border:1px solid CanvasText}:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1;--_disabled-container-opacity: 1;--_disabled-label-text-color: GrayText;--_disabled-label-text-opacity: 1}}:host([has-icon]:not([trailing-icon])){padding-inline-start:var(--_with-leading-icon-leading-space);padding-inline-end:var(--_with-leading-icon-trailing-space)}:host([has-icon][trailing-icon]){padding-inline-start:var(--_with-trailing-icon-leading-space);padding-inline-end:var(--_with-trailing-icon-trailing-space)}::slotted([slot=icon]){display:inline-flex;position:relative;writing-mode:horizontal-tb;fill:currentColor;flex-shrink:0;color:var(--_icon-color);font-size:var(--_icon-size);inline-size:var(--_icon-size);block-size:var(--_icon-size)}:host(:hover) ::slotted([slot=icon]){color:var(--_hover-icon-color)}:host(:focus-within) ::slotted([slot=icon]){color:var(--_focus-icon-color)}:host(:active) ::slotted([slot=icon]){color:var(--_pressed-icon-color)}:host(:is([disabled],[soft-disabled])) ::slotted([slot=icon]){color:var(--_disabled-icon-color);opacity:var(--_disabled-icon-opacity)}.touch{position:absolute;top:50%;height:48px;left:0;right:0;transform:translateY(-50%)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) 0}:host([touch-target=none]) .touch{display:none}
+`;
 
 /**
  * @license
@@ -6740,7 +12636,7 @@ const styles$T = i$e `:host{--_container-height: var(--md-text-button-container-
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -6766,28 +12662,10 @@ const styles$T = i$e `:host{--_container-height: var(--md-text-button-container-
 class OscdTextButton extends ScopedElementsMixin$2(TextButton) {
 }
 OscdTextButton.scopedElements = {
-    'md-ripple': MdRipple$1,
-    'md-focus-ring': MdFocusRing$1,
+    'md-ripple': OscdRipple$1,
+    'md-focus-ring': OscdFocusRing$1,
 };
 OscdTextButton.styles = [styles$U, styles$T];
-
-/*
- * GENERATED SOURCE FILE. DO NOT MODIFY.
- * Modifications will be overwritten.
- * To prevent this file from being overwritten, remove this comment entirely.
- */
-/**
- * @tagname oscd-elevation
- * The `<oscd-elevation>` custom element with default styles.
- *
- * Elevation is the relative distance between two surfaces along the z-axis.
- *
- * @final
- * @suppress {visibility}
- */
-let OscdElevation$1 = class OscdElevation extends Elevation$2 {
-};
-OscdElevation$1.styles = [styles$X];
 
 let LandingPage = class LandingPage extends ScopedElementsMixin$2(i$b) {
     constructor() {
@@ -6829,9 +12707,10 @@ LandingPage.scopedElements = {
     'oscd-elevation': OscdElevation$1,
 };
 LandingPage.styles = i$e `
-    .host {
+    :host {
+      background-color: var(--landing-background-color);
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 8px;
@@ -6952,13 +12831,15 @@ let FilesMenu = class FilesMenu extends ScopedElementsMixin$2(i$b) {
     render() {
         return b$2 `
       <oscd-text-button
-          id="fileMenuButton"
-          @click=${() => this.menu.show()}
-          trailing-icon
-          >
-          ${this.selectedDocName}
-          <oscd-icon slot="icon">code</oscd-icon></oscd-filled-icon-button
-        >
+        id="fileMenuButton"
+        @click=${() => this.menu.show()}
+        trailing-icon
+      >
+        <span class="file-menu-label">
+          <oscd-icon aria-hidden="true">folder</oscd-icon>
+          <span>${this.selectedDocName}</span>
+        </span>
+        <oscd-icon slot="icon" aria-hidden="true">arrow_drop_down</oscd-icon>
       </oscd-text-button>
 
       <oscd-menu
@@ -6975,8 +12856,8 @@ let FilesMenu = class FilesMenu extends ScopedElementsMixin$2(i$b) {
                 detail: { name },
             }));
         }}
-              ?selected=${this.selectedDocName === name}
-              >${name}</oscd-menu-item
+              .selected=${this.selectedDocName === name}
+              ><div slot="headline">${name}</div></oscd-menu-item
             >`)}
       </oscd-menu>
     `;
@@ -6988,7 +12869,7 @@ FilesMenu.scopedElements = {
     'oscd-menu': OscdMenu$1,
     'oscd-menu-item': OscdMenuItem$1,
 };
-FilesMenu.styles = i$e `
+FilesMenu.styles = [menuStyles, i$e `
     :host {
       position: relative;
       display: flex;
@@ -7002,34 +12883,27 @@ FilesMenu.styles = i$e `
       --md-text-button-label-text-weight: var(--file-menu-text-weight);
       --md-text-button-label-text-size: var(--file-menu-text-size);
       --md-text-button-label-text-style: normal;
+      /* Local colour scheme: the text button derives its label, icon and
+         state-layer colours from the system primary colour. */
       --md-sys-color-primary: var(--file-menu-text-color);
+      --md-text-button-icon-size: 24px;
       display: inline;
-    }
-
-    :host oscd-text-button oscd-icon {
-      transform: rotate(90deg);
     }
 
     oscd-menu {
       min-width: var(--plugins-menu-min-width);
-      padding: var(--plugins-menu-padding);
-      --md-menu-container-color: var(--plugins-menu-container-color);
     }
 
-    oscd-menu-item {
-      width: 100%;
-      --md-menu-item-label-text-color: var(--plugins-menu-item-label-color);
-      --md-menu-item-leading-icon-color: var(
-        --plugins-menu-item-leading-icon-color
-      );
-      --md-menu-item-selected-container-color: var(
-        --plugins-menu-item-selected-container-color
-      );
-      --md-menu-item-selected-label-text-color: var(
-        --plugins-menu-item-selected-label-color
-      );
+    .file-menu-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-  `;
+
+    .file-menu-label oscd-icon {
+      --md-icon-size: var(--md-text-button-icon-size);
+    }
+  `];
 __decorate$1([
     n$b({ type: Array })
 ], FilesMenu.prototype, "editableDocs", void 0);
@@ -7051,51 +12925,59 @@ FilesMenu = __decorate$1([
  *
  * This block contains:
  * 1) Internal base tokens and fallbacks
- * 2) Public token -> internal token mappings
+ * 2) Public token -\> internal token mappings
  *
  * Keep this as an all-or-nothing layer so mappings can safely reference
  * internal base tokens (e.g. --oscd-base*).
  */
 const oscdShellDesignTokens = i$e `
-  /* Internal base theme tokens and defaults */
-  * {
-    --oscd-primary: var(--oscd-theme-primary, #0b335b);
-    --oscd-secondary: var(--oscd-theme-secondary, #2485e5);
-    --oscd-base03: var(--oscd-theme-base03, #121417);
-    --oscd-base02: var(--oscd-theme-base02, #1a1e23);
-    --oscd-base01: var(--oscd-theme-base01, #3d4651);
-    --oscd-base00: var(--oscd-theme-base00, #46505d);
-    --oscd-base0: var(--oscd-theme-base0, #8b97a7);
-    --oscd-base1: var(--oscd-theme-base1, #96a1b0);
-    --oscd-base2: var(--oscd-theme-base2, #f3f5f6);
-    --oscd-base3: var(--oscd-theme-base3, white);
+  /* Internal base theme tokens and defaults.
+   *
+   * Defaults are the Solarized (https://ethanschoonover.com/solarized/)
+   * light palette used by the legacy OpenSCD shell, so oscd-shell is
+   * brand-neutral out of the box: consumers who set none of the
+   * --oscd-theme-* variables get the classic OpenSCD look. Distro-specific
+   * branding (e.g. Omicron colors) is applied entirely by overriding the
+   * --oscd-theme-* variables from outside; nothing brand-specific belongs
+   * in this file.
+   */
+  :host {
+    --oscd-primary: var(--oscd-theme-primary, #2aa198);
+    --oscd-secondary: var(--oscd-theme-secondary, #6c71c4);
+    --oscd-base03: var(--oscd-theme-base03, #002b36);
+    --oscd-base02: var(--oscd-theme-base02, #073642);
+    --oscd-base01: var(--oscd-theme-base01, #586e75);
+    --oscd-base00: var(--oscd-theme-base00, #657b83);
+    --oscd-base0: var(--oscd-theme-base0, #839496);
+    --oscd-base1: var(--oscd-theme-base1, #93a1a1);
+    --oscd-base2: var(--oscd-theme-base2, #eee8d5);
+    --oscd-base3: var(--oscd-theme-base3, #fdf6e3);
     --oscd-error: var(--oscd-theme-error, #dc322f);
     --oscd-warning: var(--oscd-theme-warning, #b58900);
+    --oscd-shape: var(--oscd-theme-shape, 8px);
     --oscd-text-font: var(--oscd-theme-text-font, 'Roboto');
     --oscd-text-font-mono: var(--oscd-theme-text-font-mono, 'Roboto Mono');
     --oscd-icon-font: var(--oscd-theme-icon-font, 'Material Symbols Outlined');
 
-    /* Fallbacks for Material Design variables */
-    --md-sys-color-primary: var(--oscd-primary);
-    --md-sys-color-on-primary: var(--oscd-base3);
-    --md-sys-color-secondary: var(--oscd-secondary);
-    --md-sys-color-on-secondary: var(--oscd-base3);
-    --md-sys-color-secondary-container: var(--oscd-base2);
-    --md-sys-color-surface: var(--oscd-base3);
-    --md-sys-color-on-surface: var(--oscd-base00);
-    --md-sys-color-surface-variant: var(--oscd-base3);
-    --md-sys-color-on-surface-variant: var(--oscd-base00);
-    --md-sys-color-surface-bright: var(--oscd-base2);
-    --md-sys-color-surface-container: var(--oscd-base3);
-    --md-sys-color-surface-container-high: var(--oscd-base3);
-    --md-sys-color-surface-container-highest: var(--oscd-base3);
-    --md-sys-color-outline-variant: var(--oscd-primary);
-    --md-sys-color-scrim: #000000;
-    --md-sys-color-error: var(--oscd-error);
-    --md-sys-color-on-error: var(--oscd-base3);
     --md-icon-button-disabled-icon-color: var(--oscd-base3);
-    /* --md-menu-item-selected-label-text-color: var(--oscd-base01); */
-    --md-icon-button-disabled-icon-color: var(--oscd-base3);
+
+    /* Material shape scale, derived from --oscd-shape (the Material
+     * "small" corner size) per the ratios documented in oscd-api's
+     * theming.md: none=0, extra-small=0.5x, small=1x, medium=1.5x, large=2x.
+     */
+    --md-sys-shape-corner-none: 0;
+    --md-sys-shape-corner-extra-small: calc(0.5 * var(--oscd-shape));
+    --md-sys-shape-corner-small: var(--oscd-shape);
+    --md-sys-shape-corner-medium: calc(1.5 * var(--oscd-shape));
+    --md-sys-shape-corner-large: calc(2 * var(--oscd-shape));
+
+    /* MD3 has no single generic "system font" token (unlike color); its
+     * closest reference-tier equivalent is --md-ref-typeface-plain. Icon
+     * fonts (--oscd-icon-font) and monospace fonts (--oscd-text-font-mono)
+     * have no MD3 system-token equivalent at all, so they are referenced
+     * directly where needed instead of through an --md-* mapping.
+     */
+    --md-ref-typeface-plain: var(--oscd-text-font);
 
     /* MDC Theme Colors
      * Needed for supporting any pluggins still using the depricated MWC Components
@@ -7133,31 +13015,27 @@ const oscdShellDesignTokens = i$e `
     --mdc-theme-text-disabled-on-light: rgba(255, 255, 255, 0.38);
   }
 
-  * {
-    --app-bar-height: 54px;
-    --side-panel-width: 280px;
-
-    --md-sys-color-primary: var(--oscd-primary);
-    --md-sys-color-on-primary: var(--oscd-base3);
-
-    --md-sys-color-secondary-container: var(--oscd-base2);
-
-    --md-sys-color-surface: var(--oscd-base3);
-    --md-sys-color-on-surface: var(--oscd-base00);
-  }
-
   /*
    * Public token -> internal token mappings
    *
    * Example pattern:
    * --internal-variable-name: var(--oscd-shell-public-token, <default>);
    */
-  * {
+  :host {
+    /* Shell root */
+    --shell-background-color: var(
+      --oscd-shell-background-color,
+      var(--md-sys-color-surface)
+    );
+
     /* App bar */
-    --app-bar-color: var(--oscd-shell-app-bar-color, var(--oscd-base3));
+    --app-bar-color: var(
+      --oscd-shell-app-bar-color,
+      var(--md-sys-color-on-primary)
+    );
     --app-bar-background-color: var(
       --oscd-shell-app-bar-background-color,
-      var(--oscd-primary)
+      var(--md-sys-color-primary)
     );
     --app-bar-height: var(--oscd-shell-app-bar-height, 54px);
     --app-bar-small-height: var(--oscd-shell-app-bar-small-height, 48px);
@@ -7167,9 +13045,11 @@ const oscdShellDesignTokens = i$e `
     );
     --app-bar-app-icon-height: var(--oscd-shell-app-bar-icon-height, 34.4px);
     --app-bar-app-icon-width: var(--oscd-shell-app-bar-icon-width, auto);
+    --app-bar-logo-gap: var(--oscd-shell-app-bar-logo-gap, 16px);
+    --app-bar-title-menu-gap: var(--oscd-shell-app-bar-title-menu-gap, 4px);
     --app-bar-title-text-font-family: var(
       --oscd-shell-app-bar-title-font-family,
-      var(--oscd-text-font)
+      var(--md-ref-typeface-plain)
     );
     --app-bar-title-text-color: var(
       --oscd-shell-app-bar-title-color,
@@ -7195,34 +13075,79 @@ const oscdShellDesignTokens = i$e `
       --oscd-shell-app-bar-title-letter-spacing,
       inherit
     );
+    --app-bar-current-editor-font-family: var(
+      --oscd-shell-app-bar-current-editor-font-family,
+      var(--md-ref-typeface-plain)
+    );
+    --app-bar-current-editor-font-size: var(
+      --oscd-shell-app-bar-current-editor-font-size,
+      16px
+    );
+    --app-bar-current-editor-font-weight: var(
+      --oscd-shell-app-bar-current-editor-font-weight,
+      500
+    );
+    --app-bar-current-editor-font-style: var(
+      --oscd-shell-app-bar-current-editor-font-style,
+      normal
+    );
+    --app-bar-current-editor-line-height: var(
+      --oscd-shell-app-bar-current-editor-line-height,
+      normal
+    );
+    --app-bar-current-editor-color: var(
+      --oscd-shell-app-bar-current-editor-color,
+      var(--app-bar-color)
+    );
     --app-bar-action-icon-size: var(
       --oscd-shell-app-bar-action-icon-size,
       24px
     );
     --app-bar-action-icon-color: var(
       --oscd-shell-app-bar-action-icon-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-primary)
+    );
+    --app-bar-action-icon-disabled-color: var(
+      --oscd-shell-app-bar-action-icon-disabled-color,
+      var(--md-sys-color-on-primary)
+    );
+    --app-bar-action-icon-disabled-container-opacity: var(
+      --oscd-shell-app-bar-action-icon-disabled-container-opacity,
+      0
+    );
+    --app-bar-separator-color: var(
+      --oscd-shell-app-bar-separator-color,
+      var(--app-bar-color)
+    );
+    --app-bar-separator-opacity: var(
+      --oscd-shell-app-bar-separator-opacity,
+      0.38
     );
 
-    /* Bridge to oscd-ui app bar tokens */
-    --oscd-app-bar-color: var(--app-bar-color);
-    --oscd-app-bar-background-color: var(--app-bar-background-color);
-    --oscd-app-bar-elevation: var(--app-bar-elevation);
-    --oscd-app-bar-title-font-family: var(--app-bar-title-text-font-family);
-    --oscd-app-bar-title-font-size: var(--app-bar-title-text-font-size);
-    --oscd-app-bar-title-font-weight: var(--app-bar-title-text-font-weight);
-    --oscd-app-bar-title-line-height: var(--app-bar-title-text-line-height);
+    /* Bridge the shell's public app-bar tokens to oscd-ui facets. */
+    --oscd-app-bar-container-color: var(--app-bar-background-color);
+    --oscd-app-bar-container-height: var(--app-bar-height);
+    --oscd-app-bar-container-small-height: var(--app-bar-small-height);
+    --oscd-app-bar-container-elevation: 0;
+    --oscd-app-bar-headline-color: var(--app-bar-title-text-color);
+    --oscd-app-bar-headline-font: var(--app-bar-title-text-font-family);
+    --oscd-app-bar-headline-size: var(--app-bar-title-text-font-size);
+    --oscd-app-bar-headline-weight: var(--app-bar-title-text-font-weight);
+    --oscd-app-bar-headline-line-height: var(--app-bar-title-text-line-height);
+    --oscd-app-bar-leading-icon-color: var(--app-bar-action-icon-color);
+    --oscd-app-bar-trailing-icon-color: var(--app-bar-action-icon-color);
+    --oscd-app-bar-on-scroll-container-color: var(--app-bar-background-color);
 
     /* Files menu */
     --file-menu-text-font-family: var(
       --oscd-shell-file-menu-text-font-family,
-      var(--oscd-text-font)
+      var(--md-ref-typeface-plain)
     );
-    --file-menu-text-size: var(--oscd-shell-file-menu-text-size, 18px);
+    --file-menu-text-size: var(--oscd-shell-file-menu-text-size, 16px);
     --file-menu-text-weight: var(--oscd-shell-file-menu-text-weight, 500);
     --file-menu-text-color: var(
       --oscd-shell-file-menu-text-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-primary)
     );
 
     /* Plugins menu */
@@ -7232,85 +13157,121 @@ const oscdShellDesignTokens = i$e `
     );
     --plugins-menu-button-color: var(
       --oscd-shell-plugins-menu-button-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-primary)
     );
     --plugins-menu-min-width: var(--oscd-shell-plugins-menu-min-width, 350px);
-    --plugins-menu-padding: var(--oscd-shell-plugins-menu-padding, 12px);
+    --plugins-menu-padding: var(--oscd-shell-plugins-menu-padding, 10px);
     --plugins-menu-container-color: var(
       --oscd-shell-plugins-menu-container-color,
-      var(--oscd-base3)
+      var(--md-sys-color-surface)
     );
     --plugins-menu-item-label-color: var(
       --oscd-shell-plugins-menu-item-label-color,
-      var(--oscd-base00)
+      var(--md-sys-color-on-surface)
     );
     --plugins-menu-item-leading-icon-color: var(
       --oscd-shell-plugins-menu-item-leading-icon-color,
-      var(--oscd-base00)
+      var(--md-sys-color-on-surface)
     );
     --plugins-menu-item-selected-container-color: var(
       --oscd-shell-plugins-menu-item-selected-container-color,
-      var(--oscd-base2)
+      var(--md-sys-color-primary)
     );
     --plugins-menu-item-selected-label-color: var(
       --oscd-shell-plugins-menu-item-selected-label-color,
-      var(--oscd-base00)
+      var(--md-sys-color-on-primary)
     );
+    --plugins-menu-divider-color: var(
+      --oscd-shell-plugins-menu-divider-color,
+      var(--md-sys-color-outline-variant)
+    );
+
+    /* Shared defaults for shell menus, including nested menus. */
+    --md-menu-container-color: var(--plugins-menu-container-color);
+    --md-menu-container-shape: 5px;
+    --md-menu-top-space: 8px;
+    --md-menu-bottom-space: 8px;
+    --md-menu-item-one-line-container-height: 36px;
+    --md-menu-item-top-space: 6px;
+    --md-menu-item-bottom-space: 6px;
+    --md-menu-item-leading-space: 8px;
+    --md-menu-item-trailing-space: 8px;
+    --md-menu-item-label-text-size: 16px;
+    --md-menu-item-label-text-line-height: 24px;
+    --md-menu-item-label-text-color: var(--plugins-menu-item-label-color);
+    --md-menu-item-leading-icon-color: var(--plugins-menu-item-leading-icon-color);
+    --md-menu-item-trailing-icon-color: var(--plugins-menu-item-leading-icon-color);
+    --md-menu-item-hover-state-layer-color: var(--plugins-menu-item-label-color);
+    --md-menu-item-hover-state-layer-opacity: 0.12;
+    --md-menu-item-pressed-state-layer-color: var(--plugins-menu-item-label-color);
+    --md-menu-item-selected-container-color: var(--plugins-menu-item-selected-container-color);
+    --md-menu-item-selected-label-text-color: var(--plugins-menu-item-selected-label-color);
 
     /* Editor plugins panel */
     --editor-plugins-panel-width: var(
       --oscd-shell-editor-plugins-panel-width,
-      280px
+      308px
     );
     --editor-plugins-panel-collapsed-width: var(
-      --oscd-shell-editor-plugins-panel-width,
-      280px
+      --oscd-shell-editor-plugins-panel-collapsed-width,
+      76px
     );
     --editor-plugins-panel-padding-top: var(
       --oscd-shell-editor-plugins-panel-padding-top,
       20px
     );
-    --editor-plugins-panel-item-leading-space: var(
-      --oscd-shell-editor-plugins-panel-item-leading-space,
-      22px
-    );
-    --editor-plugins-panel-item-trailing-space: var(
-      --oscd-shell-editor-plugins-panel-item-trailing-space,
-      10px
-    );
     --editor-plugins-panel-item-icon-size: var(
       --oscd-shell-editor-plugins-panel-item-icon-size,
       28px
     );
+    --editor-plugins-panel-background-color: var(
+      --oscd-shell-editor-plugins-panel-background-color,
+      var(--md-sys-color-surface-container-high)
+    );
     --editor-plugins-panel-item-text-color: var(
       --oscd-shell-editor-plugins-panel-item-text-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-surface)
     );
     --editor-plugins-panel-item-icon-color: var(
       --oscd-shell-editor-plugins-panel-item-icon-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-surface)
     );
     --editor-plugins-panel-item-active-bg: var(
       --oscd-shell-editor-plugins-panel-item-active-bg,
-      var(--oscd-primary)
+      var(--md-sys-color-primary)
     );
-    --side-panel-width: var(--editor-plugins-panel-width);
+    --editor-plugins-panel-item-active-color: var(
+      --oscd-shell-editor-plugins-panel-item-active-color,
+      var(--md-sys-color-on-primary)
+    );
+    --editor-plugins-panel-divider-color: var(
+      --oscd-shell-editor-plugins-panel-divider-color,
+      #d0d5dc40
+    );
+    --editor-plugins-panel-flyout-header-text-color: var(
+      --oscd-shell-editor-plugins-panel-flyout-header-text-color,
+      var(--md-sys-color-secondary)
+    );
 
     /* Main editor container */
     --editor-background-color: var(
       --oscd-shell-editor-background-color,
-      var(--oscd-base3)
+      var(--md-sys-color-surface)
     );
     --editor-padding: var(--oscd-shell-editor-padding, 8px);
 
     /* Landing page */
+    --landing-background-color: var(
+      --oscd-shell-landing-background-color,
+      var(--md-sys-color-surface)
+    );
     --landing-heading-color: var(
       --oscd-shell-landing-heading-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-surface)
     );
     --landing-heading-font-family: var(
       --oscd-shell-landing-heading-font-family,
-      var(--oscd-text-font)
+      var(--md-ref-typeface-plain)
     );
     --landing-heading-size: var(--oscd-shell-landing-heading-size, 50px);
     --landing-heading-style: var(--oscd-shell-landing-heading-style, normal);
@@ -7322,11 +13283,11 @@ const oscdShellDesignTokens = i$e `
 
     --landing-subheading-color: var(
       --oscd-shell-landing-subheading-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-surface)
     );
     --landing-subheading-font-family: var(
       --oscd-shell-landing-subheading-font-family,
-      var(--oscd-text-font)
+      var(--md-ref-typeface-plain)
     );
     --landing-subheading-size: var(
       --oscd-shell-landing-subheading-size,
@@ -7350,169 +13311,20 @@ const oscdShellDesignTokens = i$e `
     --landing-card-height: var(--oscd-shell-landing-card-height, 180px);
     --landing-card-background: var(
       --oscd-shell-landing-card-background,
-      var(--oscd-primary)
+      var(--md-sys-color-secondary)
     );
     --landing-card-text-color: var(
       --oscd-shell-landing-card-text-color,
-      var(--oscd-base3)
+      var(--md-sys-color-on-secondary)
     );
     --landing-card-radius: var(--oscd-shell-landing-card-radius, 2px);
     --landing-card-icon-size: var(--oscd-shell-landing-card-icon-size, 54px);
     --landing-card-corner-accent: var(
       --oscd-shell-landing-card-corner-accent,
-      var(--omicron-yellow)
+      transparent
     );
   }
 `;
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * @license
- * Copyright 2025 OMICRON Electronics GmbH
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * @tag oscd-app-bar
- * @class OscdAppBar
- * @extends ScopedElementsMixin(LitElement)
- * @summary A component that renders an app bar.
- *
- * The app bar is a top-level navigation component that displays information and actions relating to the current screen.
- * It can contain a title, navigation icons, and action icons.
- * The app bar is typically used in conjunction with a navigation drawer or bottom navigation.
- *
- * @slot alignStart - Slot for action icons at the start of the app bar.
- * @slot alignMiddle - Slot for the middle content of the app bar.
- * @slot alignEnd - Slot for action icons at the end of the app bar.
- * @slot Default - Slot for additional content which will appear immediately under the main app bar.
- *
- * @cssprop --oscd-app-bar-elevation - The elevation level of the app bar.
- * @cssprop --oscd-app-bar-shadow-color - The shadow color of the app bar.
- * @cssprop --oscd-app-bar-color - The color of the app bar.
- * @cssprop --oscd-app-bar-background-color - The background color of the app bar.
- * @cssprop --oscd-app-bar-title-font-family - The font family of the app bar title.
- * @cssprop --oscd-app-bar-title-font-size - The font size of the app bar title.
- * @cssprop --oscd-app-bar-title-line-height - The line height of the app bar title.
- * @cssprop --oscd-app-bar-title-font-weight - The font weight of the app bar title.
- * @cssprop --md-icon-button-icon-color - The color of the icon button in the app bar.
- *
- */
-class OscdAppBar extends ScopedElementsMixin$2(i$b) {
-    static get scopedElements() {
-        return {
-            'oscd-elevation': OscdElevation$1,
-        };
-    }
-    // eslint-disable-next-line class-methods-use-this
-    render() {
-        return b$2 `
-      <header>
-        <div>
-          <div class="main-header">
-            <slot name="alignStart"></slot>
-            <span class="spacer"></span>
-            <slot name="alignMiddle"></slot>
-            <span class="spacer"></span>
-            <slot name="alignEnd"></slot>
-          </div>
-          <div class="sub-header">
-            <slot></slot>
-          </div>
-        </div>
-        <oscd-elevation part="elevation"></oscd-elevation>
-      </header>
-    `;
-    }
-}
-OscdAppBar.styles = i$e `
-    :host {
-      --md-elevation-level: var(--oscd-app-bar-elevation, 3);
-      --md-elevation-shadow-color: var(
-        --oscd-app-bar-shadow-color,
-        var(--md-sys-color-shadow, #000)
-      );
-      --app-bar-color: var(
-        --oscd-app-bar-color,
-        var(--md-sys-color-on-primary, #1d1b20)
-      );
-      --app-bar-background-color: var(
-        --oscd-app-bar-background-color,
-        var(--md-sys-color-primary, #fff)
-      );
-      --app-bar-title-font-family: var(
-        --oscd-app-bar-title-font-family,
-        var(
-          --md-sys-typescale-body-large-font,
-          var(--md-ref-typeface-plain, Roboto)
-        )
-      );
-      --app-bar-title-font-size: var(
-        --oscd-app-bar-title-font-size,
-        var(--md-sys-typescale-body-large-size, 1.25rem)
-      );
-      --app-bar-title-line-height: var(
-        --oscd-app-bar-title-line-height,
-        var(--md-sys-typescale-body-large-line-height, 2rem)
-      );
-      --app-bar-title-font-weight: var(
-        --oscd-app-bar-title-font-weight,
-        var(
-          --md-sys-typescale-body-large-weight,
-          var(--md-ref-typeface-weight-regular, 500)
-        )
-      );
-      --md-icon-button-icon-color: var(--app-bar-color);
-    }
-
-    header {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      position: sticky;
-      top: 0;
-      z-index: 4;
-      color: var(--app-bar-color);
-      background-color: var(--app-bar-background-color);
-    }
-
-    .main-header {
-      padding: 0 12px;
-      display: flex;
-      flex-grow: 1;
-      align-items: center;
-      height: var(--app-bar-height, 54px);
-    }
-
-    @media (max-width: 599px) {
-      .main-header {
-        height: var(--app-bar-small-height, 48px);
-      }
-    }
-
-    ::slotted([slot='title']) {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-left: 16px;
-      font-family: var(--app-bar-title-font-family);
-      font-size: var(--app-bar-title-font-size);
-      font-weight: var(--app-bar-title-font-weight);
-      line-height: var(--app-bar-title-line-height);
-    }
-
-    .sub-header {
-      display: flex;
-      width: 100%;
-    }
-
-    .spacer {
-      flex: 1;
-    }
-  `;
 
 let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
     get locale() {
@@ -7528,15 +13340,26 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
             // don't change locale if tag is invalid
         }
     }
+    /**
+     * The plugin set as declared. Deliberately symmetric: what you assign is
+     * what you read back, untouched. Resolution (deriving `tagName` from `src`,
+     * validating, importing) happens into `_resolvedPlugins`, so the hashed
+     * tag names it invents stay an implementation detail.
+     */
     get plugins() {
         return this._plugins;
     }
     set plugins(plugins) {
-        this._plugins = Object.entries(plugins).reduce((acc, [pluginType, kind]) => {
-            const convertedPlugins = loadSourcedPlugins(kind, this.registry);
-            acc[pluginType] = convertedPlugins;
-            return acc;
-        }, { menu: [], editor: [], background: [] });
+        this._plugins = {
+            menu: plugins.menu ?? [],
+            editor: plugins.editor ?? [],
+            background: plugins.background ?? [],
+        };
+        this._resolvedPlugins = {
+            menu: loadSourcedPlugins(this._plugins.menu, this.registry),
+            editor: loadSourcedPlugins(this._plugins.editor, this.registry),
+            background: loadSourcedPlugins(this._plugins.background, this.registry),
+        };
     }
     /*
      * States
@@ -7547,9 +13370,6 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
     get canUndo() {
         return this.xmlEditor.past.length >= 1;
     }
-    get editor() {
-        return this.plugins.editor[this.editorIndex]?.tagName ?? '';
-    }
     get doc() {
         return this.docs[this.docName];
     }
@@ -7558,7 +13378,7 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
     }
     set docs(newDocs) {
         this._docs = newDocs;
-        this.onDocsChanged();
+        this.docVersion += 1;
     }
     get editableDocs() {
         return Object.keys(this.docs).filter(name => this.isEditable(name));
@@ -7590,8 +13410,20 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
             'sed',
             'ssd',
         ];
-        this._plugins = { menu: [], editor: [], background: [] };
-        this.editorIndex = 0;
+        this._plugins = {
+            menu: [],
+            editor: [],
+            background: [],
+        };
+        /** Internal representation of processed `_plugins`. These plugins have been validated and the
+         * `tagName` here is guaranteed, sourced entries imported into the registry & tagged. This copy of the
+         *  plugins is kept separate from the _plugins, which remain an unmodified single source of truth.
+         */
+        this._resolvedPlugins = {
+            menu: [],
+            editor: [],
+            background: [],
+        };
         /** The name of the [[`doc`]] currently being edited */
         this.docName = '';
         /** The set of `XMLDocument`s currently loaded */
@@ -7642,6 +13474,18 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
             this.redo();
         };
         this.handleKeyPress = (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'f') {
+                const panel = this.shadowRoot?.querySelector('editor-plugins-panel');
+                if (panel) {
+                    if (!panel.expanded) {
+                        panel.searchMode = true;
+                    }
+                    panel.focusSearch(true);
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                return;
+            }
             if (!e.ctrlKey) {
                 return;
             }
@@ -7687,9 +13531,17 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
             this.docVersion += 1;
         });
     }
+    willUpdate(changedProperties) {
+        if (changedProperties.has('docName') || changedProperties.has('plugins')) {
+            const firstEditor = flattenPluginEntries(this._resolvedPlugins.editor)[0];
+            if (this.docName && firstEditor && !this.selectedEditor) {
+                this.selectedEditor = firstEditor;
+            }
+        }
+    }
     connectedCallback() {
         super.connectedCallback();
-        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('keydown', this.handleKeyPress, true);
         this.addEventListener('oscd-open', this.handleOpenDoc);
         this.addEventListener('oscd-rename', this.handleRenameDoc);
         this.addEventListener('oscd-close', this.handleCloseDoc);
@@ -7700,7 +13552,7 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
     disconnectedCallback() {
         super.disconnectedCallback();
         // Remove event listeners
-        document.removeEventListener('keydown', this.handleKeyPress);
+        document.removeEventListener('keydown', this.handleKeyPress, true);
         this.removeEventListener('oscd-open', this.handleOpenDoc);
         this.removeEventListener('oscd-rename', this.handleRenameDoc);
         this.removeEventListener('oscd-edit-v2', this.handleEditV2);
@@ -7708,42 +13560,39 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
         this.removeEventListener('oscd-redo', this.handleRedo);
         this.removeEventListener('oscd-close', this.handleCloseDoc);
     }
-    isEditable(docName) {
-        return !!this.editable.find(ext => docName.toLowerCase().endsWith(`.${ext}`));
-    }
-    onDocsChanged() {
-        this.docVersion += 1;
-    }
-    renderPlugin(tagName) {
-        const tag = s$5(tagName);
-        return u$5 `<${tag} 
-              .locale="${this.locale}"
-              .docName="${this.docName}"
-              .doc=${this.doc}
-              .docs=${this.docs} 
-              .editCount=${this.docVersion}
-              .docVersion=${this.docVersion}
-              .editor=${this.xmlEditor}>
-            </${tag}>`;
-    }
-    onMenuPluginSelect(customEvent) {
+    handlePluginMenuSelect(customEvent) {
         const plugin = customEvent.detail.plugin;
         if (plugin.tagName) {
             this.shadowRoot.querySelector(plugin.tagName).run?.();
         }
     }
+    isEditable(docName) {
+        return !!this.editable.find(ext => docName.toLowerCase().endsWith(`.${ext}`));
+    }
+    renderPlugin(plugin) {
+        const tag = s$5(plugin.tagName);
+        return u$5 `<${tag}
+              .locale="${this.locale}"
+              .docName="${this.docName}"
+              .doc=${this.doc}
+              .docs=${this.docs}
+              .editCount=${this.docVersion}
+              .docVersion=${this.docVersion}
+              .editor=${this.xmlEditor}>
+            </${tag}>`;
+    }
     renderOffScreenPlugins() {
         return b$2 `
       <section class="off-screen-plugin-container" aria-hidden="true">
         <div class="menu-plugins">
-          ${this.plugins.menu
+          ${flattenPluginEntries(this._resolvedPlugins.menu)
             .filter(plugin => !plugin.requireDoc || !!this.docName)
-            .map(plugin => this.renderPlugin(plugin.tagName))}
+            .map(plugin => this.renderPlugin(plugin))}
         </div>
         <div class="background-plugins">
-          ${this.plugins.background
+          ${this._resolvedPlugins.background
             .filter(plugin => !plugin.requireDoc || !!this.docName)
-            .map(plugin => this.renderPlugin(plugin.tagName))}
+            .map(plugin => this.renderPlugin(plugin))}
         </div>
       </section>
     `;
@@ -7753,9 +13602,9 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
       <landing-page
         heading=${this.landingPageHeading}
         subHeading=${this.landingPageSubHeading}
-        .menuPlugins=${this.plugins.menu.filter(plugin => !plugin.requireDoc || !!this.docName)}
+        .menuPlugins=${flattenPluginEntries(this._resolvedPlugins.menu).filter(plugin => !plugin.requireDoc || !!this.docName)}
         .locale=${this.locale}
-        @menu-plugin-select=${(event) => this.onMenuPluginSelect(event)}
+        @menu-plugin-select=${(event) => this.handlePluginMenuSelect(event)}
       >
       </landing-page>
     `;
@@ -7763,11 +13612,13 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
     render() {
         const hasCustomLandingPage = !!this._landingPageNodes?.length;
         if (this.editableDocs.length === 0) {
-            return b$2 ` <slot
-          name="landing-page"
-          @slotchange=${() => this.requestUpdate()}
-        ></slot>
-        ${!hasCustomLandingPage ? this.renderDefaultLandingPage() : A$1}
+            return b$2 ` <div class="landing-page-container">
+          <slot
+            name="landing-page"
+            @slotchange=${() => this.requestUpdate()}
+          ></slot>
+          ${!hasCustomLandingPage ? this.renderDefaultLandingPage() : A$1}
+        </div>
         ${this.renderOffScreenPlugins()}`;
         }
         return b$2 ` <oscd-app-bar>
@@ -7776,23 +13627,34 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
           appTitle=${this.appTitle}
           appIcon=${this.appIcon}
           .editableDocs=${this.editableDocs}
-          .menuPlugins=${this.plugins.menu}
+          .menuPlugins=${this._resolvedPlugins.menu}
           .locale=${this.locale}
-          @menu-plugin-select=${(event) => this.onMenuPluginSelect(event)}
+          @menu-plugin-select=${(event) => this.handlePluginMenuSelect(event)}
         ></plugins-menu>
 
-        <files-menu
-          slot="alignMiddle"
-          .selectedDocName=${this.docName}
-          .editableDocs=${this.editableDocs}
-          .locale=${this.locale}
-          @change=${(event) => {
-            const name = event.detail.name;
-            this.docName = name;
-        }}
-        ></files-menu>
+        ${this.selectedEditor
+            ? b$2 `<div class="current-editor" slot="alignStart">
+              <oscd-divider class="vertical" aria-hidden="true"></oscd-divider>
+              <span>${this.selectedEditor.name}</span>
+            </div>`
+            : A$1}
 
         <div slot="alignEnd">
+          ${this.docName
+            ? b$2 `<files-menu
+                  .selectedDocName=${this.docName}
+                  .editableDocs=${this.editableDocs}
+                  .locale=${this.locale}
+                  @change=${(event) => {
+                const name = event.detail.name;
+                this.docName = name;
+            }}
+                ></files-menu>
+                <oscd-divider
+                  class="vertical"
+                  aria-hidden="true"
+                ></oscd-divider>`
+            : A$1}
           <oscd-filled-icon-button
             aria-label="${msg$1('Undo')}"
             ?disabled=${!this.canUndo}
@@ -7821,17 +13683,19 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
       <main>
         <section class="editors-side-panel-section">
           <editor-plugins-panel
-            .editors=${this.plugins.editor}
-            .editorIndex=${this.editorIndex}
+            .editors=${this._resolvedPlugins.editor}
+            .selectedEditor=${this.selectedEditor}
             .locale=${this.locale}
             @editor-select=${(e) => {
-            this.editorIndex = e.detail.index;
+            this.selectedEditor = e.detail.editor;
         }}
           ></editor-plugins-panel>
         </section>
 
         <section class="editor-container">
-          ${this.editor ? this.renderPlugin(this.editor) : A$1}
+          ${this.selectedEditor
+            ? this.renderPlugin(this.selectedEditor)
+            : A$1}
         </section>
 
         ${this.renderOffScreenPlugins()}
@@ -7841,6 +13705,7 @@ let OscdShell = class OscdShell extends ScopedElementsMixin$2(i$b) {
 OscdShell.scopedElements = {
     'oscd-app-bar': OscdAppBar,
     'oscd-filled-icon-button': OscdFilledIconButton,
+    'oscd-divider': OscdDivider$1,
     'oscd-icon': OscdIcon$1,
     'files-menu': FilesMenu,
     'plugins-menu': PluginsMenu,
@@ -7848,6 +13713,7 @@ OscdShell.scopedElements = {
     'landing-page': LandingPage,
 };
 OscdShell.styles = [
+    oscdMd3Mappings,
     oscdShellDesignTokens,
     i$e `
       :host {
@@ -7858,51 +13724,87 @@ OscdShell.styles = [
         grid-template-areas:
           'header'
           'main';
+        background-color: var(--shell-background-color);
+      }
+
+      .landing-page-container {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+        height: 100%;
+        overflow: auto;
+      }
+
+      .landing-page-container ::slotted(*) {
+        height: 100%;
       }
 
       oscd-app-bar {
         grid-area: header;
-        box-shadow: var(--md-sys-elevation-level-2);
+        box-shadow: var(--app-bar-elevation);
         z-index: 10;
       }
 
-      oscd-app-bar * {
-        --md-filled-icon-button-disabled-container-opacity: var(
-          --app-bar-action-icon-disabled-container-opacity,
-          0
-        );
-        --md-filled-icon-button-disabled-icon-color: var(
-          --app-bar-action-icon-disabled-color,
-          var(--md-sys-color-on-primary)
-        );
-        --md-filled-icon-button-icon-size: var(--app-bar-action-icon-size);
-        --md-filled-icon-button-icon-color: var(--app-bar-action-icon-color);
+      .current-editor {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-right: 12px;
+        color: var(--app-bar-current-editor-color);
+        font-family: var(--app-bar-current-editor-font-family);
+        font-size: var(--app-bar-current-editor-font-size);
+        font-style: var(--app-bar-current-editor-font-style);
+        line-height: var(--app-bar-current-editor-line-height);
+        font-weight: var(--app-bar-current-editor-font-weight);
+        white-space: nowrap;
+      }
+
+      oscd-divider.vertical {
+        width: 1px;
+        height: 32px;
+        --md-divider-color: var(--app-bar-separator-color);
+        opacity: var(--app-bar-separator-opacity);
+      }
+
+      [slot='alignEnd'] {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      [slot='alignEnd'] oscd-divider.vertical {
+        margin: 0 8px;
+      }
+
+      [slot='alignEnd'] oscd-filled-icon-button {
+        /* Local colour scheme: setting the system colour once lets the icon
+           colour and every derived state layer follow from one declaration.
+           Safe because the token mapping block is declared only on :host, so
+           --app-bar-action-icon-color is inherited here, not re-declared. */
         --md-sys-color-on-primary: var(--app-bar-action-icon-color);
+        --md-filled-icon-button-icon-size: var(--app-bar-action-icon-size);
+        --md-filled-icon-button-disabled-icon-color: var(
+          --app-bar-action-icon-disabled-color
+        );
+        --md-filled-icon-button-disabled-container-opacity: var(
+          --app-bar-action-icon-disabled-container-opacity
+        );
       }
 
       main {
         grid-area: main;
         display: grid;
-        grid-template-columns: var(--side-panel-width) 1fr;
+        /* The side-panel column follows the panel's own intrinsic width, which
+           the panel switches between its expanded (308px) and collapsed rail
+           (76px) states. */
+        grid-template-columns: auto 1fr;
         grid-template-areas: 'sidebar editor';
         overflow: hidden;
-      }
-
-      /* Side panel collapsed state */
-      main.sidebar-collapsed {
-        grid-template-columns: 0 1fr;
       }
 
       section.editors-side-panel-section {
         grid-area: sidebar;
         overflow-y: auto;
         overflow-x: hidden;
-        transition: transform 0.3s ease-in-out;
-      }
-
-      /* Hide side panel when collapsed */
-      main.sidebar-collapsed section.editors-side-panel-section {
-        transform: translateX(-100%);
       }
 
       section.editor-container {
@@ -7947,38 +13849,35 @@ __decorate$1([
     n$b({ type: Object })
 ], OscdShell.prototype, "plugins", null);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "canRedo", null);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "canUndo", null);
 __decorate$1([
-    r$9()
-], OscdShell.prototype, "editor", null);
+    r$a()
+], OscdShell.prototype, "selectedEditor", void 0);
 __decorate$1([
-    r$9()
-], OscdShell.prototype, "editorIndex", void 0);
-__decorate$1([
-    r$9()
+    r$a()
     /** The `XMLDocument` currently being edited */
 ], OscdShell.prototype, "doc", null);
 __decorate$1([
     n$b({ type: String, reflect: true })
 ], OscdShell.prototype, "docName", void 0);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "docs", null);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "docVersion", void 0);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "editableDocs", null);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "last", null);
 __decorate$1([
-    r$9()
+    r$a()
 ], OscdShell.prototype, "xmlEditor", void 0);
 __decorate$1([
     e$b('plugins-menu')
@@ -7991,7 +13890,7 @@ __decorate$1([
 ], OscdShell.prototype, "_landingPageNodes", void 0);
 OscdShell = __decorate$1([
     localized(),
-    t$5('oscd-shell')
+    t$6('oscd-shell')
 ], OscdShell);
 
 function newOpenEvent(doc, docName) {
@@ -8496,18 +14395,20 @@ const pathsSVG = {
     dOIcon: w `<path fill="none" stroke="currentColor" stroke-width="1.89" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path stroke="none" fill="currentColor" d="m12.1 9.94q0 1.55-0.509 2.71-0.503 1.15-1.43 1.76-0.923 0.611-2.12 0.611h-3.37v-10h3.02q2.11 0 3.26 1.28 1.15 1.27 1.15 3.65zm-1.76 0q0-1.61-0.698-2.46-0.698-0.852-1.99-0.852h-1.24v6.77h1.48q1.12 0 1.79-0.931 0.663-0.931 0.663-2.53z"/><path stroke="none" fill="currentColor" d="m21.6 9.97q0 1.56-0.515 2.75-0.515 1.19-1.47 1.82-0.959 0.625-2.24 0.625-1.97 0-3.08-1.39-1.11-1.39-1.11-3.81 0-2.41 1.11-3.76t3.1-1.35 3.1 1.36q1.12 1.36 1.12 3.74zm-1.78 0q0-1.62-0.639-2.54-0.639-0.923-1.79-0.923-1.17 0-1.81 0.916-0.639 0.909-0.639 2.54 0 1.65 0.651 2.6 0.657 0.945 1.79 0.945 1.17 0 1.81-0.923 0.639-0.923 0.639-2.62z"/>`,
     enumIcon: w `<path fill="none" stroke="currentColor" stroke-width="1.89" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path d="m5.37 15v-10h6.56v1.62h-4.81v2.51h4.45v1.62h-4.45v2.64h5.06v1.62z"/><path d="m18.5 15-3.63-7.71q0.107 1.12 0.107 1.8v5.9h-1.55v-10h1.99l3.69 7.77q-0.107-1.07-0.107-1.95v-5.82h1.55v10z"/>`,
     info: w `<path d="M0 0h24v24H0z" fill="none"></path><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"></path>`,
-    warning: w `<path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"></path>`,
+    'scl-warning': w `<path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"></path>`,
     error: w `<path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM19 14.9L14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z" fill="currentColor"></path><path d="M11 7h2v7h-2z" fill="currentColor"></path><circle cx="12" cy="16" r="1" fill="currentColor"></circle>`,
     gooseIcon: w `<path fill="currentColor" d="M11,7H15V9H11V15H13V11H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     lNIcon: w `<path stroke="currentColor" stroke-width="1.89" fill="none" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path fill="currentColor" d="m5.71 15v-10h1.75v8.39h4.47v1.62z"/><path fill="currentColor" d="m18.2 15-3.63-7.71q0.107 1.12 0.107 1.8v5.9h-1.55v-10h1.99l3.69 7.77q-0.107-1.07-0.107-1.95v-5.82h1.55v10z"/>`,
     logIcon: w `<path fill="currentColor" d="M9,7H11V15H15V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     reportIcon: w `<path fill="currentColor" d="M9,7H13A2,2 0 0,1 15,9V11C15,11.84 14.5,12.55 13.76,12.85L15,17H13L11.8,13H11V17H9V7M11,9V11H13V9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    dataSetIcon: w `<path fill="currentColor" d="M9,7H12.5A3.5,3.5 0 0,1 16,10.5V13.5A3.5,3.5 0 0,1 12.5,17H9V7M11,9V15H12.5A1.5,1.5 0 0,0 14,13.5V10.5A1.5,1.5 0 0,0 12.5,9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     smvIcon: w `<path fill="currentColor" d="M11,7H15V9H11V11H13A2,2 0 0,1 15,13V15A2,2 0 0,1 13,17H9V15H13V13H11A2,2 0 0,1 9,11V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     reset: w ``,
 };
 const gooseIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['gooseIcon']}</svg>`;
 const reportIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['reportIcon']}</svg>`;
 const smvIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['smvIcon']}</svg>`;
+const dataSetIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['dataSetIcon']}</svg>`;
 const logIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['logIcon']}</svg>`;
 const inputIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 <path fill="currentColor" d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z" />
@@ -9082,24 +14983,28 @@ const furtherPowerSystemEquipmentLogicalNode = w `<svg viewBox="0 0 24 24">
 
 /**
  * @license
- * Copyright 2022 Google LLC
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * @license
- * Copyright 2025 Omicron Energy GmbH
- * SPDX-License-Identifier: Apache-2.0
- */
+function pathToSvg(type) {
+    return w `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24"
+    viewBox="0 0 26.5 24"
+    width="24"
+  >
+    ${pathsSVG[type]}
+  </svg> `;
+}
 const SCL_ICONS = {
-    // From compare.ts
     elementIcon: elementIcon,
     attributeIcon: attributeIcon,
     contentIcon: contentIcon,
-    // From icons.ts
     editIcon: editIcon,
     gooseIcon: gooseIcon,
     reportIcon: reportIcon,
     smvIcon: smvIcon,
+    dataSetIcon: dataSetIcon,
     logIcon: logIcon,
     inputIcon: inputIcon,
     clientIcon: clientIcon,
@@ -9123,11 +15028,9 @@ const SCL_ICONS = {
     lineIcon: lineIcon,
     processIcon: processIcon,
     transformerWindingIcon: transformerWindingIcon,
-    // From ied-icons.ts
     accessPointIcon: accessPointIcon,
     serverIcon: serverIcon,
     logicalDeviceIcon: logicalDeviceIcon,
-    // From lnode.ts
     systemLogicalNode: systemLogicalNode,
     automationLogicalNode: automationLogicalNode,
     controlLogicalNode: controlLogicalNode,
@@ -9155,97 +15058,13 @@ const SCL_ICONS = {
     EnumType: pathToSvg('enumIcon'),
     LNodeType: pathToSvg('lNIcon'),
 });
-function pathToSvg(type) {
-    return w `<svg
-    xmlns="http://www.w3.org/2000/svg"
-    height="24"
-    viewBox="0 0 26.5 24"
-    width="24"
-  >
-    ${pathsSVG[type]}
-  </svg> `;
-}
-// export function getFilterIcon(
-//   type: iconType,
-//   state: boolean,
-// ): SVGTemplateResult {
-//   if (type === 'reset') {
-//     return svg``;
-//   }
-//   const height = iconProperties[type]?.height ?? 24;
-//   const width = iconProperties[type]?.width ?? 24;
-//   return svg`<svg
-//     slot="${state ? 'onIcon' : 'offIcon'}"
-//     xmlns="http://www.w3.org/2000/svg"
-//     height="${height}"
-//     viewBox="0 0 ${width} ${height}"
-//     width="${width}"
-//   >
-//     ${icons.pathsSVG[type]}
-//   </svg> `;
-// }
-/**
- * Returns an SVG template result for the given icon name.
- * @param name - The name of the icon to retrieve
- * @returns The SVG template result, or undefined if the icon doesn't exist
- */
 function toSVG(name) {
     return SCL_ICONS[name];
-}
-/**
- * @tagname oscd-scl-icon
- * @summary SCL icon component.
- * @final
- * @suppress {visibility}
- */
-class OscdSclIcon extends ScopedElementsMixin(i$4) {
-    constructor() {
-        super(...arguments);
-        this._name = '';
-    }
-    static get scopedElements() {
-        return {
-            'oscd-icon': OscdIcon,
-        };
-    }
-    // Read the text node (ligature-like API)
-    connectedCallback() {
-        super.connectedCallback();
-        this._updateName();
-        // Observe changes to text content
-        this._observer = new MutationObserver(() => {
-            this._updateName();
-        });
-        this._observer.observe(this, {
-            characterData: true,
-            subtree: true,
-            childList: true,
-        });
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this._observer?.disconnect();
-    }
-    _updateName() {
-        const newName = (this.textContent || '').trim();
-        if (newName !== this._name) {
-            this._name = newName;
-            this.requestUpdate();
-        }
-    }
-    render() {
-        const svg = toSVG(this._name);
-        if (!svg) {
-            // Fallback: render the name for debugging (or a default icon)
-            return b `<span>${this._name}</span>`;
-        }
-        return b `<oscd-icon>${svg}</oscd-icon>`;
-    }
 }
 
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -9312,7 +15131,7 @@ const styles$S = i$7 `:host{font-size:var(--md-icon-size, 24px);width:var(--md-i
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -9335,7 +15154,17 @@ const styles$S = i$7 `:host{font-size:var(--md-icon-size, 24px);width:var(--md-i
 class OscdIcon extends Icon$1 {
 }
 /** @nocollapse */
-OscdIcon.styles = [styles$S];
+OscdIcon.styles = [
+    styles$S,
+    i$7 `
+      :host > svg {
+        /* Legacy SVG templates include inline 24px dimensions. */
+        width: 100% !important;
+        height: 100% !important;
+        fill: currentColor;
+      }
+    `,
+];
 
 /**
  * @license
@@ -45791,7 +51620,7 @@ function createAddressElement(parent, inputs, instType) {
 function updateAddress(parent, inputs, instType) {
     const actions = [];
     const newAddress = createAddressElement(parent, inputs, instType);
-    const oldAddress = parent.querySelector('Address');
+    const oldAddress = parent.querySelector(':scope > Address');
     if (oldAddress !== null && existDiff(oldAddress, newAddress)) {
         actions.push({
             node: oldAddress,
@@ -46120,9 +51949,11 @@ function updateAction$p(element) {
         const instType = wizard.querySelector('#instType').value === 'true';
         const addressContent = {};
         inputs.forEach(input => {
-            const key = input.label;
-            const value = getValue(input);
-            addressContent[key] = value;
+            if (!(input instanceof SclCheckbox)) {
+                const key = input.label;
+                const value = getValue(input);
+                addressContent[key] = value;
+            }
         });
         return updateAddress(element, addressContent, instType);
     };
@@ -49023,6 +54854,46 @@ function editDataSetWizard(element) {
     };
 }
 
+function createDATypeAction(parent) {
+    return (inputs) => {
+        const daTypeAttrs = {};
+        const daTypeKeys = ['id', 'desc'];
+        daTypeKeys.forEach(key => {
+            daTypeAttrs[key] = getValue(inputs.find(i => i.label === key));
+        });
+        const daType = createElement(parent.ownerDocument, 'DAType', daTypeAttrs);
+        return [
+            { parent, node: daType, reference: getReference(parent, 'DAType') },
+        ];
+    };
+}
+function createDATypeWizard(parent) {
+    return {
+        title: 'Add DAType',
+        primary: {
+            icon: 'Save',
+            label: 'Save',
+            action: createDATypeAction(parent),
+        },
+        content: [
+            b `<scl-text-field
+        label="id"
+        .value=${''}
+        required
+        maxlength="127"
+        minlength="1"
+        pattern="${patterns.nmToken}"
+      ></scl-text-field>`,
+            b `<scl-text-field
+        label="desc"
+        .value=${null}
+        nullable
+        pattern="${patterns.normalizedString}"
+      ></scl-text-field>`,
+        ],
+    };
+}
+
 function createDOTypeAction(parent) {
     return (inputs) => {
         const doTypeAttrs = {};
@@ -49850,6 +55721,70 @@ function updateLN0Wizard(element) {
     };
 }
 
+function createBDaAction(parent) {
+    return (inputs) => {
+        const name = getValue(inputs.find(i => i.label === 'name'));
+        const desc = getValue(inputs.find(i => i.label === 'desc'));
+        const bType = getValue(inputs.find(i => i.label === 'bType'));
+        const type = bType === 'Enum' || bType === 'Struct'
+            ? getValue(inputs.find(i => i.label === 'type'))
+            : null;
+        const sAddr = getValue(inputs.find(i => i.label === 'sAddr'));
+        const valKind = getValue(inputs.find(i => i.label === 'valKind')) !== ''
+            ? getValue(inputs.find(i => i.label === 'valKind'))
+            : null;
+        const valImport = getValue(inputs.find(i => i.label === 'valImport')) !== ''
+            ? getValue(inputs.find(i => i.label === 'valImport'))
+            : null;
+        const valField = inputs.find(i => i.label === 'Val' && i.style.display !== 'none');
+        const Val = valField ? getValue(valField) : null;
+        const element = createElement(parent.ownerDocument, 'BDA', {
+            name,
+            desc,
+            bType,
+            type,
+            sAddr,
+            valKind,
+            valImport,
+        });
+        if (Val !== null) {
+            const valElement = createElement(parent.ownerDocument, 'Val', {});
+            valElement.textContent = Val;
+            element.appendChild(valElement);
+        }
+        return [
+            {
+                parent,
+                node: element,
+                reference: getReference(parent, 'BDA'),
+            },
+        ];
+    };
+}
+function createBDaWizard(element) {
+    const doc = element.ownerDocument;
+    const name = '';
+    const desc = null;
+    const bType = '';
+    const type = null;
+    const sAddr = null;
+    const Val = null;
+    const valKind = null;
+    const valImport = null;
+    const doOrEnumTypes = Array.from(doc.querySelectorAll('DAType, EnumType')).filter(doOrEnumType => doOrEnumType.getAttribute('id'));
+    const data = element.closest('DataTypeTemplates');
+    return {
+        title: 'Add BDA',
+        primary: {
+            icon: '',
+            label: 'save',
+            action: createBDaAction(element),
+        },
+        content: [
+            ...renderAbstractDataAttributeContent(name, desc, bType, doOrEnumTypes, type, sAddr, valKind, valImport, Val, data),
+        ],
+    };
+}
 function updateBDaAction(element) {
     return (inputs) => {
         const name = getValue(inputs.find(i => i.label === 'name'));
@@ -49956,7 +55891,7 @@ const wizards = {
     },
     BDA: {
         edit: editBDaWizard,
-        create: emptyWizard,
+        create: createBDaWizard,
     },
     BitRate: {
         edit: emptyWizard,
@@ -50020,7 +55955,7 @@ const wizards = {
     },
     DAType: {
         edit: emptyWizard,
-        create: emptyWizard,
+        create: createDATypeWizard,
     },
     DO: {
         edit: editDoWizard,
@@ -75402,7 +81337,7 @@ const noCheckmarkFixStyles = i$7 `
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -76304,7 +82239,7 @@ const styles$i = i$7 `:host{--_disabled-icon-color: var(--md-icon-button-disable
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -76903,7 +82838,7 @@ const styles$g = i$7 `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -77514,7 +83449,7 @@ const styles$f = i$7 `:host{border-start-start-radius:var(--md-checkbox-containe
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -78067,7 +84002,7 @@ const styles$e = i$7 `@layer{:host{display:inline-flex;height:var(--md-radio-ico
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -80004,7 +85939,7 @@ OscdOutlinedField.styles = [styles$9, styles$a];
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -80207,7 +86142,7 @@ OscdSelectionList.styles = i$7 `
 
     oscd-outlined-text-field {
       background-color: var(--md-sys-color-surface, #fef7ff);
-      --oscd-outlined-text-field-container-shape: 32px;
+      --md-outlined-text-field-container-shape: 32px;
       padding: 8px;
     }
 
@@ -80323,13 +86258,6 @@ OscdDivider.styles = [styles$8];
  * The default dialog open animation.
  */
 const DIALOG_DEFAULT_OPEN_ANIMATION = {
-    dialog: [
-        [
-            // Dialog slide down
-            [{ 'transform': 'translateY(-50px)' }, { 'transform': 'translateY(0)' }],
-            { duration: 500, easing: EASING.EMPHASIZED },
-        ],
-    ],
     scrim: [
         [
             // Scrim fade in
@@ -80338,6 +86266,11 @@ const DIALOG_DEFAULT_OPEN_ANIMATION = {
         ],
     ],
     container: [
+        [
+            // Slide the content without changing the fixed scrim's containing block.
+            [{ 'transform': 'translateY(-50px)' }, { 'transform': 'translateY(0)' }],
+            { duration: 500, easing: EASING.EMPHASIZED },
+        ],
         [
             // Container fade in
             [{ 'opacity': 0 }, { 'opacity': 1 }],
@@ -80379,13 +86312,6 @@ const DIALOG_DEFAULT_OPEN_ANIMATION = {
  * The default dialog close animation.
  */
 const DIALOG_DEFAULT_CLOSE_ANIMATION = {
-    dialog: [
-        [
-            // Dialog slide up
-            [{ 'transform': 'translateY(0)' }, { 'transform': 'translateY(-50px)' }],
-            { duration: 150, easing: EASING.EMPHASIZED_ACCELERATE },
-        ],
-    ],
     scrim: [
         [
             // Scrim fade out
@@ -80394,6 +86320,11 @@ const DIALOG_DEFAULT_CLOSE_ANIMATION = {
         ],
     ],
     container: [
+        [
+            // Slide the content without changing the fixed scrim's containing block.
+            [{ 'transform': 'translateY(0)' }, { 'transform': 'translateY(-50px)' }],
+            { duration: 150, easing: EASING.EMPHASIZED_ACCELERATE },
+        ],
         [
             // Container shrink
             [{ 'height': '100%' }, { 'height': '35%' }],
@@ -80651,7 +86582,6 @@ class Dialog extends dialogBaseClass {
     `;
         const { ariaLabel } = this;
         return b `
-      <div class="scrim"></div>
       <dialog
         class=${e(classes)}
         aria-label=${ariaLabel || A}
@@ -80662,6 +86592,7 @@ class Dialog extends dialogBaseClass {
         @close=${this.handleClose}
         @keydown=${this.handleKeydown}
         .returnValue=${this.returnValue || A}>
+        <div class="scrim"></div>
         ${showFocusTrap ? focusTrap : A}
         <div class="container" @click=${this.handleContentClick}>
           <div class="headline">
@@ -80980,12 +86911,13 @@ function isFocusable(element) {
 
 /**
  * @license
- * Copyright 2024 Google LLC
+ * Copyright 2026 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./dialog/internal/dialog-styles.css.
-const styles$7 = i$7 `:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
+const styles$7 = i$7 `:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:-1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
 `;
+styles$7.styleSheet;
 
 /**
  * @license
@@ -80994,7 +86926,7 @@ const styles$7 = i$7 `:host{border-start-start-radius:var(--md-dialog-container-
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -81292,7 +87224,7 @@ const styles$3 = i$7 `:host{border-start-start-radius:var(--_container-shape-sta
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -81358,7 +87290,7 @@ const styles$2 = i$7 `:host{--_container-height: var(--md-outlined-button-contai
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -81390,6 +87322,67 @@ OscdOutlinedButton.scopedElements = {
     'md-focus-ring': OscdFocusRing,
 };
 OscdOutlinedButton.styles = [styles$3, styles$2];
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @license
+ * Copyright 2026 OMICRON electronics GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @tagname oscd-scl-icon
+ * @summary SCL icon component.
+ * @final
+ * @suppress {visibility}
+ */
+class OscdSclIcon extends ScopedElementsMixin(i$4) {
+    constructor() {
+        super(...arguments);
+        this._name = '';
+    }
+    static get scopedElements() {
+        return {
+            'oscd-icon': OscdIcon,
+        };
+    }
+    // Read the text node (ligature-like API)
+    connectedCallback() {
+        super.connectedCallback();
+        this._updateName();
+        // Observe changes to text content
+        this._observer = new MutationObserver(() => {
+            this._updateName();
+        });
+        this._observer.observe(this, {
+            characterData: true,
+            subtree: true,
+            childList: true,
+        });
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this._observer?.disconnect();
+    }
+    _updateName() {
+        const newName = (this.textContent || '').trim();
+        if (newName !== this._name) {
+            this._name = newName;
+            this.requestUpdate();
+        }
+    }
+    render() {
+        const svg = toSVG(this._name);
+        if (!svg) {
+            // Fallback: render the name for debugging (or a default icon)
+            return b `<span>${this._name}</span>`;
+        }
+        return b `<oscd-icon>${svg}</oscd-icon>`;
+    }
+}
 
 var _a, _b;
 /**
@@ -81455,10 +87448,6 @@ OscdFilterButton.scopedElements = {
 };
 OscdFilterButton.styles = i$7 `
     ${OscdSelectionList.styles}
-    oscd-icon-button {
-      color: var(--mdc-theme-on-surface);
-    }
-
     oscd-dialog {
       max-height: calc(100vh - 150px);
     }
@@ -83145,7 +89134,7 @@ const styles$1 = i$7 `:host{--md-elevation-level: var(--md-menu-container-elevat
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 class InternalMenu extends Menu {
@@ -83562,7 +89551,7 @@ const styles = i$7 `:host{display:flex;--md-ripple-hover-color: var(--md-menu-it
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -83778,9 +89767,9 @@ __decorate([
 /** Common `CSS` styles used by DataTypeTemplate subeditors */
 const sharedStyles = i$7 `
   section {
-    background-color: var(--mdc-theme-surface);
+    background-color: var(--md-sys-color-surface);
     transition: all 200ms linear;
-    outline-color: var(--mdc-theme-primary);
+    outline-color: var(--md-sys-color-primary);
     outline-style: solid;
     outline-width: 0px;
     opacity: 1;
@@ -84329,7 +90318,7 @@ class Virtualizer {
         }
         if (Ctor === undefined) {
             // If we don't have a constructor yet, load the default
-            DefaultLayoutConstructor = Ctor = (await import('./flow-BYvW0t4Z-BYvW0t4Z.js'))
+            DefaultLayoutConstructor = Ctor = (await import('./flow-Cuw6FQAl-DHfb54LA.js'))
                 .FlowLayout;
         }
         this._layout = new Ctor((message) => this._handleLayoutMessage(message), config);
@@ -84967,9 +90956,9 @@ VirtualizedFilteredList.styles = i$7 `
     }
 
     oscd-list-item.selected {
-      --md-sys-color-on-surface: var(--oscd-base3);
-      --md-sys-color-on-surface-variant: var(--oscd-base2);
-      background-color: var(--oscd-primary);
+      --md-sys-color-on-surface: var(--md-sys-color-on-primary);
+      --md-sys-color-on-surface-variant: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary);
     }
 
     oscd-list-item.control > div[slot='headline'] {
@@ -85529,8 +91518,8 @@ FcdaBindingList.styles = i$7 `
     }
 
     .actions-menu-icon.filter-off {
-      color: var(--secondary);
-      background-color: var(--mdc-theme-background);
+      color: var(--md-sys-color-secondary);
+      background-color: var(--md-sys-color-surface);
     }
   `;
 __decorate([
@@ -85950,7 +91939,7 @@ ExtRefLnBindingList.styles = i$7 `
       gap: 12px;
       padding: 32px 24px;
       box-sizing: border-box;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .empty-state__icon {
@@ -85958,7 +91947,7 @@ ExtRefLnBindingList.styles = i$7 `
       inline-size: 128px;
       block-size: 128px;
       line-height: 1;
-      color: var(--oscd-base01);
+      color: var(--md-sys-color-on-surface-variant);
       opacity: 0.7;
     }
 
@@ -85967,7 +91956,7 @@ ExtRefLnBindingList.styles = i$7 `
       font-size: 1.125rem;
       line-height: 1.4;
       font-weight: 500;
-      color: var(--oscd-base01);
+      color: var(--md-sys-color-on-surface-variant);
     }
 
     .empty-state__description {
@@ -85975,10 +91964,7 @@ ExtRefLnBindingList.styles = i$7 `
       max-width: 32rem;
       font-size: 0.95rem;
       line-height: 1.5;
-      color: var(
-        --oscd-base01,
-        var(--md-sys-color-on-surface-variant, #49454f)
-      );
+      color: var(--md-sys-color-on-surface-variant);
     }
   `;
 __decorate([
@@ -86083,19 +92069,13 @@ OscdEditorSubscriberDatabinding.scopedElements = {
     'oscd-scl-dialogs': OscdSclDialogs,
 };
 OscdEditorSubscriberDatabinding.styles = i$7 `
-    * {
-      --oscd-primary: var(--oscd-theme-primary, #0b335b);
-      --oscd-base2: var(--oscd-theme-base2, #f3f5f6);
-      --oscd-base3: var(--oscd-theme-base3, white);
-    }
-
     .header {
       display: flex;
       align-items: flex-start;
       gap: 16px;
       padding: 8px 12px;
       flex-wrap: wrap;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .title-group {
@@ -86177,7 +92157,7 @@ OscdEditorSubscriberDatabinding.styles = i$7 `
       padding: 8px 6px 16px;
       height: calc(100vh - 136px);
       gap: 12px;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .column {

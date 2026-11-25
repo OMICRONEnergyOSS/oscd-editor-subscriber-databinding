@@ -427,18 +427,20 @@ const pathsSVG = {
     dOIcon: w `<path fill="none" stroke="currentColor" stroke-width="1.89" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path stroke="none" fill="currentColor" d="m12.1 9.94q0 1.55-0.509 2.71-0.503 1.15-1.43 1.76-0.923 0.611-2.12 0.611h-3.37v-10h3.02q2.11 0 3.26 1.28 1.15 1.27 1.15 3.65zm-1.76 0q0-1.61-0.698-2.46-0.698-0.852-1.99-0.852h-1.24v6.77h1.48q1.12 0 1.79-0.931 0.663-0.931 0.663-2.53z"/><path stroke="none" fill="currentColor" d="m21.6 9.97q0 1.56-0.515 2.75-0.515 1.19-1.47 1.82-0.959 0.625-2.24 0.625-1.97 0-3.08-1.39-1.11-1.39-1.11-3.81 0-2.41 1.11-3.76t3.1-1.35 3.1 1.36q1.12 1.36 1.12 3.74zm-1.78 0q0-1.62-0.639-2.54-0.639-0.923-1.79-0.923-1.17 0-1.81 0.916-0.639 0.909-0.639 2.54 0 1.65 0.651 2.6 0.657 0.945 1.79 0.945 1.17 0 1.81-0.923 0.639-0.923 0.639-2.62z"/>`,
     enumIcon: w `<path fill="none" stroke="currentColor" stroke-width="1.89" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path d="m5.37 15v-10h6.56v1.62h-4.81v2.51h4.45v1.62h-4.45v2.64h5.06v1.62z"/><path d="m18.5 15-3.63-7.71q0.107 1.12 0.107 1.8v5.9h-1.55v-10h1.99l3.69 7.77q-0.107-1.07-0.107-1.95v-5.82h1.55v10z"/>`,
     info: w `<path d="M0 0h24v24H0z" fill="none"></path><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"></path>`,
-    warning: w `<path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"></path>`,
+    'scl-warning': w `<path d="M0 0h24v24H0z" fill="none"></path><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"></path>`,
     error: w `<path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM19 14.9L14.9 19H9.1L5 14.9V9.1L9.1 5h5.8L19 9.1v5.8z" fill="currentColor"></path><path d="M11 7h2v7h-2z" fill="currentColor"></path><circle cx="12" cy="16" r="1" fill="currentColor"></circle>`,
     gooseIcon: w `<path fill="currentColor" d="M11,7H15V9H11V15H13V11H15V15A2,2 0 0,1 13,17H11A2,2 0 0,1 9,15V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     lNIcon: w `<path stroke="currentColor" stroke-width="1.89" fill="none" d="m4.2 0.945h18.1c1.8 0 3.25 1.45 3.25 3.25v11.6c0 1.8-1.45 3.25-3.25 3.25h-18.1c-1.8 0-3.25-1.45-3.25-3.25v-11.6c0-1.8 1.45-3.25 3.25-3.25z"/><path fill="currentColor" d="m5.71 15v-10h1.75v8.39h4.47v1.62z"/><path fill="currentColor" d="m18.2 15-3.63-7.71q0.107 1.12 0.107 1.8v5.9h-1.55v-10h1.99l3.69 7.77q-0.107-1.07-0.107-1.95v-5.82h1.55v10z"/>`,
     logIcon: w `<path fill="currentColor" d="M9,7H11V15H15V17H9V7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     reportIcon: w `<path fill="currentColor" d="M9,7H13A2,2 0 0,1 15,9V11C15,11.84 14.5,12.55 13.76,12.85L15,17H13L11.8,13H11V17H9V7M11,9V11H13V9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
+    dataSetIcon: w `<path fill="currentColor" d="M9,7H12.5A3.5,3.5 0 0,1 16,10.5V13.5A3.5,3.5 0 0,1 12.5,17H9V7M11,9V15H12.5A1.5,1.5 0 0,0 14,13.5V10.5A1.5,1.5 0 0,0 12.5,9H11M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,16.41 7.58,20 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     smvIcon: w `<path fill="currentColor" d="M11,7H15V9H11V11H13A2,2 0 0,1 15,13V15A2,2 0 0,1 13,17H9V15H13V13H11A2,2 0 0,1 9,11V9A2,2 0 0,1 11,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`,
     reset: w ``,
 };
 const gooseIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['gooseIcon']}</svg>`;
 const reportIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['reportIcon']}</svg>`;
 const smvIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['smvIcon']}</svg>`;
+const dataSetIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['dataSetIcon']}</svg>`;
 const logIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">${pathsSVG['logIcon']}</svg>`;
 const inputIcon = w `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 <path fill="currentColor" d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z" />
@@ -1013,24 +1015,28 @@ const furtherPowerSystemEquipmentLogicalNode = w `<svg viewBox="0 0 24 24">
 
 /**
  * @license
- * Copyright 2022 Google LLC
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * @license
- * Copyright 2025 Omicron Energy GmbH
- * SPDX-License-Identifier: Apache-2.0
- */
+function pathToSvg(type) {
+    return w `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24"
+    viewBox="0 0 26.5 24"
+    width="24"
+  >
+    ${pathsSVG[type]}
+  </svg> `;
+}
 const SCL_ICONS = {
-    // From compare.ts
     elementIcon: elementIcon,
     attributeIcon: attributeIcon,
     contentIcon: contentIcon,
-    // From icons.ts
     editIcon: editIcon,
     gooseIcon: gooseIcon,
     reportIcon: reportIcon,
     smvIcon: smvIcon,
+    dataSetIcon: dataSetIcon,
     logIcon: logIcon,
     inputIcon: inputIcon,
     clientIcon: clientIcon,
@@ -1054,11 +1060,9 @@ const SCL_ICONS = {
     lineIcon: lineIcon,
     processIcon: processIcon,
     transformerWindingIcon: transformerWindingIcon,
-    // From ied-icons.ts
     accessPointIcon: accessPointIcon,
     serverIcon: serverIcon,
     logicalDeviceIcon: logicalDeviceIcon,
-    // From lnode.ts
     systemLogicalNode: systemLogicalNode,
     automationLogicalNode: automationLogicalNode,
     controlLogicalNode: controlLogicalNode,
@@ -1086,97 +1090,13 @@ const SCL_ICONS = {
     EnumType: pathToSvg('enumIcon'),
     LNodeType: pathToSvg('lNIcon'),
 });
-function pathToSvg(type) {
-    return w `<svg
-    xmlns="http://www.w3.org/2000/svg"
-    height="24"
-    viewBox="0 0 26.5 24"
-    width="24"
-  >
-    ${pathsSVG[type]}
-  </svg> `;
-}
-// export function getFilterIcon(
-//   type: iconType,
-//   state: boolean,
-// ): SVGTemplateResult {
-//   if (type === 'reset') {
-//     return svg``;
-//   }
-//   const height = iconProperties[type]?.height ?? 24;
-//   const width = iconProperties[type]?.width ?? 24;
-//   return svg`<svg
-//     slot="${state ? 'onIcon' : 'offIcon'}"
-//     xmlns="http://www.w3.org/2000/svg"
-//     height="${height}"
-//     viewBox="0 0 ${width} ${height}"
-//     width="${width}"
-//   >
-//     ${icons.pathsSVG[type]}
-//   </svg> `;
-// }
-/**
- * Returns an SVG template result for the given icon name.
- * @param name - The name of the icon to retrieve
- * @returns The SVG template result, or undefined if the icon doesn't exist
- */
 function toSVG(name) {
     return SCL_ICONS[name];
-}
-/**
- * @tagname oscd-scl-icon
- * @summary SCL icon component.
- * @final
- * @suppress {visibility}
- */
-class OscdSclIcon extends ScopedElementsMixin(i$4) {
-    constructor() {
-        super(...arguments);
-        this._name = '';
-    }
-    static get scopedElements() {
-        return {
-            'oscd-icon': OscdIcon,
-        };
-    }
-    // Read the text node (ligature-like API)
-    connectedCallback() {
-        super.connectedCallback();
-        this._updateName();
-        // Observe changes to text content
-        this._observer = new MutationObserver(() => {
-            this._updateName();
-        });
-        this._observer.observe(this, {
-            characterData: true,
-            subtree: true,
-            childList: true,
-        });
-    }
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this._observer?.disconnect();
-    }
-    _updateName() {
-        const newName = (this.textContent || '').trim();
-        if (newName !== this._name) {
-            this._name = newName;
-            this.requestUpdate();
-        }
-    }
-    render() {
-        const svg = toSVG(this._name);
-        if (!svg) {
-            // Fallback: render the name for debugging (or a default icon)
-            return b `<span>${this._name}</span>`;
-        }
-        return b `<oscd-icon>${svg}</oscd-icon>`;
-    }
 }
 
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -1243,7 +1163,7 @@ const styles$S = i$7 `:host{font-size:var(--md-icon-size, 24px);width:var(--md-i
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -1266,7 +1186,17 @@ const styles$S = i$7 `:host{font-size:var(--md-icon-size, 24px);width:var(--md-i
 class OscdIcon extends Icon$1 {
 }
 /** @nocollapse */
-OscdIcon.styles = [styles$S];
+OscdIcon.styles = [
+    styles$S,
+    i$7 `
+      :host > svg {
+        /* Legacy SVG templates include inline 24px dimensions. */
+        width: 100% !important;
+        height: 100% !important;
+        fill: currentColor;
+      }
+    `,
+];
 
 /**
  * @license
@@ -37722,7 +37652,7 @@ function createAddressElement(parent, inputs, instType) {
 function updateAddress(parent, inputs, instType) {
     const actions = [];
     const newAddress = createAddressElement(parent, inputs, instType);
-    const oldAddress = parent.querySelector('Address');
+    const oldAddress = parent.querySelector(':scope > Address');
     if (oldAddress !== null && existDiff(oldAddress, newAddress)) {
         actions.push({
             node: oldAddress,
@@ -38051,9 +37981,11 @@ function updateAction$p(element) {
         const instType = wizard.querySelector('#instType').value === 'true';
         const addressContent = {};
         inputs.forEach(input => {
-            const key = input.label;
-            const value = getValue(input);
-            addressContent[key] = value;
+            if (!(input instanceof SclCheckbox)) {
+                const key = input.label;
+                const value = getValue(input);
+                addressContent[key] = value;
+            }
         });
         return updateAddress(element, addressContent, instType);
     };
@@ -40954,6 +40886,46 @@ function editDataSetWizard(element) {
     };
 }
 
+function createDATypeAction(parent) {
+    return (inputs) => {
+        const daTypeAttrs = {};
+        const daTypeKeys = ['id', 'desc'];
+        daTypeKeys.forEach(key => {
+            daTypeAttrs[key] = getValue(inputs.find(i => i.label === key));
+        });
+        const daType = createElement(parent.ownerDocument, 'DAType', daTypeAttrs);
+        return [
+            { parent, node: daType, reference: getReference(parent, 'DAType') },
+        ];
+    };
+}
+function createDATypeWizard(parent) {
+    return {
+        title: 'Add DAType',
+        primary: {
+            icon: 'Save',
+            label: 'Save',
+            action: createDATypeAction(parent),
+        },
+        content: [
+            b `<scl-text-field
+        label="id"
+        .value=${''}
+        required
+        maxlength="127"
+        minlength="1"
+        pattern="${patterns.nmToken}"
+      ></scl-text-field>`,
+            b `<scl-text-field
+        label="desc"
+        .value=${null}
+        nullable
+        pattern="${patterns.normalizedString}"
+      ></scl-text-field>`,
+        ],
+    };
+}
+
 function createDOTypeAction(parent) {
     return (inputs) => {
         const doTypeAttrs = {};
@@ -41781,6 +41753,70 @@ function updateLN0Wizard(element) {
     };
 }
 
+function createBDaAction(parent) {
+    return (inputs) => {
+        const name = getValue(inputs.find(i => i.label === 'name'));
+        const desc = getValue(inputs.find(i => i.label === 'desc'));
+        const bType = getValue(inputs.find(i => i.label === 'bType'));
+        const type = bType === 'Enum' || bType === 'Struct'
+            ? getValue(inputs.find(i => i.label === 'type'))
+            : null;
+        const sAddr = getValue(inputs.find(i => i.label === 'sAddr'));
+        const valKind = getValue(inputs.find(i => i.label === 'valKind')) !== ''
+            ? getValue(inputs.find(i => i.label === 'valKind'))
+            : null;
+        const valImport = getValue(inputs.find(i => i.label === 'valImport')) !== ''
+            ? getValue(inputs.find(i => i.label === 'valImport'))
+            : null;
+        const valField = inputs.find(i => i.label === 'Val' && i.style.display !== 'none');
+        const Val = valField ? getValue(valField) : null;
+        const element = createElement(parent.ownerDocument, 'BDA', {
+            name,
+            desc,
+            bType,
+            type,
+            sAddr,
+            valKind,
+            valImport,
+        });
+        if (Val !== null) {
+            const valElement = createElement(parent.ownerDocument, 'Val', {});
+            valElement.textContent = Val;
+            element.appendChild(valElement);
+        }
+        return [
+            {
+                parent,
+                node: element,
+                reference: getReference(parent, 'BDA'),
+            },
+        ];
+    };
+}
+function createBDaWizard(element) {
+    const doc = element.ownerDocument;
+    const name = '';
+    const desc = null;
+    const bType = '';
+    const type = null;
+    const sAddr = null;
+    const Val = null;
+    const valKind = null;
+    const valImport = null;
+    const doOrEnumTypes = Array.from(doc.querySelectorAll('DAType, EnumType')).filter(doOrEnumType => doOrEnumType.getAttribute('id'));
+    const data = element.closest('DataTypeTemplates');
+    return {
+        title: 'Add BDA',
+        primary: {
+            icon: '',
+            label: 'save',
+            action: createBDaAction(element),
+        },
+        content: [
+            ...renderAbstractDataAttributeContent(name, desc, bType, doOrEnumTypes, type, sAddr, valKind, valImport, Val, data),
+        ],
+    };
+}
 function updateBDaAction(element) {
     return (inputs) => {
         const name = getValue(inputs.find(i => i.label === 'name'));
@@ -41887,7 +41923,7 @@ const wizards = {
     },
     BDA: {
         edit: editBDaWizard,
-        create: emptyWizard,
+        create: createBDaWizard,
     },
     BitRate: {
         edit: emptyWizard,
@@ -41951,7 +41987,7 @@ const wizards = {
     },
     DAType: {
         edit: emptyWizard,
-        create: emptyWizard,
+        create: createDATypeWizard,
     },
     DO: {
         edit: editDoWizard,
@@ -67333,7 +67369,7 @@ const noCheckmarkFixStyles = i$7 `
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -68235,7 +68271,7 @@ const styles$i = i$7 `:host{--_disabled-icon-color: var(--md-icon-button-disable
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -68834,7 +68870,7 @@ const styles$g = i$7 `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -69445,7 +69481,7 @@ const styles$f = i$7 `:host{border-start-start-radius:var(--md-checkbox-containe
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -69998,7 +70034,7 @@ const styles$e = i$7 `@layer{:host{display:inline-flex;height:var(--md-radio-ico
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -71935,7 +71971,7 @@ OscdOutlinedField.styles = [styles$9, styles$a];
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -72138,7 +72174,7 @@ OscdSelectionList.styles = i$7 `
 
     oscd-outlined-text-field {
       background-color: var(--md-sys-color-surface, #fef7ff);
-      --oscd-outlined-text-field-container-shape: 32px;
+      --md-outlined-text-field-container-shape: 32px;
       padding: 8px;
     }
 
@@ -72254,13 +72290,6 @@ OscdDivider.styles = [styles$8];
  * The default dialog open animation.
  */
 const DIALOG_DEFAULT_OPEN_ANIMATION = {
-    dialog: [
-        [
-            // Dialog slide down
-            [{ 'transform': 'translateY(-50px)' }, { 'transform': 'translateY(0)' }],
-            { duration: 500, easing: EASING.EMPHASIZED },
-        ],
-    ],
     scrim: [
         [
             // Scrim fade in
@@ -72269,6 +72298,11 @@ const DIALOG_DEFAULT_OPEN_ANIMATION = {
         ],
     ],
     container: [
+        [
+            // Slide the content without changing the fixed scrim's containing block.
+            [{ 'transform': 'translateY(-50px)' }, { 'transform': 'translateY(0)' }],
+            { duration: 500, easing: EASING.EMPHASIZED },
+        ],
         [
             // Container fade in
             [{ 'opacity': 0 }, { 'opacity': 1 }],
@@ -72310,13 +72344,6 @@ const DIALOG_DEFAULT_OPEN_ANIMATION = {
  * The default dialog close animation.
  */
 const DIALOG_DEFAULT_CLOSE_ANIMATION = {
-    dialog: [
-        [
-            // Dialog slide up
-            [{ 'transform': 'translateY(0)' }, { 'transform': 'translateY(-50px)' }],
-            { duration: 150, easing: EASING.EMPHASIZED_ACCELERATE },
-        ],
-    ],
     scrim: [
         [
             // Scrim fade out
@@ -72325,6 +72352,11 @@ const DIALOG_DEFAULT_CLOSE_ANIMATION = {
         ],
     ],
     container: [
+        [
+            // Slide the content without changing the fixed scrim's containing block.
+            [{ 'transform': 'translateY(0)' }, { 'transform': 'translateY(-50px)' }],
+            { duration: 150, easing: EASING.EMPHASIZED_ACCELERATE },
+        ],
         [
             // Container shrink
             [{ 'height': '100%' }, { 'height': '35%' }],
@@ -72582,7 +72614,6 @@ class Dialog extends dialogBaseClass {
     `;
         const { ariaLabel } = this;
         return b `
-      <div class="scrim"></div>
       <dialog
         class=${e(classes)}
         aria-label=${ariaLabel || A}
@@ -72593,6 +72624,7 @@ class Dialog extends dialogBaseClass {
         @close=${this.handleClose}
         @keydown=${this.handleKeydown}
         .returnValue=${this.returnValue || A}>
+        <div class="scrim"></div>
         ${showFocusTrap ? focusTrap : A}
         <div class="container" @click=${this.handleContentClick}>
           <div class="headline">
@@ -72911,12 +72943,13 @@ function isFocusable(element) {
 
 /**
  * @license
- * Copyright 2024 Google LLC
+ * Copyright 2026 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./dialog/internal/dialog-styles.css.
-const styles$7 = i$7 `:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
+const styles$7 = i$7 `:host{border-start-start-radius:var(--md-dialog-container-shape-start-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-start-end-radius:var(--md-dialog-container-shape-start-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-end-radius:var(--md-dialog-container-shape-end-end, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));border-end-start-radius:var(--md-dialog-container-shape-end-start, var(--md-dialog-container-shape, var(--md-sys-shape-corner-extra-large, 28px)));display:contents;margin:auto;max-height:min(560px,100% - 48px);max-width:min(560px,100% - 48px);min-height:140px;min-width:280px;position:fixed;height:fit-content;width:fit-content}dialog{background:rgba(0,0,0,0);border:none;border-radius:inherit;flex-direction:column;height:inherit;margin:inherit;max-height:inherit;max-width:inherit;min-height:inherit;min-width:inherit;outline:none;overflow:visible;padding:0;width:inherit}dialog[open]{display:flex}::backdrop{background:none}.scrim{background:var(--md-sys-color-scrim, #000);display:none;inset:0;opacity:32%;pointer-events:none;position:fixed;z-index:-1}:host([open]) .scrim{display:flex}h2{all:unset;align-self:stretch}.headline{align-items:center;color:var(--md-dialog-headline-color, var(--md-sys-color-on-surface, #1d1b20));display:flex;flex-direction:column;font-family:var(--md-dialog-headline-font, var(--md-sys-typescale-headline-small-font, var(--md-ref-typeface-brand, Roboto)));font-size:var(--md-dialog-headline-size, var(--md-sys-typescale-headline-small-size, 1.5rem));line-height:var(--md-dialog-headline-line-height, var(--md-sys-typescale-headline-small-line-height, 2rem));font-weight:var(--md-dialog-headline-weight, var(--md-sys-typescale-headline-small-weight, var(--md-ref-typeface-weight-regular, 400)));position:relative}slot[name=headline]::slotted(*){align-items:center;align-self:stretch;box-sizing:border-box;display:flex;gap:8px;padding:24px 24px 0}.icon{display:flex}slot[name=icon]::slotted(*){color:var(--md-dialog-icon-color, var(--md-sys-color-secondary, #625b71));fill:currentColor;font-size:var(--md-dialog-icon-size, 24px);margin-top:24px;height:var(--md-dialog-icon-size, 24px);width:var(--md-dialog-icon-size, 24px)}.has-icon slot[name=headline]::slotted(*){justify-content:center;padding-top:16px}.scrollable slot[name=headline]::slotted(*){padding-bottom:16px}.scrollable.has-headline slot[name=content]::slotted(*){padding-top:8px}.container{border-radius:inherit;display:flex;flex-direction:column;flex-grow:1;overflow:hidden;position:relative;transform-origin:top}.container::before{background:var(--md-dialog-container-color, var(--md-sys-color-surface-container-high, #ece6f0));border-radius:inherit;content:"";inset:0;position:absolute}.scroller{display:flex;flex:1;flex-direction:column;overflow:hidden;z-index:1}.scrollable .scroller{overflow-y:scroll}.content{color:var(--md-dialog-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-dialog-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-dialog-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-dialog-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));flex:1;font-weight:var(--md-dialog-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)));height:min-content;position:relative}slot[name=content]::slotted(*){box-sizing:border-box;padding:24px}.anchor{position:absolute}.top.anchor{top:0}.bottom.anchor{bottom:0}.actions{position:relative}slot[name=actions]::slotted(*){box-sizing:border-box;display:flex;gap:8px;justify-content:flex-end;padding:16px 24px 24px}.has-actions slot[name=content]::slotted(*){padding-bottom:8px}md-divider{display:none;position:absolute}.has-headline.show-top-divider .headline md-divider,.has-actions.show-bottom-divider .actions md-divider{display:flex}.headline md-divider{bottom:0}.actions md-divider{top:0}@media(forced-colors: active){dialog{outline:2px solid WindowText}}
 `;
+styles$7.styleSheet;
 
 /**
  * @license
@@ -72925,7 +72958,7 @@ const styles$7 = i$7 `:host{border-start-start-radius:var(--md-dialog-container-
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -73223,7 +73256,7 @@ const styles$3 = i$7 `:host{border-start-start-radius:var(--_container-shape-sta
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -73289,7 +73322,7 @@ const styles$2 = i$7 `:host{--_container-height: var(--md-outlined-button-contai
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -73321,6 +73354,67 @@ OscdOutlinedButton.scopedElements = {
     'md-focus-ring': OscdFocusRing,
 };
 OscdOutlinedButton.styles = [styles$3, styles$2];
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @license
+ * Copyright 2026 OMICRON electronics GmbH
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * @tagname oscd-scl-icon
+ * @summary SCL icon component.
+ * @final
+ * @suppress {visibility}
+ */
+class OscdSclIcon extends ScopedElementsMixin(i$4) {
+    constructor() {
+        super(...arguments);
+        this._name = '';
+    }
+    static get scopedElements() {
+        return {
+            'oscd-icon': OscdIcon,
+        };
+    }
+    // Read the text node (ligature-like API)
+    connectedCallback() {
+        super.connectedCallback();
+        this._updateName();
+        // Observe changes to text content
+        this._observer = new MutationObserver(() => {
+            this._updateName();
+        });
+        this._observer.observe(this, {
+            characterData: true,
+            subtree: true,
+            childList: true,
+        });
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this._observer?.disconnect();
+    }
+    _updateName() {
+        const newName = (this.textContent || '').trim();
+        if (newName !== this._name) {
+            this._name = newName;
+            this.requestUpdate();
+        }
+    }
+    render() {
+        const svg = toSVG(this._name);
+        if (!svg) {
+            // Fallback: render the name for debugging (or a default icon)
+            return b `<span>${this._name}</span>`;
+        }
+        return b `<oscd-icon>${svg}</oscd-icon>`;
+    }
+}
 
 var _a, _b;
 /**
@@ -73386,10 +73480,6 @@ OscdFilterButton.scopedElements = {
 };
 OscdFilterButton.styles = i$7 `
     ${OscdSelectionList.styles}
-    oscd-icon-button {
-      color: var(--mdc-theme-on-surface);
-    }
-
     oscd-dialog {
       max-height: calc(100vh - 150px);
     }
@@ -75076,7 +75166,7 @@ const styles$1 = i$7 `:host{--md-elevation-level: var(--md-menu-container-elevat
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 class InternalMenu extends Menu {
@@ -75493,7 +75583,7 @@ const styles = i$7 `:host{display:flex;--md-ripple-hover-color: var(--md-menu-it
  */
 /**
  * @license
- * Copyright 2025 Omicron Energy GmbH
+ * Copyright 2026 OMICRON electronics GmbH
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
@@ -75709,9 +75799,9 @@ __decorate([
 /** Common `CSS` styles used by DataTypeTemplate subeditors */
 const sharedStyles = i$7 `
   section {
-    background-color: var(--mdc-theme-surface);
+    background-color: var(--md-sys-color-surface);
     transition: all 200ms linear;
-    outline-color: var(--mdc-theme-primary);
+    outline-color: var(--md-sys-color-primary);
     outline-style: solid;
     outline-width: 0px;
     opacity: 1;
@@ -76260,7 +76350,7 @@ class Virtualizer {
         }
         if (Ctor === undefined) {
             // If we don't have a constructor yet, load the default
-            DefaultLayoutConstructor = Ctor = (await import('./flow-BYvW0t4Z.js'))
+            DefaultLayoutConstructor = Ctor = (await import('./flow-Cuw6FQAl.js'))
                 .FlowLayout;
         }
         this._layout = new Ctor((message) => this._handleLayoutMessage(message), config);
@@ -76898,9 +76988,9 @@ VirtualizedFilteredList.styles = i$7 `
     }
 
     oscd-list-item.selected {
-      --md-sys-color-on-surface: var(--oscd-base3);
-      --md-sys-color-on-surface-variant: var(--oscd-base2);
-      background-color: var(--oscd-primary);
+      --md-sys-color-on-surface: var(--md-sys-color-on-primary);
+      --md-sys-color-on-surface-variant: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary);
     }
 
     oscd-list-item.control > div[slot='headline'] {
@@ -77460,8 +77550,8 @@ FcdaBindingList.styles = i$7 `
     }
 
     .actions-menu-icon.filter-off {
-      color: var(--secondary);
-      background-color: var(--mdc-theme-background);
+      color: var(--md-sys-color-secondary);
+      background-color: var(--md-sys-color-surface);
     }
   `;
 __decorate([
@@ -77881,7 +77971,7 @@ ExtRefLnBindingList.styles = i$7 `
       gap: 12px;
       padding: 32px 24px;
       box-sizing: border-box;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .empty-state__icon {
@@ -77889,7 +77979,7 @@ ExtRefLnBindingList.styles = i$7 `
       inline-size: 128px;
       block-size: 128px;
       line-height: 1;
-      color: var(--oscd-base01);
+      color: var(--md-sys-color-on-surface-variant);
       opacity: 0.7;
     }
 
@@ -77898,7 +77988,7 @@ ExtRefLnBindingList.styles = i$7 `
       font-size: 1.125rem;
       line-height: 1.4;
       font-weight: 500;
-      color: var(--oscd-base01);
+      color: var(--md-sys-color-on-surface-variant);
     }
 
     .empty-state__description {
@@ -77906,10 +77996,7 @@ ExtRefLnBindingList.styles = i$7 `
       max-width: 32rem;
       font-size: 0.95rem;
       line-height: 1.5;
-      color: var(
-        --oscd-base01,
-        var(--md-sys-color-on-surface-variant, #49454f)
-      );
+      color: var(--md-sys-color-on-surface-variant);
     }
   `;
 __decorate([
@@ -78014,19 +78101,13 @@ OscdEditorSubscriberDatabinding.scopedElements = {
     'oscd-scl-dialogs': OscdSclDialogs,
 };
 OscdEditorSubscriberDatabinding.styles = i$7 `
-    * {
-      --oscd-primary: var(--oscd-theme-primary, #0b335b);
-      --oscd-base2: var(--oscd-theme-base2, #f3f5f6);
-      --oscd-base3: var(--oscd-theme-base3, white);
-    }
-
     .header {
       display: flex;
       align-items: flex-start;
       gap: 16px;
       padding: 8px 12px;
       flex-wrap: wrap;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .title-group {
@@ -78108,7 +78189,7 @@ OscdEditorSubscriberDatabinding.styles = i$7 `
       padding: 8px 6px 16px;
       height: calc(100vh - 136px);
       gap: 12px;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .column {
