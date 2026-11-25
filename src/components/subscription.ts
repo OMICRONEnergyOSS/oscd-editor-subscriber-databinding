@@ -292,9 +292,9 @@ export class SubscriberListContainer extends LitElement {
 /** Common `CSS` styles used by DataTypeTemplate subeditors */
 export const sharedStyles = css`
   section {
-    background-color: var(--mdc-theme-surface);
+    background-color: var(--md-sys-color-surface);
     transition: all 200ms linear;
-    outline-color: var(--mdc-theme-primary);
+    outline-color: var(--md-sys-color-primary);
     outline-style: solid;
     outline-width: 0px;
     opacity: 1;

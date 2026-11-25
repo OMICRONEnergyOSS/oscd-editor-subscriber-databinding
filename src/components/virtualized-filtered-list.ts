@@ -137,9 +137,9 @@ export class VirtualizedFilteredList extends ScopedElementsMixin(LitElement) {
     }
 
     oscd-list-item.selected {
-      --md-sys-color-on-surface: var(--oscd-base3);
-      --md-sys-color-on-surface-variant: var(--oscd-base2);
-      background-color: var(--oscd-primary);
+      --md-sys-color-on-surface: var(--md-sys-color-on-primary);
+      --md-sys-color-on-surface-variant: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary);
     }
 
     oscd-list-item.control > div[slot='headline'] {

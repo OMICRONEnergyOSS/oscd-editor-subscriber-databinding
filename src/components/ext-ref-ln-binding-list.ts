@@ -493,7 +493,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       gap: 12px;
       padding: 32px 24px;
       box-sizing: border-box;
-      background-color: var(--oscd-base2);
+      background-color: var(--md-sys-color-surface);
     }
 
     .empty-state__icon {
@@ -501,7 +501,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       inline-size: 128px;
       block-size: 128px;
       line-height: 1;
-      color: var(--oscd-base01);
+      color: var(--md-sys-color-on-surface-variant);
       opacity: 0.7;
     }
 
@@ -510,7 +510,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       font-size: 1.125rem;
       line-height: 1.4;
       font-weight: 500;
-      color: var(--oscd-base01);
+      color: var(--md-sys-color-on-surface-variant);
     }
 
     .empty-state__description {
@@ -518,10 +518,7 @@ export class ExtRefLnBindingList extends ScopedElementsMixin(LitElement) {
       max-width: 32rem;
       font-size: 0.95rem;
       line-height: 1.5;
-      color: var(
-        --oscd-base01,
-        var(--md-sys-color-on-surface-variant, #49454f)
-      );
+      color: var(--md-sys-color-on-surface-variant);
     }
   `;
 }

@@ -652,8 +652,8 @@ export class FcdaBindingList extends ScopedElementsMixin(LitElement) {
     }
 
     .actions-menu-icon.filter-off {
-      color: var(--secondary);
-      background-color: var(--mdc-theme-background);
+      color: var(--md-sys-color-secondary);
+      background-color: var(--md-sys-color-surface);
     }
   `;
 }
